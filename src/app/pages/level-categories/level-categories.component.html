@@ -1,0 +1,6 @@
+<h2>{{categories.length}} categories</h2>
+
+<div *ngFor="let c of categories" class="refresh-category">
+    <h3>{{c.Name}} (/api/v2/{{c.ApiRoute}})</h3>
+    <p>{{c.Description}}</p>
+</div>
