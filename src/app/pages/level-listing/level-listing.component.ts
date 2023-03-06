@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import * as moment from 'moment';
 import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
 
@@ -23,5 +24,9 @@ export class LevelListingComponent {
       this.apiClient.GetLevelListing(apiRoute)
         .subscribe(data => this.levels = data);
     })
+  }
+
+  getMoment(timestamp: number): string {
+    return moment(timestamp).fromNow();
   }
 }

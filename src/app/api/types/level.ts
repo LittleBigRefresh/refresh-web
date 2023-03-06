@@ -3,4 +3,6 @@ export interface Level {
     Title: string
     Description: string
     IconHash: string
+    PublishDate: number
+    UpdateDate: number
 }

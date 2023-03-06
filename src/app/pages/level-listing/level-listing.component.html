@@ -1,6 +1,10 @@
 <h2>{{routeName}}</h2>
 
 <div *ngFor="let l of levels" class="refresh-level">
-    <h3>{{l.Title}}</h3>
-    <p>{{l.Description}}</p>
+    <h3 *ngIf="l.Title.length > 0">{{ l.Title }}</h3>
+    <h3 *ngIf="l.Title.length == 0">Unnamed Level</h3>
+
+    <p><i>Published {{ getMoment(l.PublishDate) }}</i></p>
+    
+    <p *ngIf="l.Description.length > 0">{{ l.Description }}</p>
 </div>
