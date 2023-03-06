@@ -6,17 +6,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LevelComponent } from './components/level/level.component';
 import { LevelCategoriesComponent } from './pages/level-categories/level-categories.component';
+import { LevelListingComponent } from './pages/level-listing/level-listing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LevelComponent,
-    LevelCategoriesComponent
+    LevelCategoriesComponent,
+    LevelListingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

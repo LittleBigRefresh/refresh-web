@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Category } from './category';
+import { ApiClient } from 'src/app/api/api-client';
+import { Category } from 'src/app/api/category';
 
 @Component({
   selector: 'app-level-categories',
@@ -9,10 +9,10 @@ import { Category } from './category';
 })
 export class LevelCategoriesComponent {
   categories!: Category[]
-  constructor(private httpClient: HttpClient) { }
+  constructor(private apiClient: ApiClient) { }
 
   ngOnInit(): void {
-    this.httpClient.get<Category[]>("http://localhost:10061/api/v2/levels")
+    this.apiClient.GetLevelCategories()
       .subscribe(data => this.categories = data);
   }
 }
