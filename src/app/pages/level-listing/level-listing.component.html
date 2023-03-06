@@ -1,1 +1,6 @@
-<p>level-listing works!</p>
+<h2>{{routeName}}</h2>
+
+<div *ngFor="let l of levels" class="refresh-level">
+    <h3>{{l.Title}}</h3>
+    <p>{{l.Description}}</p>
+</div>

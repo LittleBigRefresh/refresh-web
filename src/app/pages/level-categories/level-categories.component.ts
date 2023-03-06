@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
-import { Category } from 'src/app/api/category';
+import { Category } from 'src/app/api/types/category';
 
 @Component({
   selector: 'app-level-categories',

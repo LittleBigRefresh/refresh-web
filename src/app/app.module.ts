@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { LevelComponent } from './components/level/level.component';
 import { LevelCategoriesComponent } from './pages/level-categories/level-categories.component';
 import { LevelListingComponent } from './pages/level-listing/level-listing.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { LevelListingComponent } from './pages/level-listing/level-listing.compo
     LevelComponent,
     LevelCategoriesComponent,
     LevelListingComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
