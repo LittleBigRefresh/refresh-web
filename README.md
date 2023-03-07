@@ -1,9 +1,10 @@
 # Refresh Website
 
-This is just a WIP prototype/proof-of-concept for how the website will function.
-**THIS IS NOT THE FINAL LOOK AND FEEL OF THE WEBSITE**
+This is a work-in-progress project intending to build a proper frontend for [Refresh](https://github.com/LittleBigRefresh/Refresh).
 
-It's basically just a wrapper around the Refresh v2 API
+![A look at the front page](https://user-images.githubusercontent.com/40577357/223408794-b6483642-ab7b-4242-becd-8de5a6e331f6.png)
+
+Design/structure is WIP. Suggestions and criticism are welcome!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
 You can set up an Angular environment using [this guide](https://angular.io/guide/setup-local).
