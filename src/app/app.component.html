@@ -1,8 +1,13 @@
-<h1>{{title}}</h1>
+<div class="p-5 pb-2 pt-2 bg-slate-800 border-b-slate-900 border-b-2">
+    <h1 class="text-4xl">{{title}}</h1>
 
-<nav>
-<a routerLink="/">Home</a>
-<a routerLink="/levels">Levels</a>
-</nav>
+    <nav class="text-indigo-400 text-2xl">
+        <a *ngFor="let link of routerLinks" class="hover:text-indigo-300 pr-1" routerLink="{{link[1]}}">
+            {{link[0]}}
+        </a>
+    </nav>
+</div>
 
-<router-outlet></router-outlet>
+<div class="container mx-auto bg-slate-800 p-5 rounded-md rounded-t-none">
+    <router-outlet></router-outlet>
+</div>
