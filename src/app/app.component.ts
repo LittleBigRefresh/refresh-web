@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { faCertificate, faHome } from '@fortawesome/free-solid-svg-icons';
+import { HeaderLink } from './header-link';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Refresh Website';
-  routerLinks: string[][] = [
-    ["Home", "/"],
-    ["Levels", "/levels"]
-  ]
+
+  routerLinks: HeaderLink[] = [
+    new HeaderLink("Home", "/", faHome),
+    new HeaderLink("Levels", "/levels", faCertificate),
+  ];
 }

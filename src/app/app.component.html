@@ -1,11 +1,19 @@
 <div class="p-5 pb-2 pt-2 bg-slate-800 border-b-slate-900 border-b-2">
-    <h1 class="text-4xl">{{title}}</h1>
-
-    <nav class="text-indigo-400 text-2xl">
-        <a *ngFor="let link of routerLinks" class="hover:text-indigo-300 pr-1" routerLink="{{link[1]}}">
-            {{link[0]}}
+    <nav class="text-indigo-400 text-lg">
+        <a *ngFor="let link of routerLinks" class="hover:text-indigo-300 pr-5" routerLink="{{link.link}}">
+            <fa-icon [icon]="link.icon" class="pr-1"></fa-icon>
+            <span>{{link.title}}</span>
         </a>
     </nav>
+</div>
+
+<div class="container mx-auto bg-yellow-600 p-5 py-3 border-b-slate-900 border-b-2 text-lg">
+    <fa-icon [icon]="'warning'" class="pr-2"></fa-icon>
+    <span class="font-bold">I'm a big scary warning</span>
+
+    <div class="text-sm">
+        <p>You have a pending alert in the admin panel.</p>
+    </div>
 </div>
 
 <div class="container mx-auto bg-slate-800 p-5 rounded-md rounded-t-none">
