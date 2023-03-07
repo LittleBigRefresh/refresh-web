@@ -6,7 +6,6 @@ import { Category } from 'src/app/api/types/category';
 @Component({
   selector: 'app-level-categories',
   templateUrl: './level-categories.component.html',
-  styleUrls: ['./level-categories.component.scss']
 })
 export class LevelCategoriesComponent {
   categories: Category[] = []

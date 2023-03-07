@@ -10,7 +10,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-level-listing',
   templateUrl: './level-listing.component.html',
-  styleUrls: ['./level-listing.component.scss']
 })
 export class LevelListingComponent {
   levels: Level[] = []

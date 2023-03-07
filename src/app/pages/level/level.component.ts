@@ -8,8 +8,7 @@ import { Level } from 'src/app/api/types/level';
 
 @Component({
   selector: 'app-level',
-  templateUrl: './level.component.html',
-  styleUrls: ['./level.component.scss']
+  templateUrl: './level.component.html'
 })
 export class LevelComponent {
   level: Level | undefined
