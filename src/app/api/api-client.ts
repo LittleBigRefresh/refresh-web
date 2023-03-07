@@ -9,6 +9,10 @@ import { Level } from "./types/level";
 export class ApiClient {
     constructor(private httpClient: HttpClient) { }
 
+    public IsSignedIn(): boolean {
+        return false;
+    }
+
     public GetLevelCategories(): Observable<Category[]> {
         return this.httpClient.get<Category[]>(environment.apiBaseUrl + "/levels")
     }

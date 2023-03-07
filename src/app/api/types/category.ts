@@ -4,4 +4,5 @@ export interface Category {
     Name: string
     Description: string
     IconHash: string
+    FontAwesomeIcon: string
 }

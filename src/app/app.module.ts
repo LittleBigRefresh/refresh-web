@@ -12,7 +12,7 @@ import { MainComponent } from './pages/main/main.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // ICONS //
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning } from '@fortawesome/free-solid-svg-icons';
 // END ICONS //
 
 @NgModule({
@@ -35,6 +35,6 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faWarning)
+    library.addIcons(faWarning, faCalendar, faMagnifyingGlass, faHeart, faBell, faUser)
   }
 }
