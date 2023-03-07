@@ -1,3 +1,5 @@
+import { User } from "./user"
+
 export interface Level {
     LevelId: number
     Title: string
@@ -5,4 +7,6 @@ export interface Level {
     IconHash: string
     PublishDate: number
     UpdateDate: number
+
+    Publisher: User
 }

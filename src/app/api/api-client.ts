@@ -20,4 +20,8 @@ export class ApiClient {
     public GetLevelListing(route: string): Observable<Level[]> {
         return this.httpClient.get<Level[]>(environment.apiBaseUrl + "/levels/" + route)
     }
+
+    public GetLevelById(id: number): Observable<Level> {
+        return this.httpClient.get<Level>(environment.apiBaseUrl + "/level/id/" + id)
+    }
 }

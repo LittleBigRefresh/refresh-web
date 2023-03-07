@@ -4,9 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LevelComponent } from './components/level/level.component';
 import { LevelCategoriesComponent } from './pages/level-categories/level-categories.component';
 import { LevelListingComponent } from './pages/level-listing/level-listing.component';
+import { LevelComponent } from './pages/level/level.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MainComponent } from './pages/main/main.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
