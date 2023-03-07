@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'moment';
+import { catchError } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
+import { of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-level-listing',
@@ -10,9 +13,9 @@ import { Level } from 'src/app/api/types/level';
   styleUrls: ['./level-listing.component.scss']
 })
 export class LevelListingComponent {
-  levels!: Level[]
+  levels: Level[] = []
   routeName!: string
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute) { }
+  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -21,8 +24,18 @@ export class LevelListingComponent {
 
       this.routeName = apiRoute;
 
-      this.apiClient.GetLevelListing(apiRoute)
-        .subscribe(data => this.levels = data);
+      const pipe = this.apiClient.GetLevelListing(apiRoute)
+        .pipe(catchError((error: HttpErrorResponse, caught) => {
+          console.warn(error)
+          if(error.status === 404) {
+            this.router.navigate(["/404"]);
+            return of([])
+          }
+
+          return caught;
+        }));
+
+        pipe.subscribe(data => this.levels = data)
     })
   }
 

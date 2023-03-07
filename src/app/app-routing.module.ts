@@ -7,6 +7,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 const routes: Routes = [
   { path: "levels", component: LevelCategoriesComponent },
   { path: "levels/:route", component: LevelListingComponent },
+  { path: "404", component: NotFoundComponent },
   { path: "**", component: NotFoundComponent },
 ];
 

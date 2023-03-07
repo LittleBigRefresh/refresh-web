@@ -8,7 +8,7 @@ import { Category } from 'src/app/api/types/category';
   styleUrls: ['./level-categories.component.scss']
 })
 export class LevelCategoriesComponent {
-  categories!: Category[]
+  categories: Category[] = []
   constructor(private apiClient: ApiClient) { }
 
   ngOnInit(): void {
