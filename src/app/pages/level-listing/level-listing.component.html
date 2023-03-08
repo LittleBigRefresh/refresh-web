@@ -7,7 +7,7 @@
             <a [routerLink]="'/level/' + l.LevelId" *ngIf="l.Title.length == 0">Unnamed Level</a>
         </div>
     
-        <p class="text-zinc-300 italic text-sm">Published {{ getMoment(l.PublishDate) }}</p>
+        <p-gentle>Published {{ getMoment(l.PublishDate) }}</p-gentle>
         
         <p class="mt-2" *ngIf="l.Description.length > 0">{{ l.Description }}</p>
     </div>

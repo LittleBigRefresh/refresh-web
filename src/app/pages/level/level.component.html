@@ -1,8 +1,8 @@
 <span class="text-3xl pr-2">{{ level?.Title ?? 'Unnamed Level' }}</span>
-<span class="text-sm italic text-zinc-300">by {{ level?.Publisher?.Username }}</span><br>
+<span-gentle>by {{ level?.Publisher?.Username }}</span-gentle><br>
 
-<span class="text-sm italic text-zinc-300">Published {{ getMoment(level?.PublishDate ?? 0) }}</span>
-<span class="text-sm italic text-zinc-300" *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0) }}</span>
+<span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
+<span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0) }}</span-gentle>
 
 <br><br>
 

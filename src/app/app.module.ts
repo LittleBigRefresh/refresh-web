@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
+import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning } from '@fortawesome/free-solid-svg-icons';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LevelCategoriesComponent } from './pages/level-categories/level-categories.component';
@@ -10,10 +12,8 @@ import { LevelComponent } from './pages/level/level.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MainComponent } from './pages/main/main.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-// ICONS //
-import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning } from '@fortawesome/free-solid-svg-icons';
-// END ICONS //
+import { SpanGentleComponent } from './components/span-gentle/span-gentle.component';
+import { ParagraphGentleComponent } from './components/p-gentle/p-gentle.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,8 @@ import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning } fro
     LevelListingComponent,
     NotFoundComponent,
     MainComponent,
+    SpanGentleComponent,
+    ParagraphGentleComponent,
   ],
   imports: [
     BrowserModule,
