@@ -21,7 +21,7 @@ export class LevelCategoriesComponent {
           // if either of those conditions aren't met add it to the list
 
           if(c.RequiresUser) {
-            if(this.apiClient.IsSignedIn())
+            if(this.apiClient.user !== undefined)
               this.categories.push(c);
           } else {
             this.categories.push(c);

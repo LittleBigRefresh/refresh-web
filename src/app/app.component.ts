@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { faCertificate, faHome, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import { faCertificate, faHome, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
+import { ApiClient } from './api/api-client';
+import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 
 @Component({
@@ -14,7 +16,20 @@ export class AppComponent {
     new HeaderLink("Levels", "/levels", faCertificate),
   ];
 
-  rightSideRouterLinks: HeaderLink[] = [
-    new HeaderLink("Sign in", "/login", faSignIn),
-  ]
+  rightSideRouterLinks: HeaderLink[] = []
+
+  constructor(private apiClient: ApiClient) {
+    apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
+    this.handleUserUpdate(undefined)
+  }
+
+  handleUserUpdate(data: User | undefined) {
+    this.rightSideRouterLinks = [];
+
+    if (data !== undefined) {
+      this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/me", faUser))
+    } else {
+      this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
+    }
+  }
 }

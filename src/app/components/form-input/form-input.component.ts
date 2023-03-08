@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, isDevMode } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export type InputType = 
@@ -10,9 +10,17 @@ export type InputType =
   templateUrl: './form-input.component.html'
 })
 export class FormInputComponent {
-  _icon: IconProp = 'poo' // this will get definitely someones attention if this property is left undefined
-  _name: string = 'NAME NOT SET, FIX ME'
-  _type: InputType = 'text'
+  _icon: IconProp = 'poo'; // this will get definitely someones attention if this property is left undefined
+  _name: string = 'NAME NOT SET, FIX ME';
+  _type: InputType = 'text';
+  _id: string | undefined = undefined;
+  _readonly: boolean = false;
+
+  isDev: boolean = false;
+
+  constructor() {
+    this.isDev = isDevMode();
+  }
 
   @Input()
   set icon(param: IconProp) {
@@ -27,5 +35,15 @@ export class FormInputComponent {
   @Input()
   set type(param: InputType) {
     this._type = param;
+  }
+
+  @Input()
+  set id(param: string) {
+    this._id = param;
+  }
+
+  @Input()
+  set readonly(param: boolean) {
+    this._readonly = param;
   }
 }

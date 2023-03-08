@@ -1,6 +1,8 @@
 <div class="text-center bg-slate-700 md:rounded-md py-5">
     <h1 class="text-4xl">Welcome to Refresh!</h1><br>
 
-    <p>Hi, jvyden! You currently have <b>2</b> notifications.</p>
-    <p>There have been <b>12</b> levels uploaded since you last visited.</p>
+    <div *ngIf="apiClient.user !== undefined">
+        <p>Hi, <b>{{apiClient.user.Username}}</b>! You currently have <b>2</b> notifications.</p>
+        <p>There have been <b>12</b> levels uploaded since you last visited.</p>
+    </div>
 </div>
