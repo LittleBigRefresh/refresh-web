@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo } from '@fortawesome/free-solid-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,11 @@ import { MainComponent } from './pages/main/main.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpanGentleComponent } from './components/span-gentle/span-gentle.component';
 import { ParagraphGentleComponent } from './components/p-gentle/p-gentle.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DividerComponent } from './components/divider/divider.component';
+import { FormInputComponent } from './components/form-input/form-input.component';
+import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
+import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { ParagraphGentleComponent } from './components/p-gentle/p-gentle.compone
     MainComponent,
     SpanGentleComponent,
     ParagraphGentleComponent,
+    LoginComponent,
+    DividerComponent,
+    FormInputComponent,
+    PrimaryButtonComponent,
+    SecondaryButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +47,6 @@ import { ParagraphGentleComponent } from './components/p-gentle/p-gentle.compone
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faWarning, faCalendar, faMagnifyingGlass, faHeart, faBell, faUser)
+    library.addIcons(faWarning, faCalendar, faMagnifyingGlass, faHeart, faBell, faUser, faKey, faPoo)
   }
 }

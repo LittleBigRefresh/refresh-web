@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faCertificate, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faCertificate, faHome, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import { HeaderLink } from './header-link';
 
 @Component({
@@ -13,4 +13,8 @@ export class AppComponent {
     new HeaderLink("Home", "/", faHome),
     new HeaderLink("Levels", "/levels", faCertificate),
   ];
+
+  rightSideRouterLinks: HeaderLink[] = [
+    new HeaderLink("Sign in", "/login", faSignIn),
+  ]
 }

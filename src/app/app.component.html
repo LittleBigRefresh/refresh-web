@@ -4,6 +4,13 @@
             <fa-icon [icon]="link.icon" class="pr-1"></fa-icon>
             <span>{{link.title}}</span>
         </a>
+
+        <div class="float-right">
+            <a *ngFor="let link of rightSideRouterLinks" class="hover:text-indigo-300 pl-5" routerLink="{{link.link}}">
+                <fa-icon [icon]="link.icon" class="pr-1"></fa-icon>
+                <span>{{link.title}}</span>
+            </a>
+        </div>
     </nav>
 </div>
 
