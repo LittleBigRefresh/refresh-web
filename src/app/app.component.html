@@ -1,12 +1,12 @@
 <div class="p-5 pb-2 pt-2 bg-slate-800 border-b-slate-900 border-b-2">
-    <nav class="text-indigo-400 text-lg">
-        <a *ngFor="let link of routerLinks" class="hover:text-indigo-300 pr-5" routerLink="{{link.link}}">
+    <nav class="text-indigo-500 text-lg">
+        <a *ngFor="let link of routerLinks" class="hover:text-indigo-400 pr-5" routerLink="{{link.link}}">
             <fa-icon [icon]="link.icon" class="pr-1"></fa-icon>
             <span>{{link.title}}</span>
         </a>
 
         <div class="float-right">
-            <a *ngFor="let link of rightSideRouterLinks" class="hover:text-indigo-300 pl-5" routerLink="{{link.link}}">
+            <a *ngFor="let link of rightSideRouterLinks" class="hover:text-indigo-400 pl-5" routerLink="{{link.link}}">
                 <fa-icon [icon]="link.icon" class="pr-1"></fa-icon>
                 <span>{{link.title}}</span>
             </a>
