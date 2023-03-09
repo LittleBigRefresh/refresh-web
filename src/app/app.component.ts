@@ -18,7 +18,7 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(private apiClient: ApiClient) {
+  constructor(apiClient: ApiClient) {
     apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
   }

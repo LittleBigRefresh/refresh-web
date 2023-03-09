@@ -16,8 +16,6 @@ export class LoginComponent {
     const usernameInput: string = (<HTMLInputElement>document.getElementById(this.usernameId)).value;
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
 
-    alert(`username:${usernameInput}\npassword:${passwordInput}`)
-
     const success = this.apiClient.LogIn(usernameInput, "")
     if(success) this.router.navigate(['/'])
   }
