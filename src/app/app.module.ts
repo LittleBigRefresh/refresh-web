@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +49,16 @@ import { NotificationComponent } from './components/notification/notification.co
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faWarning, faCalendar, faMagnifyingGlass, faHeart, faBell, faUser, faKey, faPoo, faXmark, faCheckCircle)
+    library.addIcons(faWarning)
+    library.addIcons(faCalendar)
+    library.addIcons(faMagnifyingGlass)
+    library.addIcons(faHeart)
+    library.addIcons(faBell)
+    library.addIcons(faUser)
+    library.addIcons(faKey)
+    library.addIcons(faPoo)
+    library.addIcons(faXmark)
+    library.addIcons(faCheckCircle)
+    library.addIcons(faRightFromBracket)
   }
 }

@@ -24,6 +24,13 @@ export class NotificationService {
                 Color: 'green',
                 Text: 'You have been successfully signed in.'
             })
+        } else {
+            this.notifications.push({
+                Title: `Signed out`,
+                Icon: 'right-from-bracket',
+                Color: 'orange',
+                Text: 'You have been logged out.'
+            })
         }
     }
 }
