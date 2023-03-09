@@ -3,6 +3,7 @@ import { faCertificate, faHome, faSignIn, faUser } from '@fortawesome/free-solid
 import { ApiClient } from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
+import { NotificationService } from './notifications/notification-service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(apiClient: ApiClient) {
+  constructor(apiClient: ApiClient, public notifs: NotificationService) {
     apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
   }

@@ -14,14 +14,10 @@
     </nav>
 </div>
 
-<!-- <div class="container mx-auto bg-yellow-600 p-5 py-3 border-b-slate-900 border-b-2 text-lg">
-    <fa-icon [icon]="'warning'" class="pr-2"></fa-icon>
-    <span class="font-bold">I'm a big scary warning</span>
-
-    <div class="text-sm">
-        <p>You have a pending alert in the admin panel.</p>
-    </div>
-</div> -->
+<app-notification *ngFor="let n of notifs.notifications" 
+    [title]="n.Title" [text]="n.Text" [color]="n.Color" [icon]="n.Icon" 
+    [id]="notifs.notifications.indexOf(n)"
+/>
 
 <div class="container mx-auto bg-slate-800 p-5 rounded-md rounded-t-none">
     <router-outlet></router-outlet>
