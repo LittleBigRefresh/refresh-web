@@ -30,16 +30,10 @@ export class ApiClient {
     userNotification(user: User | undefined): void {
         console.log("Handling user change: " + user)
         if(user !== undefined) {
-            this.notificationService.notifications.push({
-                Title: `Hi, ${user.Username}!`,
-                Icon: 'check-circle',
-                Color: 'green',
-                Text: 'You have been successfully signed in.'
-            })
-
+            this.notificationService.pushSuccess(`Hi, ${user.Username}!`, 'You have been successfully signed in.')
             this.router.navigate(['/'])
         } else {
-            this.notificationService.notifications.push({
+            this.notificationService.push({
                 Title: `Signed out`,
                 Icon: 'right-from-bracket',
                 Color: 'orange',
@@ -60,12 +54,7 @@ export class ApiClient {
 
         this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
             .pipe(catchError((err, caught) => {
-                this.notificationService.notifications.push({
-                    Color: 'red',
-                    Icon: 'exclamation-circle',
-                    Title: 'Failed to sign in',
-                    Text: err.error?.Reason,
-                })
+                this.notificationService.pushError('Failed to sign in', err.error?.Reason)
                 console.error(err);
 
                 if(err.error?.ResetToken !== undefined) {
@@ -100,12 +89,7 @@ export class ApiClient {
 
     public ResetPassword(username: string, passwordSha512: string, signIn: boolean = false): void {
         if(this.resetToken == undefined) {
-            this.notificationService.notifications.push({
-                Color: 'red',
-                Icon: 'exclamation-circle',
-                Title: 'Could not reset password',
-                Text: 'There was no token to authorize this action.'
-            })
+            this.notificationService.pushError('Could not reset password', 'There was no token to authorize this action.')
             return;
         }
 
@@ -117,7 +101,7 @@ export class ApiClient {
         this.httpClient.post(environment.apiBaseUrl + "/resetPassword", body)
             .subscribe(() => {
                 if(signIn) this.LogIn(username, passwordSha512);
-                this.notificationService.notifications.push({
+                this.notificationService.push({
                     Color: 'sky',
                     Icon: 'key',
                     Title: "Password Reset Successful",

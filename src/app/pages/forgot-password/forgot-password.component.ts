@@ -42,19 +42,19 @@ export class ForgotPasswordComponent {
 
     if(usernameInput.length <= 0) {
       error.Text = "No username was provided."
-      this.notificationService.notifications.push(error)
+      this.notificationService.push(error)
       return;
     }
 
     if(passwordInput.length <= 0) {
       error.Text = "No password was provided."
-      this.notificationService.notifications.push(error)
+      this.notificationService.push(error)
       return;
     }
 
     if(passwordInput != confirmPasswordInput) {
       error.Text = "The passwords do not match."
-      this.notificationService.notifications.push(error)
+      this.notificationService.push(error)
       return;
     }
 
