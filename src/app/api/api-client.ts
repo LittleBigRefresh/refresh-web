@@ -22,9 +22,17 @@ export class ApiClient {
 
     constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {
         this.userWatcher = new EventEmitter<User | undefined>();
-        this.userWatcher.emit(undefined);
 
-        this.userWatcher.subscribe((user) => this.userNotification(user));
+        const storedToken: string | null = localStorage.getItem('game_token');
+        if(storedToken) {
+            this.GetMyUser(() => {
+                // only subscribe after getting user
+                this.userWatcher.subscribe((user) => this.userNotification(user));
+            });
+        } else {
+            this.userWatcher.emit(undefined);
+            this.userWatcher.subscribe((user) => this.userNotification(user));
+        }
     }
 
     userNotification(user: User | undefined): void {
@@ -54,7 +62,7 @@ export class ApiClient {
 
         this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
             .pipe(catchError((err, caught) => {
-                this.notificationService.pushError('Failed to sign in', err.error?.Reason)
+                this.notificationService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server.")
                 console.error(err);
 
                 if(err.error?.ResetToken !== undefined) {
@@ -67,15 +75,20 @@ export class ApiClient {
                 if(authResponse === undefined) return;
 
                 this._userId = authResponse.UserId;
-
-                this.httpClient.get<User>(environment.apiBaseUrl + "/user/uuid/" + this._userId)
-                .subscribe((data) => {
-                    this.user = data;
-                    this.userWatcher.emit(this.user);
-                })
+                localStorage.setItem('game_token', authResponse.TokenData);
+                this.GetMyUser();
             });
             
         return true;
+    }
+
+    private GetMyUser(callback: Function | null = null) {
+        this.httpClient.get<User>(environment.apiBaseUrl + "/user/me")
+            .subscribe((data) => {
+                this.user = data;
+                this.userWatcher.emit(this.user);
+                if(callback) callback();
+            });
     }
 
     public LogOut() {
@@ -104,7 +117,7 @@ export class ApiClient {
                 this.notificationService.push({
                     Color: 'sky',
                     Icon: 'key',
-                    Title: "Password Reset Successful",
+                    Title: "Password reset successful",
                     Text: "Your account's password has been reset.",
                 })
             });

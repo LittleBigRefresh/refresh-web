@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,6 +21,7 @@ import { PrimaryButtonComponent } from './components/primary-button/primary-butt
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ApiTokenInterceptor } from './api/api-token-interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,9 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     HttpClientModule,
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
