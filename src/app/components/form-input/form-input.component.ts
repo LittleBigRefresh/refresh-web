@@ -15,6 +15,7 @@ export class FormInputComponent {
   _type: InputType = 'text';
   _id: string | undefined = undefined;
   _readonly: boolean = false;
+  _value: string = "";
 
   isDev: boolean = false;
 
@@ -45,5 +46,11 @@ export class FormInputComponent {
   @Input()
   set readonly(param: boolean) {
     this._readonly = param;
+  }
+
+  @Input()
+  set value(param: string | undefined) {
+    if(param === undefined) param = "";
+    this._value = param;
   }
 }

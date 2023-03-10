@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { FormInputComponent } from './components/form-input/form-input.component
 import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NotificationComponent } from './components/notification/notification.co
     PrimaryButtonComponent,
     SecondaryButtonComponent,
     NotificationComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,5 +62,6 @@ export class AppModule {
     library.addIcons(faXmark)
     library.addIcons(faCheckCircle)
     library.addIcons(faRightFromBracket)
+    library.addIcons(faCircleExclamation)
   }
 }

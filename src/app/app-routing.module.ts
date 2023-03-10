@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { LevelCategoriesComponent } from './pages/level-categories/level-categories.component';
 import { LevelListingComponent } from './pages/level-listing/level-listing.component';
 import { LevelComponent } from './pages/level/level.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "levels/:route", component: LevelListingComponent },
   { path: "level/:id", component: LevelComponent },
   { path: "login", component: LoginComponent },
+  { path: "forgotPassword", component: ForgotPasswordComponent },
   { path: "404", component: NotFoundComponent },
   { path: "**", component: NotFoundComponent },
 ];
