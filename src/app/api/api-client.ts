@@ -6,6 +6,7 @@ import { environment } from "src/environments/environment";
 import { NotificationService } from "../notifications/notification-service";
 import { ApiAuthenticationRequest } from "./types/auth/auth-request";
 import { ApiAuthenticationResponse } from "./types/auth/auth-response";
+import { ApiPasswordResetRequest } from "./types/auth/reset-request";
 import { Category } from "./types/category";
 import { Level } from "./types/level";
 import { User } from "./types/user";
@@ -17,11 +18,17 @@ export class ApiClient {
 
     resetToken: string | undefined = undefined;
 
-    userWatcher = new EventEmitter<User | undefined>();
+    userWatcher: EventEmitter<User | undefined>
 
-    constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {}
+    constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {
+        this.userWatcher = new EventEmitter<User | undefined>();
+        this.userWatcher.emit(undefined);
+
+        this.userWatcher.subscribe((user) => this.userNotification(user));
+    }
 
     userNotification(user: User | undefined): void {
+        console.log("Handling user change: " + user)
         if(user !== undefined) {
             this.notificationService.notifications.push({
                 Title: `Hi, ${user.Username}!`,
@@ -43,17 +50,12 @@ export class ApiClient {
         }
     }
 
-    ngOnInit(): void {
-        this.userWatcher.subscribe((user) => this.userNotification(user))
-        this.userWatcher.emit(undefined);
-    }
-
-    public LogIn(username: string, passwordBcrypt: string): boolean {
+    public LogIn(username: string, passwordSha512: string): boolean {
         if(this._userId !== undefined) throw Error("Cannot sign in when already signed in as someone."); // should never happen hopefully
 
         const body: ApiAuthenticationRequest = {
             Username: username,
-            PasswordBcrypt: passwordBcrypt,
+            PasswordSha512: passwordSha512,
         }
 
         this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
@@ -92,7 +94,36 @@ export class ApiClient {
         this.user = undefined;
 
         this.userWatcher.emit(undefined);
-        // this.httpClient.post(environment.apiBaseUrl + "/goodbye");
+        this.httpClient.post(environment.apiBaseUrl + "/goodbye", {})
+            .subscribe(() => {}); // Need to subscribe for request to fire
+    }
+
+    public ResetPassword(username: string, passwordSha512: string, signIn: boolean = false): void {
+        if(this.resetToken == undefined) {
+            this.notificationService.notifications.push({
+                Color: 'red',
+                Icon: 'exclamation-circle',
+                Title: 'Could not reset password',
+                Text: 'There was no token to authorize this action.'
+            })
+            return;
+        }
+
+        const body: ApiPasswordResetRequest = {
+            PasswordSha512: passwordSha512,
+            ResetToken: this.resetToken,
+        }
+
+        this.httpClient.post(environment.apiBaseUrl + "/resetPassword", body)
+            .subscribe(() => {
+                if(signIn) this.LogIn(username, passwordSha512);
+                this.notificationService.notifications.push({
+                    Color: 'sky',
+                    Icon: 'key',
+                    Title: "Password Reset Successful",
+                    Text: "Your account's password has been reset.",
+                })
+            });
     }
 
     public GetLevelCategories(): Observable<Category[]> {

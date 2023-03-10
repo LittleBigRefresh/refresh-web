@@ -23,6 +23,11 @@ export class ForgotPasswordComponent {
     })
   }
 
+  private async sha512Async(str: string): Promise<string> {
+    const buf = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(str));
+    return Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
+  }
+
   reset(): void {
     const usernameInput: string = (<HTMLInputElement>document.getElementById(this.usernameId)).value;
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
@@ -52,5 +57,9 @@ export class ForgotPasswordComponent {
       this.notificationService.notifications.push(error)
       return;
     }
+
+    this.sha512Async(passwordInput).then((hash) => {
+      this.apiClient.ResetPassword(usernameInput, hash, true)
+    })
   }
 }

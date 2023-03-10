@@ -1,4 +1,4 @@
 export interface ApiAuthenticationRequest {
     Username: string
-    PasswordBcrypt: string
+    PasswordSha512: string
 }
