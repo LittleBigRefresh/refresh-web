@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiClient } from 'src/app/api/api-client';
+import { sha512Async } from 'src/app/hash';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +10,14 @@ export class LoginComponent {
   usernameId: string = "login-username"
   passwordId: string = "login-password"
 
-  constructor(private apiClient: ApiClient, private router: Router) {}
+  constructor(private apiClient: ApiClient) {}
 
   login() {
     const usernameInput: string = (<HTMLInputElement>document.getElementById(this.usernameId)).value;
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
-
-    this.apiClient.LogIn(usernameInput, "")
+    
+    sha512Async(passwordInput).then((hash) => {
+      this.apiClient.LogIn(usernameInput, hash)
+    });
   }
 }

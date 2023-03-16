@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiClient } from 'src/app/api/api-client';
+import { sha512Async } from 'src/app/hash';
 import { Notification } from 'src/app/notifications/notification';
 import { NotificationService } from 'src/app/notifications/notification-service';
 
@@ -21,11 +22,6 @@ export class ForgotPasswordComponent {
     this.route.queryParams.subscribe((params) => {
       this.usernameParam = params['username'];
     })
-  }
-
-  private async sha512Async(str: string): Promise<string> {
-    const buf = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(str));
-    return Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
   }
 
   reset(): void {
@@ -58,7 +54,7 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    this.sha512Async(passwordInput).then((hash) => {
+    sha512Async(passwordInput).then((hash) => {
       this.apiClient.ResetPassword(usernameInput, hash, true)
     })
   }

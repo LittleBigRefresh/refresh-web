@@ -62,7 +62,7 @@ export class ApiClient {
 
         this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
             .pipe(catchError((err, caught) => {
-                this.notificationService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server.")
+                this.notificationService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server. Check the console for more details.")
                 console.error(err);
 
                 if(err.error?.ResetToken !== undefined) {
