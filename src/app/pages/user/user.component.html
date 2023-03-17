@@ -1,0 +1,11 @@
+<span class="text-3xl">{{ user?.Username }}'s profile</span><br>
+<span-gentle>{{ getMoment(user?.JoinDate ?? 0) }}</span-gentle>
+
+<br><br>
+
+<p *ngIf="(user?.Description?.length ?? 0) > 0">{{user?.Description}}</p>
+<p *ngIf="(user?.Description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
+
+<div class="w-28 text-center pt-5">
+    <primary-button text="Log out" routerLink="/logout"></primary-button>
+</div>

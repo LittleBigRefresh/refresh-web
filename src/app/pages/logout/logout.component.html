@@ -1,0 +1,14 @@
+<div class="text-center flex flex-col items-center">
+    <div class="w-96">
+        <h2 class="text-3xl">Log out?</h2>
+        <div class="h-2"></div>
+        <p>Are you sure you want to log out?</p>
+        <p>You are currently signed in as <b>{{ apiClient.user?.Username }}</b>.</p>
+
+        <divider></divider>
+
+        <dangerous-button text="Yes, log me out." (click)="apiClient.LogOut()"></dangerous-button>
+        <div class="h-3"></div>
+        <secondary-button text="Oops, take me back!" onclick="window.history.back()"></secondary-button>
+    </div>
+</div>

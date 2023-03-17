@@ -3,4 +3,5 @@ export interface User {
     Username: string
     IconHash: string
     Description: string
+    JoinDate: number
 }

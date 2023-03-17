@@ -91,6 +91,14 @@ export class ApiClient {
             });
     }
 
+    public GetUserByUsername(username: string): Observable<User> {
+        return this.httpClient.get<User>(environment.apiBaseUrl + "/user/name/" + username)
+    }
+
+    public GetUserByUuid(uuid: string): Observable<User> {
+        return this.httpClient.get<User>(environment.apiBaseUrl + "/user/uuid/" + uuid)
+    }
+
     public LogOut() {
         this._userId = undefined;
         this.user = undefined;

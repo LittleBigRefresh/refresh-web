@@ -22,6 +22,9 @@ import { SecondaryButtonComponent } from './components/secondary-button/secondar
 import { NotificationComponent } from './components/notification/notification.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ApiTokenInterceptor } from './api/api-token-interceptor';
+import { UserComponent } from './pages/user/user.component';
+import { LogoutComponent } from './pages/logout/logout.component';
+import { DangerousButtonComponent } from './components/dangerous-button/dangerous-button.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { ApiTokenInterceptor } from './api/api-token-interceptor';
     SecondaryButtonComponent,
     NotificationComponent,
     ForgotPasswordComponent,
+    UserComponent,
+    LogoutComponent,
+    DangerousButtonComponent,
   ],
   imports: [
     BrowserModule,
