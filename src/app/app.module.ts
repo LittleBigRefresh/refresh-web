@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,6 +26,7 @@ import { ApiTokenInterceptor } from './api/api-token-interceptor';
 import { UserComponent } from './pages/user/user.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { DangerousButtonComponent } from './components/dangerous-button/dangerous-button.component';
+import { UiDebugComponent } from './pages/ui-debug/ui-debug.component';
 
 @NgModule({
   declarations: [
@@ -46,12 +48,14 @@ import { DangerousButtonComponent } from './components/dangerous-button/dangerou
     UserComponent,
     LogoutComponent,
     DangerousButtonComponent,
+    UiDebugComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },
