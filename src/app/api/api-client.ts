@@ -18,6 +18,8 @@ export class ApiClient {
 
     resetToken: string | undefined = undefined;
 
+    private categories: Category[] | undefined;
+
     userWatcher: EventEmitter<User | undefined>
 
     constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {
@@ -132,7 +134,18 @@ export class ApiClient {
     }
 
     public GetLevelCategories(): Observable<Category[]> {
+        if(this.categories !== undefined) {
+            return new Observable<Category[]>(observer => { observer.next(this.categories!) });
+        }
+
         return this.httpClient.get<Category[]>(environment.apiBaseUrl + "/levels")
+            .pipe(observer => {
+                observer.subscribe(data => {
+                    this.categories = data;
+                });
+
+                return observer;
+            })
     }
 
     public GetLevelListing(route: string): Observable<Level[]> {
