@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket, faCircleExclamation, faShuffle } from '@fortawesome/free-solid-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -76,5 +76,6 @@ export class AppModule {
     library.addIcons(faCheckCircle)
     library.addIcons(faRightFromBracket)
     library.addIcons(faCircleExclamation)
+    library.addIcons(faShuffle)
   }
 }
