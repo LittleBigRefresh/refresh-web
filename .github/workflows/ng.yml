@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build, and Upload Builds
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install packages
+      run: npm install
+      
+    - name: Build
+      run: npx ng build
+      
+    - name: Upload Linux x64 build
+      uses: actions/upload-artifact@v3.1.1
+      with:
+          name: "Refresh Website"
+          path: "dist/refresh-web"
+          if-no-files-found: error
+          retention-days: 30
