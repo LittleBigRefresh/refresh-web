@@ -17,16 +17,35 @@ export class UserComponent {
 
     ngOnInit(): void {
       this.route.paramMap.subscribe((params: ParamMap) => {
+        const username = params.get('username') as string | undefined;
         const uuid = params.get('uuid') as string | undefined;
         
-        if(uuid == "me") {
-          this.router.navigate(["/user/", this.apiClient.user?.UserId]);
+        if(username == "me" || uuid == "me") {
+          this.router.navigate(["/user/", this.apiClient.user?.Username]);
           return;
         }
 
-        if(uuid == null) return;
+        if(uuid !== null && uuid !== undefined) {
+          this.apiClient.GetUserByUuid(uuid)
+          .pipe(catchError((error: HttpErrorResponse, caught) => {
+            console.warn(error)
+            if (error.status === 404) {
+              this.router.navigate(["/404"]);
+              return of(undefined)
+            }
+    
+            return caught;
+          }))
+          .subscribe(data => {
+            this.user = data;
+            window.history.replaceState({}, '', `/user/${data?.Username}`);
+          });
+          return;
+        }
+
+        if(username == null) return;
         
-        this.apiClient.GetUserByUuid(uuid)
+        this.apiClient.GetUserByUsername(username)
         .pipe(catchError((error: HttpErrorResponse, caught) => {
           console.warn(error)
           if (error.status === 404) {

@@ -47,7 +47,7 @@ export class AppComponent {
     this.rightSideRouterLinks = [];
 
     if (data !== undefined) {
-      this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/" + data.UserId, faUser))
+      this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/" + data.Username, faUser))
     } else {
       this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
     }
