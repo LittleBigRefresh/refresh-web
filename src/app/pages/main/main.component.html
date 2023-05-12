@@ -6,7 +6,5 @@
         <p>There have been <b>12</b> levels uploaded since you last visited.</p>
     </div>
 
-    <div *ngIf="statistics !== undefined">
-        <p>There are currently <b>{{statistics.CurrentIngamePlayersCount}}</b> players online across <b>{{statistics.CurrentRoomCount}} rooms.</b></p>
-    </div>
+    <p>There are currently <b>{{statistics?.CurrentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.CurrentRoomCount ?? 0}} rooms.</b></p>
 </div>
