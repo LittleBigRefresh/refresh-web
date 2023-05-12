@@ -18,7 +18,7 @@ jobs:
     - name: Build
       run: npx ng build
       
-    - name: Upload Linux x64 build
+    - name: Upload production build of website
       uses: actions/upload-artifact@v3.1.1
       with:
           name: "Refresh Website"

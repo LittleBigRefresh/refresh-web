@@ -10,6 +10,7 @@ import { ApiPasswordResetRequest } from "./types/auth/reset-request";
 import { Category } from "./types/category";
 import { Level } from "./types/level";
 import { User } from "./types/user";
+import { Statistics } from "./types/statistics";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -154,5 +155,9 @@ export class ApiClient {
 
     public GetLevelById(id: number): Observable<Level> {
         return this.httpClient.get<Level>(environment.apiBaseUrl + "/level/id/" + id)
+    }
+
+    public GetServerStatistics(): Observable<Statistics> {
+        return this.httpClient.get<Statistics>(environment.apiBaseUrl + "/statistics")
     }
 }
