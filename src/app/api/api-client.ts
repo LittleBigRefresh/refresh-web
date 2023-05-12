@@ -11,6 +11,7 @@ import { Category } from "./types/category";
 import { Level } from "./types/level";
 import { User } from "./types/user";
 import { Statistics } from "./types/statistics";
+import { Room } from "./types/rooms/room";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -159,5 +160,9 @@ export class ApiClient {
 
     public GetServerStatistics(): Observable<Statistics> {
         return this.httpClient.get<Statistics>(environment.apiBaseUrl + "/statistics")
+    }
+
+    public GetUsersRoom(userUuid: string): Observable<Room> {
+        return this.httpClient.get<Room>(environment.apiBaseUrl + "/room/uuid/" + userUuid)
     }
 }

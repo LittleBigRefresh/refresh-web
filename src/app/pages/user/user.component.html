@@ -1,4 +1,13 @@
 <span class="text-3xl">{{ user?.Username }}'s profile</span><br>
+
+<div *ngIf="room !== undefined">
+    <span-gentle>Playing a {{room.LevelType}} level</span-gentle>
+</div>
+
+<div *ngIf="room === undefined">
+    <span-gentle>Offline</span-gentle>
+</div>
+
 <span-gentle>{{ getMoment(user?.JoinDate ?? 0) }}</span-gentle>
 
 <br><br>

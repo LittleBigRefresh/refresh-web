@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
 import * as moment from 'moment';
 import { catchError, of } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
+import { Room } from 'src/app/api/types/rooms/room';
 import { User } from 'src/app/api/types/user';
 
 @Component({
@@ -12,6 +13,7 @@ import { User } from 'src/app/api/types/user';
 })
 export class UserComponent {
     user: User | undefined = undefined;
+    room: Room | undefined = undefined;
 
     constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router) {}
 
@@ -57,6 +59,16 @@ export class UserComponent {
         }))
         .subscribe(data => {
           this.user = data;
+          if(data === undefined) return;
+
+          this.apiClient.GetUsersRoom(data?.UserId)
+          .pipe(catchError((error: HttpErrorResponse, caught) => {
+            console.warn(error)
+            return of(undefined)
+          }))
+          .subscribe(data => {
+            this.room = data;
+          })
         });
       });
     }
