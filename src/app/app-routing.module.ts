@@ -14,8 +14,10 @@ import { UserComponent } from './pages/user/user.component';
 const routes: Routes = [
   { path: "", component: MainComponent },
   { path: "levels", component: LevelCategoriesComponent },
+  { path: "slots", redirectTo: "levels" },
   { path: "levels/:route", component: LevelListingComponent },
   { path: "level/:id", component: LevelComponent },
+  { path: "slot/:id", redirectTo: "level/:id" },
   { path: "user/:username", component: UserComponent },
   { path: "u/:uuid", component: UserComponent },
   { path: "login", component: LoginComponent },
