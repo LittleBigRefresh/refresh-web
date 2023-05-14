@@ -19,7 +19,10 @@
         <div class="bg-slate-700 rounded-md mt-2 mb-2 p-2">
             <p class="text-xl">
                 <a [routerLink]="'/score/' + score.ScoreId">
-                    <span class="text-yellow-300 pr-2 text-2xl">#1</span>
+                    <span *ngIf="score.Rank == 1" class="text-yellow-300 pr-2 text-2xl">#{{score.Rank}}</span>
+                    <span *ngIf="score.Rank == 2" class="text-white pr-2 text-2xl">#{{score.Rank}}</span>
+                    <span *ngIf="score.Rank == 3" class="text-orange-600 pr-2 text-2xl">#{{score.Rank}}</span>
+                    <span *ngIf="score.Rank !== undefined && score.Rank > 3" class="text-gray-300 pr-2 text-2xl">#{{score.Rank}}</span>
                     <b>- {{score.Score.toLocaleString(undefined)}}</b> points
                 </a>
             </p>

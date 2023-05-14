@@ -9,4 +9,6 @@ export interface Score {
 
     Level: Level
     Players: User[]
+    
+    Rank: number | undefined
 }

@@ -54,6 +54,13 @@ export class LevelComponent {
       }),
       tap((data) => {
         this.scores = data;
+        if(this.scores === undefined) return;
+
+        let i = 0;
+        for(let score of this.scores) {
+          i++;
+          score.Rank = i;
+        }
       })
     );
   }

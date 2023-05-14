@@ -168,6 +168,6 @@ export class ApiClient {
     }
 
     public GetScoresForLevel(levelId: number, scoreType: number): Observable<Score[]> {
-        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType)
+        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=true&count=10")
     }
 }
