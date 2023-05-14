@@ -62,7 +62,10 @@ export class UserComponent {
           }),
           tap((data) => {
             this.user = data;
+            if (data === undefined) return;
+
             window.history.replaceState({}, '', `/user/${data?.Username}`);
+            this.getUsersRoom(data.UserId).subscribe();
           })
         );
     }
@@ -83,7 +86,7 @@ export class UserComponent {
             this.user = data;
             if (data === undefined) return;
       
-            this.getUsersRoom(data?.UserId);
+            this.getUsersRoom(data?.UserId).subscribe();
           })
         );
     }
