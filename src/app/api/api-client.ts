@@ -12,6 +12,7 @@ import { Level } from "./types/level";
 import { User } from "./types/user";
 import { Statistics } from "./types/statistics";
 import { Room } from "./types/rooms/room";
+import { Score } from "./types/score";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -164,5 +165,9 @@ export class ApiClient {
 
     public GetUsersRoom(userUuid: string): Observable<Room> {
         return this.httpClient.get<Room>(environment.apiBaseUrl + "/room/uuid/" + userUuid)
+    }
+
+    public GetScoresForLevel(levelId: number, scoreType: number): Observable<Score[]> {
+        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType)
     }
 }

@@ -8,3 +8,30 @@
 
 <p *ngIf="(level?.Description?.length ?? 0) > 0">{{level?.Description}}</p>
 <p *ngIf="(level?.Description?.length ?? 0) === 0">No description was provided for this level.</p>
+
+<div class="bg-slate-600 rounded-md p-3 mt-5">
+    <span class="text-3xl">Leaderboard</span>
+    <divider></divider>
+    <div *ngIf="scores === undefined">
+        <p>Loading scores...</p>
+    </div>
+    <div *ngFor="let score of scores">
+        <div class="bg-slate-700 rounded-md mt-2 mb-2 p-2">
+            <p class="text-xl">
+                <a [routerLink]="'/score/' + score.ScoreId">
+                    <span class="text-yellow-300 pr-2 text-2xl">#1</span>
+                    <b>- {{score.Score.toLocaleString(undefined)}}</b> points
+                </a>
+            </p>
+            <p>
+                Submitted by
+                <b>
+                    <a class="text-indigo-400 hover:text-indigo-300" [routerLink]="'/user/' + score.Players[0].Username">
+                        {{score.Players[0].Username}}
+                    </a>
+                </b>
+                {{getMoment(score.ScoreSubmitted)}}
+            </p>
+        </div>
+    </div>
+</div>
