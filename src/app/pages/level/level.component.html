@@ -14,7 +14,7 @@
     <div class="pt-2.5">
         <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId" (change)="this.formChanged()"></form-dropdown>
     </div>
-    <divider [brightness]="800"></divider>
+    <divider></divider>
     <div *ngIf="scores === undefined">
         <p>Loading scores...</p>
     </div>

@@ -4,7 +4,7 @@
         <span>{{_name}}</span>
     </div>
 
-    <input [type]="_type" class="bg-slate-700 text-zinc-100 rounded-md p-1 px-2 w-72 read-only:bg-slate-900" [placeholder]="_name" [id]="_id" [readOnly]="_readonly" [value]="_value">
+    <input [type]="_type" class="bg-slate-800 text-zinc-100 rounded-md p-1 px-2 w-[19rem] read-only:bg-slate-900" [placeholder]="_name" [id]="_id" [readOnly]="_readonly" [value]="_value">
 
     <div *ngIf="isDev && _id === undefined">
         <div class="text-xs pb-1 text-yellow-500">
