@@ -10,10 +10,16 @@
 <p *ngIf="(level?.Description?.length ?? 0) === 0">No description was provided for this level.</p>
 
 <div class="bg-slate-600 rounded-md p-3 mt-5">
-    <span class="text-3xl">Leaderboard</span>
+    <span class="text-3xl">Leaderboard</span><br>
+    <div class="pt-2.5">
+        <form-dropdown name="Score Type" [options]="scoreTypes" id="level-leaderboard-scoretype"></form-dropdown>
+    </div>
     <divider></divider>
     <div *ngIf="scores === undefined">
         <p>Loading scores...</p>
+    </div>
+    <div *ngIf="scores !== undefined && scores.length === 0">
+        <p>Nobody's submitted any scores yet. Go for it!</p>
     </div>
     <div *ngFor="let score of scores">
         <div class="bg-slate-700 rounded-md mt-2 mb-2 p-2">

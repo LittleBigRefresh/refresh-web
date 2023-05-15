@@ -27,6 +27,7 @@ import { UserComponent } from './pages/user/user.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { DangerousButtonComponent } from './components/dangerous-button/dangerous-button.component';
 import { UiDebugComponent } from './pages/ui-debug/ui-debug.component';
+import { FormDropdownComponent } from './components/form-dropdown/form-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { UiDebugComponent } from './pages/ui-debug/ui-debug.component';
     LogoutComponent,
     DangerousButtonComponent,
     UiDebugComponent,
+    FormDropdownComponent,
   ],
   imports: [
     BrowserModule,

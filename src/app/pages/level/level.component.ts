@@ -6,6 +6,7 @@ import { catchError, of, tap } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
 import { Score } from 'src/app/api/types/score';
+import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.component';
 
 @Component({
   selector: 'app-level',
@@ -15,6 +16,25 @@ export class LevelComponent {
   level: Level | undefined
   scores: Score[] | undefined
   scoreType: number = 1;
+
+  scoreTypes: DropdownOption[] = [
+    {
+      Name: "1-player",
+      Value: "1",
+    },
+    {
+      Name: "2-players",
+      Value: "2",
+    },
+    {
+      Name: "3-players",
+      Value: "3",
+    },
+    {
+      Name: "4-players",
+      Value: "4",
+    },
+  ]
 
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
 

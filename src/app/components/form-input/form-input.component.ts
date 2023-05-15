@@ -3,7 +3,8 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export type InputType = 
   'text' |
-  'password'
+  'password' |
+  'dropdown'
 
 @Component({
   selector: 'form-input',
@@ -16,6 +17,7 @@ export class FormInputComponent {
   _id: string | undefined = undefined;
   _readonly: boolean = false;
   _value: string = "";
+  _showLabel: boolean = true;
 
   isDev: boolean = false;
 
@@ -52,5 +54,10 @@ export class FormInputComponent {
   set value(param: string | undefined) {
     if(param === undefined) param = "";
     this._value = param;
+  }
+
+  @Input()
+  set showLabel(param: boolean) {
+    this._showLabel = param;
   }
 }
