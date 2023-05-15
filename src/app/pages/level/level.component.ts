@@ -17,6 +17,8 @@ export class LevelComponent {
   scores: Score[] | undefined
   scoreType: number = 1;
 
+  scoreTypeId: string = "level-leaderboard-scoretype"
+
   scoreTypes: DropdownOption[] = [
     {
       Name: "1-player",
@@ -59,6 +61,14 @@ export class LevelComponent {
         this.getScores(this.level.LevelId).subscribe();
       });
     });
+  }
+
+  formChanged() {
+    if(this.level === undefined) return;
+
+    const scoreTypeInput: string = (<HTMLSelectElement>document.getElementById(this.scoreTypeId)).value;
+    this.scoreType = Number(scoreTypeInput);
+    this.getScores(this.level.LevelId).subscribe()
   }
 
   getMoment(timestamp: moment.MomentInput): string {

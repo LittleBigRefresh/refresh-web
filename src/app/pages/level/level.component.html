@@ -12,7 +12,7 @@
 <div class="bg-slate-600 rounded-md p-3 mt-5">
     <span class="text-3xl">Leaderboard</span><br>
     <div class="pt-2.5">
-        <form-dropdown name="Score Type" [options]="scoreTypes" id="level-leaderboard-scoretype"></form-dropdown>
+        <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId" (change)="this.formChanged()"></form-dropdown>
     </div>
     <divider></divider>
     <div *ngIf="scores === undefined">
