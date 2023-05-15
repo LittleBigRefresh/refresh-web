@@ -9,20 +9,20 @@
 <p *ngIf="(level?.Description?.length ?? 0) > 0">{{level?.Description}}</p>
 <p *ngIf="(level?.Description?.length ?? 0) === 0">No description was provided for this level.</p>
 
-<div class="bg-slate-600 rounded-md p-3 mt-5">
+<div class="bg-slate-700 rounded-md p-3 mt-5">
     <span class="text-3xl">Leaderboard</span><br>
     <div class="pt-2.5">
         <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId" (change)="this.formChanged()"></form-dropdown>
     </div>
-    <divider></divider>
+    <divider [brightness]="800"></divider>
     <div *ngIf="scores === undefined">
         <p>Loading scores...</p>
     </div>
     <div *ngIf="scores !== undefined && scores.length === 0">
-        <p>Nobody's submitted any scores yet. Go for it!</p>
+        <p>Nobody's played this level in this mode yet. Go for the top score!</p>
     </div>
     <div *ngFor="let score of scores">
-        <div class="bg-slate-700 rounded-md mt-2 mb-2 p-2">
+        <div class="bg-slate-800 rounded-md mt-2 mb-2 p-2">
             <p class="text-xl">
                 <a [routerLink]="'/score/' + score.ScoreId">
                     <span *ngIf="score.Rank == 1" class="text-yellow-300 pr-2 text-2xl">#{{score.Rank}}</span>
@@ -33,7 +33,7 @@
                 </a>
             </p>
             <p>
-                Submitted by
+                Achieved by
                 <b>
                     <a class="text-indigo-400 hover:text-indigo-300" [routerLink]="'/user/' + score.Players[0].Username">
                         {{score.Players[0].Username}}
