@@ -1,10 +1,10 @@
-<span class="text-3xl pr-2">{{ level?.Title ?? 'Unnamed Level' }}</span>
-<span-gentle>by {{ level?.Publisher?.Username }}</span-gentle><br>
-
-<span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
-<span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0) }}</span-gentle>
-
-<br><br>
+<page-header class="text-3xl">
+    {{ level?.Title ?? 'Unnamed Level' }} 
+    <span-gentle>by {{ level?.Publisher?.Username }}</span-gentle>
+    <br>
+    <span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
+    <span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0) }}</span-gentle>
+</page-header>
 
 <p *ngIf="(level?.Description?.length ?? 0) > 0">{{level?.Description}}</p>
 <p *ngIf="(level?.Description?.length ?? 0) === 0">No description was provided for this level.</p>

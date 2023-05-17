@@ -1,8 +1,8 @@
-<h2 class="text-3xl capitalize" title="/api/v2/{{routeName}}">{{routeName}}</h2><br>
+<page-header class="text-3xl capitalize" title="/api/v2/{{routeName}}">{{routeName}} Levels</page-header>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-3">
-    <div *ngFor="let l of levels" class="bg-slate-700 p-2 rounded-sm">
-        <div class="text-2xl text-indigo-400 hover:text-indigo-300">
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
+    <div *ngFor="let l of levels" class="bg-form-background p-2.5 rounded-md">
+        <div class="text-2xl text-foreground hover:text-indigo-300">
             <a [routerLink]="'/level/' + l.LevelId" *ngIf="l.Title.length > 0">{{ l.Title }}</a>
             <a [routerLink]="'/level/' + l.LevelId" *ngIf="l.Title.length == 0">Unnamed Level</a>
         </div>

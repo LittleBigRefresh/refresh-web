@@ -23,6 +23,9 @@ export class LevelCategoriesComponent {
           if(c.RequiresUser) {
             if(this.apiClient.user !== undefined)
               this.categories.push(c);
+          }
+          else if(c.ApiRoute == "search") {
+            // do nothing
           } else {
             this.categories.push(c);
           }
