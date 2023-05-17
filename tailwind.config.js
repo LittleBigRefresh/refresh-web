@@ -8,6 +8,21 @@ module.exports = {
     fontFamily: {
       'display': ['Rubik'],
       'body': ['Rubik']
+    },
+    colors: {
+      "background": "#160D1D",
+      "header-background": "#261731",
+      "form-background": "#2A1936",
+      "backdrop": "#1B1023",
+
+      "foreground": "#FFFFFF",
+      "gentle": "#A3A3A3",
+
+      "primary": "#AA30F5",
+      "secondary": "#87748A",
+      "teritary": "#140C1A",
+      "dangerous": "#E52E2E",
+      "warning": "#E5B300",
     }
   },
   plugins: [],
