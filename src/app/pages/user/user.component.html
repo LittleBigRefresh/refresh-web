@@ -1,6 +1,10 @@
-<span class="text-3xl">{{ user?.Username }}'s profile</span><br>
+<page-header-block>
+  <page-header class="text-3xl">
+    {{ user?.Username }}'s profile
+    <span-gentle>{{ getMoment(user?.JoinDate ?? 0) }}</span-gentle>
+  </page-header>
 
-<div [ngSwitch]="room">
+  <div [ngSwitch]="room">
     <div *ngSwitchCase="undefined">
       <span-gentle>Offline</span-gentle>
     </div>
@@ -8,15 +12,13 @@
       <span-gentle>Playing a {{room!.LevelType}} level</span-gentle>
     </div>
   </div>
-  
 
-<span-gentle>{{ getMoment(user?.JoinDate ?? 0) }}</span-gentle>
+  <br>
 
-<br><br>
+  <p *ngIf="(user?.Description?.length ?? 0) > 0">{{user?.Description}}</p>
+  <p *ngIf="(user?.Description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
+</page-header-block>
 
-<p *ngIf="(user?.Description?.length ?? 0) > 0">{{user?.Description}}</p>
-<p *ngIf="(user?.Description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
-
-<div class="w-28 text-center pt-5">
+<div class="w-28 text-center">
     <primary-button text="Log out" routerLink="/logout"></primary-button>
 </div>
