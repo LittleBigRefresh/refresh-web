@@ -23,7 +23,10 @@ module.exports = {
       "teritary": "#140C1A",
       "dangerous": "#E52E2E",
       "warning": "#E5B300",
-    }
+    },
+    backgroundImage: {
+      "hero": "url('/assets/hero.svg')",
+    },
   },
   plugins: [],
   safelist: [ // force generation of all bg-colors-600 for notifications
