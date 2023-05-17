@@ -30,6 +30,7 @@ import { UiDebugComponent } from './pages/ui-debug/ui-debug.component';
 import { FormDropdownComponent } from './components/form-dropdown/form-dropdown.component';
 import { FormHolderComponent } from './components/form-holder/form-holder.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { LinkComponent } from './components/link/link.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     FormDropdownComponent,
     FormHolderComponent,
     PageHeaderComponent,
+    LinkComponent,
   ],
   imports: [
     BrowserModule,
