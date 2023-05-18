@@ -71,20 +71,33 @@ export class LevelComponent {
     this.getScores(this.level.LevelId).subscribe()
   }
 
+  loadMoreScores() {
+    if(this.level === undefined) return;
+    if(this.scores === undefined) return;
+
+    this.getScores(this.level.LevelId, false, this.scores.length + 1).subscribe();
+  }
+
   getMoment(timestamp: number | Date): string {
     return moment(timestamp).fromNow();
   }
 
-  getScores(levelId: number) {
-    return this.apiClient.GetScoresForLevel(levelId, this.scoreType)
+  getScores(levelId: number, clear: boolean = true, skip: number = 0) {
+    return this.apiClient.GetScoresForLevel(levelId, this.scoreType, skip)
     .pipe(
       catchError((error: HttpErrorResponse, caught) => {
         console.warn(error);
         return of(undefined);
       }),
       tap((data) => {
-        this.scores = data;
-        if(this.scores === undefined) return;
+        if(data === undefined) return;
+
+        if(clear || this.scores == undefined) {
+          this.scores = data;
+        } else {
+          this.scores = this.scores.concat(data);
+        }
+        
 
         let rank = 0;
         let i = 0;

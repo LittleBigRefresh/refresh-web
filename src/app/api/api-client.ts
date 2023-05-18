@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { catchError, Observable, of } from "rxjs";
+import { catchError, count, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { NotificationService } from "../notifications/notification-service";
 import { ApiAuthenticationRequest } from "./types/auth/auth-request";
@@ -167,7 +167,7 @@ export class ApiClient {
         return this.httpClient.get<Room>(environment.apiBaseUrl + "/room/uuid/" + userUuid)
     }
 
-    public GetScoresForLevel(levelId: number, scoreType: number): Observable<Score[]> {
-        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=true&count=10")
+    public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<Score[]> {
+        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=true&count=10&skip=" + skip)
     }
 }
