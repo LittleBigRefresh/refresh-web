@@ -33,9 +33,9 @@ export class AppComponent {
 
   routerLinks: HeaderLink[] = [
     new HeaderLink("Levels", "/levels", faCertificate),
-    new HeaderLink("Photos", "/photos", faCameraAlt),
-    new HeaderLink("Activity", "/activity", faFireAlt),
-    new HeaderLink("Ranking", "/ranking", faListUl),
+    // new HeaderLink("Photos", "/photos", faCameraAlt),
+    // new HeaderLink("Activity", "/activity", faFireAlt),
+    // new HeaderLink("Ranking", "/ranking", faListUl),
   ];
 
   rightSideRouterLinks: HeaderLink[] = []
@@ -49,7 +49,7 @@ export class AppComponent {
     this.rightSideRouterLinks = [];
 
     if (data !== undefined) {
-      this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
+      // this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
       this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/" + data.Username, faUser))
     } else {
       this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
