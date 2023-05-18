@@ -26,6 +26,7 @@ module.exports = {
     },
     backgroundImage: {
       "hero": "url('/assets/hero.svg')",
+      "logo": "url('/assets/logo.svg')",
     },
   },
   plugins: [],

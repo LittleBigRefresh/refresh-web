@@ -1,16 +1,23 @@
-<div class="p-5 pb-2 pt-2 bg-header-background border-b-backdrop border-b-2 h-[59px] items-center flex">
-    <nav class="text-foreground text-lg align-middle">
-        <a *ngFor="let link of routerLinks" class="pr-5 text-xl font-extralight" routerLink="{{link.link}}">
-            <fa-icon [icon]="link.icon" class="pr-2.5"></fa-icon>
-            <span>{{link.title}}</span>
-        </a>
-    </nav>
-
-    <div class="ml-auto flex-shrink">
-        <a *ngFor="let link of rightSideRouterLinks" class="pl-5 text-xl font-extralight" routerLink="{{link.link}}">
-            <fa-icon [icon]="link.icon" class="pr-2.5"></fa-icon>
-            <span>{{link.title}}</span>
-        </a>
+<div class="bg-header-background border-b-backdrop border-b-2 h-[59px] flex items-center flex-col">
+    <div class="container items-center flex h-[59px]">
+        <div class="flex mr-2.5">
+            <div class="bg-logo bg-cover cursor-pointer w-12 h-12" routerLink="/" title="Home"></div>
+            <div class="mx-3 w-1 rounded-sm bg-background"></div>
+        </div>
+    
+        <nav class="text-foreground text-lg align-middle">
+            <a *ngFor="let link of routerLinks" class="pr-8 text-xl font-extralight" routerLink="{{link.link}}">
+                <fa-icon [icon]="link.icon" class="pr-2.5"></fa-icon>
+                <span>{{link.title}}</span>
+            </a>
+        </nav>
+    
+        <div class="ml-auto flex-shrink">
+            <a *ngFor="let link of rightSideRouterLinks" class="pl-8 text-xl font-extralight" routerLink="{{link.link}}">
+                <fa-icon [icon]="link.icon" class="pr-2.5"></fa-icon>
+                <span>{{link.title}}</span>
+            </a>
+        </div>
     </div>
 </div>
 

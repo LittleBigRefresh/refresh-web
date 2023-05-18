@@ -1,6 +1,6 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { faCertificate, faHome, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCameraAlt, faCertificate, faFireAlt, faGear, faListUl, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ApiClient } from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
@@ -32,8 +32,10 @@ export class AppComponent {
   title = 'Refresh Website';
 
   routerLinks: HeaderLink[] = [
-    new HeaderLink("Home", "/", faHome),
     new HeaderLink("Levels", "/levels", faCertificate),
+    new HeaderLink("Photos", "/photos", faCameraAlt),
+    new HeaderLink("Activity", "/activity", faFireAlt),
+    new HeaderLink("Ranking", "/ranking", faListUl),
   ];
 
   rightSideRouterLinks: HeaderLink[] = []
@@ -47,6 +49,7 @@ export class AppComponent {
     this.rightSideRouterLinks = [];
 
     if (data !== undefined) {
+      this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
       this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/" + data.Username, faUser))
     } else {
       this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
