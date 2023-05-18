@@ -1,10 +1,10 @@
 <page-header-block>
     <page-header class="text-3xl">
-        {{ level?.Title ?? 'Unnamed Level' }} 
+        {{ level?.Title ?? 'Unnamed Level' }}
         <span-gentle>by {{ level?.Publisher?.Username }}</span-gentle>
         <br>
         <span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
-        <span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0) }}</span-gentle>
+        <span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0)}}</span-gentle>
     </page-header>
 
     <p *ngIf="(level?.Description?.length ?? 0) > 0">{{level?.Description}}</p>
@@ -14,7 +14,8 @@
 <div class="bg-form-background rounded-md p-3 mt-5">
     <span class="text-3xl">Leaderboard</span><br>
     <div class="pt-2.5">
-        <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId" (change)="this.formChanged()"></form-dropdown>
+        <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId"
+            (change)="this.formChanged()"></form-dropdown>
     </div>
     <divider></divider>
     <div *ngIf="scores === undefined">
@@ -24,25 +25,32 @@
         <p>Nobody's played this level in this mode yet. Go for the top score!</p>
     </div>
     <div *ngFor="let score of scores">
-        <div class="bg-slate-800 rounded-md mt-2 mb-2 p-2">
-            <p class="text-xl">
-                <a [routerLink]="'/score/' + score.ScoreId">
-                    <span *ngIf="score.Rank == 1" class="text-rank-gold pr-2 text-2xl">#{{score.Rank}}</span>
-                    <span *ngIf="score.Rank == 2" class="text-rank-silver pr-2 text-2xl">#{{score.Rank}}</span>
-                    <span *ngIf="score.Rank == 3" class="text-rank-bronze pr-2 text-2xl">#{{score.Rank}}</span>
-                    <span *ngIf="score.Rank !== undefined && score.Rank > 3" class="text-rank-other pr-2 text-2xl">#{{score.Rank}}</span>
-                    <b>- {{score.Score.toLocaleString(undefined)}}</b> points
-                </a>
-            </p>
-            <p>
-                Achieved by
-                <b>
-                    <a class="text-indigo-400 hover:text-indigo-300" [routerLink]="'/user/' + score.Players[0].Username">
-                        {{score.Players[0].Username}}
-                    </a>
-                </b>
-                {{getMoment(score.ScoreSubmitted)}}
-            </p>
+        <div class="my-5 px-2.5">
+            <a [routerLink]="'/score/' + score.ScoreId" class="flex items-center">
+                <div class="text-2xl">
+                    <span *ngIf="score.Rank == 1" class="text-rank-gold pr-2">#{{score.Rank}}</span>
+                    <span *ngIf="score.Rank == 2" class="text-rank-silver pr-2">#{{score.Rank}}</span>
+                    <span *ngIf="score.Rank == 3" class="text-rank-bronze pr-2">#{{score.Rank}}</span>
+
+                    <span *ngIf="score.Rank !== undefined && score.Rank > 3"
+                        class="text-rank-other pr-2">#{{score.Rank}}</span>
+                </div>
+
+                <div class="flex flex-col">
+                    <span class="text-lg">{{score.Score.toLocaleString(undefined)}} points</span>
+
+                    <span class="text-sm">
+                        Achieved by
+                        <b>
+                            <a class="text-indigo-400 hover:text-indigo-300"
+                                [routerLink]="'/user/' + score.Players[0].Username">
+                                {{score.Players[0].Username}}
+                            </a>
+                        </b>
+                        {{getMoment(score.ScoreSubmitted)}}
+                    </span>
+                </div>
+            </a>
         </div>
     </div>
 </div>
