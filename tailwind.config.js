@@ -25,6 +25,11 @@ module.exports = {
       "teritary": "#100915",
       "dangerous": "#E52E2E",
       "warning": "#E5B300",
+
+      "rank-gold": "#FFD234",
+      "rank-silver": "#F2F2F2",
+      "rank-bronze": "#FF8845",
+      "rank-other": "#ABABAB",
     },
     backgroundImage: {
       "hero": "url('/assets/hero.svg')",
