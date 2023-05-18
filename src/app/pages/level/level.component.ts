@@ -88,6 +88,11 @@ export class LevelComponent {
 
         let i = 0;
         for(let score of this.scores) {
+          const lastScore: Score | undefined = this.scores[i - 1];
+          if(lastScore?.Score == score.Score) {
+            i -= 1;
+          }
+
           i++;
           score.Rank = i;
         }
