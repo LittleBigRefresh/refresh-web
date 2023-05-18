@@ -86,15 +86,17 @@ export class LevelComponent {
         this.scores = data;
         if(this.scores === undefined) return;
 
+        let rank = 0;
         let i = 0;
         for(let score of this.scores) {
           const lastScore: Score | undefined = this.scores[i - 1];
           if(lastScore?.Score == score.Score) {
-            i -= 1;
+            rank -= 1;
           }
-
+          
+          rank++;
           i++;
-          score.Rank = i;
+          score.Rank = rank;
         }
       })
     );
