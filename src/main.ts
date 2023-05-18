@@ -4,6 +4,10 @@ import { environment } from 'src/environments/environment';
 
 import { AppModule } from './app/app.module';
 
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
+
 if (environment.production) {
   enableProdMode();
 }

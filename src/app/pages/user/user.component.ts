@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import * as moment from 'moment';
+import * as moment from 'dayjs';
 import { EMPTY, catchError, of, switchMap, tap } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Room } from 'src/app/api/types/rooms/room';

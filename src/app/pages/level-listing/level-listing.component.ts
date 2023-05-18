@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import * as moment from 'moment';
+import * as moment from 'dayjs';
 import { catchError } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';

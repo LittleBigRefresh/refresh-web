@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import * as moment from 'moment';
+import * as moment from 'dayjs';
 import { catchError, of, tap } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
@@ -71,7 +71,7 @@ export class LevelComponent {
     this.getScores(this.level.LevelId).subscribe()
   }
 
-  getMoment(timestamp: moment.MomentInput): string {
+  getMoment(timestamp: number | Date): string {
     return moment(timestamp).fromNow();
   }
 
