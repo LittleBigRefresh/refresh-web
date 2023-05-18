@@ -54,5 +54,7 @@
         </div>
     </div>
 
-    <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
+    <div *ngIf="this.scores !== undefined && this.scores.length % 10 == 0">
+        <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
+    </div>
 </div>
