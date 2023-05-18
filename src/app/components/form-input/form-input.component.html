@@ -7,7 +7,7 @@
     <input [type]="_type" class="bg-teritary px-5 py-2 rounded-[11px] w-[19rem] placeholder:text-gentle placeholder:italic" [placeholder]="_name" [id]="_id" [readOnly]="_readonly" [value]="_value">
 
     <div *ngIf="isDev && _id === undefined">
-        <div class="text-xs pb-1 text-yellow-500">
+        <div class="text-xs pb-1 text-warning">
             <fa-icon [icon]="'warning'" class="pr-1"></fa-icon>
             <span>Dev: The above input does not have an ID set.</span>
         </div>
