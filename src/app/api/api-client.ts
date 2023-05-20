@@ -13,6 +13,8 @@ import { User } from "./types/user";
 import { Statistics } from "./types/statistics";
 import { Room } from "./types/rooms/room";
 import { Score } from "./types/score";
+import { isPlatformBrowser } from "@angular/common";
+import { PLATFORM_ID } from "@angular/core";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -28,7 +30,11 @@ export class ApiClient {
     constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {
         this.userWatcher = new EventEmitter<User | undefined>();
 
-        const storedToken: string | null = localStorage.getItem('game_token');
+        let storedToken: string | null = null;
+        if(isPlatformBrowser(PLATFORM_ID)) {
+            storedToken = localStorage.getItem('game_token')
+        }
+
         if(storedToken) {
             this.GetMyUser(() => {
                 // only subscribe after getting user

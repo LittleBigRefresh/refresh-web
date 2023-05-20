@@ -1,5 +1,6 @@
+import { isPlatformBrowser, isPlatformServer } from "@angular/common";
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, PLATFORM_ID } from "@angular/core";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -7,7 +8,11 @@ import { Observable } from "rxjs";
 })
 export class ApiTokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const storedToken = localStorage.getItem('game_token')
+        if(!isPlatformBrowser(PLATFORM_ID)) {
+            return next.handle(req);
+        }
+
+        const storedToken: string | null = localStorage.getItem('game_token')
         if (storedToken) {
             const reqClone = req.clone({
                 setHeaders: {
