@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule,  } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 import { faBell, faCalendar, faHeart, faMagnifyingGlass, faUser, faWarning, faKey, faPoo, faXmark, faCheckCircle, faRightFromBracket, faCircleExclamation, faShuffle } from '@fortawesome/free-solid-svg-icons';
 
@@ -66,6 +67,7 @@ import { PageHeaderBlockComponent } from './components/page-header-block/page-he
     HttpClientModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
+    TransferHttpCacheModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },

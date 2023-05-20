@@ -147,6 +147,7 @@ export class ApiClient {
         return this.httpClient.get<Category[]>(environment.apiBaseUrl + "/levels")
             .pipe(observer => {
                 observer.subscribe(data => {
+                    console.log(JSON.stringify(data));
                     this.categories = data;
                 });
 
