@@ -30,10 +30,7 @@ export class ApiClient {
     constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {
         this.userWatcher = new EventEmitter<User | undefined>();
 
-        let storedToken: string | null = null;
-        if(isPlatformBrowser(PLATFORM_ID)) {
-            storedToken = localStorage.getItem('game_token')
-        }
+        const storedToken: string | null = localStorage.getItem('game_token');
 
         if(storedToken) {
             this.GetMyUser(() => {
