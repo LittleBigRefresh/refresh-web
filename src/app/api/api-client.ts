@@ -49,7 +49,7 @@ export class ApiClient {
             this.notificationService.push({
                 Title: `Signed out`,
                 Icon: 'right-from-bracket',
-                Color: 'orange',
+                Color: 'warning',
                 Text: 'You have been logged out.'
             })
 
@@ -128,7 +128,7 @@ export class ApiClient {
             .subscribe(() => {
                 if(signIn) this.LogIn(username, passwordSha512);
                 this.notificationService.push({
-                    Color: 'sky',
+                    Color: 'success',
                     Icon: 'key',
                     Title: "Password reset successful",
                     Text: "Your account's password has been reset.",
