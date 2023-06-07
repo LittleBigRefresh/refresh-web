@@ -113,6 +113,8 @@ export class ApiClient {
         this._userId = undefined;
         this.user = undefined;
 
+        localStorage.removeItem('game_token');
+
         this.userWatcher.emit(undefined);
         this.httpClient.post(environment.apiBaseUrl + "/goodbye", {})
             .subscribe(() => {}); // Need to subscribe for request to fire
