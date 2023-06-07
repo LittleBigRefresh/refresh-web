@@ -32,6 +32,7 @@ import { FormHolderComponent } from './components/form-holder/form-holder.compon
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { LinkComponent } from './components/link/link.component';
 import { PageHeaderBlockComponent } from './components/page-header-block/page-header-block.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { PageHeaderBlockComponent } from './components/page-header-block/page-he
     PageHeaderComponent,
     LinkComponent,
     PageHeaderBlockComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -103,9 +103,4 @@ export class UserComponent {
           })
         );
     }
-
-    isOwnProfile(): boolean {
-      if(this.apiClient.user === undefined) return false;
-      return this.apiClient.user.UserId === this.user?.UserId;
-    }
 }

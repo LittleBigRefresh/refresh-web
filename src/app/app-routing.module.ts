@@ -10,6 +10,7 @@ import { MainComponent } from './pages/main/main.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UiDebugComponent } from './pages/ui-debug/ui-debug.component';
 import { UserComponent } from './pages/user/user.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent },
   { path: "forgotPassword", component: ForgotPasswordComponent },
+  { path: "settings", component: SettingsComponent },
   { path: "404", component: NotFoundComponent },
 ];
 
