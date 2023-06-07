@@ -89,7 +89,12 @@ export class ApiClient {
 
     private GetMyUser(callback: Function | null = null) {
         this.httpClient.get<User>(environment.apiBaseUrl + "/user/me")
+            .pipe(catchError((err, caught) => {
+                console.error(err);
+                return of(undefined);
+            }))
             .subscribe((data) => {
+                console.log("Got user data");
                 this.user = data;
                 this.userWatcher.emit(this.user);
                 if(callback) callback();
