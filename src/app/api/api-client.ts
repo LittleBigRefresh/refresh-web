@@ -15,6 +15,7 @@ import { Room } from "./types/rooms/room";
 import { Score } from "./types/score";
 import { isPlatformBrowser } from "@angular/common";
 import { PLATFORM_ID } from "@angular/core";
+import { Photo } from "./types/photo";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -179,5 +180,18 @@ export class ApiClient {
 
     public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<Score[]> {
         return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=true&count=10&skip=" + skip)
+    }
+
+    public GetRecentPhotos(count: number = 20, skip: number = 0) {
+        return this.httpClient.get<Photo[]>(environment.apiBaseUrl + "/photos" + "?count=" + count + "&skip=" + skip);
+    }
+
+    public GetPhotoLink(photo: Photo, large: boolean = true): string {
+        const hash = large ? photo.LargeHash : photo.SmallHash;
+        return environment.apiBaseUrl + "/asset/" + hash + "/image";
+    }
+
+    public GetPhotoById(id: number) {
+        return this.httpClient.get<Photo>(environment.apiBaseUrl + "/photo/" + id);
     }
 }

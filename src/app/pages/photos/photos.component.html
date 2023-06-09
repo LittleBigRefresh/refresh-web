@@ -1,0 +1,4 @@
+<a *ngFor="let photo of photos" [routerLink]="'/photo/' + photo.PhotoId">
+    <!-- <p>{{photo.PhotoId}}</p> -->
+    <img src="{{getPhotoLink(photo)}}">
+</a>

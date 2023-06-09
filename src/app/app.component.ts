@@ -33,7 +33,7 @@ export class AppComponent {
 
   routerLinks: HeaderLink[] = [
     new HeaderLink("Levels", "/levels", faCertificate),
-    // new HeaderLink("Photos", "/photos", faCameraAlt),
+    new HeaderLink("Photos", "/photos", faCameraAlt),
     // new HeaderLink("Activity", "/activity", faFireAlt),
     // new HeaderLink("Ranking", "/ranking", faListUl),
   ];
