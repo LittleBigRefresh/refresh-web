@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "src/styles.css"
             ],
             "scripts": []
