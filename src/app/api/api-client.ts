@@ -52,7 +52,7 @@ export class ApiClient {
             this.notificationService.push({
                 Title: `Signed out`,
                 Icon: 'right-from-bracket',
-                Color: 'orange',
+                Color: 'warning',
                 Text: 'You have been logged out.'
             })
 
@@ -92,7 +92,12 @@ export class ApiClient {
 
     private GetMyUser(callback: Function | null = null) {
         this.httpClient.get<User>(environment.apiBaseUrl + "/user/me")
+            .pipe(catchError((err, caught) => {
+                console.error(err);
+                return of(undefined);
+            }))
             .subscribe((data) => {
+                console.log("Got user data");
                 this.user = data;
                 this.userWatcher.emit(this.user);
                 if(callback) callback();
@@ -110,6 +115,8 @@ export class ApiClient {
     public LogOut() {
         this._userId = undefined;
         this.user = undefined;
+
+        localStorage.removeItem('game_token');
 
         this.userWatcher.emit(undefined);
         this.httpClient.post(environment.apiBaseUrl + "/goodbye", {})
@@ -131,7 +138,7 @@ export class ApiClient {
             .subscribe(() => {
                 if(signIn) this.LogIn(username, passwordSha512);
                 this.notificationService.push({
-                    Color: 'sky',
+                    Color: 'success',
                     Icon: 'key',
                     Title: "Password reset successful",
                     Text: "Your account's password has been reset.",

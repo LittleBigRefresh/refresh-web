@@ -18,7 +18,3 @@
   <p *ngIf="(user?.Description?.length ?? 0) > 0">{{user?.Description}}</p>
   <p *ngIf="(user?.Description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
 </page-header-block><br>
-
-<div class="w-28 text-center" *ngIf="this.isOwnProfile()">
-    <secondary-button text="Log out" routerLink="/logout"></secondary-button>
-</div>

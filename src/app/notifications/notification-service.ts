@@ -15,7 +15,7 @@ export class NotificationService {
 
     pushSuccess(title: string, text: string) {
         this.push({
-            Color: 'green',
+            Color: 'success',
             Icon: 'check-circle',
             Text: text,
             Title: title,
@@ -24,7 +24,7 @@ export class NotificationService {
 
     pushWarning(title: string, text: string) {
         this.push({
-            Color: 'yellow',
+            Color: 'warning',
             Icon: 'warning',
             Text: text,
             Title: title,
@@ -33,7 +33,7 @@ export class NotificationService {
 
     pushError(title: string, text: string) {
         this.push({
-            Color: 'red',
+            Color: 'dangerous',
             Icon: 'exclamation-circle',
             Text: text,
             Title: title,
