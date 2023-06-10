@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'dayjs';
 import { EMPTY, catchError, of, switchMap, tap } from 'rxjs';
@@ -11,7 +11,7 @@ import { User } from 'src/app/api/types/user';
   selector: 'app-user',
   templateUrl: './user.component.html'
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
     user: User | undefined = undefined;
     room: Room | undefined = undefined;
 
@@ -21,7 +21,7 @@ export class UserComponent {
       this.route.paramMap.pipe(switchMap((params: ParamMap) => {
         const username = params.get('username') as string | undefined;
         const uuid = params.get('uuid') as string | undefined;
-    
+
         if (username == "me" || uuid == "me") {
           if(this.apiClient.user === undefined) {
             this.router.navigate(["/login"]);
@@ -31,13 +31,13 @@ export class UserComponent {
           this.router.navigate(["/user/", this.apiClient.user?.Username]);
           return EMPTY;
         }
-    
+
         if (uuid !== null && uuid !== undefined) {
           return this.getUserByUuid(uuid);
         }
-    
+
         if (username == null) return EMPTY;
-    
+
         return this.getUserByUsername(username);
       }))
       .subscribe();
@@ -57,7 +57,7 @@ export class UserComponent {
               this.router.navigate(["/404"]);
               return of(undefined);
             }
-    
+
             return caught;
           }),
           tap((data) => {
@@ -79,22 +79,22 @@ export class UserComponent {
               this.router.navigate(["/404"]);
               return of(undefined);
             }
-    
+
             return caught;
           }),
           tap((data) => {
             this.user = data;
             if (data === undefined) return;
-      
+
             this.getUsersRoom(data?.UserId).subscribe();
           })
         );
     }
-    
+
     private getUsersRoom(userId: string) {
       return this.apiClient.GetUsersRoom(userId)
         .pipe(
-          catchError((error: HttpErrorResponse, caught) => {
+          catchError((error: HttpErrorResponse) => {
             console.warn(error);
             return of(undefined);
           }),

@@ -26,7 +26,7 @@
     <div *ngIf="scores === undefined">
         <p>Loading scores...</p>
     </div>
-    <div *ngIf="scores !== undefined && scores.length === 0">
+    <div *ngIf="scores !== undefined && scores!.length === 0">
         <p>Nobody's played this level in this mode yet. Go for the top score!</p>
     </div>
     <div *ngFor="let score of scores">
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div *ngIf="this.scores !== undefined && this.scores.length % 10 == 0 && this.scores.length !== 0">
+    <div *ngIf="this.scores !== undefined && this.scores!.length % 10 == 0 && this.scores!.length !== 0">
         <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
     </div>
 </div>

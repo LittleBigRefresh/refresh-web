@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { catchError, count, Observable, of } from "rxjs";
+import { catchError, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { NotificationService } from "../notifications/notification-service";
 import { ApiAuthenticationRequest } from "./types/auth/auth-request";
@@ -13,8 +13,6 @@ import { User } from "./types/user";
 import { Statistics } from "./types/statistics";
 import { Room } from "./types/rooms/room";
 import { Score } from "./types/score";
-import { isPlatformBrowser } from "@angular/common";
-import { PLATFORM_ID } from "@angular/core";
 import { Photo } from "./types/photo";
 
 @Injectable({providedIn: 'root'})
@@ -70,7 +68,7 @@ export class ApiClient {
         }
 
         this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
-            .pipe(catchError((err, caught) => {
+            .pipe(catchError((err) => {
                 this.notificationService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server. Check the console for more details.")
                 console.error(err);
 
@@ -87,13 +85,13 @@ export class ApiClient {
                 localStorage.setItem('game_token', authResponse.TokenData);
                 this.GetMyUser();
             });
-            
+
         return true;
     }
 
     private GetMyUser(callback: Function | null = null) {
         this.httpClient.get<User>(environment.apiBaseUrl + "/user/me")
-            .pipe(catchError((err, caught) => {
+            .pipe(catchError((err) => {
                 console.error(err);
                 return of(undefined);
             }))

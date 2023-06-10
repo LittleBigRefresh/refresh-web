@@ -1,6 +1,6 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { faCameraAlt, faCertificate, faFireAlt, faGear, faListUl, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCameraAlt, faCertificate, faGear, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ApiClient } from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';

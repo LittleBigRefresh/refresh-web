@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IconLookup, IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
+import {Component, OnInit} from '@angular/core';
+import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
 import { ApiClient } from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
 
@@ -7,7 +7,7 @@ import { Category } from 'src/app/api/types/category';
   selector: 'app-level-categories',
   templateUrl: './level-categories.component.html',
 })
-export class LevelCategoriesComponent {
+export class LevelCategoriesComponent implements OnInit {
   categories: Category[] = []
   constructor(private apiClient: ApiClient) { }
 
@@ -17,7 +17,7 @@ export class LevelCategoriesComponent {
         this.categories = []
 
         for(let c of data) {
-          // if the endpoint requires a user but we're not signed in, skip it
+          // if the endpoint requires a user, but we're not signed in, skip it
           // if either of those conditions aren't met add it to the list
 
           if(c.RequiresUser) {

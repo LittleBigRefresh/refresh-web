@@ -1,7 +1,7 @@
 import { Component, Input, isDevMode } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-export type InputType = 
+export type InputType =
   'text' |
   'password' |
   'dropdown'
@@ -11,7 +11,7 @@ export type InputType =
   templateUrl: './form-input.component.html'
 })
 export class FormInputComponent {
-  _icon: IconProp = 'poo'; // this will get definitely someones attention if this property is left undefined
+  _icon: IconProp = 'poo'; // this will get definitely someone's attention if this property is left undefined
   _name: string = 'NAME NOT SET, FIX ME';
   _type: InputType = 'text';
   _id: string | undefined = undefined;

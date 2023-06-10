@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
 import { Photo } from 'src/app/api/types/photo';
 
@@ -6,7 +6,7 @@ import { Photo } from 'src/app/api/types/photo';
   selector: 'app-photos',
   templateUrl: './photos.component.html'
 })
-export class PhotosComponent {
+export class PhotosComponent implements OnInit {
   photos: Photo[] | undefined;
 
   constructor(private apiClient: ApiClient) {}

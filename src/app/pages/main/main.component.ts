@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { catchError, of } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Statistics } from 'src/app/api/types/statistics';
@@ -8,7 +8,7 @@ import { Statistics } from 'src/app/api/types/statistics';
   selector: 'app-main',
   templateUrl: './main.component.html',
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   statistics: Statistics | undefined
 
   constructor(public apiClient: ApiClient) {}

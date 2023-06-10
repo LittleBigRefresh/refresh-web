@@ -2,7 +2,7 @@
     <page-header class="text-4xl">Welcome to Refresh!</page-header>
 
     <div *ngIf="apiClient.user !== undefined">
-        <p>Welcome back, <b>{{apiClient.user.Username}}</b>.</p>
+        <p>Welcome back, <b>{{apiClient.user!.Username}}</b>.</p>
         <!-- <p>There have been <b>12</b> levels uploaded since you last visited.</p> -->
     </div>
 

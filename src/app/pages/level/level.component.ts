@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'dayjs';
 import { catchError, of, tap } from 'rxjs';
@@ -12,7 +12,7 @@ import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.c
   selector: 'app-level',
   templateUrl: './level.component.html'
 })
-export class LevelComponent {
+export class LevelComponent implements OnInit {
   level: Level | undefined
   scores: Score[] | undefined
   scoreType: number = 1;
@@ -85,7 +85,7 @@ export class LevelComponent {
   getScores(levelId: number, clear: boolean = true, skip: number = 0) {
     return this.apiClient.GetScoresForLevel(levelId, this.scoreType, skip)
     .pipe(
-      catchError((error: HttpErrorResponse, caught) => {
+      catchError((error: HttpErrorResponse) => {
         console.warn(error);
         return of(undefined);
       }),
@@ -97,7 +97,7 @@ export class LevelComponent {
         } else {
           this.scores = this.scores.concat(data);
         }
-        
+
 
         let rank = 0;
         let i = 0;
@@ -106,7 +106,7 @@ export class LevelComponent {
           if(lastScore?.Score == score.Score) {
             rank -= 1;
           }
-          
+
           rank++;
           i++;
           score.Rank = rank;

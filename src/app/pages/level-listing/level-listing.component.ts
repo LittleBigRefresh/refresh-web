@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'dayjs';
 import { catchError } from 'rxjs';
@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'app-level-listing',
   templateUrl: './level-listing.component.html',
 })
-export class LevelListingComponent {
+export class LevelListingComponent implements OnInit {
   levels: Level[] = []
   routeName!: string
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }

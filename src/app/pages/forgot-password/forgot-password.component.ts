@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiClient } from 'src/app/api/api-client';
 import { sha512Async } from 'src/app/hash';
@@ -9,7 +9,7 @@ import { NotificationService } from 'src/app/notifications/notification-service'
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html'
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
   usernameId: string = "forgot-username"
   passwordId: string = "forgot-password"
   confirmPasswordId: string = "forgot-password-confirm"
