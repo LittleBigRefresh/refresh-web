@@ -36,6 +36,8 @@ import { PageHeaderBlockComponent } from './components/page-header-block/page-he
 import { SettingsComponent } from './pages/settings/settings.component';
 import { PhotosComponent } from './pages/photos/photos.component';
 import { PhotoComponent } from './pages/photo/photo.component';
+import { UserLinkComponent } from './components/links/user-link/user-link.component';
+import { LevelLinkComponent } from './components/links/level-link/level-link.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { PhotoComponent } from './pages/photo/photo.component';
     SettingsComponent,
     PhotosComponent,
     PhotoComponent,
+    UserLinkComponent,
+    LevelLinkComponent,
   ],
   imports: [
     BrowserModule,

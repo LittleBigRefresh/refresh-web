@@ -1,4 +1,18 @@
-<a *ngFor="let photo of photos" [routerLink]="'/photo/' + photo.PhotoId">
-    <!-- <p>{{photo.PhotoId}}</p> -->
-    <img src="{{getPhotoLink(photo)}}">
-</a>
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
+  <div *ngFor="let photo of photos" class="rounded-md bg-form-background m-1 p-2.5">
+    <a [routerLink]="'/photo/' + photo.PhotoId">
+      <img src="{{getPhotoLink(photo)}}" class="rounded-md w-full">
+    </a>
+
+    <div class="pt-2.5"><span>Taken by <user-link [user]="photo.Publisher"></user-link></span></div>
+    <div class="text-sm text-gentle">
+      <span *ngIf="photo.Subjects.length > 0">with </span>
+      <span *ngFor="let subject of photo.Subjects; let last = last">
+        <user-link [user]="subject.User!" *ngIf="subject.User !== null"></user-link>
+        <span *ngIf="subject.User === null">{{subject.DisplayName}}</span>
+
+        <span *ngIf="!last">, </span>
+      </span>
+    </div>
+  </div>
+</div>
