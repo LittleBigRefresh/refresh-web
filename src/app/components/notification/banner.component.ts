@@ -1,11 +1,11 @@
 import { animate, animateChild, query, style, transition, trigger } from '@angular/animations';
 import { Component, HostBinding, Input } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { NotificationService } from 'src/app/notifications/notification-service';
+import { BannerService } from 'src/app/notifications/banners/banner.service';
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
+  selector: 'app-banner',
+  templateUrl: './banner.component.html',
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
@@ -21,7 +21,7 @@ import { NotificationService } from 'src/app/notifications/notification-service'
     ])
   ]
 })
-export class NotificationComponent {
+export class BannerComponent {
   // Animation
   @HostBinding('@fadeOut') animation = true;
 
@@ -61,11 +61,11 @@ export class NotificationComponent {
     this._id = param;
   }
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(private bannerService: BannerService) {}
 
   dismiss(): void {
-    if(this._id == -1) throw Error("Can't dismiss a notification with no ID");
+    if(this._id == -1) throw Error("Can't dismiss a banner with no ID");
 
-    this.notificationService.dismiss(this._id);
+    this.bannerService.dismiss(this._id);
   }
 }

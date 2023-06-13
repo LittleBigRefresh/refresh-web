@@ -4,7 +4,7 @@ import { faCameraAlt, faCertificate, faGear, faSignIn, faUser } from '@fortaweso
 import { ApiClient } from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
-import { NotificationService } from './notifications/notification-service';
+import { BannerService } from './notifications/banners/banner.service';
 
 const fadeLength = "50ms";
 
@@ -40,7 +40,7 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(apiClient: ApiClient, public notifs: NotificationService) {
+  constructor(apiClient: ApiClient, public bannerService: BannerService) {
     apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
   }

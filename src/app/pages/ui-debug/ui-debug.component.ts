@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { NotificationService } from 'src/app/notifications/notification-service';
+import { BannerService } from 'src/app/notifications/banners/banner.service';
 
 @Component({
   selector: 'app-ui-debug',
   templateUrl: './ui-debug.component.html'
 })
 export class UiDebugComponent {
-  constructor(private notificationService: NotificationService) {}
+  constructor(private bannerService: BannerService) {}
 
-  successNotification(): void {
-    this.notificationService.pushSuccess("Nice", "Rocket Launch Good");
+  successBanner(): void {
+    this.bannerService.pushSuccess("Nice", "Rocket Launch Good");
   }
 
-  warnNotification(): void {
-    this.notificationService.pushWarning("Uh", "You done goofed");
+  warnBanner(): void {
+    this.bannerService.pushWarning("Uh", "You done goofed");
   }
 
-  errorNotification(): void {
-    this.notificationService.pushError("BAD", "You screwed up so bad bro");
+  errorBanner(): void {
+    this.bannerService.pushError("BAD", "You screwed up so bad bro");
   }
 }

@@ -21,7 +21,7 @@ import { DividerComponent } from './components/divider/divider.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
-import { NotificationComponent } from './components/notification/notification.component';
+import { BannerComponent } from './components/notification/banner.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ApiTokenInterceptor } from './api/api-token-interceptor';
 import { UserComponent } from './pages/user/user.component';
@@ -55,7 +55,7 @@ import { PhotoComponent } from './components/photo/photo.component';
     FormInputComponent,
     PrimaryButtonComponent,
     SecondaryButtonComponent,
-    NotificationComponent,
+    BannerComponent,
     ForgotPasswordComponent,
     UserComponent,
     LogoutComponent,

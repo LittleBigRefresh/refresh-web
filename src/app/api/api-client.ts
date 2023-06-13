@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
-import { NotificationService } from "../notifications/notification-service";
+import { BannerService } from "../notifications/banners/banner.service";
 import { ApiAuthenticationRequest } from "./types/auth/auth-request";
 import { ApiAuthenticationResponse } from "./types/auth/auth-response";
 import { ApiPasswordResetRequest } from "./types/auth/reset-request";
@@ -26,7 +26,7 @@ export class ApiClient {
 
     userWatcher: EventEmitter<User | undefined>
 
-    constructor(private httpClient: HttpClient, private notificationService: NotificationService, private router: Router) {
+    constructor(private httpClient: HttpClient, private bannerService: BannerService, private router: Router) {
         this.userWatcher = new EventEmitter<User | undefined>();
 
         const storedToken: string | null = localStorage.getItem('game_token');
@@ -34,21 +34,21 @@ export class ApiClient {
         if(storedToken) {
             this.GetMyUser(() => {
                 // only subscribe after getting user
-                this.userWatcher.subscribe((user) => this.userNotification(user));
+                this.userWatcher.subscribe((user) => this.userUpdateBanner(user));
             });
         } else {
             this.userWatcher.emit(undefined);
-            this.userWatcher.subscribe((user) => this.userNotification(user));
+            this.userWatcher.subscribe((user) => this.userUpdateBanner(user));
         }
     }
 
-    userNotification(user: User | undefined): void {
+    userUpdateBanner(user: User | undefined): void {
         console.log("Handling user change: " + user)
         if(user !== undefined) {
-            this.notificationService.pushSuccess(`Hi, ${user.Username}!`, 'You have been successfully signed in.')
+            this.bannerService.pushSuccess(`Hi, ${user.Username}!`, 'You have been successfully signed in.')
             this.router.navigate(['/'])
         } else {
-            this.notificationService.push({
+            this.bannerService.push({
                 Title: `Signed out`,
                 Icon: 'right-from-bracket',
                 Color: 'warning',
@@ -69,7 +69,7 @@ export class ApiClient {
 
         this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
             .pipe(catchError((err) => {
-                this.notificationService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server. Check the console for more details.")
+                this.bannerService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server. Check the console for more details.")
                 console.error(err);
 
                 if(err.error?.ResetToken !== undefined) {
@@ -124,7 +124,7 @@ export class ApiClient {
 
     public ResetPassword(username: string, passwordSha512: string, signIn: boolean = false): void {
         if(this.resetToken == undefined) {
-            this.notificationService.pushError('Could not reset password', 'There was no token to authorize this action.')
+            this.bannerService.pushError('Could not reset password', 'There was no token to authorize this action.')
             return;
         }
 
@@ -136,7 +136,7 @@ export class ApiClient {
         this.httpClient.post(environment.apiBaseUrl + "/resetPassword", body)
             .subscribe(() => {
                 if(signIn) this.LogIn(username, passwordSha512);
-                this.notificationService.push({
+                this.bannerService.push({
                     Color: 'success',
                     Icon: 'key',
                     Title: "Password reset successful",

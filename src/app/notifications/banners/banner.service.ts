@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Notification } from "./notification";
+import { Banner } from "./banner";
 
 @Injectable({providedIn: 'root'})
-export class NotificationService {
-    notifications: Notification[] = []
+export class BannerService {
+    banners: Banner[] = []
 
-    push(notification: Notification) {
-        this.notifications.push(notification);
+    push(notification: Banner) {
+        this.banners.push(notification);
     }
 
     dismiss(id: number): void {
-        this.notifications.splice(id, 1);
+        this.banners.splice(id, 1);
     }
 
     pushSuccess(title: string, text: string) {

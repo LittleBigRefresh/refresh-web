@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiClient } from 'src/app/api/api-client';
 import { sha512Async } from 'src/app/hash';
-import { Notification } from 'src/app/notifications/notification';
-import { NotificationService } from 'src/app/notifications/notification-service';
+import { Banner } from 'src/app/notifications/banners/banner';
+import { BannerService } from 'src/app/notifications/banners/banner.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   usernameParam: string | undefined = undefined;
 
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private notificationService: NotificationService) {}
+  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private bannerService: BannerService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -29,7 +29,7 @@ export class ForgotPasswordComponent implements OnInit {
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
     const confirmPasswordInput: string = (<HTMLInputElement>document.getElementById(this.confirmPasswordId)).value;
 
-    const error: Notification = {
+    const error: Banner = {
       Color: 'red',
       Icon: 'exclamation-circle',
       Title: "Skill Issue",
@@ -38,19 +38,19 @@ export class ForgotPasswordComponent implements OnInit {
 
     if(usernameInput.length <= 0) {
       error.Text = "No username was provided."
-      this.notificationService.push(error)
+      this.bannerService.push(error)
       return;
     }
 
     if(passwordInput.length <= 0) {
       error.Text = "No password was provided."
-      this.notificationService.push(error)
+      this.bannerService.push(error)
       return;
     }
 
     if(passwordInput != confirmPasswordInput) {
       error.Text = "The passwords do not match."
-      this.notificationService.push(error)
+      this.bannerService.push(error)
       return;
     }
 

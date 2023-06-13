@@ -1,6 +1,6 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 
-export interface Notification {
+export interface Banner {
     // Styling
     Color: string
     Icon: IconProp
