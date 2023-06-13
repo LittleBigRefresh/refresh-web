@@ -34,10 +34,11 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { LinkComponent } from './components/link/link.component';
 import { PageHeaderBlockComponent } from './components/page-header-block/page-header-block.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { PhotosComponent } from './pages/photos/photos.component';
-import { PhotoComponent } from './pages/photo/photo.component';
+import { PhotoListingComponent } from './pages/photo-listing/photo-listing.component';
+import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
 import { UserLinkComponent } from './components/links/user-link/user-link.component';
 import { LevelLinkComponent } from './components/links/level-link/level-link.component';
+import { PhotoComponent } from './components/photo/photo.component';
 
 @NgModule({
   declarations: [
@@ -66,10 +67,11 @@ import { LevelLinkComponent } from './components/links/level-link/level-link.com
     LinkComponent,
     PageHeaderBlockComponent,
     SettingsComponent,
-    PhotosComponent,
-    PhotoComponent,
+    PhotoListingComponent,
+    PhotoPageComponent,
     UserLinkComponent,
     LevelLinkComponent,
+    PhotoComponent,
   ],
   imports: [
     BrowserModule,

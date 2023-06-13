@@ -11,8 +11,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UiDebugComponent } from './pages/ui-debug/ui-debug.component';
 import { UserComponent } from './pages/user/user.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { PhotosComponent } from './pages/photos/photos.component';
-import { PhotoComponent } from './pages/photo/photo.component';
+import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
+import { PhotoListingComponent } from "./pages/photo-listing/photo-listing.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -27,8 +27,8 @@ const routes: Routes = [
   { path: "logout", component: LogoutComponent },
   { path: "forgotPassword", component: ForgotPasswordComponent },
   { path: "settings", component: SettingsComponent },
-  { path: "photos", component: PhotosComponent },
-  { path: "photo/:id", component: PhotoComponent },
+  { path: "photos", component: PhotoListingComponent },
+  { path: "photo/:id", component: PhotoPageComponent },
   { path: "404", component: NotFoundComponent },
 ];
 

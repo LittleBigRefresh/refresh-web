@@ -6,9 +6,9 @@ import { Photo } from 'src/app/api/types/photo';
 
 @Component({
   selector: 'app-photo',
-  templateUrl: './photo.component.html'
+  templateUrl: './photo-page.component.html'
 })
-export class PhotoComponent implements OnInit {
+export class PhotoPageComponent implements OnInit {
   photo: Photo | undefined | null = null
 
   constructor(private apiClient: ApiClient, private route: ActivatedRoute) {}
@@ -28,10 +28,5 @@ export class PhotoComponent implements OnInit {
     .subscribe((data) => {
       this.photo = data;
     });
-  }
-
-  getPhotoLink(): string {
-    if(!this.photo) return "";
-    return this.apiClient.GetPhotoLink(this.photo, true)
   }
 }

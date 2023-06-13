@@ -4,9 +4,9 @@ import { Photo } from 'src/app/api/types/photo';
 
 @Component({
   selector: 'app-photos',
-  templateUrl: './photos.component.html'
+  templateUrl: './photo-listing.component.html'
 })
-export class PhotosComponent implements OnInit {
+export class PhotoListingComponent implements OnInit {
   photos: Photo[] | undefined;
 
   constructor(private apiClient: ApiClient) {}
@@ -15,9 +15,5 @@ export class PhotosComponent implements OnInit {
     this.apiClient.GetRecentPhotos().subscribe((data) => {
       this.photos = data;
     })
-  }
-
-  getPhotoLink(photo: Photo): string {
-    return this.apiClient.GetPhotoLink(photo, true)
   }
 }

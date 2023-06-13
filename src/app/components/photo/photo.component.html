@@ -1,0 +1,18 @@
+<a [routerLink]="'/photo/' + _photo.PhotoId" *ngIf="_link">
+  <img src="{{getPhotoLink()}}" class="rounded-md w-full">
+</a>
+
+<div *ngIf="!_link">
+  <img src="{{getPhotoLink()}}" class="rounded-md w-full">
+</div>
+
+<div class="pt-2.5"><span>Taken by <user-link [user]="_photo.Publisher"></user-link></span></div>
+<div class="text-sm text-gentle">
+  <span *ngIf="_photo.Subjects.length > 0">with </span>
+  <span *ngFor="let subject of _photo.Subjects; let last = last">
+        <user-link [user]="subject.User!" *ngIf="subject.User !== null"></user-link>
+        <span *ngIf="subject.User === null">{{subject.DisplayName}}</span>
+
+        <span *ngIf="!last">, </span>
+      </span>
+</div>
