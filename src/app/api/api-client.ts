@@ -178,7 +178,7 @@ export class ApiClient {
     }
 
     public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<Score[]> {
-        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=true&count=10&skip=" + skip)
+        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
     }
 
     public GetRecentPhotos(count: number = 20, skip: number = 0) {
