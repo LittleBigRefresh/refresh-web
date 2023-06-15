@@ -39,6 +39,8 @@ import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
 import { UserLinkComponent } from './components/links/user-link/user-link.component';
 import { LevelLinkComponent } from './components/links/level-link/level-link.component';
 import { PhotoComponent } from './components/photo/photo.component';
+import { NotificationListingComponent } from './pages/notification-listing/notification-listing.component';
+import { RefreshNotificationComponent } from './components/refresh-notification/refresh-notification.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { PhotoComponent } from './components/photo/photo.component';
     UserLinkComponent,
     LevelLinkComponent,
     PhotoComponent,
+    NotificationListingComponent,
+    RefreshNotificationComponent,
   ],
   imports: [
     BrowserModule,

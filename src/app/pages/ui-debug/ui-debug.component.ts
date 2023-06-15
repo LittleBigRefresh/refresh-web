@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BannerService } from 'src/app/notifications/banners/banner.service';
+import { BannerService } from 'src/app/banners/banner.service';
 
 @Component({
   selector: 'app-ui-debug',

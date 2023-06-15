@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
-import { BannerService } from "../notifications/banners/banner.service";
+import { BannerService } from "../banners/banner.service";
 import { ApiAuthenticationRequest } from "./types/auth/auth-request";
 import { ApiAuthenticationResponse } from "./types/auth/auth-response";
 import { ApiPasswordResetRequest } from "./types/auth/reset-request";
@@ -14,6 +14,7 @@ import { Statistics } from "./types/statistics";
 import { Room } from "./types/rooms/room";
 import { Score } from "./types/score";
 import { Photo } from "./types/photo";
+import { RefreshNotification } from "./types/refresh-notification";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -191,5 +192,17 @@ export class ApiClient {
 
     public GetPhotoById(id: number) {
         return this.httpClient.get<Photo>(environment.apiBaseUrl + "/photo/" + id);
+    }
+
+    public GetNotifications() {
+      return this.httpClient.get<RefreshNotification[]>(environment.apiBaseUrl + "/notifications")
+    }
+
+    public ClearNotification(notificationId: string) {
+      return this.httpClient.delete(environment.apiBaseUrl + "/notification/" + notificationId);
+    }
+
+    public ClearAllNotifications() {
+      return this.httpClient.delete(environment.apiBaseUrl + "/notifications");
     }
 }

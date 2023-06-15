@@ -1,0 +1,14 @@
+<div *ngIf="_notification" class="rounded-md bg-form-background border-2 p-2.5" style="border-color: {{_notification.ColorCode}};">
+  <span class="font-bold text-xl">
+    <fa-icon [icon]="getIcon(_notification.FontAwesomeIcon)"></fa-icon>
+    {{_notification.Title}}
+    <span-gentle>{{getMoment(_notification.CreatedAt)}}</span-gentle>
+  </span>
+
+  <!-- close button-->
+  <fa-icon class="float-right text-xl mr-2.5 hover:text-dangerous cursor-pointer" [icon]="'xmark'" (click)="raiseClearEvent()"></fa-icon>
+
+  <br>
+
+  <span>{{_notification.Text}}</span>
+</div>

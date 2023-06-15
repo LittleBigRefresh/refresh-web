@@ -7,15 +7,15 @@
 
         <nav class="text-foreground text-lg align-middle">
             <a *ngFor="let link of routerLinks" class="pr-8 text-xl font-extralight" routerLink="{{link.link}}">
-                <fa-icon [icon]="link.icon" class="pr-2.5"></fa-icon>
-                <span>{{link.title}}</span>
+                <fa-icon [icon]="link.icon"></fa-icon>
+                <span *ngIf="link.title.length > 0" class="pl-2.5">{{link.title}}</span>
             </a>
         </nav>
 
         <div class="ml-auto flex-shrink">
             <a *ngFor="let link of rightSideRouterLinks" class="pl-8 text-xl font-extralight" routerLink="{{link.link}}">
-                <fa-icon [icon]="link.icon" class="pr-2.5"></fa-icon>
-                <span>{{link.title}}</span>
+                <fa-icon [icon]="link.icon"></fa-icon>
+                <span *ngIf="link.title.length > 0" class="pl-2.5">{{link.title}}</span>
             </a>
         </div>
     </div>

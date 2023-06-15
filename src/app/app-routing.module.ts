@@ -13,6 +13,7 @@ import { UserComponent } from './pages/user/user.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
 import { PhotoListingComponent } from "./pages/photo-listing/photo-listing.component";
+import {NotificationListingComponent} from "./pages/notification-listing/notification-listing.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: "settings", component: SettingsComponent },
   { path: "photos", component: PhotoListingComponent },
   { path: "photo/:id", component: PhotoPageComponent },
+  { path: "notifications", component: NotificationListingComponent },
   { path: "404", component: NotFoundComponent },
 ];
 

@@ -1,10 +1,10 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { faCameraAlt, faCertificate, faGear, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
+import {faBell, faCameraAlt, faCertificate, faGear, faSignIn, faUser} from '@fortawesome/free-solid-svg-icons';
 import { ApiClient } from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
-import { BannerService } from './notifications/banners/banner.service';
+import { BannerService } from './banners/banner.service';
 
 const fadeLength = "50ms";
 
@@ -49,7 +49,8 @@ export class AppComponent {
     this.rightSideRouterLinks = [];
 
     if (data !== undefined) {
-      this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
+      this.rightSideRouterLinks.push(new HeaderLink("", "/notifications", faBell))
+      this.rightSideRouterLinks.push(new HeaderLink("", "/settings", faGear))
       this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/" + data.Username, faUser))
     } else {
       this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
