@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiClient} from "../../api/api-client";
 import {catchError, of} from "rxjs";
 import {RefreshNotification} from "../../api/types/refresh-notification";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-notification-listing',
@@ -10,10 +11,13 @@ import {RefreshNotification} from "../../api/types/refresh-notification";
 export class NotificationListingComponent implements OnInit {
   notifications: RefreshNotification[] | undefined | null = null;
 
-  constructor(private apiClient: ApiClient) {}
+  constructor(private apiClient: ApiClient, private router: Router) {}
 
   ngOnInit() {
-    // TODO: redirect to /login if no user exists
+    if(!this.apiClient.user) {
+      this.router.navigate(['/login'])
+      return;
+    }
 
     this.apiClient.GetNotifications()
       .pipe(catchError(() => {
