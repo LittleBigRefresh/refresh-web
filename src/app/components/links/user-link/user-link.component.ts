@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../api/types/user";
-import {environment} from "../../../../environments/environment";
+import {GetAssetImageLink} from "../../../api/api-client";
 
 @Component({
   selector: 'user-link',
@@ -14,5 +14,5 @@ export class UserLinkComponent {
     this._user = param;
   }
 
-  protected readonly environment = environment;
+  protected readonly GetAssetImageLink = GetAssetImageLink;
 }

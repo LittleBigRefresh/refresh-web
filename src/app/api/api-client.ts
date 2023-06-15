@@ -185,11 +185,6 @@ export class ApiClient {
         return this.httpClient.get<Photo[]>(environment.apiBaseUrl + "/photos" + "?count=" + count + "&skip=" + skip);
     }
 
-    public GetPhotoLink(photo: Photo, large: boolean = true): string {
-        const hash = large ? photo.LargeHash : photo.SmallHash;
-        return environment.apiBaseUrl + "/asset/" + hash + "/image";
-    }
-
     public GetPhotoById(id: number) {
         return this.httpClient.get<Photo>(environment.apiBaseUrl + "/photo/" + id);
     }
@@ -205,4 +200,13 @@ export class ApiClient {
     public ClearAllNotifications() {
       return this.httpClient.delete(environment.apiBaseUrl + "/notifications");
     }
+}
+
+export function GetPhotoLink(photo: Photo, large: boolean = true): string {
+  const hash = large ? photo.LargeHash : photo.SmallHash;
+  return environment.apiBaseUrl + "/asset/" + hash + "/image";
+}
+
+export function GetAssetImageLink(hash: string): string {
+  return environment.apiBaseUrl + "/asset/" + hash + "/image";
 }

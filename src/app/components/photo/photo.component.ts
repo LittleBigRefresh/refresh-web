@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Photo} from "../../api/types/photo";
-import {ApiClient} from "../../api/api-client";
+import {GetPhotoLink} from "../../api/api-client";
 
 @Component({
   selector: 'photo',
@@ -20,9 +20,5 @@ export class PhotoComponent {
     this._link = param;
   }
 
-  constructor(private apiClient: ApiClient) {}
-
-  getPhotoLink(): string {
-    return this.apiClient.GetPhotoLink(this._photo, true)
-  }
+  protected readonly GetPhotoLink = GetPhotoLink;
 }

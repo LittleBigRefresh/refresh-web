@@ -1,4 +1,4 @@
 <a [routerLink]="'/u/' + _user?.UserId">
-  <img src="{{environment.apiBaseUrl}}/asset/{{_user?.IconHash}}/image" class="inline mr-1.5 rounded-md h-5 w-5 object-cover">
+  <img src="{{GetAssetImageLink(_user!.IconHash)}}" class="inline mr-1.5 rounded-md h-5 w-5 object-cover">
   <span>{{_user?.Username}}</span>
 </a>

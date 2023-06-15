@@ -1,9 +1,9 @@
 <a [routerLink]="'/photo/' + _photo.PhotoId" *ngIf="_link">
-  <img src="{{getPhotoLink()}}" class="rounded-md w-full">
+  <img src="{{GetPhotoLink(_photo)}}" class="rounded-md w-full">
 </a>
 
 <div *ngIf="!_link">
-  <img src="{{getPhotoLink()}}" class="rounded-md w-full">
+  <img src="{{GetPhotoLink(_photo)}}" class="rounded-md w-full">
 </div>
 
 <div class="pt-2.5"><span>Taken by <user-link [user]="_photo.Publisher"></user-link></span></div>

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../../api/types/level";
-import {environment} from "../../../../environments/environment";
+import {GetAssetImageLink} from "../../../api/api-client";
 
 @Component({
   selector: 'level-link',
@@ -14,5 +14,5 @@ export class LevelLinkComponent {
     this._level = param;
   }
 
-  protected readonly environment = environment;
+  protected readonly GetAssetImageLink = GetAssetImageLink;
 }
