@@ -2,7 +2,7 @@
     <page-header class="text-3xl">
         {{ level?.Title ?? 'Unnamed Level' }}
         <div class="inline-block text-sm">
-            <span-gentle>by {{ level?.Publisher?.Username }}</span-gentle>
+            <span-gentle>by <user-link [user]="level!.Publisher" class="pl-1"></user-link></span-gentle>
         </div>
         <div class="text-sm">
             <span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
