@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'dayjs';
 import { catchError, of, tap } from 'rxjs';
-import { ApiClient } from 'src/app/api/api-client';
+import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
 import { Score } from 'src/app/api/types/score';
 import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.component';
@@ -114,4 +114,7 @@ export class LevelComponent implements OnInit {
       })
     );
   }
+
+  protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly undefined = undefined;
 }

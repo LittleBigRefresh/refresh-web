@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'dayjs';
 import { EMPTY, catchError, of, switchMap, tap } from 'rxjs';
-import { ApiClient } from 'src/app/api/api-client';
+import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Room } from 'src/app/api/types/rooms/room';
 import { User } from 'src/app/api/types/user';
 
@@ -103,4 +103,7 @@ export class UserComponent implements OnInit {
           })
         );
     }
+
+  protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly undefined = undefined;
 }

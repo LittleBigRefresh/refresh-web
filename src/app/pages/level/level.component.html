@@ -1,19 +1,24 @@
 <page-header-block>
-    <page-header class="text-3xl">
+  <div class="flex gap-3.5">
+    <img src="{{GetAssetImageLink(level?.IconHash)}}" class="inline rounded-full h-auto w-44 object-cover aspect-square">
+    <div>
+      <page-header class="text-3xl">
         {{ level?.Title ?? 'Unnamed Level' }}
         <div class="inline-block text-sm">
-            <span-gentle>by <user-link [user]="level!.Publisher" class="pl-1"></user-link></span-gentle>
+          <span-gentle>by <user-link [user]="level!.Publisher" class="pl-1"></user-link></span-gentle>
         </div>
         <div class="text-sm">
-            <span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
-            <span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0)}}</span-gentle>
+          <span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
+          <span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0)}}</span-gentle>
         </div>
-    </page-header>
+      </page-header>
 
-    <div class="bg-backdrop rounded-[11px] p-2.5">
+      <div class="bg-backdrop rounded-[11px] p-2.5">
         <p *ngIf="(level?.Description?.length ?? 0) > 0">{{level?.Description}}</p>
         <p *ngIf="(level?.Description?.length ?? 0) === 0">No description was provided for this level.</p>
+      </div>
     </div>
+  </div>
 </page-header-block>
 
 <div class="bg-form-background rounded-[11px] p-5 mt-5">

@@ -1,4 +1,4 @@
 <a [routerLink]="'/level/' + _level?.LevelId">
-  <img src="{{GetAssetImageLink(_level!.IconHash)}}" class="inline mr-1.5 rounded-full h-5 w-5 object-cover">
+  <img src="{{GetAssetImageLink(_level?.IconHash)}}" class="inline mr-1.5 rounded-full h-5 w-5 object-cover">
   <span>{{_level?.Title}}</span>
 </a>

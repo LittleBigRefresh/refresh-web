@@ -207,6 +207,7 @@ export function GetPhotoLink(photo: Photo, large: boolean = true): string {
   return environment.apiBaseUrl + "/asset/" + hash + "/image";
 }
 
-export function GetAssetImageLink(hash: string): string {
+export function GetAssetImageLink(hash: string | undefined): string {
+  if(hash === undefined) return "";
   return environment.apiBaseUrl + "/asset/" + hash + "/image";
 }
