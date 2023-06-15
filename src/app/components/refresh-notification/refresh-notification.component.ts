@@ -18,8 +18,6 @@ export class RefreshNotificationComponent {
     this._notification = param;
   }
 
-  constructor(private apiClient: ApiClient) {}
-
   getIcon(name: string): IconProp {
     return name as IconName;
   }

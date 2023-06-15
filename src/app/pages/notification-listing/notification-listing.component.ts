@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Photo} from "../../api/types/photo";
 import {ApiClient} from "../../api/api-client";
-import {catchError, EMPTY, of, switchMap} from "rxjs";
-import {ParamMap} from "@angular/router";
+import {catchError, of} from "rxjs";
 import {RefreshNotification} from "../../api/types/refresh-notification";
 
 @Component({
