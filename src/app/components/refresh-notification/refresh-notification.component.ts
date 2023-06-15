@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {RefreshNotification} from "../../api/types/refresh-notification";
 import {IconName, IconProp} from "@fortawesome/fontawesome-svg-core";
 import * as moment from "dayjs";
-import {ApiClient} from "../../api/api-client";
 
 @Component({
   selector: 'refresh-notification',

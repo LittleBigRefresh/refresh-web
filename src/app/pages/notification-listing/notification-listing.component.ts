@@ -14,13 +14,11 @@ export class NotificationListingComponent implements OnInit {
   constructor(private apiClient: ApiClient, private router: Router) {}
 
   ngOnInit() {
-    if(!this.apiClient.user) {
-      this.router.navigate(['/login'])
-      return;
-    }
-
     this.apiClient.GetNotifications()
       .pipe(catchError(() => {
+        if(!this.apiClient.user)
+          this.router.navigate(['/login']);
+
         return of(undefined);
       }))
       .subscribe((data) => {
@@ -42,6 +40,14 @@ export class NotificationListingComponent implements OnInit {
 
     // Tell server we cleared the notification
     this.apiClient.ClearNotification(notificationId)
+      .subscribe();
+  }
+
+  clearAllNotifications() {
+    if(this.notifications?.length === 0) return;
+    this.notifications = [];
+
+    this.apiClient.ClearAllNotifications()
       .subscribe();
   }
 }

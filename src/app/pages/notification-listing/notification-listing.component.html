@@ -1,3 +1,14 @@
 <div class="grid gap-3">
-    <refresh-notification *ngFor="let notification of notifications"[notification]="notification" (clearEvent)="clearNotification($event)"></refresh-notification>
+    <refresh-notification *ngFor="let notification of notifications" [notification]="notification" (clearEvent)="clearNotification($event)"></refresh-notification>
+</div>
+
+<div *ngIf="notifications?.length == 0">
+  <page-header class="text-2xl">No notifications</page-header>
+  <p>You're all caught up!</p>
+</div>
+
+<br>
+
+<div class="w-28 text-center">
+  <secondary-button text="Clear all" class="w-28" (click)="clearAllNotifications()"></secondary-button>
 </div>
