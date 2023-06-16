@@ -52,10 +52,7 @@
                     <span class="text-sm">
                         Achieved by
                         <b>
-                            <a class="text-indigo-400 hover:text-indigo-300"
-                                [routerLink]="'/user/' + score.Players[0].Username">
-                                {{score.Players[0].Username}}
-                            </a>
+                            <user-link [user]="score.Players[0]"></user-link>
                         </b>
                         {{getMoment(score.ScoreSubmitted)}}
                     </span>
