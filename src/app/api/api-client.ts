@@ -95,7 +95,7 @@ export class ApiClient {
       PasswordSha512: passwordSha512,
     }
 
-    this.makeRequest<ApiAuthenticationResponse>("POST", "login", body)
+    this.makeRequest<ApiAuthenticationResponse>("POST", "login", body, false)
       .pipe(catchError((err) => {
         this.bannerService.pushError('Failed to sign in', err.error?.error?.message ?? "No error was provided by the server. Check the console for more details.")
         console.error(err);
