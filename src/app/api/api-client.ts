@@ -67,7 +67,7 @@ export class ApiClient {
     onUserUpdate(user: User | undefined): void {
         console.log("Handling user change: " + user)
         if(user !== undefined) {
-            this.bannerService.pushSuccess(`Hi, ${user.Username}!`, 'You have been successfully signed in.')
+            this.bannerService.pushSuccess(`Hi, ${user.username}!`, 'You have been successfully signed in.')
             this.router.navigate(['/'])
         } else {
             this.bannerService.push({
@@ -89,7 +89,7 @@ export class ApiClient {
             PasswordSha512: passwordSha512,
         }
 
-        this.httpClient.post<ApiAuthenticationResponse>(environment.apiBaseUrl + "/auth", body)
+        this.makeRequest<ApiAuthenticationResponse>("POST", environment.apiBaseUrl + "/auth", body)
             .pipe(catchError((err) => {
                 this.bannerService.pushError('Failed to sign in', err.error?.Reason ?? "No error was provided by the server. Check the console for more details.")
                 console.error(err);
@@ -112,7 +112,7 @@ export class ApiClient {
     }
 
     private GetMyUser(callback: Function | null = null) {
-        this.httpClient.get<User>(environment.apiBaseUrl + "/users/me")
+        this.makeRequest<User>("GET", "users/me")
             .pipe(catchError((err) => {
                 console.error(err);
                 return of(undefined);
@@ -126,11 +126,11 @@ export class ApiClient {
     }
 
     public GetUserByUsername(username: string): Observable<User> {
-        return this.httpClient.get<User>(environment.apiBaseUrl + "/users/name/" + username)
+        return this.makeRequest<User>("GET", "users/name/" + username)
     }
 
     public GetUserByUuid(uuid: string): Observable<User> {
-        return this.httpClient.get<User>(environment.apiBaseUrl + "/users/uuid/" + uuid)
+        return this.makeRequest<User>("GET", "users/uuid/" + uuid)
     }
 
     public LogOut() {
@@ -140,7 +140,7 @@ export class ApiClient {
         localStorage.removeItem('game_token');
 
         this.userWatcher.emit(undefined);
-        this.httpClient.post(environment.apiBaseUrl + "/logout", {})
+        this.makeRequest("POST", "logout", {})
             .subscribe(() => {}); // Need to subscribe for request to fire
     }
 
@@ -155,7 +155,7 @@ export class ApiClient {
             ResetToken: this.resetToken,
         }
 
-        this.httpClient.post(environment.apiBaseUrl + "/resetPassword", body)
+        this.makeRequest("POST", "resetPassword", body)
             .subscribe(() => {
                 if(signIn) this.LogIn(username, passwordSha512);
                 this.bannerService.push({
@@ -176,48 +176,48 @@ export class ApiClient {
     }
 
     public GetLevelListing(route: string): Observable<Level[]> {
-        return this.httpClient.get<Level[]>(environment.apiBaseUrl + "/levels/" + route)
+        return this.makeRequest<Level[]>("GET", "levels/" + route)
     }
 
     public GetLevelById(id: number): Observable<Level> {
-        return this.httpClient.get<Level>(environment.apiBaseUrl + "/levels/id/" + id)
+        return this.makeRequest<Level>("GET", "levels/id/" + id)
     }
 
     public GetServerStatistics(): Observable<Statistics> {
-        return this.httpClient.get<Statistics>(environment.apiBaseUrl + "/statistics")
+        return this.makeRequest<Statistics>("GET", "statistics")
     }
 
     public GetUsersRoom(userUuid: string): Observable<Room> {
-        return this.httpClient.get<Room>(environment.apiBaseUrl + "/rooms/uuid/" + userUuid)
+        return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid)
     }
 
     public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<Score[]> {
-        return this.httpClient.get<Score[]>(environment.apiBaseUrl + "/scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
+        return this.makeRequest<Score[]>("GET", "scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
     }
 
     public GetRecentPhotos(count: number = 20, skip: number = 0) {
-        return this.httpClient.get<Photo[]>(environment.apiBaseUrl + "/photos" + "?count=" + count + "&skip=" + skip);
+        return this.makeRequest<Photo[]>("GET", "photos" + "?count=" + count + "&skip=" + skip);
     }
 
     public GetPhotoById(id: number) {
-        return this.httpClient.get<Photo>(environment.apiBaseUrl + "/photos/" + id);
+        return this.makeRequest<Photo>("GET", "photos/" + id);
     }
 
     public GetNotifications() {
-      return this.httpClient.get<RefreshNotification[]>(environment.apiBaseUrl + "/notifications")
+      return this.makeRequest<RefreshNotification[]>("GET", "notifications")
     }
 
     public ClearNotification(notificationId: string) {
-      return this.httpClient.delete(environment.apiBaseUrl + "/notifications/" + notificationId);
+      return this.makeRequest("DELETE", "notifications/" + notificationId);
     }
 
     public ClearAllNotifications() {
-      return this.httpClient.delete(environment.apiBaseUrl + "/notifications");
+      return this.makeRequest("DELETE", "notifications");
     }
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
-  const hash = large ? photo.LargeHash : photo.SmallHash;
+  const hash = large ? photo.largeHash : photo.smallHash;
   return environment.apiBaseUrl + "/assets/" + hash + "/image";
 }
 

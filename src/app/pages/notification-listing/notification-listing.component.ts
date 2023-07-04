@@ -30,7 +30,7 @@ export class NotificationListingComponent implements OnInit {
     if(!this.notifications) return;
 
     const notificationIndex = this.notifications
-      .findIndex(item => item.NotificationId == notificationId);
+      .findIndex(item => item.notificationId == notificationId);
 
     if(notificationIndex === -1 || notificationIndex == undefined)
       throw "Notification was somehow not found when trying to remove from list. This should never occur.";

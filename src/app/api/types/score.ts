@@ -2,13 +2,13 @@ import { Level } from "./level"
 import { User } from "./user"
 
 export interface Score {
-    ScoreId: string
-    Score: number
-    ScoreType: number
-    ScoreSubmitted: Date
+    scoreId: string
+    score: number
+    scoreType: number
+    scoreSubmitted: Date
 
-    Level: Level
-    Players: User[]
-    
-    Rank: number | undefined
+    level: Level
+    players: User[]
+
+    rank: number | undefined
 }

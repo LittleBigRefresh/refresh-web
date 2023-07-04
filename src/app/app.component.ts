@@ -51,7 +51,7 @@ export class AppComponent {
     if (data !== undefined) {
       this.rightSideRouterLinks.push(new HeaderLink("", "/notifications", faBell))
       this.rightSideRouterLinks.push(new HeaderLink("", "/settings", faGear))
-      this.rightSideRouterLinks.push(new HeaderLink(data.Username, "/user/" + data.Username, faUser))
+      this.rightSideRouterLinks.push(new HeaderLink(data.username, "/user/" + data.username, faUser))
     } else {
       this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
     }

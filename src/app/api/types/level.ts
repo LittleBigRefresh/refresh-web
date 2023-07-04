@@ -1,12 +1,12 @@
 import { User } from "./user"
 
 export interface Level {
-    LevelId: number
-    Title: string
-    Description: string
-    IconHash: string
-    PublishDate: number
-    UpdateDate: number
+    levelId: number
+    title: string
+    description: string
+    iconHash: string
+    publishDate: number
+    updateDate: number
 
-    Publisher: User
+    publisher: User
 }

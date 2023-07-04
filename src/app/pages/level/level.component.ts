@@ -58,7 +58,7 @@ export class LevelComponent implements OnInit {
         this.level = data;
         if(this.level === undefined) return;
 
-        this.getScores(this.level.LevelId).subscribe();
+        this.getScores(this.level.levelId).subscribe();
       });
     });
   }
@@ -68,14 +68,14 @@ export class LevelComponent implements OnInit {
 
     const scoreTypeInput: string = (<HTMLSelectElement>document.getElementById(this.scoreTypeId)).value;
     this.scoreType = Number(scoreTypeInput);
-    this.getScores(this.level.LevelId).subscribe()
+    this.getScores(this.level.levelId).subscribe()
   }
 
   loadMoreScores() {
     if(this.level === undefined) return;
     if(this.scores === undefined) return;
 
-    this.getScores(this.level.LevelId, false, this.scores.length + 1).subscribe();
+    this.getScores(this.level.levelId, false, this.scores.length + 1).subscribe();
   }
 
   getMoment(timestamp: number | Date): string {
@@ -103,13 +103,13 @@ export class LevelComponent implements OnInit {
         let i = 0;
         for(let score of this.scores) {
           const lastScore: Score | undefined = this.scores[i - 1];
-          if(lastScore?.Score == score.Score) {
+          if(lastScore?.score == score.score) {
             rank -= 1;
           }
 
           rank++;
           i++;
-          score.Rank = rank;
+          score.rank = rank;
         }
       })
     );

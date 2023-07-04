@@ -28,7 +28,7 @@ export class UserComponent implements OnInit {
             return EMPTY;
           }
 
-          this.router.navigate(["/user/", this.apiClient.user?.Username]);
+          this.router.navigate(["/user/", this.apiClient.user?.username]);
           return EMPTY;
         }
 
@@ -64,8 +64,8 @@ export class UserComponent implements OnInit {
             this.user = data;
             if (data === undefined) return;
 
-            window.history.replaceState({}, '', `/user/${data?.Username}`);
-            this.getUsersRoom(data.UserId).subscribe();
+            window.history.replaceState({}, '', `/user/${data?.username}`);
+            this.getUsersRoom(data.userId).subscribe();
           })
         );
     }
@@ -86,7 +86,7 @@ export class UserComponent implements OnInit {
             this.user = data;
             if (data === undefined) return;
 
-            this.getUsersRoom(data?.UserId).subscribe();
+            this.getUsersRoom(data?.userId).subscribe();
           })
         );
     }

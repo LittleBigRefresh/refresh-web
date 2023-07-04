@@ -26,6 +26,6 @@ export class RefreshNotificationComponent {
   }
 
   raiseClearEvent(): void {
-    this.clearEvent.emit(this._notification.NotificationId)
+    this.clearEvent.emit(this._notification.notificationId)
   }
 }

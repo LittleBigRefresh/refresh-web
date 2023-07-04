@@ -1,8 +1,8 @@
-<div *ngIf="_notification" class="rounded-md bg-form-background border-2 p-2.5" style="border-color: {{_notification.ColorCode}};">
+<div *ngIf="_notification" class="rounded-md bg-form-background border-2 p-2.5" style="border-color: {{_notification.colorCode}};">
   <span class="font-bold text-xl">
-    <fa-icon [icon]="getIcon(_notification.FontAwesomeIcon)"></fa-icon>
-    {{_notification.Title}}
-    <span-gentle>{{getMoment(_notification.CreatedAt)}}</span-gentle>
+    <fa-icon [icon]="getIcon(_notification.fontAwesomeIcon)"></fa-icon>
+    {{_notification.title}}
+    <span-gentle>{{getMoment(_notification.createdAt)}}</span-gentle>
   </span>
 
   <!-- close button-->
@@ -10,5 +10,5 @@
 
   <br>
 
-  <span>{{_notification.Text}}</span>
+  <span>{{_notification.text}}</span>
 </div>

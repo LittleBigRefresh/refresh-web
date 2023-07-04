@@ -1,21 +1,21 @@
 <page-header-block>
   <div class="flex gap-3.5">
-    <img src="{{GetAssetImageLink(level?.IconHash)}}" class="inline rounded-full h-auto w-44 object-cover aspect-square">
+    <img src="{{GetAssetImageLink(level?.iconHash)}}" class="inline rounded-full h-auto w-44 object-cover aspect-square">
     <div>
       <page-header class="text-3xl">
-        {{ level?.Title ?? 'Unnamed Level' }}
+        {{ level?.title ?? 'Unnamed Level' }}
         <div class="inline-block text-sm">
-          <span-gentle>by <user-link [user]="level!.Publisher" class="pl-1"></user-link></span-gentle>
+          <span-gentle>by <user-link [user]="level!.publisher" class="pl-1"></user-link></span-gentle>
         </div>
         <div class="text-sm">
-          <span-gentle>Published {{ getMoment(level?.PublishDate ?? 0) }}</span-gentle>
-          <span-gentle *ngIf="level?.PublishDate != level?.UpdateDate">, updated {{ getMoment(level?.UpdateDate ?? 0)}}</span-gentle>
+          <span-gentle>Published {{ getMoment(level?.publishDate ?? 0) }}</span-gentle>
+          <span-gentle *ngIf="level?.publishDate != level?.updateDate">, updated {{ getMoment(level?.updateDate ?? 0)}}</span-gentle>
         </div>
       </page-header>
 
       <div class="bg-backdrop rounded-[11px] p-2.5">
-        <p *ngIf="(level?.Description?.length ?? 0) > 0">{{level?.Description}}</p>
-        <p *ngIf="(level?.Description?.length ?? 0) === 0">No description was provided for this level.</p>
+        <p *ngIf="(level?.description?.length ?? 0) > 0">{{level?.description}}</p>
+        <p *ngIf="(level?.description?.length ?? 0) === 0">No description was provided for this level.</p>
       </div>
     </div>
   </div>
@@ -36,25 +36,25 @@
     </div>
     <div *ngFor="let score of scores">
         <div class="my-5 px-2.5">
-            <a [routerLink]="'/score/' + score.ScoreId" class="flex items-center">
+            <a [routerLink]="'/score/' + score.scoreId" class="flex items-center">
                 <div class="text-2xl">
-                    <span *ngIf="score.Rank == 1" class="text-rank-gold pr-2">#{{score.Rank}}</span>
-                    <span *ngIf="score.Rank == 2" class="text-rank-silver pr-2">#{{score.Rank}}</span>
-                    <span *ngIf="score.Rank == 3" class="text-rank-bronze pr-2">#{{score.Rank}}</span>
+                    <span *ngIf="score.rank == 1" class="text-rank-gold pr-2">#{{score.rank}}</span>
+                    <span *ngIf="score.rank == 2" class="text-rank-silver pr-2">#{{score.rank}}</span>
+                    <span *ngIf="score.rank == 3" class="text-rank-bronze pr-2">#{{score.rank}}</span>
 
-                    <span *ngIf="score.Rank !== undefined && score.Rank > 3"
-                        class="text-rank-other pr-2">#{{score.Rank}}</span>
+                    <span *ngIf="score.rank !== undefined && score.rank > 3"
+                        class="text-rank-other pr-2">#{{score.rank}}</span>
                 </div>
 
                 <div class="flex flex-col">
-                    <span class="text-lg">{{score.Score.toLocaleString(undefined)}} points</span>
+                    <span class="text-lg">{{score.score.toLocaleString(undefined)}} points</span>
 
                     <span class="text-sm">
                         Achieved by
                         <b>
-                            <user-link [user]="score.Players[0]"></user-link>
+                            <user-link [user]="score.players[0]"></user-link>
                         </b>
-                        {{getMoment(score.ScoreSubmitted)}}
+                        {{getMoment(score.scoreSubmitted)}}
                     </span>
                 </div>
             </a>

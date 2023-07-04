@@ -1,6 +1,6 @@
 export interface Statistics {
-    TotalLevels: number
-    TotalUsers: number
-    CurrentRoomCount: number
-    CurrentIngamePlayersCount: number
+    totalLevels: number
+    totalUsers: number
+    currentRoomCount: number
+    currentIngamePlayersCount: number
 }

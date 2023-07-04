@@ -3,15 +3,15 @@
 <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
     <div *ngFor="let l of levels" class="bg-form-background p-2.5 rounded-md">
         <div class="text-2xl text-foreground hover:text-indigo-300">
-            <a [routerLink]="'/level/' + l.LevelId" *ngIf="l.Title.length > 0">{{ l.Title }}</a>
-            <a [routerLink]="'/level/' + l.LevelId" *ngIf="l.Title.length == 0">Unnamed Level</a>
+            <a [routerLink]="'/level/' + l.levelId" *ngIf="l.title.length > 0">{{ l.title }}</a>
+            <a [routerLink]="'/level/' + l.levelId" *ngIf="l.title.length == 0">Unnamed Level</a>
         </div>
 
       <p-gentle>
-        Published {{ getMoment(l.PublishDate) }} by
-        <user-link [user]="l.Publisher" class="pl-1"></user-link>
+        Published {{ getMoment(l.publishDate) }} by
+        <user-link [user]="l.publisher" class="pl-1"></user-link>
       </p-gentle>
 
-        <p class="mt-2" *ngIf="l.Description.length > 0">{{ l.Description }}</p>
+        <p class="mt-2" *ngIf="l.description.length > 0">{{ l.description }}</p>
     </div>
 </div>

@@ -1,10 +1,10 @@
 <page-header-block>
   <div class="flex gap-3.5">
-    <img src="{{GetAssetImageLink(user?.IconHash)}}" class="inline rounded-md h-auto w-44 object-cover aspect-square">
+    <img src="{{GetAssetImageLink(user?.iconHash)}}" class="inline rounded-md h-auto w-44 object-cover aspect-square">
     <div>
       <page-header class="text-3xl inline">
-        {{ user?.Username }}'s profile
-        <span-gentle>{{ getMoment(user?.JoinDate ?? 0) }}</span-gentle>
+        {{ user?.username }}'s profile
+        <span-gentle>{{ getMoment(user?.joinDate ?? 0) }}</span-gentle>
       </page-header>
 
       <div [ngSwitch]="room">
@@ -18,8 +18,8 @@
 
       <br>
 
-      <p *ngIf="(user?.Description?.length ?? 0) > 0">{{user?.Description}}</p>
-      <p *ngIf="(user?.Description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
+      <p *ngIf="(user?.description?.length ?? 0) > 0">{{user?.description}}</p>
+      <p *ngIf="(user?.description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
     </div>
   </div>
 </page-header-block><br>

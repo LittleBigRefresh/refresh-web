@@ -1,7 +1,7 @@
 import {User} from "./user";
 
 export interface PhotoSubject {
-  User: User | null;
-  DisplayName: string;
-  Bounds: number[];
+  user: User | null;
+  displayName: string;
+  bounds: number[];
 }

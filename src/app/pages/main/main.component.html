@@ -2,9 +2,9 @@
     <page-header class="text-4xl">Welcome to Refresh!</page-header>
 
     <div *ngIf="apiClient.user !== undefined">
-        <p>Welcome back, <b>{{apiClient.user!.Username}}</b>.</p>
+        <p>Welcome back, <b>{{apiClient.user!.username}}</b>.</p>
         <!-- <p>There have been <b>12</b> levels uploaded since you last visited.</p> -->
     </div>
 
-    <p>There are currently <b>{{statistics?.CurrentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.CurrentRoomCount ?? 0}} rooms.</b></p>
+    <p>There are currently <b>{{statistics?.currentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.currentRoomCount ?? 0}} rooms.</b></p>
 </div>

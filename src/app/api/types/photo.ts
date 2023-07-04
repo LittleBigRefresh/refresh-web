@@ -2,15 +2,15 @@ import { User } from "./user";
 import {PhotoSubject} from "./photo-subject";
 
 export interface Photo {
-    PhotoId: number;
+    photoId: number;
 
-    TakenAt: Date;
-    PublishedAt: Date;
+    takenAt: Date;
+    publishedAt: Date;
 
-    Publisher: User;
+    publisher: User;
 
-    SmallHash: string;
-    LargeHash: string;
+    smallHash: string;
+    largeHash: string;
 
-    Subjects: PhotoSubject[];
+    subjects: PhotoSubject[];
 }

@@ -1,7 +1,7 @@
 export interface User {
-    UserId: string
-    Username: string
-    IconHash: string
-    Description: string
-    JoinDate: number
+    userId: string
+    username: string
+    iconHash: string
+    description: string
+    joinDate: number
 }
