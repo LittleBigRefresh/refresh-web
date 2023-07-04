@@ -15,6 +15,11 @@
       <pre>{{route.method}}</pre>
     </div>
     <pre>{{route.routeUri}}</pre>
+
+    <div *ngIf="route.authenticationRequired" class="text-sm bg-warning rounded-[11px] px-2.5 py-1 flex">
+      <fa-icon [icon]="'key'" class="pr-1"></fa-icon>
+      <p>Authentication required</p>
+    </div>
   </div>
 
   <p>{{route.summary}}</p>
