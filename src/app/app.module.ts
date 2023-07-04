@@ -41,6 +41,7 @@ import { LevelLinkComponent } from './components/links/level-link/level-link.com
 import { PhotoComponent } from './components/photo/photo.component';
 import { NotificationListingComponent } from './pages/notification-listing/notification-listing.component';
 import { RefreshNotificationComponent } from './components/refresh-notification/refresh-notification.component';
+import { DocumentationComponent } from './pages/documentation/documentation.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { RefreshNotificationComponent } from './components/refresh-notification/
     PhotoComponent,
     NotificationListingComponent,
     RefreshNotificationComponent,
+    DocumentationComponent,
   ],
   imports: [
     BrowserModule,

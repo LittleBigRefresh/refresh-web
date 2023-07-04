@@ -1,6 +1,5 @@
 import {HttpClient} from "@angular/common/http";
 import {EventEmitter, Injectable} from "@angular/core";
-import {Router} from "@angular/router";
 import {catchError, Observable, of, switchMap} from "rxjs";
 import {environment} from "src/environments/environment";
 import {BannerService} from "../banners/banner.service";
@@ -17,6 +16,8 @@ import {Photo} from "./types/photo";
 import {RefreshNotification} from "./types/refresh-notification";
 import {ApiResponse} from "./types/response/api-response";
 import {ApiError} from "./types/response/api-error";
+import {Route} from "./types/documentation/route";
+import {Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -222,6 +223,10 @@ export class ApiClient {
 
   public ClearAllNotifications() {
     return this.makeRequest("DELETE", "notifications");
+  }
+
+  public GetDocumentation() {
+    return this.makeRequest<Route[]>("GET", "documentation");
   }
 }
 
