@@ -20,6 +20,7 @@
   <p>{{route.summary}}</p>
   <p class="text-xl font-bold py-2">Parameters</p>
 
+  <p *ngIf="route.parameters.length === 0">This API route takes no parameters.</p>
   <div *ngFor="let parameter of route.parameters">
     <div class="flex text-xl align-middle gap-2.5 text-center items-center mb-1.5">
       <div class="bg-backdrop rounded-[11px] px-2.5 py-1 flex">
@@ -32,6 +33,8 @@
   </div>
 
   <p class="text-xl font-bold py-2">Potential Errors</p>
+
+  <p *ngIf="route.potentialErrors.length === 0">This API route returns no errors.</p>
   <div *ngFor="let error of route.potentialErrors">
     <div class="flex text-xl align-middle gap-2.5 text-center items-center mb-1.5">
       <div class="bg-dangerous rounded-[11px] px-2.5 py-1 flex">
