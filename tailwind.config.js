@@ -32,6 +32,10 @@ module.exports = {
       "rank-silver": "#F2F2F2",
       "rank-bronze": "#FF8845",
       "rank-other": "#ABABAB",
+
+      "api-retrieve": "#52BC24",
+      "api-remove": "#E52E2E",
+      "api-push": "#2D43E5"
     },
     backgroundImage: {
       "hero": "url('/assets/hero.svg')",
