@@ -3,9 +3,9 @@
 <div class="grid grid-cols-3 gap-3">
     <div *ngFor="let c of categories" class="bg-form-background p-2.5 rounded-md">
         <div class="text-xl text-indigo-400 hover:text-indigo-300">
-            <fa-icon class="pr-2" [icon]="getIcon(c.FontAwesomeIcon)"></fa-icon>
-            <a routerLink="/levels/{{c.ApiRoute}}">{{c.Name}}</a>
+            <fa-icon class="pr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
+            <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}</a>
         </div>
-        <p class="text-gentle italic">{{c.Description}}</p>
+        <p class="text-gentle italic">{{c.description}}</p>
     </div>
 </div>

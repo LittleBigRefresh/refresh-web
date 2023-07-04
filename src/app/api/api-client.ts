@@ -1,20 +1,21 @@
-import { HttpClient } from "@angular/common/http";
-import { EventEmitter, Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { catchError, Observable, of } from "rxjs";
-import { environment } from "src/environments/environment";
-import { BannerService } from "../banners/banner.service";
-import { ApiAuthenticationRequest } from "./types/auth/auth-request";
-import { ApiAuthenticationResponse } from "./types/auth/auth-response";
-import { ApiPasswordResetRequest } from "./types/auth/reset-request";
-import { Category } from "./types/category";
-import { Level } from "./types/level";
-import { User } from "./types/user";
-import { Statistics } from "./types/statistics";
-import { Room } from "./types/rooms/room";
-import { Score } from "./types/score";
-import { Photo } from "./types/photo";
-import { RefreshNotification } from "./types/refresh-notification";
+import {HttpClient} from "@angular/common/http";
+import {EventEmitter, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {catchError, Observable, of, switchMap} from "rxjs";
+import {environment} from "src/environments/environment";
+import {BannerService} from "../banners/banner.service";
+import {ApiAuthenticationRequest} from "./types/auth/auth-request";
+import {ApiAuthenticationResponse} from "./types/auth/auth-response";
+import {ApiPasswordResetRequest} from "./types/auth/reset-request";
+import {Category} from "./types/category";
+import {Level} from "./types/level";
+import {User} from "./types/user";
+import {Statistics} from "./types/statistics";
+import {Room} from "./types/rooms/room";
+import {Score} from "./types/score";
+import {Photo} from "./types/photo";
+import {RefreshNotification} from "./types/refresh-notification";
+import {ApiResponse} from "./types/response/api-response";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -35,15 +36,35 @@ export class ApiClient {
         if(storedToken) {
             this.GetMyUser(() => {
                 // only subscribe after getting user
-                this.userWatcher.subscribe((user) => this.userUpdateBanner(user));
+                this.userWatcher.subscribe((user) => this.onUserUpdate(user));
             });
         } else {
             this.userWatcher.emit(undefined);
-            this.userWatcher.subscribe((user) => this.userUpdateBanner(user));
+            this.userWatcher.subscribe((user) => this.onUserUpdate(user));
         }
     }
 
-    userUpdateBanner(user: User | undefined): void {
+    private makeRequest<T>(method: string, endpoint: string, body: any = null, catchErrors: boolean = true): Observable<T> {
+      let result: Observable<ApiResponse<T> | (T | undefined)> = this.httpClient.request<ApiResponse<T>>(method, environment.apiBaseUrl + '/' + endpoint, {
+        body: body
+      });
+
+      // @ts-ignore
+      result = result.pipe(switchMap((data: ApiResponse<T>) => {
+        if(!data.success) {
+          this.bannerService.pushError(`API Error: ${data.error?.name} (${data.error?.statusCode})`, data.error?.message ?? "Unknown error")
+          return of(undefined);
+        }
+
+        const resp: T = data.data!;
+        return of(resp);
+      }));
+
+      // @ts-ignore
+      return result;
+    }
+
+    onUserUpdate(user: User | undefined): void {
         console.log("Handling user change: " + user)
         if(user !== undefined) {
             this.bannerService.pushSuccess(`Hi, ${user.Username}!`, 'You have been successfully signed in.')
@@ -91,7 +112,7 @@ export class ApiClient {
     }
 
     private GetMyUser(callback: Function | null = null) {
-        this.httpClient.get<User>(environment.apiBaseUrl + "/user/me")
+        this.httpClient.get<User>(environment.apiBaseUrl + "/users/me")
             .pipe(catchError((err) => {
                 console.error(err);
                 return of(undefined);
@@ -105,11 +126,11 @@ export class ApiClient {
     }
 
     public GetUserByUsername(username: string): Observable<User> {
-        return this.httpClient.get<User>(environment.apiBaseUrl + "/user/name/" + username)
+        return this.httpClient.get<User>(environment.apiBaseUrl + "/users/name/" + username)
     }
 
     public GetUserByUuid(uuid: string): Observable<User> {
-        return this.httpClient.get<User>(environment.apiBaseUrl + "/user/uuid/" + uuid)
+        return this.httpClient.get<User>(environment.apiBaseUrl + "/users/uuid/" + uuid)
     }
 
     public LogOut() {
@@ -119,7 +140,7 @@ export class ApiClient {
         localStorage.removeItem('game_token');
 
         this.userWatcher.emit(undefined);
-        this.httpClient.post(environment.apiBaseUrl + "/goodbye", {})
+        this.httpClient.post(environment.apiBaseUrl + "/logout", {})
             .subscribe(() => {}); // Need to subscribe for request to fire
     }
 
@@ -151,14 +172,7 @@ export class ApiClient {
             return new Observable<Category[]>(observer => { observer.next(this.categories!) });
         }
 
-        return this.httpClient.get<Category[]>(environment.apiBaseUrl + "/levels")
-            .pipe(observer => {
-                observer.subscribe(data => {
-                    this.categories = data;
-                });
-
-                return observer;
-            })
+        return this.makeRequest<Category[]>("GET", "levels");
     }
 
     public GetLevelListing(route: string): Observable<Level[]> {
@@ -166,7 +180,7 @@ export class ApiClient {
     }
 
     public GetLevelById(id: number): Observable<Level> {
-        return this.httpClient.get<Level>(environment.apiBaseUrl + "/level/id/" + id)
+        return this.httpClient.get<Level>(environment.apiBaseUrl + "/levels/id/" + id)
     }
 
     public GetServerStatistics(): Observable<Statistics> {
@@ -174,7 +188,7 @@ export class ApiClient {
     }
 
     public GetUsersRoom(userUuid: string): Observable<Room> {
-        return this.httpClient.get<Room>(environment.apiBaseUrl + "/room/uuid/" + userUuid)
+        return this.httpClient.get<Room>(environment.apiBaseUrl + "/rooms/uuid/" + userUuid)
     }
 
     public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<Score[]> {
@@ -186,7 +200,7 @@ export class ApiClient {
     }
 
     public GetPhotoById(id: number) {
-        return this.httpClient.get<Photo>(environment.apiBaseUrl + "/photo/" + id);
+        return this.httpClient.get<Photo>(environment.apiBaseUrl + "/photos/" + id);
     }
 
     public GetNotifications() {
@@ -194,7 +208,7 @@ export class ApiClient {
     }
 
     public ClearNotification(notificationId: string) {
-      return this.httpClient.delete(environment.apiBaseUrl + "/notification/" + notificationId);
+      return this.httpClient.delete(environment.apiBaseUrl + "/notifications/" + notificationId);
     }
 
     public ClearAllNotifications() {
@@ -204,10 +218,10 @@ export class ApiClient {
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
   const hash = large ? photo.LargeHash : photo.SmallHash;
-  return environment.apiBaseUrl + "/asset/" + hash + "/image";
+  return environment.apiBaseUrl + "/assets/" + hash + "/image";
 }
 
 export function GetAssetImageLink(hash: string | undefined): string {
   if(hash === undefined) return "";
-  return environment.apiBaseUrl + "/asset/" + hash + "/image";
+  return environment.apiBaseUrl + "/assets/" + hash + "/image";
 }

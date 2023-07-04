@@ -14,17 +14,19 @@ export class LevelCategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.apiClient.GetLevelCategories()
       .subscribe(data => {
+        if(data == undefined) return;
         this.categories = []
 
+        console.log(JSON.stringify(data))
         for(let c of data) {
           // if the endpoint requires a user, but we're not signed in, skip it
           // if either of those conditions aren't met add it to the list
 
-          if(c.RequiresUser) {
+          if(c.requiresUser) {
             if(this.apiClient.user !== undefined)
               this.categories.push(c);
           }
-          else if(c.ApiRoute == "search") {
+          else if(c.apiRoute == "search") {
             // do nothing
           } else {
             this.categories.push(c);

@@ -1,8 +1,8 @@
 export interface Category {
-    ApiRoute: string
-    RequiresUser: boolean
-    Name: string
-    Description: string
-    IconHash: string
-    FontAwesomeIcon: string
+    apiRoute: string
+    requiresUser: boolean
+    name: string
+    description: string
+    iconHash: string
+    fontAwesomeIcon: string
 }
