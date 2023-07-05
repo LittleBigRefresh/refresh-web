@@ -7,6 +7,9 @@ import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
 import { Score } from 'src/app/api/types/score';
 import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.component';
+import {ActivityPage} from "../../api/types/activity/activity-page";
+import {ActivityEvent} from "../../api/types/activity/activity-event";
+import {User} from "../../api/types/user";
 
 @Component({
   selector: 'app-level',
@@ -15,6 +18,7 @@ import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.c
 export class LevelComponent implements OnInit {
   level: Level | undefined
   scores: Score[] | undefined
+  activity: ActivityPage | undefined
   scoreType: number = 1;
 
   scoreTypeId: string = "level-leaderboard-scoretype"
@@ -59,6 +63,7 @@ export class LevelComponent implements OnInit {
         if(this.level === undefined) return;
 
         this.getScores(this.level.levelId).subscribe();
+        this.getActivity(this.level.levelId);
       });
     });
   }
@@ -113,6 +118,21 @@ export class LevelComponent implements OnInit {
         }
       })
     );
+  }
+
+  getActivity(levelId: number, skip: number = 0) {
+    this.apiClient.GetActivityForLevel(levelId, 10, skip).subscribe((data) => {
+      this.activity = data;
+    })
+  }
+
+  getUserFromEvent(event: ActivityEvent): User {
+    if(this.activity === undefined) return undefined!;
+    for(let user of this.activity?.users) {
+      if(user.userId === event.userId) return user;
+    }
+
+    return undefined!;
   }
 
   protected readonly GetAssetImageLink = GetAssetImageLink;

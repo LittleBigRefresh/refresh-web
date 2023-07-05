@@ -19,6 +19,7 @@ import {ApiError} from "./types/response/api-error";
 import {Route} from "./types/documentation/route";
 import {Router} from "@angular/router";
 import {UserUpdateRequest} from "./types/user-update-request";
+import {ActivityPage} from "./types/activity/activity-page";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -234,6 +235,10 @@ export class ApiClient {
         this.user = data;
         // this.userWatcher.emit(data); // TODO: don't trigger login detection
       });
+  }
+
+  public GetActivityForLevel(levelId: number, count: number, skip: number): Observable<ActivityPage> {
+    return this.makeRequest<ActivityPage>("GET", "levels/id/" + levelId + "/activity?skip=" + skip + "&count=" + count);
   }
 }
 

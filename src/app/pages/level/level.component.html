@@ -6,11 +6,14 @@
       <page-header class="text-3xl">
         {{ level?.title ?? 'Unnamed Level' }}
         <div class="inline-block text-sm font-normal">
-          <span-gentle>by <user-link [user]="level!.publisher" class="pl-1"></user-link></span-gentle>
+          <span-gentle>by
+            <user-link [user]="level!.publisher" class="pl-1"></user-link>
+          </span-gentle>
         </div>
         <div class="text-sm font-normal">
           <span-gentle>Published {{ getMoment(level?.publishDate ?? 0) }}</span-gentle>
-          <span-gentle *ngIf="level?.publishDate != level?.updateDate">, updated {{ getMoment(level?.updateDate ?? 0)}}</span-gentle>
+          <span-gentle *ngIf="level?.publishDate != level?.updateDate">,
+            updated {{ getMoment(level?.updateDate ?? 0)}}</span-gentle>
         </div>
       </page-header>
 
@@ -22,47 +25,68 @@
   </div>
 </page-header-block>
 
-<div class="bg-form-background rounded-[11px] p-5 mt-5">
+<div class="flex flex-row gap-2.5">
+  <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
     <page-header class="text-3xl">Leaderboard</page-header>
-    <div class="pt-2.5">
-        <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId"
-            (change)="this.formChanged()"></form-dropdown>
-    </div>
+    <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId"
+                   (change)="this.formChanged()"></form-dropdown>
     <divider></divider>
     <div *ngIf="scores === undefined">
-        <p>Loading scores...</p>
+      <p>Loading scores...</p>
     </div>
     <div *ngIf="scores !== undefined && scores!.length === 0">
-        <p>Nobody's played this level in this mode yet. Go for the top score!</p>
+      <p>Nobody's played this level in this mode yet. Go for the top score!</p>
     </div>
     <div *ngFor="let score of scores">
-        <div class="my-5 px-2.5">
-            <a [routerLink]="'/score/' + score.scoreId" class="flex items-center">
-                <div class="text-2xl">
-                    <span *ngIf="score.rank == 1" class="text-rank-gold pr-2">#{{score.rank}}</span>
-                    <span *ngIf="score.rank == 2" class="text-rank-silver pr-2">#{{score.rank}}</span>
-                    <span *ngIf="score.rank == 3" class="text-rank-bronze pr-2">#{{score.rank}}</span>
+      <div class="my-5 px-2.5">
+        <a [routerLink]="'/score/' + score.scoreId" class="flex items-center">
+          <div class="text-2xl">
+            <span *ngIf="score.rank == 1" class="text-rank-gold pr-2">#{{score.rank}}</span>
+            <span *ngIf="score.rank == 2" class="text-rank-silver pr-2">#{{score.rank}}</span>
+            <span *ngIf="score.rank == 3" class="text-rank-bronze pr-2">#{{score.rank}}</span>
 
-                    <span *ngIf="score.rank !== undefined && score.rank > 3"
-                        class="text-rank-other pr-2">#{{score.rank}}</span>
-                </div>
+            <span *ngIf="score.rank !== undefined && score.rank > 3"
+                  class="text-rank-other pr-2">#{{score.rank}}</span>
+          </div>
 
-                <div class="flex flex-col">
-                    <span class="text-lg">{{score.score.toLocaleString(undefined)}} points</span>
+          <div class="flex flex-col">
+            <span class="text-lg">{{score.score.toLocaleString(undefined)}} points</span>
 
-                    <span class="text-sm">
+            <span class="text-sm">
                         Achieved by
                         <b>
                             <user-link [user]="score.players[0]"></user-link>
                         </b>
-                        {{getMoment(score.scoreSubmitted)}}
+              {{getMoment(score.scoreSubmitted)}}
                     </span>
-                </div>
-            </a>
-        </div>
+          </div>
+        </a>
+      </div>
     </div>
 
     <div *ngIf="this.scores !== undefined && this.scores!.length % 10 == 0 && this.scores!.length !== 0">
-        <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
+      <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
     </div>
+  </div>
+  <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full" *ngIf="activity">
+    <page-header class="text-3xl">Activity</page-header>
+    <divider></divider>
+    <div *ngFor="let event of activity.events">
+      <div *ngIf="getUserFromEvent(event) as user" class="flex pb-2.5 gap-2">
+        <div>
+          <img src="{{GetAssetImageLink(user.iconHash)}}" class="inline-block rounded-md h-11 w-auto object-cover aspect-square"
+               onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
+        </div>
+        <div>
+          <a href="/u/{{user.userId}}" class="font-medium pr-1">{{user.username}}</a>
+          <div [ngSwitch]="event.eventType" class="inline">
+            <span *ngSwitchCase="0">published this level</span>
+            <span *ngSwitchCase="5">played this level</span>
+            <span *ngSwitchDefault>Unhandled case: {{event.eventType}}</span>
+          </div>
+          <p-gentle>{{getMoment(event.occurredAt)}}</p-gentle>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
