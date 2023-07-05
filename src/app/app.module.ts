@@ -43,6 +43,7 @@ import { NotificationListingComponent } from './pages/notification-listing/notif
 import { RefreshNotificationComponent } from './components/refresh-notification/refresh-notification.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { LevelPreviewComponent } from './components/level-preview/level-preview.component';
+import {NgxMasonryModule} from "ngx-masonry";
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { LevelPreviewComponent } from './components/level-preview/level-preview.
     FontAwesomeModule,
     BrowserAnimationsModule,
     TransferHttpCacheModule,
+    NgxMasonryModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },

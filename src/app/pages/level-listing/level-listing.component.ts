@@ -6,6 +6,7 @@ import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import {NgxMasonryOptions} from "ngx-masonry";
 
 @Component({
   selector: 'app-level-listing',
@@ -14,6 +15,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LevelListingComponent implements OnInit {
   levels: Level[] = []
   routeName!: string
+
+  masonryOptions: NgxMasonryOptions = {
+    // gutter: ,
+    resize: true,
+    // initLayout: true,
+  };
+
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
