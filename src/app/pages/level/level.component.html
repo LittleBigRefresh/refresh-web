@@ -4,10 +4,10 @@
     <div>
       <page-header class="text-3xl">
         {{ level?.title ?? 'Unnamed Level' }}
-        <div class="inline-block text-sm">
+        <div class="inline-block text-sm font-normal">
           <span-gentle>by <user-link [user]="level!.publisher" class="pl-1"></user-link></span-gentle>
         </div>
-        <div class="text-sm">
+        <div class="text-sm font-normal">
           <span-gentle>Published {{ getMoment(level?.publishDate ?? 0) }}</span-gentle>
           <span-gentle *ngIf="level?.publishDate != level?.updateDate">, updated {{ getMoment(level?.updateDate ?? 0)}}</span-gentle>
         </div>
