@@ -7,3 +7,8 @@
       font-family: "Rubik", system-ui, sans-serif;
     }
   }
+
+.masonry-grid-item {
+  width: calc(33.333% - 10px);
+  margin: 5px;
+}

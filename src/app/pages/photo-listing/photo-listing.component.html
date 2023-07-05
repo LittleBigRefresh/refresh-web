@@ -1,5 +1,5 @@
-<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
-  <div *ngFor="let photo of photos" class="rounded-md bg-form-background m-1 p-2.5">
+<ngx-masonry [options]="masonryOptions" [ordered]="true">
+  <div ngxMasonryItem *ngFor="let photo of photos" class="rounded-md bg-form-background m-1 p-2.5 masonry-grid-item">
     <photo [photo]="photo"></photo>
   </div>
-</div>
+</ngx-masonry>

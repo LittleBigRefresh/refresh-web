@@ -1,7 +1,7 @@
 <page-header class="text-3xl">Categories</page-header>
 
-<div class="grid grid-cols-3 gap-3">
-  <div *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px]">
+<ngx-masonry [options]="masonryOptions" [ordered]="true">
+  <div ngxMasonryItem *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">
     <div class="text-xl font-medium">
       <fa-icon class="pr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
       <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}</a>
@@ -12,4 +12,4 @@
       <level-preview [level]="c.previewLevel"></level-preview>
     </div>
   </div>
-</div>
+</ngx-masonry>

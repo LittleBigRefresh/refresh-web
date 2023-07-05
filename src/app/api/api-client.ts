@@ -126,7 +126,6 @@ export class ApiClient {
         return of(undefined);
       }))
       .subscribe((data) => {
-        console.log("Got user data");
         this.user = data;
         this.userWatcher.emit(this.user);
         if (callback) callback();

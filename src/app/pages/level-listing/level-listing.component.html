@@ -1,7 +1,7 @@
 <page-header class="text-3xl capitalize" title="/api/v3/levels/{{routeName}}">{{routeName}} Levels</page-header>
 
 <ngx-masonry [options]="masonryOptions" [ordered]="true">
-  <div ngxMasonryItem *ngFor="let l of levels" class="bg-form-background p-2.5 rounded-[11px]" style="width: calc(33.333% - 10px); margin: 5px;">
+  <div ngxMasonryItem *ngFor="let l of levels" class="bg-form-background p-2.5 rounded-[11px] masonry-grid-item">
     <level-preview [level]="l" [description]="true"></level-preview>
   </div>
 </ngx-masonry>

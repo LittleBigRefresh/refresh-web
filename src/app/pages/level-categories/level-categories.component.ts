@@ -3,6 +3,7 @@ import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
 import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
 import * as moment from "dayjs";
+import {NgxMasonryOptions} from "ngx-masonry";
 
 @Component({
   selector: 'app-level-categories',
@@ -12,13 +13,18 @@ export class LevelCategoriesComponent implements OnInit {
   categories: Category[] = []
   constructor(private apiClient: ApiClient) { }
 
+  masonryOptions: NgxMasonryOptions = {
+    resize: true,
+    animations: {},
+    horizontalOrder: true,
+  };
+
   ngOnInit(): void {
     this.apiClient.GetLevelCategories()
       .subscribe(data => {
         if(data == undefined) return;
         this.categories = []
 
-        console.log(JSON.stringify(data))
         for(let c of data) {
           // if the endpoint requires a user, but we're not signed in, skip it
           // if either of those conditions aren't met add it to the list

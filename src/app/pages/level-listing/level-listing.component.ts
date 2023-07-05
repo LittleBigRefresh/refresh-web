@@ -18,7 +18,8 @@ export class LevelListingComponent implements OnInit {
 
   masonryOptions: NgxMasonryOptions = {
     resize: true,
-    animations: {}
+    animations: {},
+    horizontalOrder: true,
   };
 
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }

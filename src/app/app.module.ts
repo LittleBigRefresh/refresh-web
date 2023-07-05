@@ -80,7 +80,7 @@ import {NgxMasonryModule} from "ngx-masonry";
     NotificationListingComponent,
     RefreshNotificationComponent,
     DocumentationComponent,
-    LevelPreviewComponent,
+    LevelPreviewComponent
   ],
   imports: [
     BrowserModule,
