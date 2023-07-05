@@ -1,31 +1,44 @@
 <div class="bg-header-background border-b-backdrop border-b-2 h-[59px] flex items-center flex-col">
-    <div class="container items-center flex h-[59px]">
-        <div class="flex mr-2.5">
-            <a class="bg-logo bg-cover cursor-pointer w-12 h-12" routerLink="/" title="Home"></a>
-            <div class="mx-3 w-[3px] rounded-sm bg-divider"></div>
-        </div>
-
-        <nav class="text-foreground text-lg align-middle">
-            <a *ngFor="let link of routerLinks" class="pr-8 text-xl font-extralight" routerLink="{{link.link}}">
-                <fa-icon [icon]="link.icon"></fa-icon>
-                <span *ngIf="link.title.length > 0" class="pl-2.5">{{link.title}}</span>
-            </a>
-        </nav>
-
-        <div class="ml-auto flex-shrink">
-            <a *ngFor="let link of rightSideRouterLinks" class="pl-8 text-xl font-extralight" routerLink="{{link.link}}">
-                <fa-icon [icon]="link.icon"></fa-icon>
-                <span *ngIf="link.title.length > 0" class="pl-2.5">{{link.title}}</span>
-            </a>
-        </div>
+  <div class="container items-center flex h-[59px]">
+    <div class="flex mr-2.5">
+      <a class="bg-logo bg-cover cursor-pointer w-12 h-12" routerLink="/" title="Home"></a>
+      <div class="mx-3 w-[3px] rounded-sm bg-divider"></div>
     </div>
+
+    <nav class="text-foreground text-xl leading-none font-extralight">
+      <a *ngFor="let link of routerLinks" class="pr-8 inline-block" routerLink="{{link.link}}">
+        <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
+        <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block">{{link.title}}</span>
+      </a>
+    </nav>
+
+    <div class="ml-auto flex-shrink text-xl leading-none font-extralight">
+      <a *ngFor="let link of rightSideRouterLinks" class="pl-8 inline-block" routerLink="{{link.link}}">
+        <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
+        <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block">{{link.title}}</span>
+      </a>
+    </div>
+
+    <a routerLink="/user/me" class="flex-shrink" *ngIf="user">
+      <img src="{{GetAssetImageLink(user.iconHash)}}" title="{{user.username}}" class="ml-8 inline-block rounded-md h-11 w-auto object-cover aspect-square">
+    </a>
+
+    <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user">
+      <fa-icon [icon]="faSignIn" class="inline-block"></fa-icon>
+    </button>
+
+    <div class="absolute top-0 right-0 h-0 mr-5 mt-16" #login [hidden]="true">
+      <app-login></app-login>
+    </div>
+  </div>
 </div>
 
 <app-banner *ngFor="let n of bannerService.banners"
-    [title]="n.Title" [text]="n.Text" [color]="n.Color" [icon]="n.Icon"
-    [id]="bannerService.banners.indexOf(n)"
+            [title]="n.Title" [text]="n.Text" [color]="n.Color" [icon]="n.Icon"
+            [id]="bannerService.banners.indexOf(n)"
 />
 
-<div class="container mx-auto bg-backdrop p-5 grid min-h-full h-full" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
-    <router-outlet #o="outlet"></router-outlet>
+<div class="container mx-auto bg-backdrop p-5 grid min-h-full h-full"
+     [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
 </div>

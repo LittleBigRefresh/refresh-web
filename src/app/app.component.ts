@@ -1,7 +1,7 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {faBell, faCameraAlt, faCertificate, faGear, faSignIn, faUser} from '@fortawesome/free-solid-svg-icons';
-import { ApiClient } from './api/api-client';
+import {ApiClient, GetAssetImageLink} from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';
@@ -29,7 +29,10 @@ const fadeLength = "50ms";
   ],
 })
 export class AppComponent {
-  title = 'Refresh Website';
+  title: string = 'Refresh Website';
+  user: User | undefined = undefined;
+
+  @ViewChild("login") login!: ElementRef;
 
   routerLinks: HeaderLink[] = [
     new HeaderLink("Levels", "/levels", faCertificate),
@@ -46,14 +49,21 @@ export class AppComponent {
   }
 
   handleUserUpdate(data: User | undefined) {
+    this.user = data;
     this.rightSideRouterLinks = [];
 
     if (data !== undefined) {
+      this.login.nativeElement.hidden = true;
+
       this.rightSideRouterLinks.push(new HeaderLink("", "/notifications", faBell))
       this.rightSideRouterLinks.push(new HeaderLink("", "/settings", faGear))
-      this.rightSideRouterLinks.push(new HeaderLink(data.username, "/user/" + data.username, faUser))
-    } else {
-      this.rightSideRouterLinks.push(new HeaderLink("Sign in", "/login", faSignIn))
     }
   }
+
+  toggleLogin(): void {
+    this.login.nativeElement.hidden = !this.login.nativeElement.hidden;
+  }
+
+  protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly faSignIn = faSignIn;
 }
