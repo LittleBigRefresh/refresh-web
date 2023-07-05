@@ -8,7 +8,7 @@
     <div *ngIf="route.method == 'GET'" class="bg-api-retrieve rounded-[11px] px-2.5 py-1 flex">
       <pre>{{route.method}}</pre>
     </div>
-    <div *ngIf="route.method == 'POST' || route.method == 'PUT'" class="bg-api-push rounded-[11px] px-2.5 py-1 flex">
+    <div *ngIf="route.method == 'POST' || route.method == 'PUT' || route.method == 'PATCH'" class="bg-api-push rounded-[11px] px-2.5 py-1 flex">
       <pre>{{route.method}}</pre>
     </div>
     <div *ngIf="route.method == 'DELETE'" class="bg-api-remove rounded-[11px] px-2.5 py-1 flex">
