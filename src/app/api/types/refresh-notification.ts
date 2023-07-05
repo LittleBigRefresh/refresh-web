@@ -7,5 +7,4 @@ export interface RefreshNotification {
   createdAt: Date
 
   fontAwesomeIcon: string
-  colorCode: string
 }

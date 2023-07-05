@@ -24,6 +24,8 @@ module.exports = {
       "secondary": "#87748A",
       "teritary": "#100915",
 
+      "secondary-bright": "#E2CFE5",
+
       "success": "#52BC24",
       "dangerous": "#E52E2E",
       "warning": "#E5B300",
