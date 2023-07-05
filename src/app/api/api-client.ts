@@ -181,7 +181,7 @@ export class ApiClient {
       });
     }
 
-    return this.makeRequest<Category[]>("GET", "levels");
+    return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
   }
 
   public GetLevelListing(route: string): Observable<Level[]> {

@@ -1,11 +1,25 @@
-<page-header class="text-3xl">Levels</page-header>
+<page-header class="text-3xl">Categories</page-header>
 
 <div class="grid grid-cols-3 gap-3">
-    <div *ngFor="let c of categories" class="bg-form-background p-2.5 rounded-md">
-        <div class="text-xl text-indigo-400 hover:text-indigo-300">
-            <fa-icon class="pr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
-            <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}</a>
-        </div>
-        <p class="text-gentle italic">{{c.description}}</p>
+  <div *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px]">
+    <div class="text-xl font-medium">
+      <fa-icon class="pr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
+      <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}</a>
     </div>
+    <p>{{c.description}}</p>
+    <div *ngIf="c.previewLevel">
+      <divider></divider>
+      <div class="flex items-center gap-x-2">
+        <div>
+          <img src="{{GetAssetImageLink(c.previewLevel.iconHash)}}" class="rounded-full h-20 w-auto object-cover aspect-square" alt="{{c.previewLevel.title}}">
+        </div>
+        <div>
+          <a [routerLink]="'/level/' + c.previewLevel.levelId" class="text-xl font-medium" *ngIf="c.previewLevel.title.length > 0">{{c.previewLevel.title}}</a>
+          <a [routerLink]="'/level/' + c.previewLevel.levelId" class="text-xl font-medium" *ngIf="c.previewLevel.title.length <= 0">Unnamed Level</a>
+          <p-gentle>by <user-link [user]="c.previewLevel.publisher" class="pl-0.5"></user-link></p-gentle>
+          <p-gentle>Published {{getMoment(c.previewLevel.publishDate)}}</p-gentle>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

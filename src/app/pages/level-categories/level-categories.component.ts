@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
-import { ApiClient } from 'src/app/api/api-client';
+import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
+import * as moment from "dayjs";
 
 @Component({
   selector: 'app-level-categories',
@@ -38,4 +39,11 @@ export class LevelCategoriesComponent implements OnInit {
   getIcon(name: string): IconProp {
     return name as IconName;
   }
+
+  getMoment(timestamp: number): string {
+    return moment(timestamp).fromNow();
+  }
+
+  protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly undefined = undefined;
 }
