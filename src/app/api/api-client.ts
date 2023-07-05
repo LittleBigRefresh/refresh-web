@@ -144,12 +144,10 @@ export class ApiClient {
     this._userId = undefined;
     this.user = undefined;
 
-    localStorage.removeItem('game_token');
-
     this.userWatcher.emit(undefined);
-    this.makeRequest("POST", "logout", {})
-      .subscribe(() => {
-      }); // Need to subscribe for request to fire
+    this.makeRequest("PUT", "logout", {}).subscribe();
+
+    localStorage.removeItem('game_token');
   }
 
   public ResetPassword(username: string, passwordSha512: string, signIn: boolean = false): void {
@@ -163,7 +161,7 @@ export class ApiClient {
       resetToken: this.resetToken,
     }
 
-    this.makeRequest("POST", "resetPassword", body)
+    this.makeRequest("PUT", "resetPassword", body)
       .subscribe(() => {
         if (signIn) this.LogIn(username, passwordSha512);
         this.bannerService.push({
