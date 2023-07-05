@@ -1,14 +1,13 @@
-<div *ngIf="_notification" class="rounded-md bg-form-background border-2 p-2.5">
-  <span class="font-bold text-xl">
-    <fa-icon [icon]="getIcon(_notification.fontAwesomeIcon)"></fa-icon>
+<div *ngIf="_notification" class="rounded-[11px] bg-secondary px-5 py-2.5">
+  <span class="font-medium text-lg">
+    <fa-icon [icon]="getIcon(_notification.fontAwesomeIcon)" class="mr-1"></fa-icon>
     {{_notification.title}}
-    <span-gentle>{{getMoment(_notification.createdAt)}}</span-gentle>
   </span>
 
+  <span-gentle>{{getMoment(_notification.createdAt)}}</span-gentle>
+
   <!-- close button-->
-  <fa-icon class="float-right text-xl mr-2.5 hover:text-secondary-bright cursor-pointer" [icon]="'xmark'" (click)="raiseClearEvent()"></fa-icon>
-
+  <fa-icon class="float-right text-xl mr-2.5 text-secondary-bright cursor-pointer" [icon]="'xmark'" (click)="raiseClearEvent()"></fa-icon>
   <br>
-
   <span>{{_notification.text}}</span>
 </div>

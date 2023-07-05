@@ -1,3 +1,10 @@
+<div class="flex mb-5">
+  <div class="font-medium text-3xl w-full">{{notifications?.length}} notifications</div>
+  <div class="w-28 text-center">
+    <secondary-button text="Clear All" (click)="clearAllNotifications()"></secondary-button>
+  </div>
+</div>
+
 <div class="grid gap-3">
     <refresh-notification *ngFor="let notification of notifications" [notification]="notification" (clearEvent)="clearNotification($event)"></refresh-notification>
 </div>
@@ -5,10 +12,4 @@
 <div *ngIf="notifications?.length == 0">
   <page-header class="text-3xl">No notifications</page-header>
   <p>You're all caught up!</p>
-</div>
-
-<br>
-
-<div class="w-28 text-center">
-  <secondary-button text="Clear all" class="w-28" (click)="clearAllNotifications()"></secondary-button>
 </div>
