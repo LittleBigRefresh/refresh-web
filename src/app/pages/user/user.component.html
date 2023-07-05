@@ -1,6 +1,7 @@
 <page-header-block>
   <div class="flex gap-3.5">
-    <img src="{{GetAssetImageLink(user?.iconHash)}}" class="inline rounded-md h-auto w-44 object-cover aspect-square">
+    <img src="{{GetAssetImageLink(user?.iconHash)}}" class="inline rounded-md h-auto w-44 object-cover aspect-square"
+         onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
     <div>
       <page-header class="text-3xl inline">
         {{ user?.username }}'s profile
