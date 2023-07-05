@@ -1,4 +1,4 @@
-<div class="flex mb-5">
+<div class="flex mb-5" *ngIf="notifications?.length ?? 0 > 0">
   <div class="font-medium text-3xl w-full">{{notifications?.length}} notifications</div>
   <div class="w-28 text-center">
     <secondary-button text="Clear All" (click)="clearAllNotifications()"></secondary-button>
