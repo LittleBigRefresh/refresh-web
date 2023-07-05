@@ -1,4 +1,4 @@
 export interface ApiAuthenticationRequest {
-    Username: string
-    PasswordSha512: string
+    username: string
+    passwordSha512: string
 }

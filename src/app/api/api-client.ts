@@ -92,8 +92,8 @@ export class ApiClient {
     if (this._userId !== undefined) throw Error("Cannot sign in when already signed in as someone."); // should never happen hopefully
 
     const body: ApiAuthenticationRequest = {
-      Username: username,
-      PasswordSha512: passwordSha512,
+      username: username,
+      passwordSha512: passwordSha512,
     }
 
     this.makeRequest<ApiAuthenticationResponse>("POST", "login", body, false)
@@ -110,8 +110,8 @@ export class ApiClient {
       .subscribe((authResponse) => {
         if (authResponse === undefined) return;
 
-        this._userId = authResponse.UserId;
-        localStorage.setItem('game_token', authResponse.TokenData);
+        this._userId = authResponse.userId;
+        localStorage.setItem('game_token', authResponse.tokenData);
         this.GetMyUser();
       });
 
@@ -159,8 +159,8 @@ export class ApiClient {
     }
 
     const body: ApiPasswordResetRequest = {
-      PasswordSha512: passwordSha512,
-      ResetToken: this.resetToken,
+      passwordSha512: passwordSha512,
+      resetToken: this.resetToken,
     }
 
     this.makeRequest("POST", "resetPassword", body)

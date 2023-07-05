@@ -1,5 +1,5 @@
 export interface ApiAuthenticationResponse {
-    TokenData: string
-    UserId: string
-    ExpiresAt: Date
+    tokenData: string
+    userId: string
+    expiresAt: Date
 }
