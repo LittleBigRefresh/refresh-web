@@ -40,10 +40,6 @@ export class LevelCategoriesComponent implements OnInit {
     return name as IconName;
   }
 
-  getMoment(timestamp: number): string {
-    return moment(timestamp).fromNow();
-  }
-
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly undefined = undefined;
 }

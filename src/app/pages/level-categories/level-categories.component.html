@@ -9,17 +9,7 @@
     <p>{{c.description}}</p>
     <div *ngIf="c.previewLevel">
       <divider></divider>
-      <div class="flex items-center gap-x-2">
-        <div>
-          <img src="{{GetAssetImageLink(c.previewLevel.iconHash)}}" class="rounded-full h-20 w-auto object-cover aspect-square" alt="{{c.previewLevel.title}}">
-        </div>
-        <div>
-          <a [routerLink]="'/level/' + c.previewLevel.levelId" class="text-xl font-medium" *ngIf="c.previewLevel.title.length > 0">{{c.previewLevel.title}}</a>
-          <a [routerLink]="'/level/' + c.previewLevel.levelId" class="text-xl font-medium" *ngIf="c.previewLevel.title.length <= 0">Unnamed Level</a>
-          <p-gentle>by <user-link [user]="c.previewLevel.publisher" class="pl-0.5"></user-link></p-gentle>
-          <p-gentle>Published {{getMoment(c.previewLevel.publishDate)}}</p-gentle>
-        </div>
-      </div>
+      <level-preview [level]="c.previewLevel"></level-preview>
     </div>
   </div>
 </div>

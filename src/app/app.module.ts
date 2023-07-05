@@ -42,6 +42,7 @@ import { PhotoComponent } from './components/photo/photo.component';
 import { NotificationListingComponent } from './pages/notification-listing/notification-listing.component';
 import { RefreshNotificationComponent } from './components/refresh-notification/refresh-notification.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
+import { LevelPreviewComponent } from './components/level-preview/level-preview.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { DocumentationComponent } from './pages/documentation/documentation.comp
     NotificationListingComponent,
     RefreshNotificationComponent,
     DocumentationComponent,
+    LevelPreviewComponent,
   ],
   imports: [
     BrowserModule,
