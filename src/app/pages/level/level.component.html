@@ -81,6 +81,7 @@
           <a href="/u/{{user.userId}}" class="font-medium pr-1">{{user.username}}</a>
           <div [ngSwitch]="event.eventType" class="inline">
             <span *ngSwitchCase="0">published this level</span>
+            <span *ngSwitchCase="1">gave this level a heart</span>
             <span *ngSwitchCase="5">played this level</span>
             <span *ngSwitchDefault>Unhandled case: {{event.eventType}}</span>
           </div>
