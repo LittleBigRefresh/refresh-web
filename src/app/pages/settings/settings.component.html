@@ -1,5 +1,15 @@
-<page-header class="text-3xl">Settings</page-header>
+<page-header class="text-3xl">Profile Settings</page-header>
 
-<div class="w-28 text-center">
-    <secondary-button text="Log out" routerLink="/logout"></secondary-button>
+<form-input [icon]="faPencil" [name]="'Biography'" [id]="descriptionId"></form-input>
+
+<div class="w-44 text-center inline-block pr-2.5">
+  <primary-button text="Save changes" (click)="saveChanges()"></primary-button>
+</div>
+
+<div class="w-28 text-center inline-block pr-2.5">
+  <secondary-button text="Cancel" onclick="window.history.back()"></secondary-button>
+</div>
+
+<div class="w-28 text-center inline-block pr-2.5">
+  <dangerous-button text="Log out" routerLink="/logout"></dangerous-button>
 </div>
