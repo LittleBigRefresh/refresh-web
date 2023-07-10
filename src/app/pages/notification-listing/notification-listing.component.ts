@@ -22,7 +22,7 @@ export class NotificationListingComponent implements OnInit {
         return of(undefined);
       }))
       .subscribe((data) => {
-        this.notifications = data;
+        this.notifications = data?.items;
       });
   }
 

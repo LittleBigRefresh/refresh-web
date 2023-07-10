@@ -20,6 +20,7 @@ import {Route} from "./types/documentation/route";
 import {Router} from "@angular/router";
 import {UserUpdateRequest} from "./types/user-update-request";
 import {ActivityPage} from "./types/activity/activity-page";
+import {ApiListResponse} from "./types/response/api-list-response";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -48,6 +49,16 @@ export class ApiClient {
     }
   }
 
+  private handleRequestError<T>(data: ApiResponse<T>, catchErrors: boolean) {
+    if (catchErrors) {
+      this.bannerService.pushError(`API Error: ${data.error?.name} (${data.error?.statusCode})`, data.error?.message ?? "Unknown error")
+      return of(undefined);
+    }
+
+    const respError: ApiError = data.error!;
+    return of(respError);
+  }
+
   private makeRequest<T>(method: string, endpoint: string, body: any = null, catchErrors: boolean = true): Observable<T> {
     let result: Observable<ApiResponse<T> | (T | undefined)> = this.httpClient.request<ApiResponse<T>>(method, environment.apiBaseUrl + '/' + endpoint, {
       body: body
@@ -56,16 +67,30 @@ export class ApiClient {
     // @ts-ignore
     result = result.pipe(switchMap((data: ApiResponse<T>) => {
       if (!data.success) {
-        if (catchErrors) {
-          this.bannerService.pushError(`API Error: ${data.error?.name} (${data.error?.statusCode})`, data.error?.message ?? "Unknown error")
-          return of(undefined);
-        }
-
-        const respError: ApiError = data.error!;
-        return of(respError);
+        return this.handleRequestError(data, catchErrors);
       }
 
-      const resp: T = data.data!;
+      return of(data.data!);
+    }));
+
+    // @ts-ignore
+    return result;
+  }
+
+  private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
+    let result: Observable<ApiResponse<T[]> | (T[] | undefined)> = this.httpClient.request<ApiResponse<T[]>>(method, environment.apiBaseUrl + '/' + endpoint);
+
+    // @ts-ignore
+    result = result.pipe(switchMap((data: ApiResponse<T[]>) => {
+      if (!data.success) {
+        return this.handleRequestError(data, catchErrors);
+      }
+
+      const resp: ApiListResponse<T> = {
+        items: data.data!,
+        listInfo: data.listInfo!,
+      };
+
       return of(resp);
     }));
 
@@ -184,8 +209,8 @@ export class ApiClient {
     return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
   }
 
-  public GetLevelListing(route: string): Observable<Level[]> {
-    return this.makeRequest<Level[]>("GET", "levels/" + route)
+  public GetLevelListing(route: string): Observable<ApiListResponse<Level>> {
+    return this.makeListRequest<Level>("GET", "levels/" + route)
   }
 
   public GetLevelById(id: number): Observable<Level> {
@@ -200,20 +225,20 @@ export class ApiClient {
     return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid)
   }
 
-  public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<Score[]> {
-    return this.makeRequest<Score[]>("GET", "scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
+  public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<ApiListResponse<Score>> {
+    return this.makeListRequest<Score>("GET", "scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
   }
 
   public GetRecentPhotos(count: number = 20, skip: number = 0) {
-    return this.makeRequest<Photo[]>("GET", "photos" + "?count=" + count + "&skip=" + skip);
+    return this.makeListRequest<Photo>("GET", "photos" + "?count=" + count + "&skip=" + skip);
   }
 
   public GetPhotoById(id: number) {
     return this.makeRequest<Photo>("GET", "photos/" + id);
   }
 
-  public GetNotifications() {
-    return this.makeRequest<RefreshNotification[]>("GET", "notifications")
+  public GetNotifications(): Observable<ApiListResponse<RefreshNotification>> {
+    return this.makeListRequest<RefreshNotification>("GET", "notifications")
   }
 
   public ClearNotification(notificationId: string) {
@@ -225,7 +250,7 @@ export class ApiClient {
   }
 
   public GetDocumentation() {
-    return this.makeRequest<Route[]>("GET", "documentation");
+    return this.makeListRequest<Route>("GET", "documentation");
   }
 
   public UpdateUser(data: UserUpdateRequest): void {

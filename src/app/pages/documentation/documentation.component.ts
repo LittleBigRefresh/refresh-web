@@ -13,7 +13,7 @@ export class DocumentationComponent implements OnInit {
 
   ngOnInit() {
     this.apiClient.GetDocumentation().subscribe((data) => {
-      this.routes = data;
+      this.routes = data.items;
     })
   }
 }

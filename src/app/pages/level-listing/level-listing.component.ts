@@ -7,6 +7,7 @@ import { Level } from 'src/app/api/types/level';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {NgxMasonryOptions} from "ngx-masonry";
+import {ApiListResponse} from "../../api/types/response/api-list-response";
 
 @Component({
   selector: 'app-level-listing',
@@ -26,7 +27,7 @@ export class LevelListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      const apiRoute = params.get('route');
+      const apiRoute: string | null = params.get('route');
       if(apiRoute == null) return;
 
       this.routeName = apiRoute;
@@ -36,13 +37,13 @@ export class LevelListingComponent implements OnInit {
           console.warn(error)
           if(error.status === 404) {
             this.router.navigate(["/404"]);
-            return of([])
+            return of();
           }
 
           return caught;
         }));
 
-        pipe.subscribe(data => this.levels = data)
+        pipe.subscribe(data => this.levels = data.items)
     })
   }
 

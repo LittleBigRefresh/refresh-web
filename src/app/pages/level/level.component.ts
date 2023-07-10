@@ -98,9 +98,9 @@ export class LevelComponent implements OnInit {
         if(data === undefined) return;
 
         if(clear || this.scores == undefined) {
-          this.scores = data;
+          this.scores = data.items;
         } else {
-          this.scores = this.scores.concat(data);
+          this.scores = this.scores.concat(data.items);
         }
 
 

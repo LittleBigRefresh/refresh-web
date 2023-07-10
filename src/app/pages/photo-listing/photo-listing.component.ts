@@ -20,7 +20,7 @@ export class PhotoListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiClient.GetRecentPhotos().subscribe((data) => {
-      this.photos = data;
+      this.photos = data.items;
     })
   }
 }
