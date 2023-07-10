@@ -1,14 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import * as moment from 'dayjs';
 import { catchError } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Level } from 'src/app/api/types/level';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import {NgxMasonryOptions} from "ngx-masonry";
-import {ApiListResponse} from "../../api/types/response/api-list-response";
-import {animate, style} from "@angular/animations";
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 
 @Component({

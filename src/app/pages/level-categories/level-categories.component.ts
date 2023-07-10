@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
 import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
-import * as moment from "dayjs";
-import {NgxMasonryOptions} from "ngx-masonry";
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 
 @Component({
