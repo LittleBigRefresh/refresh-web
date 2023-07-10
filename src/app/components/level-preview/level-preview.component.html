@@ -1,8 +1,7 @@
 <div *ngIf="_level">
   <div class="flex items-center gap-x-2">
     <div>
-      <img src="{{GetAssetImageLink(_level.iconHash)}}" class="rounded-full h-20 w-auto object-cover aspect-square" alt="{{_level.title}}"
-           onerror="this.onerror=null;this.src='/assets/missingLevel.svg';">
+      <level-avatar [level]="_level" size="h-20 w-auto"></level-avatar>
     </div>
     <div>
       <a [routerLink]="'/level/' + _level.levelId" class="text-xl font-medium" *ngIf="_level.title.length > 0">{{_level.title}}</a>

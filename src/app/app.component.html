@@ -20,8 +20,7 @@
     </div>
 
     <a routerLink="/user/me" class="flex-shrink" *ngIf="user">
-      <img src="{{GetAssetImageLink(user.iconHash)}}" title="{{user.username}}" class="ml-8 inline-block rounded-md h-11 w-auto object-cover aspect-square"
-           onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
+      <user-avatar [user]="user!" size="h-11 w-auto" class="ml-8"></user-avatar>
     </a>
 
     <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user">

@@ -1,5 +1,4 @@
-<a [routerLink]="'/level/' + _level?.levelId">
-  <img src="{{GetAssetImageLink(_level?.iconHash)}}" class="inline mr-1.5 rounded-full h-5 w-5 object-cover"
-       onerror="this.onerror=null;this.src='/assets/missingLevel.svg';">
-  <span>{{_level?.title}}</span>
+<a [routerLink]="'/level/' + _level?.levelId" *ngIf="_level">
+  <level-avatar [level]="_level" size="h-5 w-5"></level-avatar>
+  <span>{{_level.title}}</span>
 </a>

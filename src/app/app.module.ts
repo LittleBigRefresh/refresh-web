@@ -44,6 +44,9 @@ import { RefreshNotificationComponent } from './components/refresh-notification/
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { LevelPreviewComponent } from './components/level-preview/level-preview.component';
 import {NgxMasonryModule} from "ngx-masonry";
+import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
+import { LevelAvatarComponent } from './components/level-avatar/level-avatar.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -80,7 +83,9 @@ import {NgxMasonryModule} from "ngx-masonry";
     NotificationListingComponent,
     RefreshNotificationComponent,
     DocumentationComponent,
-    LevelPreviewComponent
+    LevelPreviewComponent,
+    UserAvatarComponent,
+    LevelAvatarComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +95,7 @@ import {NgxMasonryModule} from "ngx-masonry";
     BrowserAnimationsModule,
     TransferHttpCacheModule,
     NgxMasonryModule,
+    NgOptimizedImage,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },

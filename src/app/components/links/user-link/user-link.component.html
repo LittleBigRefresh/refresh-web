@@ -1,5 +1,4 @@
-<a [routerLink]="'/u/' + _user?.userId">
-  <img src="{{GetAssetImageLink(_user!.iconHash)}}" class="inline mr-1.5 rounded-md h-5 w-5 object-cover"
-       onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
+<a [routerLink]="'/u/' + _user.userId" *ngIf="_user">
+  <user-avatar [user]="_user" size="h-5 w-5" class="mr-1.5"></user-avatar>
   <span>{{_user?.username}}</span>
 </a>

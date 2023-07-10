@@ -1,7 +1,6 @@
 <page-header-block>
   <div class="flex gap-3.5">
-    <img src="{{GetAssetImageLink(level?.iconHash)}}" class="inline rounded-full h-auto w-44 object-cover aspect-square"
-         onerror="this.onerror=null;this.src='/assets/missingLevel.svg';">
+    <level-avatar [level]="level!" size="h-auto w-44"></level-avatar>
     <div>
       <page-header class="text-3xl">
         {{ level?.title ?? 'Unnamed Level' }}
@@ -74,8 +73,7 @@
     <div *ngFor="let event of activity.events">
       <div *ngIf="getUserFromEvent(event) as user" class="flex pb-2.5 gap-2">
         <div>
-          <img src="{{GetAssetImageLink(user.iconHash)}}" class="inline-block rounded-md h-11 w-auto object-cover aspect-square"
-               onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
+          <user-avatar [user]="user" size="h-11 w-auto"></user-avatar>
         </div>
         <div>
           <a href="/u/{{user.userId}}" class="font-medium pr-1">{{user.username}}</a>
