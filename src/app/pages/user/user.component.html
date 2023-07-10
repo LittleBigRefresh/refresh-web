@@ -1,4 +1,4 @@
-<page-header-block>
+<page-header-block *ngIf="user">
   <div class="flex gap-3.5">
     <user-avatar [user]="user!" size="h-auto w-44"></user-avatar>
     <div>
@@ -22,4 +22,20 @@
       <p *ngIf="(user?.description?.length ?? 0) === 0">This person hasn't introduced themselves yet.</p>
     </div>
   </div>
-</page-header-block><br>
+</page-header-block>
+
+<page-header-block *ngIf="!user">
+  <div class="flex gap-3.5 animate-pulse">
+    <div class="inline h-44 w-44 bg-secondary rounded-md"></div>
+    <div>
+      <div class="inline-block h-8 w-80 bg-secondary rounded-full"></div>
+      <br>
+      <div class="inline-block h-4 w-48 bg-secondary rounded-full"></div>
+      <br><br>
+
+      <div class="inline-block h-6 w-96 bg-secondary rounded-full"></div>
+    </div>
+  </div>
+</page-header-block>
+
+<br>
