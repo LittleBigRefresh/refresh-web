@@ -11,7 +11,8 @@ import {masonryOptions} from "../../app.component";
   templateUrl: './level-categories.component.html',
 })
 export class LevelCategoriesComponent implements OnInit {
-  categories: Category[] = []
+  categories: Category[] | undefined = undefined!
+
   constructor(private apiClient: ApiClient) { }
   ngOnInit(): void {
     this.apiClient.GetLevelCategories()

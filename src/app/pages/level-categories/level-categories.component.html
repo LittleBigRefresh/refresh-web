@@ -1,6 +1,6 @@
 <page-header class="text-3xl">Categories</page-header>
 
-<ngx-masonry [options]="masonryOptions" [ordered]="true">
+<ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="categories">
   <div ngxMasonryItem *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">
     <div class="text-xl font-medium">
       <fa-icon class="pr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
@@ -10,6 +10,18 @@
     <div *ngIf="c.previewLevel">
       <divider></divider>
       <level-preview [level]="c.previewLevel"></level-preview>
+    </div>
+  </div>
+</ngx-masonry>
+
+<ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="!categories">
+  <div ngxMasonryItem *ngFor="let i of [0,1,2]" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">
+    <div class="animate-pulse">
+      <div class="text-xl font-medium">
+        <div class="inline-block bg-secondary w-5 h-5 rounded-md mr-2"></div>
+        <div class="inline-block h-5 w-36 bg-secondary rounded-full"></div>
+      </div>
+      <div class="inline-block h-4 w-56 bg-secondary rounded-full"></div>
     </div>
   </div>
 </ngx-masonry>
