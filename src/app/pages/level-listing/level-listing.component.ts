@@ -8,6 +8,8 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {NgxMasonryOptions} from "ngx-masonry";
 import {ApiListResponse} from "../../api/types/response/api-list-response";
+import {animate, style} from "@angular/animations";
+import {masonryOptions} from "../../app.component";
 
 @Component({
   selector: 'app-level-listing',
@@ -16,12 +18,6 @@ import {ApiListResponse} from "../../api/types/response/api-list-response";
 export class LevelListingComponent implements OnInit {
   levels: Level[] = []
   routeName!: string
-
-  masonryOptions: NgxMasonryOptions = {
-    resize: true,
-    animations: {},
-    horizontalOrder: true,
-  };
 
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
 
@@ -50,4 +46,6 @@ export class LevelListingComponent implements OnInit {
   getMoment(timestamp: number): string {
     return moment(timestamp).fromNow();
   }
+
+  protected readonly masonryOptions = masonryOptions;
 }

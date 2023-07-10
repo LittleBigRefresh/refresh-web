@@ -4,6 +4,7 @@ import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
 import * as moment from "dayjs";
 import {NgxMasonryOptions} from "ngx-masonry";
+import {masonryOptions} from "../../app.component";
 
 @Component({
   selector: 'app-level-categories',
@@ -12,13 +13,6 @@ import {NgxMasonryOptions} from "ngx-masonry";
 export class LevelCategoriesComponent implements OnInit {
   categories: Category[] = []
   constructor(private apiClient: ApiClient) { }
-
-  masonryOptions: NgxMasonryOptions = {
-    resize: true,
-    animations: {},
-    horizontalOrder: true,
-  };
-
   ngOnInit(): void {
     this.apiClient.GetLevelCategories()
       .subscribe(data => {
@@ -48,4 +42,5 @@ export class LevelCategoriesComponent implements OnInit {
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly undefined = undefined;
+  protected readonly masonryOptions = masonryOptions;
 }

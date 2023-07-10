@@ -5,8 +5,20 @@ import {ApiClient, GetAssetImageLink} from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';
+import {NgxMasonryOptions} from "ngx-masonry";
 
-const fadeLength = "50ms";
+const fadeLength: string = "50ms";
+
+export const masonryOptions: NgxMasonryOptions = {
+  resize: true,
+  animations: {
+    show: [
+      style({ opacity: 0 }),
+      animate(fadeLength, style({ opacity: 1 }))
+    ]
+  },
+  horizontalOrder: true,
+};
 
 @Component({
   selector: 'app-root',

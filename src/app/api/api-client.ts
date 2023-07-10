@@ -268,10 +268,7 @@ export class ApiClient {
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
-  const hash = large ? photo.largeHash : photo.smallHash;
-
-  if (hash === undefined || hash === null || hash === "0" || hash.startsWith('g')) return "";
-  return environment.apiBaseUrl + "/assets/" + hash + "/image";
+  return GetAssetImageLink(large ? photo.largeHash : photo.smallHash);
 }
 
 export function GetAssetImageLink(hash: string | undefined): string {

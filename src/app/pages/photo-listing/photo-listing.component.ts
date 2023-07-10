@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
 import { Photo } from 'src/app/api/types/photo';
 import {NgxMasonryOptions} from "ngx-masonry";
+import {masonryOptions} from "../../app.component";
 
 @Component({
   selector: 'app-photos',
@@ -10,12 +11,6 @@ import {NgxMasonryOptions} from "ngx-masonry";
 export class PhotoListingComponent implements OnInit {
   photos: Photo[] | undefined;
 
-  masonryOptions: NgxMasonryOptions = {
-    resize: true,
-    animations: {},
-    horizontalOrder: true,
-  };
-
   constructor(private apiClient: ApiClient) {}
 
   ngOnInit(): void {
@@ -23,4 +18,6 @@ export class PhotoListingComponent implements OnInit {
       this.photos = data.items;
     })
   }
+
+  protected readonly masonryOptions = masonryOptions;
 }
