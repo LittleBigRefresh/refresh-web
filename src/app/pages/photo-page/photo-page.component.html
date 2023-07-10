@@ -7,10 +7,6 @@
     <text-link onclick="window.history.back()">Take me back!</text-link>
 </div>
 
-<div *ngIf="photo === null">
-    Loading...
-</div>
-
-<div *ngIf="photo">
-  <photo [photo]="photo" [link]="false"></photo>
+<div *ngIf="photo !== undefined">
+  <photo [photo]="photo ?? undefined" [link]="false"></photo>
 </div>

@@ -7,11 +7,11 @@ import {GetPhotoLink} from "../../api/api-client";
   templateUrl: './photo.component.html'
 })
 export class PhotoComponent {
-  _photo: Photo = null!;
+  _photo: Photo | undefined = undefined;
   _link: boolean = true;
 
   @Input()
-  set photo(param: Photo) {
+  set photo(param: Photo | undefined) {
     this._photo = param;
   }
 
@@ -21,4 +21,5 @@ export class PhotoComponent {
   }
 
   protected readonly GetPhotoLink = GetPhotoLink;
+  protected readonly undefined = undefined;
 }
