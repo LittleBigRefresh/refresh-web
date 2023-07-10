@@ -20,6 +20,10 @@ export const masonryOptions: NgxMasonryOptions = {
   horizontalOrder: true,
 };
 
+export function GenerateEmptyList(i: number): any[] {
+  return new Array(i);
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -9,14 +9,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {NgxMasonryOptions} from "ngx-masonry";
 import {ApiListResponse} from "../../api/types/response/api-list-response";
 import {animate, style} from "@angular/animations";
-import {masonryOptions} from "../../app.component";
+import {GenerateEmptyList, masonryOptions} from "../../app.component";
 
 @Component({
   selector: 'app-level-listing',
   templateUrl: './level-listing.component.html',
 })
 export class LevelListingComponent implements OnInit {
-  levels: Level[] = []
+  levels: Level[] | undefined = undefined;
   routeName!: string
 
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
@@ -43,9 +43,6 @@ export class LevelListingComponent implements OnInit {
     })
   }
 
-  getMoment(timestamp: number): string {
-    return moment(timestamp).fromNow();
-  }
-
   protected readonly masonryOptions = masonryOptions;
+  protected readonly GenerateEmptyList = GenerateEmptyList;
 }

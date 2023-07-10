@@ -136,5 +136,4 @@ export class LevelComponent implements OnInit {
   }
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
-  protected readonly undefined = undefined;
 }

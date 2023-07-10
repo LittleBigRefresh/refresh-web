@@ -12,7 +12,7 @@ export class LevelPreviewComponent {
   _description : boolean = false;
 
   @Input()
-  set level(level: Level) {
+  set level(level: Level | undefined) {
     this._level = level;
   }
 

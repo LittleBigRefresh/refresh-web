@@ -4,7 +4,7 @@ import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
 import * as moment from "dayjs";
 import {NgxMasonryOptions} from "ngx-masonry";
-import {masonryOptions} from "../../app.component";
+import {GenerateEmptyList, masonryOptions} from "../../app.component";
 
 @Component({
   selector: 'app-level-categories',
@@ -42,6 +42,6 @@ export class LevelCategoriesComponent implements OnInit {
   }
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
-  protected readonly undefined = undefined;
+  protected readonly GenerateEmptyList = GenerateEmptyList;
   protected readonly masonryOptions = masonryOptions;
 }

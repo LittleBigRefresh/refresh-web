@@ -16,3 +16,15 @@
     <p>{{_level.description}}</p>
   </div>
 </div>
+
+<div *ngIf="!_level">
+  <div class="flex items-center gap-x-2">
+    <div class="bg-secondary w-20 h-20 rounded-full"></div>
+
+    <div>
+      <div class="inline-block h-5 w-36 bg-secondary rounded-full"></div><br>
+      <div class="inline-block h-4 w-56 bg-secondary rounded-full"></div><br>
+      <div class="inline-block h-4 w-56 bg-secondary rounded-full"></div>
+    </div>
+  </div>
+</div>
