@@ -1,24 +1,40 @@
-<page-header-block>
+<page-header-block *ngIf="level">
   <div class="flex gap-3.5">
-    <level-avatar [level]="level!" size="h-auto w-44"></level-avatar>
+    <level-avatar [level]="level" size="h-auto w-44"></level-avatar>
     <div>
       <page-header class="text-3xl">
-        {{ level?.title ?? 'Unnamed Level' }}
+        {{ level.title ?? 'Unnamed Level' }}
         <div class="inline-block text-sm font-normal">
           <span-gentle>by
-            <user-link [user]="level!.publisher" class="pl-1"></user-link>
+            <user-link [user]="level.publisher" class="pl-1"></user-link>
           </span-gentle>
         </div>
         <div class="text-sm font-normal">
-          <span-gentle>Published {{ getMoment(level?.publishDate ?? 0) }}</span-gentle>
-          <span-gentle *ngIf="level?.publishDate != level?.updateDate">,
-            updated {{ getMoment(level?.updateDate ?? 0)}}</span-gentle>
+          <span-gentle>Published {{ getMoment(level.publishDate ?? 0) }}</span-gentle>
+          <span-gentle *ngIf="level.publishDate != level.updateDate">,
+            updated {{ getMoment(level.updateDate ?? 0)}}</span-gentle>
         </div>
       </page-header>
 
-      <div class="bg-backdrop rounded-[11px] p-2.5">
-        <p *ngIf="(level?.description?.length ?? 0) > 0">{{level?.description}}</p>
-        <p *ngIf="(level?.description?.length ?? 0) === 0">No description was provided for this level.</p>
+      <div class="bg-backdrop rounded-[11px] px-5 py-2.5">
+        <p *ngIf="(level.description.length ?? 0) > 0">{{level?.description}}</p>
+        <p *ngIf="(level.description.length ?? 0) === 0">No description was provided for this level.</p>
+      </div>
+    </div>
+  </div>
+</page-header-block>
+
+<page-header-block *ngIf="!level">
+  <div class="flex gap-3.5 animate-pulse">
+    <div class="inline h-44 w-44 bg-secondary rounded-full"></div>
+    <div>
+      <div class="inline-block h-8 w-80 bg-secondary rounded-full"></div>
+      <br>
+      <div class="inline-block h-4 w-48 bg-secondary rounded-full"></div>
+
+      <div class="bg-backdrop rounded-[11px] px-5 py-2.5 flex">
+        <div class="inline-block h-4 w-96 bg-secondary rounded-full m-1"></div>
+        <div class="inline-block h-4 w-48 bg-secondary rounded-full m-1"></div>
       </div>
     </div>
   </div>
