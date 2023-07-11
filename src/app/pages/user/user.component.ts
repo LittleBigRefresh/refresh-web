@@ -43,8 +43,9 @@ export class UserComponent implements OnInit {
       .subscribe();
     }
 
-    getMoment(timestamp: number): string {
-      if(timestamp == 0) return "Here since before time was invented";
+    getMoment(timestamp: Date): string {
+      // weird hack to get methods here - date objects from the API are not real Dates
+      if(new Date(timestamp).getTime() == 0) return "Here since before time was invented";
       return "Joined " + moment(timestamp).fromNow();
     }
 
