@@ -19,6 +19,5 @@ export class PhotoListingComponent implements OnInit {
   }
 
   protected readonly masonryOptions = masonryOptions;
-  protected readonly undefined = undefined;
   protected readonly GenerateEmptyList = GenerateEmptyList;
 }
