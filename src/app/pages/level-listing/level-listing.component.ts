@@ -17,7 +17,7 @@ export class LevelListingComponent implements OnInit {
   levels: Level[] | undefined = undefined;
   routeName!: string
 
-  private nextPageIndex: number = pageSize + 1;
+  nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
   constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }

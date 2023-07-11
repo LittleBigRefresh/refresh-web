@@ -11,7 +11,7 @@ const pageSize: number = 10;
 })
 export class PhotoListingComponent implements OnInit {
   photos: Photo[] | undefined = undefined;
-  private nextPageIndex: number = pageSize + 1;
+  nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
   constructor(private apiClient: ApiClient) {}

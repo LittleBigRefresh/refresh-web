@@ -8,6 +8,8 @@
     </div>
   </ngx-masonry>
   <div intersectionObserver (visibilityChange)="loadNextPage($event)"></div>
+
+  <secondary-button (click)="loadNextPage(true)" text="Load more" *ngIf="nextPageIndex > 0"></secondary-button>
 </div>
 
 <div *ngIf="!levels">
