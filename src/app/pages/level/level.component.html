@@ -88,7 +88,7 @@
 
     <div *ngIf="activity">
       <div *ngFor="let event of activity.events">
-        <activity-event [event]="event" [page]="activity"></activity-event>
+        <activity-event [event]="event" [page]="activity" [contextIsLevel]="true"></activity-event>
       </div>
     </div>
 

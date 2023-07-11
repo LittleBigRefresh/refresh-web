@@ -4,6 +4,7 @@ import * as moment from "dayjs";
 import {User} from "../../api/types/user";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {Level} from "../../api/types/level";
+import {Score} from "../../api/types/score";
 
 @Component({
   selector: 'activity-event',
@@ -58,6 +59,17 @@ export class ActivityEventComponent {
 
     for(let level of this._page.levels) {
       if(level.levelId === this._event.storedSequentialId && this._event.storedDataType == 1) return level;
+    }
+
+    return undefined!;
+  }
+
+  getScoreFromEvent(): Score {
+    if(this._page === undefined) return undefined!;
+    if(this._event === undefined) return undefined!;
+
+    for(let score of this._page.scores) {
+      if(score.scoreId === this._event.storedObjectId && this._event.storedDataType == 2) return score;
     }
 
     return undefined!;

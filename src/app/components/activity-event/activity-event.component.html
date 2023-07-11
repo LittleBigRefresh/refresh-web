@@ -9,6 +9,12 @@
       <span *ngSwitchCase="0">published this level</span>
       <span *ngSwitchCase="1">gave this level a heart</span>
       <span *ngSwitchCase="5">played this level</span>
+      <div *ngSwitchCase="20" class="inline">
+        <span *ngIf="getScoreFromEvent() as score">got a score of
+          <b>{{score.score}}</b>
+          in <b>{{score.scoreType}}-player</b> mode
+        </span>
+      </div>
       <span *ngSwitchDefault>Unhandled case: {{_event.eventType}}</span>
     </div>
     <div [ngSwitch]="_event.eventType" class="inline" *ngIf="!_contextIsLevel">
@@ -16,7 +22,14 @@
       <span *ngSwitchCase="1">gave <b><level-link [level]="getLevelFromEvent()"></level-link></b> a heart</span>
       <span *ngSwitchCase="5">played <b><level-link [level]="getLevelFromEvent()"></level-link></b></span>
       <span *ngSwitchCase="3">gave <b><user-link [user]="getOtherUserFromEvent()"></user-link></b> a heart</span>
-      <span *ngSwitchCase="20">got a score <b><level-link [level]="getLevelFromEvent()"></level-link></b> of [POINTS] on [LEVEL]</span>
+      <div *ngSwitchCase="20" class="inline">
+        <span *ngIf="getScoreFromEvent() as score">got a score of
+          <b>{{score.score}}</b>
+          on
+          <b><level-link [level]="score.level"></level-link></b>
+          in <b>{{score.scoreType}}-player</b> mode
+        </span>
+      </div>
       <span *ngSwitchDefault>Unhandled case: {{_event.eventType}}</span>
     </div>
     <p-gentle>{{getMoment(_event.occurredAt)}}</p-gentle>
