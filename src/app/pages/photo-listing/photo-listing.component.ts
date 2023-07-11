@@ -12,12 +12,14 @@ const pageSize: number = 10;
 export class PhotoListingComponent implements OnInit {
   photos: Photo[] | undefined = undefined;
   private nextPageIndex: number = pageSize + 1;
+  total: number = 0;
 
   constructor(private apiClient: ApiClient) {}
 
   ngOnInit(): void {
     this.apiClient.GetRecentPhotos(pageSize).subscribe((data) => {
       this.photos = data.items;
+      this.total = data.listInfo.totalItems;
     })
   }
 
@@ -28,6 +30,7 @@ export class PhotoListingComponent implements OnInit {
     this.apiClient.GetRecentPhotos(pageSize, this.nextPageIndex).subscribe((data) => {
       this.photos = this.photos!.concat(data.items);
       this.nextPageIndex = data.listInfo.nextPageIndex;
+      this.total = data.listInfo.totalItems;
     })
   }
 

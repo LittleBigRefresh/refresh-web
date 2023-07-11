@@ -209,8 +209,8 @@ export class ApiClient {
     return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
   }
 
-  public GetLevelListing(route: string): Observable<ApiListResponse<Level>> {
-    return this.makeListRequest<Level>("GET", "levels/" + route)
+  public GetLevelListing(route: string, count: number = 20, skip: number = 0): Observable<ApiListResponse<Level>> {
+    return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}`);
   }
 
   public GetLevelById(id: number): Observable<Level> {
