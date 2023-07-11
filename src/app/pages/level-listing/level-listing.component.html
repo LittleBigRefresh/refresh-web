@@ -13,7 +13,7 @@
 </div>
 
 <div *ngIf="!levels">
-  <div class="inline-block h-5 w-56 bg-secondary rounded-full pt-2.5"></div>
+  <div class="inline-block h-5 w-56 bg-secondary rounded-full pt-2.5 animate-pulse"></div>
   <ngx-masonry [options]="masonryOptions" [ordered]="true">
     <div ngxMasonryItem *ngFor="let i of GenerateEmptyList(10)"
          class="bg-form-background p-2.5 rounded-[11px] masonry-grid-item">

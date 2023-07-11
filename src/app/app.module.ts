@@ -48,6 +48,8 @@ import { UserAvatarComponent } from './components/user-avatar/user-avatar.compon
 import { LevelAvatarComponent } from './components/level-avatar/level-avatar.component';
 import {NgOptimizedImage} from "@angular/common";
 import { IntersectionObserverDirective } from './directives/intersection-observer.directive';
+import { ActivityComponent } from './pages/activity/activity.component';
+import { ActivityEventComponent } from './components/activity-event/activity-event.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,9 @@ import { IntersectionObserverDirective } from './directives/intersection-observe
     LevelPreviewComponent,
     UserAvatarComponent,
     LevelAvatarComponent,
-    IntersectionObserverDirective
+    IntersectionObserverDirective,
+    ActivityComponent,
+    ActivityEventComponent
   ],
   imports: [
     BrowserModule,

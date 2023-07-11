@@ -1,0 +1,23 @@
+<div *ngIf="_event && getUserFromEvent() as user" class="flex pb-2.5 gap-2">
+  <div>
+    <user-avatar [user]="user" size="h-11 w-auto"></user-avatar>
+  </div>
+  <div>
+    <a href="/u/{{user.userId}}" class="font-medium pr-1">{{user.username}}</a>
+    <div [ngSwitch]="_event.eventType" class="inline">
+      <span *ngSwitchCase="0">published this level</span>
+      <span *ngSwitchCase="1">gave this level a heart</span>
+      <span *ngSwitchCase="5">played this level</span>
+      <span *ngSwitchDefault>Unhandled case: {{_event.eventType}}</span>
+    </div>
+    <p-gentle>{{getMoment(_event.occurredAt)}}</p-gentle>
+  </div>
+</div>
+
+<div *ngIf="!_event" class="flex pb-2.5 gap-2 animate-pulse">
+  <div class="h-11 w-11 rounded-md bg-secondary"></div>
+  <div>
+    <div class="inline-block h-4 w-56 bg-secondary rounded-full pt-2.5"></div><br>
+    <div class="inline-block h-3 w-24 bg-secondary rounded-full pt-2.5"></div>
+  </div>
+</div>

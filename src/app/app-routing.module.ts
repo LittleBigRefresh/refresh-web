@@ -15,6 +15,7 @@ import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
 import { PhotoListingComponent } from "./pages/photo-listing/photo-listing.component";
 import {NotificationListingComponent} from "./pages/notification-listing/notification-listing.component";
 import {DocumentationComponent} from "./pages/documentation/documentation.component";
+import {ActivityComponent} from "./pages/activity/activity.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: "photos", component: PhotoListingComponent },
   { path: "photo/:id", component: PhotoPageComponent },
   { path: "notifications", component: NotificationListingComponent },
+  { path: "activity", component: ActivityComponent },
   { path: "docs", redirectTo: "documentation" },
   { path: "documentation", component: DocumentationComponent },
 ];

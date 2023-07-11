@@ -1,6 +1,14 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {faBell, faCameraAlt, faCertificate, faGear, faSignIn, faUser} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBell,
+  faCameraAlt,
+  faCertificate,
+  faFireAlt,
+  faGear,
+  faSignIn,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
 import {ApiClient, GetAssetImageLink} from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
@@ -53,7 +61,7 @@ export class AppComponent {
   routerLinks: HeaderLink[] = [
     new HeaderLink("Levels", "/levels", faCertificate),
     new HeaderLink("Photos", "/photos", faCameraAlt),
-    // new HeaderLink("Activity", "/activity", faFireAlt),
+    new HeaderLink("Activity", "/activity", faFireAlt),
     // new HeaderLink("Ranking", "/ranking", faListUl),
   ];
 

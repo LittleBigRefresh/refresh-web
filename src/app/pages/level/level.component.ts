@@ -10,6 +10,7 @@ import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.c
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ActivityEvent} from "../../api/types/activity/activity-event";
 import {User} from "../../api/types/user";
+import {GenerateEmptyList} from "../../app.component";
 
 @Component({
   selector: 'app-level',
@@ -126,14 +127,6 @@ export class LevelComponent implements OnInit {
     })
   }
 
-  getUserFromEvent(event: ActivityEvent): User {
-    if(this.activity === undefined) return undefined!;
-    for(let user of this.activity?.users) {
-      if(user.userId === event.userId) return user;
-    }
-
-    return undefined!;
-  }
-
   protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly GenerateEmptyList = GenerateEmptyList;
 }

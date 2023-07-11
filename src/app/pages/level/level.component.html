@@ -82,24 +82,19 @@
       <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
     </div>
   </div>
-  <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full" *ngIf="activity">
-    <page-header class="text-3xl">Activity</page-header>
+  <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
+    <page-header class="text-3xl">Recent Activity</page-header>
     <divider></divider>
-    <div *ngFor="let event of activity.events">
-      <div *ngIf="getUserFromEvent(event) as user" class="flex pb-2.5 gap-2">
-        <div>
-          <user-avatar [user]="user" size="h-11 w-auto"></user-avatar>
-        </div>
-        <div>
-          <a href="/u/{{user.userId}}" class="font-medium pr-1">{{user.username}}</a>
-          <div [ngSwitch]="event.eventType" class="inline">
-            <span *ngSwitchCase="0">published this level</span>
-            <span *ngSwitchCase="1">gave this level a heart</span>
-            <span *ngSwitchCase="5">played this level</span>
-            <span *ngSwitchDefault>Unhandled case: {{event.eventType}}</span>
-          </div>
-          <p-gentle>{{getMoment(event.occurredAt)}}</p-gentle>
-        </div>
+
+    <div *ngIf="activity">
+      <div *ngFor="let event of activity.events">
+        <activity-event [event]="event" [userPool]="activity.users"></activity-event>
+      </div>
+    </div>
+
+    <div *ngIf="!activity">
+      <div *ngFor="let i of GenerateEmptyList(5)">
+        <activity-event></activity-event>
       </div>
     </div>
   </div>
