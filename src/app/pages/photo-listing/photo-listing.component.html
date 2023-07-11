@@ -5,6 +5,7 @@
     <photo [photo]="photo"></photo>
   </div>
 </ngx-masonry>
+<div *ngIf="photos" intersectionObserver (visibilityChange)="loadNextPage($event)"></div>
 
 <ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="!photos">
   <div ngxMasonryItem *ngFor="let i of GenerateEmptyList(20)" class="rounded-md bg-form-background m-1 p-2.5 masonry-grid-item">

@@ -3,18 +3,31 @@ import { ApiClient } from 'src/app/api/api-client';
 import { Photo } from 'src/app/api/types/photo';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 
+const pageSize: number = 10;
+
 @Component({
   selector: 'app-photos',
   templateUrl: './photo-listing.component.html'
 })
 export class PhotoListingComponent implements OnInit {
   photos: Photo[] | undefined = undefined;
+  private nextPageIndex: number = pageSize + 1;
 
   constructor(private apiClient: ApiClient) {}
 
   ngOnInit(): void {
-    this.apiClient.GetRecentPhotos().subscribe((data) => {
+    this.apiClient.GetRecentPhotos(pageSize).subscribe((data) => {
       this.photos = data.items;
+    })
+  }
+
+  loadNextPage(intersecting: boolean): void {
+    if(!intersecting) return;
+
+    if(this.nextPageIndex <= 0) return; // This is the server telling us there's no more data
+    this.apiClient.GetRecentPhotos(pageSize, this.nextPageIndex).subscribe((data) => {
+      this.photos = this.photos!.concat(data.items);
+      this.nextPageIndex = data.listInfo.nextPageIndex;
     })
   }
 

@@ -47,6 +47,7 @@ import {NgxMasonryModule} from "ngx-masonry";
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
 import { LevelAvatarComponent } from './components/level-avatar/level-avatar.component';
 import {NgOptimizedImage} from "@angular/common";
+import { IntersectionObserverDirective } from './directives/intersection-observer.directive';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {NgOptimizedImage} from "@angular/common";
     DocumentationComponent,
     LevelPreviewComponent,
     UserAvatarComponent,
-    LevelAvatarComponent
+    LevelAvatarComponent,
+    IntersectionObserverDirective
   ],
   imports: [
     BrowserModule,
