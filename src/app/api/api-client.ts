@@ -262,6 +262,10 @@ export class ApiClient {
       });
   }
 
+  public GetActivity(count: number, skip: number): Observable<ActivityPage> {
+    return this.makeRequest<ActivityPage>("GET", `activity?skip=${skip}&count=${count}`);
+  }
+
   public GetActivityForLevel(levelId: number, count: number, skip: number): Observable<ActivityPage> {
     return this.makeRequest<ActivityPage>("GET", "levels/id/" + levelId + "/activity?skip=" + skip + "&count=" + count);
   }
