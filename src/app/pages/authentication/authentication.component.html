@@ -1,1 +1,17 @@
-<page-header>Authentication</page-header>
+<page-header class="text-3xl">IP Verification Requests</page-header>
+
+<div *ngFor="let request of requests" class="bg-form-background px-5 py-3.5 rounded-[11px] flex">
+  <div class="w-full">
+    <p class="text-xl font-bold">{{request.ipAddress}}</p>
+    <p-gentle>Sent {{getMoment(request.createdAt)}}</p-gentle>
+  </div>
+  <div class="text-center align-top flex gap-2 text-xl float-right">
+    <div class="rounded-full bg-success p-2.5 w-10 h-10 cursor-pointer" (click)="approve(request.ipAddress)">
+      <fa-icon [icon]="faCheck"></fa-icon>
+    </div>
+
+    <div class="rounded-full bg-dangerous p-2.5 w-10 h-10 cursor-pointer" (click)="deny(request.ipAddress)">
+      <fa-icon [icon]="faXmark"></fa-icon>
+    </div>
+  </div>
+</div>

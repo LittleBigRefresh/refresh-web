@@ -21,6 +21,7 @@ import {Router} from "@angular/router";
 import {UserUpdateRequest} from "./types/user-update-request";
 import {ActivityPage} from "./types/activity/activity-page";
 import {ApiListResponse} from "./types/response/api-list-response";
+import {IpVerificationRequest} from "./types/auth/ip-verification-request";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -269,6 +270,19 @@ export class ApiClient {
   public GetActivityForLevel(levelId: number, count: number, skip: number): Observable<ActivityPage> {
     return this.makeRequest<ActivityPage>("GET", "levels/id/" + levelId + "/activity?skip=" + skip + "&count=" + count);
   }
+
+  public GetIpVerificationRequests(): Observable<ApiListResponse<IpVerificationRequest>> {
+    return this.makeListRequest<IpVerificationRequest>("GET", "verificationRequests?skip=0&count=100");
+  }
+
+  public ApproveIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
+    return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/approve", ipAddress);
+  }
+
+  public DenyIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
+    return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
+  }
+
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
