@@ -146,6 +146,31 @@ export class ApiClient {
     return true;
   }
 
+  public Register(username: string, passwordSha512: string): boolean {
+    if (this._userId !== undefined) throw Error("Cannot register when already signed in as someone."); // should never happen hopefully
+
+    const body: ApiAuthenticationRequest = {
+      username: username,
+      passwordSha512: passwordSha512,
+    }
+
+    this.makeRequest<ApiAuthenticationResponse>("POST", "register", body, false)
+      .pipe(catchError((err) => {
+        this.bannerService.pushError('Failed to register', err.error?.error?.message ?? "No error was provided by the server. Check the console for more details.")
+        console.error(err);
+        return of(undefined);
+      }))
+      .subscribe((authResponse) => {
+        if (authResponse === undefined) return;
+
+        this._userId = authResponse.userId;
+        localStorage.setItem('game_token', authResponse.tokenData);
+        this.GetMyUser();
+      });
+
+    return true;
+  }
+
   private GetMyUser(callback: Function | null = null) {
     this.makeRequest<User>("GET", "users/me")
       .pipe(catchError((err) => {

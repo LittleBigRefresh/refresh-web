@@ -69,6 +69,7 @@ import { ActivityComponent } from './pages/activity/activity.component';
 import { ActivityEventComponent } from './components/activity-event/activity-event.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.
     ActivityComponent,
     ActivityEventComponent,
     AuthenticationComponent,
-    FormCheckboxComponent
+    FormCheckboxComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

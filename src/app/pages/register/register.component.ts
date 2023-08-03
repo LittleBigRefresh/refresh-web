@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { ApiClient } from 'src/app/api/api-client';
-import { sha512Async } from 'src/app/hash';
+import {ApiClient} from "../../api/api-client";
+import {sha512Async} from "../../hash";
 import {Banner} from "../../banners/banner";
 import {BannerService} from "../../banners/banner.service";
 
-let i: number = 0;
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html'
+  selector: 'app-register',
+  templateUrl: './register.component.html'
 })
-export class LoginComponent {
-  usernameId: string = "login-username" + i++;
-  passwordId: string = "login-password" + i++;
+export class RegisterComponent {
+  usernameId: string = "register-username";
+  passwordId: string = "register-password";
+  confirmPasswordId: string = "register-confirm-password";
 
   constructor(private apiClient: ApiClient, private bannerService: BannerService) {}
 
-  login() {
+  register() {
     const usernameInput: string = (<HTMLInputElement>document.getElementById(this.usernameId)).value;
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
+    const confirmPasswordInput: string = (<HTMLInputElement>document.getElementById(this.confirmPasswordId)).value;
 
     const error: Banner = {
       Color: 'red',
@@ -39,8 +39,14 @@ export class LoginComponent {
       return;
     }
 
+    if(passwordInput != confirmPasswordInput) {
+      error.Text = "The passwords do not match."
+      this.bannerService.push(error)
+      return;
+    }
+
     sha512Async(passwordInput).then((hash) => {
-      this.apiClient.LogIn(usernameInput, hash)
+      this.apiClient.Register(usernameInput, hash)
     });
   }
 }

@@ -17,6 +17,7 @@ import {NotificationListingComponent} from "./pages/notification-listing/notific
 import {DocumentationComponent} from "./pages/documentation/documentation.component";
 import {ActivityComponent} from "./pages/activity/activity.component";
 import {AuthenticationComponent} from "./pages/authentication/authentication.component";
+import {RegisterComponent} from "./pages/register/register.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: "documentation", component: DocumentationComponent },
   { path: "auth", redirectTo: "authentication" },
   { path: "authentication", component: AuthenticationComponent },
+  { path: "register", component: RegisterComponent },
 ];
 
 if(isDevMode()) {

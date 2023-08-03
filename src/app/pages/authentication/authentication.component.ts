@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IpVerificationRequest} from "../../api/types/auth/ip-verification-request";
 import {ApiClient} from "../../api/api-client";
 import * as moment from "dayjs";
-import {faCheck, faCross, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-authentication',

@@ -1,0 +1,18 @@
+<form-holder>
+  <page-header class="text-3xl">Sign Up</page-header>
+  <div class="h-5"></div>
+
+  <form-input [icon]="'user'" name="Username" type="text" [id]="usernameId"></form-input>
+  <form-input [icon]="'key'" name="Password" type="password" [id]="passwordId"></form-input>
+  <form-input [icon]="'key'" name="Confirm Password" type="password" [id]="confirmPasswordId"></form-input>
+
+  <div class="flex flex-row my-1 justify-between space-x-4">
+    <primary-button class="min-w-full" text="Register" (click)="register()"></primary-button>
+  </div>
+
+  <divider class="w-full"></divider>
+
+  <p class="pb-2">Already have an account?</p>
+
+  <secondary-button text="Log in" routerLink="/login"></secondary-button>
+</form-holder>
