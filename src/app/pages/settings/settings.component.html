@@ -1,6 +1,7 @@
 <page-header class="text-3xl">Profile Settings</page-header>
 
-<form-input [icon]="faPencil" [name]="'Biography'" [id]="descriptionId"></form-input>
+<form-checkbox [icon]="faKey" name="Allow IP Authentication" [id]="allowIpId"></form-checkbox>
+<form-input [icon]="faPencil" name="Biography" [id]="descriptionId"></form-input>
 
 <div class="w-44 text-center inline-block pr-2.5">
   <primary-button text="Save changes" (click)="saveChanges()"></primary-button>

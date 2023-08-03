@@ -1,0 +1,15 @@
+<div class="text-left mb-2.5 flex">
+  <div *ngIf="_showLabel" class="text-sm inline">
+    <fa-icon [icon]="_icon" class="pr-1"></fa-icon>
+    <span>{{_name}}</span>
+  </div>
+
+  <input type="checkbox" class="bg-teritary ml-2.5" [id]="_id" [readOnly]="_readonly" [checked]="_value">
+
+  <div *ngIf="isDev && _id === undefined">
+    <div class="text-xs pb-1 text-warning">
+      <fa-icon [icon]="'warning'" class="pr-1"></fa-icon>
+      <span>Dev: The above input does not have an ID set.</span>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,7 @@ import { PhotoListingComponent } from "./pages/photo-listing/photo-listing.compo
 import {NotificationListingComponent} from "./pages/notification-listing/notification-listing.component";
 import {DocumentationComponent} from "./pages/documentation/documentation.component";
 import {ActivityComponent} from "./pages/activity/activity.component";
+import {AuthenticationComponent} from "./pages/authentication/authentication.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -36,6 +37,8 @@ const routes: Routes = [
   { path: "activity", component: ActivityComponent },
   { path: "docs", redirectTo: "documentation" },
   { path: "documentation", component: DocumentationComponent },
+  { path: "auth", redirectTo: "authentication" },
+  { path: "authentication", component: AuthenticationComponent },
 ];
 
 if(isDevMode()) {

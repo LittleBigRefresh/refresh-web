@@ -67,6 +67,8 @@ import {NgOptimizedImage} from "@angular/common";
 import { IntersectionObserverDirective } from './directives/intersection-observer.directive';
 import { ActivityComponent } from './pages/activity/activity.component';
 import { ActivityEventComponent } from './components/activity-event/activity-event.component';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import { ActivityEventComponent } from './components/activity-event/activity-eve
     LevelAvatarComponent,
     IntersectionObserverDirective,
     ActivityComponent,
-    ActivityEventComponent
+    ActivityEventComponent,
+    AuthenticationComponent,
+    FormCheckboxComponent
   ],
   imports: [
     BrowserModule,
