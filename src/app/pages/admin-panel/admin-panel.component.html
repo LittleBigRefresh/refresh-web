@@ -19,7 +19,8 @@
     <p-gentle *ngIf="instance?.announcements?.length === 0">There doesn't seem to be anything here.</p-gentle>
 
     <div class="flex flex-col gap-2.5">
-      <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"></announcement>
+      <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"
+                    [removable]="true" (removeEvent)="removeAnnouncement(announcement)"></announcement>
     </div>
   </div>
 </div>

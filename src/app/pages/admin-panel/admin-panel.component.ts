@@ -17,7 +17,7 @@ export class AdminPanelComponent {
 
   protected readonly faPencil = faPencil;
 
-  public previewAnnouncement: Announcement = {title: "Title", text: "Body"};
+  public previewAnnouncement: Announcement = {title: "Title", text: "Body", announcementId: ""};
   public instance: Instance | undefined = undefined;
 
   constructor(private apiClient: ApiClient, router: Router) {
@@ -50,6 +50,10 @@ export class AdminPanelComponent {
 
     this.previewAnnouncement.title = titleInput.value;
     this.previewAnnouncement.text = bodyInput.value;
+  }
+
+  removeAnnouncement(announcement: Announcement) {
+    this.apiClient.RemoveAnnouncement(announcement.announcementId);
   }
 
   protected readonly faBullhorn = faBullhorn;

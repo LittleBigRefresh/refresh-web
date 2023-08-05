@@ -24,6 +24,7 @@ import {ApiListResponse} from "./types/response/api-list-response";
 import {IpVerificationRequest} from "./types/auth/ip-verification-request";
 import {OwnUser} from "./types/own-user";
 import {Instance} from "./types/instance";
+import {Announcement} from "./types/announcement";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -336,10 +337,18 @@ export class ApiClient {
   }
 
   public AddAnnouncement(title: string, body: string) {
-    this.makeRequest("POST", "admin/announcements", {title, text: body})
-      .subscribe();
+    this.makeRequest<Announcement>("POST", "admin/announcements", {title, text: body})
+      .subscribe(data => {
+        this.instance?.announcements.push({title, text: body, announcementId: data.announcementId})
+      });
+  }
 
-    this.instance?.announcements.push({title, text: body})
+  public RemoveAnnouncement(id: string) {
+    this.makeRequest("DELETE", "admin/announcements/" + id).subscribe();
+
+    // TODO: do this client-side instead of refreshing from server
+    this.instance = undefined;
+    this.GetInstanceInformation().subscribe();
   }
 }
 

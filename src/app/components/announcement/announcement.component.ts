@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {faBullhorn} from "@fortawesome/free-solid-svg-icons";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {faBullhorn, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'announcement',
@@ -8,6 +8,13 @@ import {faBullhorn} from "@fortawesome/free-solid-svg-icons";
 export class AnnouncementComponent {
   _title: string = "Announcement";
   _body: string = "Loading...";
+  _removable: boolean = false;
+
+  @Output() removeEvent = new EventEmitter();
+
+  public remove() {
+    this.removeEvent.emit();
+  }
 
   @Input()
   set title(str: string) {
@@ -19,5 +26,11 @@ export class AnnouncementComponent {
     this._body = str;
   }
 
+  @Input()
+  set removable(val: boolean) {
+    this._removable = val;
+  }
+
   protected readonly faBullhorn = faBullhorn;
+  protected readonly faTrash = faTrash;
 }
