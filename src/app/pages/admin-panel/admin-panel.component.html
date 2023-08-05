@@ -1,4 +1,13 @@
-<page-header class="text-3xl">Admin Panel</page-header>
+<page-header class="text-3xl">{{instance?.instanceName}} Admin Panel</page-header>
+<p>Howdy, {{user?.username}}! This is where you manage and view information about {{instance?.instanceName}}.</p><br>
+
+<div class="flex gap-10">
+  <div *ngFor="let s of statistics" class="bg-form-background grow text-center rounded-[11px] px-5 py-2.5">
+    <p class="text-2xl font-bold capitalize">Total {{s.unit}}s</p>
+    <divider></divider>
+    <p class="text-xl">{{s.count}} {{s.unit}}s</p>
+  </div>
+</div>
 
 <divider></divider>
 
@@ -24,3 +33,9 @@
     </div>
   </div>
 </div>
+
+<!-- should always be last section -->
+<divider></divider>
+<p class="text-2xl font-bold pb-2.5">Other Actions</p>
+<p>To manage users, levels, and other data, you can access administrative actions on their respective pages under
+  '<fa-icon [icon]="faWrench"/> Manage'.</p>
