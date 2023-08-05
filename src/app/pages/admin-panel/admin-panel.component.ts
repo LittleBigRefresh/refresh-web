@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
 import {faBullhorn} from "@fortawesome/free-solid-svg-icons";
-import {AnnouncementComponent} from "../../components/announcement/announcement.component";
+import {Router} from "@angular/router";
+import {OwnUser} from "../../api/types/own-user";
+import {Announcement} from "../../api/types/announcement";
+import {Instance} from "../../api/types/instance";
 
 @Component({
   selector: 'app-admin-panel',
@@ -14,9 +17,24 @@ export class AdminPanelComponent {
 
   protected readonly faPencil = faPencil;
 
-  public previewAnnouncement: {title: string, body: string} = {title: "Title", body: "Body"};
+  public previewAnnouncement: Announcement = {title: "Title", text: "Body"};
+  public instance: Instance | undefined = undefined;
 
-  constructor(private apiClient: ApiClient) {
+  constructor(private apiClient: ApiClient, router: Router) {
+    this.apiClient.userWatcher.subscribe((data) => {
+      this.redirectIfNotAdmin(data, router);
+    })
+
+    this.apiClient.GetInstanceInformation().subscribe(data => {
+      this.instance = data;
+    })
+  }
+
+  private redirectIfNotAdmin(data: OwnUser | undefined, router: Router) {
+    if(data === undefined || data.role < 127) {
+      router.navigate(['/']);
+      return;
+    }
   }
 
   postAnnouncement() {
@@ -31,7 +49,7 @@ export class AdminPanelComponent {
     const bodyInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementBodyId));
 
     this.previewAnnouncement.title = titleInput.value;
-    this.previewAnnouncement.body = bodyInput.value;
+    this.previewAnnouncement.text = bodyInput.value;
   }
 
   protected readonly faBullhorn = faBullhorn;

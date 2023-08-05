@@ -1,26 +1,27 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import { catchError, of } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Statistics } from 'src/app/api/types/statistics';
+import {Instance} from "../../api/types/instance";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {
-  statistics: Statistics | undefined
+  statistics: Statistics | undefined;
+  instance: Instance | undefined;
 
   constructor(public apiClient: ApiClient) {}
 
   ngOnInit(): void {
     this.apiClient.GetServerStatistics()
-    .pipe(catchError((error: HttpErrorResponse, _) => {
-      console.warn(error);
-      return of(undefined);
-    }))
     .subscribe(data => {
       this.statistics = data;
     });
+
+    this.apiClient.GetInstanceInformation()
+      .subscribe(data => {
+        this.instance = data;
+      });
   }
 }

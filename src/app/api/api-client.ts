@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {EventEmitter, Injectable} from "@angular/core";
-import {catchError, Observable, of, switchMap} from "rxjs";
+import {catchError, Observable, of, switchMap, tap} from "rxjs";
 import {environment} from "src/environments/environment";
 import {BannerService} from "../banners/banner.service";
 import {ApiAuthenticationRequest} from "./types/auth/auth-request";
@@ -22,20 +22,25 @@ import {UserUpdateRequest} from "./types/user-update-request";
 import {ActivityPage} from "./types/activity/activity-page";
 import {ApiListResponse} from "./types/response/api-list-response";
 import {IpVerificationRequest} from "./types/auth/ip-verification-request";
+import {OwnUser} from "./types/own-user";
+import {Instance} from "./types/instance";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
   private _userId: string | undefined = undefined;
-  user: User | undefined = undefined;
+  user: OwnUser | undefined = undefined;
 
   resetToken: string | undefined = undefined;
 
   private categories: Category[] | undefined;
 
-  userWatcher: EventEmitter<User | undefined>
+  userWatcher: EventEmitter<OwnUser | undefined>
+
+  private statistics: Statistics | undefined;
+  private instance: Instance | undefined;
 
   constructor(private httpClient: HttpClient, private bannerService: BannerService, private router: Router) {
-    this.userWatcher = new EventEmitter<User | undefined>();
+    this.userWatcher = new EventEmitter<OwnUser | undefined>();
 
     const storedToken: string | null = localStorage.getItem('game_token');
 
@@ -99,7 +104,7 @@ export class ApiClient {
     return result;
   }
 
-  onUserUpdate(user: User | undefined): void {
+  onUserUpdate(user: OwnUser | undefined): void {
     console.log("Handling user change: " + user)
     if (user !== undefined) {
       this.bannerService.pushSuccess(`Hi, ${user.username}!`, 'You have been successfully signed in.')
@@ -114,6 +119,32 @@ export class ApiClient {
 
       this.router.navigate(['/login'])
     }
+  }
+
+  public GetServerStatistics(): Observable<Statistics> {
+    if(this.statistics !== undefined) {
+      return new Observable<Statistics>(observer => {
+        observer.next(this.statistics!)
+      });
+    }
+
+    return this.makeRequest<Statistics>("GET", "statistics")
+      .pipe(tap(data => {
+        this.statistics = data;
+      }))
+  }
+
+  public GetInstanceInformation(): Observable<Instance> {
+    if(this.instance !== undefined) {
+      return new Observable<Instance>(observer => {
+        observer.next(this.instance!)
+      });
+    }
+
+    return this.makeRequest<Instance>("GET", "instance")
+      .pipe(tap(data => {
+        this.instance = data;
+      }))
   }
 
   public LogIn(username: string, passwordSha512: string): boolean {
@@ -172,7 +203,7 @@ export class ApiClient {
   }
 
   private GetMyUser(callback: Function | null = null) {
-    this.makeRequest<User>("GET", "users/me")
+    this.makeRequest<OwnUser>("GET", "users/me")
       .pipe(catchError((err) => {
         console.error(err);
         return of(undefined);
@@ -243,10 +274,6 @@ export class ApiClient {
     return this.makeRequest<Level>("GET", "levels/id/" + id)
   }
 
-  public GetServerStatistics(): Observable<Statistics> {
-    return this.makeRequest<Statistics>("GET", "statistics")
-  }
-
   public GetUsersRoom(userUuid: string): Observable<Room> {
     return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid)
   }
@@ -280,7 +307,7 @@ export class ApiClient {
   }
 
   public UpdateUser(data: UserUpdateRequest): void {
-    this.makeRequest<User>("PATCH", "users/me", data)
+    this.makeRequest<OwnUser>("PATCH", "users/me", data)
       .subscribe(data => {
         this.bannerService.pushSuccess("User updated", "Your profile was successfully updated.");
         this.user = data;
@@ -311,6 +338,8 @@ export class ApiClient {
   public AddAnnouncement(title: string, body: string) {
     this.makeRequest("POST", "admin/announcements", {title, text: body})
       .subscribe();
+
+    this.instance?.announcements.push({title, text: body})
   }
 }
 

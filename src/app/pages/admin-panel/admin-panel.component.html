@@ -13,9 +13,13 @@
   </div>
   <div class="w-full">
     <p class="text-xl font-bold">Preview</p>
-    <announcement [title]="previewAnnouncement.title" [body]="previewAnnouncement.body"></announcement>
+    <announcement [title]="previewAnnouncement.title" [body]="previewAnnouncement.text"></announcement>
     <divider></divider>
     <p class="text-xl font-bold">Live Announcements</p>
-    <p-gentle>There doesn't seem to be anything here.</p-gentle>
+    <p-gentle *ngIf="instance?.announcements?.length === 0">There doesn't seem to be anything here.</p-gentle>
+
+    <div class="flex flex-col gap-2.5">
+      <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"></announcement>
+    </div>
   </div>
 </div>

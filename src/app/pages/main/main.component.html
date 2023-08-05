@@ -1,5 +1,6 @@
 <div class="text-center bg-form-background md:rounded-md py-32 bg-hero bg-cover">
-    <page-header class="text-4xl">Welcome to Refresh!</page-header>
+    <page-header class="text-4xl">Welcome to {{instance?.instanceName ?? "Refresh"}}!</page-header>
+    <p *ngIf="instance">{{instance.instanceDescription}}</p><br>
 
     <div *ngIf="apiClient.user !== undefined">
         <p>Welcome back, <b>{{apiClient.user!.username}}</b>.</p>
@@ -7,4 +8,13 @@
     </div>
 
     <p>There are currently <b>{{statistics?.currentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.currentRoomCount ?? 0}}</b> rooms.</p>
+</div>
+
+<div *ngIf="(instance?.announcements?.length ?? 0) > 0">
+  <divider></divider>
+  <page-header class="text-2xl">Server Announcements</page-header>
+
+  <div class="flex flex-col gap-2.5">
+    <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"></announcement>
+  </div>
 </div>

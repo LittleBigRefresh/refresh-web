@@ -7,13 +7,14 @@ import {
   faFireAlt,
   faGear,
   faSignIn,
-  faUser
+  faUser, faWrench
 } from '@fortawesome/free-solid-svg-icons';
 import {ApiClient, GetAssetImageLink} from './api/api-client';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';
 import {NgxMasonryOptions} from "ngx-masonry";
+import {OwnUser} from "./api/types/own-user";
 
 const fadeLength: string = "50ms";
 
@@ -72,12 +73,16 @@ export class AppComponent {
     this.handleUserUpdate(undefined)
   }
 
-  handleUserUpdate(data: User | undefined) {
+  handleUserUpdate(data: OwnUser | undefined) {
     this.user = data;
     this.rightSideRouterLinks = [];
 
     if (data !== undefined) {
       this.login.nativeElement.hidden = true;
+
+      if(data.role >= 127) {
+        this.rightSideRouterLinks.push(new HeaderLink("", "/admin", faWrench))
+      }
 
       this.rightSideRouterLinks.push(new HeaderLink("", "/notifications", faBell))
       this.rightSideRouterLinks.push(new HeaderLink("", "/settings", faGear))
