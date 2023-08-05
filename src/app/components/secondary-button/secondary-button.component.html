@@ -1,1 +1,4 @@
-<div class="cursor-pointer bg-secondary transition-colors hover:bg-secondary-hover px-5 py-2 rounded-[11px]">{{_text}}</div>
+<div class="cursor-pointer bg-secondary transition-colors hover:bg-secondary-hover px-5 py-2 rounded-[11px]">
+  <fa-icon *ngIf="_icon" [icon]="_icon" class="pr-1.5"></fa-icon>
+  {{_text}}
+</div>

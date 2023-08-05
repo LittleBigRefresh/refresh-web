@@ -8,9 +8,11 @@ import { Level } from 'src/app/api/types/level';
 import { Score } from 'src/app/api/types/score';
 import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.component';
 import {ActivityPage} from "../../api/types/activity/activity-page";
-import {ActivityEvent} from "../../api/types/activity/activity-event";
 import {User} from "../../api/types/user";
 import {GenerateEmptyList} from "../../app.component";
+import {faWrench} from "@fortawesome/free-solid-svg-icons";
+import {OwnUser} from "../../api/types/own-user";
+import {UserRoles} from "../../api/types/user-roles";
 
 @Component({
   selector: 'app-level',
@@ -21,6 +23,8 @@ export class LevelComponent implements OnInit {
   scores: Score[] | undefined
   activity: ActivityPage | undefined
   scoreType: number = 1;
+
+  ownUser: OwnUser | undefined;
 
   scoreTypeId: string = "level-leaderboard-scoretype"
 
@@ -66,6 +70,11 @@ export class LevelComponent implements OnInit {
         this.getScores(this.level.levelId).subscribe();
         this.getActivity(this.level.levelId);
       });
+    });
+
+    this.ownUser = this.apiClient.user;
+    this.apiClient.userWatcher.subscribe((data) => {
+      this.ownUser = data;
     });
   }
 
@@ -129,4 +138,6 @@ export class LevelComponent implements OnInit {
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly GenerateEmptyList = GenerateEmptyList;
+  protected readonly faWrench = faWrench;
+  protected readonly UserRoles = UserRoles;
 }

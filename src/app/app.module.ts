@@ -72,6 +72,8 @@ import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.
 import { RegisterComponent } from './pages/register/register.component';
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { AnnouncementComponent } from './components/announcement/announcement.component';
+import { AdminUserComponent } from './pages/admin-user/admin-user.component';
+import { AdminLevelComponent } from './pages/admin-level/admin-level.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +120,9 @@ import { AnnouncementComponent } from './components/announcement/announcement.co
     FormCheckboxComponent,
     RegisterComponent,
     AdminPanelComponent,
-    AnnouncementComponent
+    AnnouncementComponent,
+    AdminUserComponent,
+    AdminLevelComponent,
   ],
   imports: [
     BrowserModule,

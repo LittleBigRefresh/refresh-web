@@ -18,7 +18,7 @@
     <form-input name="Title" [icon]="faBullhorn" [id]="announcementTitleId" (keyup)="updateAnnouncementPreview()"></form-input>
     <form-input name="Body" [icon]="faPencil" [id]="announcementBodyId" (keyup)="updateAnnouncementPreview()"></form-input>
 
-    <primary-button text="Publish" (click)="postAnnouncement()" class="w-[19rem] text-center"></primary-button>
+    <primary-button [icon]="faCheck" text="Publish" (click)="postAnnouncement()" class="w-[19rem] text-center"></primary-button>
   </div>
   <div class="w-full">
     <p class="text-xl font-bold">Preview</p>

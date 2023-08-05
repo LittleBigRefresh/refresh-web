@@ -6,6 +6,9 @@ import { EMPTY, catchError, of, switchMap, tap } from 'rxjs';
 import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Room } from 'src/app/api/types/rooms/room';
 import { User } from 'src/app/api/types/user';
+import {UserRoles} from "../../api/types/user-roles";
+import {faWrench} from "@fortawesome/free-solid-svg-icons";
+import {OwnUser} from "../../api/types/own-user";
 
 @Component({
   selector: 'app-user',
@@ -14,6 +17,8 @@ import { User } from 'src/app/api/types/user';
 export class UserComponent implements OnInit {
     user: User | undefined = undefined;
     room: Room | undefined = undefined;
+
+  ownUser: OwnUser | undefined;
 
     constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router) {}
 
@@ -41,6 +46,11 @@ export class UserComponent implements OnInit {
         return this.getUserByUsername(username);
       }))
       .subscribe();
+
+      this.ownUser = this.apiClient.user;
+      this.apiClient.userWatcher.subscribe((data) => {
+        this.ownUser = data;
+      });
     }
 
     getMoment(timestamp: Date): string {
@@ -106,4 +116,6 @@ export class UserComponent implements OnInit {
     }
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly UserRoles = UserRoles;
+  protected readonly faWrench = faWrench;
 }

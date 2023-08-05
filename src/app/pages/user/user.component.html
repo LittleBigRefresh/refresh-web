@@ -22,6 +22,9 @@
     </div>
   </div>
 </page-header-block>
+<page-header-block *ngIf="ownUser?.role == UserRoles.Admin">
+  <secondary-button text="Manage" class="flex" [icon]="faWrench" [routerLink]="'/admin/user/' + user?.userId"></secondary-button>
+</page-header-block>
 
 <page-header-block *ngIf="!user">
   <div class="flex gap-3.5 animate-pulse">

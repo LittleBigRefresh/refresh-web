@@ -19,6 +19,8 @@ import {ActivityComponent} from "./pages/activity/activity.component";
 import {AuthenticationComponent} from "./pages/authentication/authentication.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {AdminPanelComponent} from "./pages/admin-panel/admin-panel.component";
+import {AdminLevelComponent} from "./pages/admin-level/admin-level.component";
+import {AdminUserComponent} from "./pages/admin-user/admin-user.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -43,6 +45,8 @@ const routes: Routes = [
   { path: "authentication", component: AuthenticationComponent },
   { path: "register", component: RegisterComponent },
   { path: "admin", component: AdminPanelComponent },
+  { path: "admin/level/:id", component: AdminLevelComponent },
+  { path: "admin/user/:uuid", component: AdminUserComponent },
 ];
 
 if(isDevMode()) {

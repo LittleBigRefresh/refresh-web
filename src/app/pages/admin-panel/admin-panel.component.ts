@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
-import {faBullhorn, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {faBullhorn, faCheck, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {OwnUser} from "../../api/types/own-user";
 import {Announcement} from "../../api/types/announcement";
@@ -76,4 +76,5 @@ export class AdminPanelComponent implements OnInit {
   protected readonly faBullhorn = faBullhorn;
   protected readonly faWrench = faWrench;
   protected readonly undefined = undefined;
+  protected readonly faCheck = faCheck;
 }
