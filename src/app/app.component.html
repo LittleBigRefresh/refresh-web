@@ -33,6 +33,11 @@
   </div>
 </div>
 
+<app-banner *ngIf="user?.role == UserRoles.Restricted" title="You are restricted!"
+  text="Your account is currently in restricted mode. You can still play, but you won't be able to publish levels,
+  post comments, or otherwise interact with the community. For more information, please contact an administrator."
+  color="dangerous" [icon]="faExclamationTriangle" [id]="-1"></app-banner>
+
 <app-banner *ngFor="let n of bannerService.banners"
             [title]="n.Title" [text]="n.Text" [color]="n.Color" [icon]="n.Icon"
             [id]="bannerService.banners.indexOf(n)"

@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {OwnUser} from "../../api/types/own-user";
 import {Announcement} from "../../api/types/announcement";
 import {Instance} from "../../api/types/instance";
+import {UserRoles} from "../../api/types/user-roles";
 
 @Component({
   selector: 'app-admin-panel',
@@ -31,7 +32,7 @@ export class AdminPanelComponent {
   }
 
   private redirectIfNotAdmin(data: OwnUser | undefined, router: Router) {
-    if(data === undefined || data.role < 127) {
+    if(data === undefined || data.role < UserRoles.Admin) {
       router.navigate(['/']);
       return;
     }

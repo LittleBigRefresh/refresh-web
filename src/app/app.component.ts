@@ -3,7 +3,7 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {
   faBell,
   faCameraAlt,
-  faCertificate,
+  faCertificate, faExclamationTriangle,
   faFireAlt,
   faGear,
   faSignIn,
@@ -15,6 +15,7 @@ import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';
 import {NgxMasonryOptions} from "ngx-masonry";
 import {OwnUser} from "./api/types/own-user";
+import {UserRoles} from "./api/types/user-roles";
 
 const fadeLength: string = "50ms";
 
@@ -55,7 +56,7 @@ export function GenerateEmptyList(i: number): any[] {
 })
 export class AppComponent {
   title: string = 'Refresh Website';
-  user: User | undefined = undefined;
+  user: OwnUser | undefined = undefined;
 
   @ViewChild("login") login!: ElementRef;
 
@@ -80,7 +81,7 @@ export class AppComponent {
     if (data !== undefined) {
       this.login.nativeElement.hidden = true;
 
-      if(data.role >= 127) {
+      if(data.role >= UserRoles.Admin) {
         this.rightSideRouterLinks.push(new HeaderLink("", "/admin", faWrench))
       }
 
@@ -95,4 +96,7 @@ export class AppComponent {
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly faSignIn = faSignIn;
+  protected readonly faExclamationTriangle = faExclamationTriangle;
+  protected readonly UserRoles = UserRoles;
+  protected readonly undefined = undefined;
 }
