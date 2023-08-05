@@ -1,5 +1,11 @@
-<page-header class="text-3xl">IP Verification Requests</page-header>
+<page-header class="text-3xl">Authentication</page-header>
+<divider></divider>
 
+<div class="flex">
+  <page-header class="text-2xl grow">IP Verification Requests</page-header>
+  <secondary-button class="float-right" text="Refresh" (click)="refresh()"></secondary-button>
+</div>
+<p-gentle *ngIf="requests?.length == 0">There doesn't seem to be anything here...</p-gentle>
 <div *ngFor="let request of requests" class="bg-form-background px-5 py-3.5 rounded-[11px] flex">
   <div class="w-full">
     <p class="text-xl font-bold">{{request.ipAddress}}</p>

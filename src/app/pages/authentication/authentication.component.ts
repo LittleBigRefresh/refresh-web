@@ -14,6 +14,10 @@ export class AuthenticationComponent implements OnInit {
   constructor(private apiClient: ApiClient) { }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  refresh() {
     this.apiClient.GetIpVerificationRequests()
       .subscribe(data => {
         if(data === undefined) return;
