@@ -18,6 +18,7 @@ import {DocumentationComponent} from "./pages/documentation/documentation.compon
 import {ActivityComponent} from "./pages/activity/activity.component";
 import {AuthenticationComponent} from "./pages/authentication/authentication.component";
 import {RegisterComponent} from "./pages/register/register.component";
+import {AdminPanelComponent} from "./pages/admin-panel/admin-panel.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: "auth", redirectTo: "authentication" },
   { path: "authentication", component: AuthenticationComponent },
   { path: "register", component: RegisterComponent },
+  { path: "admin", component: AdminPanelComponent },
 ];
 
 if(isDevMode()) {

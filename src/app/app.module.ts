@@ -70,6 +70,8 @@ import { ActivityEventComponent } from './components/activity-event/activity-eve
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
+import { AnnouncementComponent } from './components/announcement/announcement.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { RegisterComponent } from './pages/register/register.component';
     ActivityEventComponent,
     AuthenticationComponent,
     FormCheckboxComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminPanelComponent,
+    AnnouncementComponent
   ],
   imports: [
     BrowserModule,

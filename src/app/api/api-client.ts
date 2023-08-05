@@ -308,6 +308,10 @@ export class ApiClient {
     return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
   }
 
+  public AddAnnouncement(title: string, body: string) {
+    this.makeRequest("POST", "admin/announcements", {title, text: body})
+      .subscribe();
+  }
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
