@@ -25,6 +25,7 @@ import {IpVerificationRequest} from "./types/auth/ip-verification-request";
 import {OwnUser} from "./types/own-user";
 import {Instance} from "./types/instance";
 import {Announcement} from "./types/announcement";
+import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -349,6 +350,19 @@ export class ApiClient {
     // TODO: do this client-side instead of refreshing from server
     this.instance = undefined;
     this.GetInstanceInformation().subscribe();
+  }
+
+  public PunishUser(user: User, punishmentType: 'restrict' | 'ban', expiryDate: Date, reason: string) {
+    const body: AdminPunishUserRequest = {
+      expiryDate,
+      reason
+    };
+
+    this.makeRequest("POST", `admin/users/uuid/${user.userId}/${punishmentType}`, body).subscribe();
+  }
+
+  public PardonUser(user: User) {
+    this.makeRequest("POST", `admin/users/uuid/${user.userId}/pardon`).subscribe();
   }
 }
 

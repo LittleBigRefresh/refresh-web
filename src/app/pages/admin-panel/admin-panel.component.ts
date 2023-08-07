@@ -9,7 +9,7 @@ import {Instance} from "../../api/types/instance";
 import {UserRoles} from "../../api/types/user-roles";
 import {User} from "../../api/types/user";
 import {Statistics} from "../../api/types/statistics";
-import {AdminStatistic} from "../../api/types/admin-statistic";
+import {AdminStatistic} from "../../api/types/admin/admin-statistic";
 
 @Component({
   selector: 'app-admin-panel',

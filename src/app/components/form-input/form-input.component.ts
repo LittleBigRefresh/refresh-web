@@ -4,7 +4,8 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 export type InputType =
   'text' |
   'password' |
-  'dropdown'
+  'dropdown' |
+  'datetime-local'
 
 @Component({
   selector: 'form-input',
