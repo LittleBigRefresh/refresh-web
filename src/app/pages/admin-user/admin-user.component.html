@@ -1,15 +1,22 @@
-<page-header class="text-3xl">Manage {{user?.username}}</page-header>
+<page-header class="text-3xl">Manage {{user?.username}} ({{getRole(user?.role)}})</page-header>
 <p>(id: <code>{{user?.userId}}</code>)</p>
 
 <divider></divider>
 <page-header class="text-2xl">Punish</page-header>
 
 <div class="w-[19rem]">
-  <form-input name="Reason" [icon]="faPencil" [id]="reasonId"></form-input>
-  <form-input name="Expiry Date" [icon]="faCalendar" [id]="dateId" type="datetime-local"></form-input>
+  <p-gentle *ngIf="user?.banReason !== null" class="block pb-2.5">
+    <fa-icon [icon]="faGavel"></fa-icon>
+    Notice: This user is already punished.
+  </p-gentle>
 
-  <div class="flex flex-col gap-2.5">
+  <form-input name="Reason" [icon]="faPencil" [id]="reasonId" [readonly]="user?.banReason !== null"></form-input>
+  <form-input name="Expiry Date" [icon]="faCalendar" [id]="dateId" [readonly]="user?.banReason !== null" type="datetime-local"></form-input>
+
+  <div class="flex flex-col gap-2.5" *ngIf="user?.banReason === null">
     <dangerous-button [icon]="faGavel" text="Ban {{user?.username}}" (click)="ban()" class="text-center"></dangerous-button>
     <secondary-button [icon]="faBan" text="Restrict {{user?.username}}" (click)="restrict()" class="text-center"></secondary-button>
   </div>
+
+  <primary-button [icon]="faFlag" text="Pardon {{user?.username}}" (click)="pardon()" class="text-center" *ngIf="user?.banReason !== null"></primary-button>
 </div>

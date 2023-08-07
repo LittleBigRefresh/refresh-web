@@ -8,7 +8,7 @@ import { Room } from 'src/app/api/types/rooms/room';
 import { User } from 'src/app/api/types/user';
 import {UserRoles} from "../../api/types/user-roles";
 import {faWrench} from "@fortawesome/free-solid-svg-icons";
-import {OwnUser} from "../../api/types/own-user";
+import {ExtendedUser} from "../../api/types/extended-user";
 
 @Component({
   selector: 'app-user',
@@ -18,7 +18,7 @@ export class UserComponent implements OnInit {
     user: User | undefined = undefined;
     room: Room | undefined = undefined;
 
-  ownUser: OwnUser | undefined;
+  ownUser: ExtendedUser | undefined;
 
     constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router) {}
 

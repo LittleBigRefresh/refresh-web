@@ -3,7 +3,7 @@ import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
 import {faBullhorn, faCheck, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
-import {OwnUser} from "../../api/types/own-user";
+import {ExtendedUser} from "../../api/types/extended-user";
 import {Announcement} from "../../api/types/announcement";
 import {Instance} from "../../api/types/instance";
 import {UserRoles} from "../../api/types/user-roles";
@@ -23,7 +23,7 @@ export class AdminPanelComponent implements OnInit {
 
   public previewAnnouncement: Announcement = {title: "Title", text: "Body", announcementId: ""};
   public instance: Instance | undefined = undefined;
-  public user: OwnUser | undefined = undefined;
+  public user: ExtendedUser | undefined = undefined;
 
   public statistics: AdminStatistic[] = [];
 
@@ -47,7 +47,7 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
-  private redirectIfNotAdmin(data: OwnUser | undefined, router: Router) {
+  private redirectIfNotAdmin(data: ExtendedUser | undefined, router: Router) {
     if(data === undefined || data.role < UserRoles.Admin) {
       router.navigate(['/']);
       return;

@@ -3,7 +3,7 @@ import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
 import {faKey} from "@fortawesome/free-solid-svg-icons";
-import {OwnUser} from "../../api/types/own-user";
+import {ExtendedUser} from "../../api/types/extended-user";
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
     setTimeout(() => {this.updateInputs(this.apiClient.user);}, 0);
   }
 
-  updateInputs(data: OwnUser | undefined) {
+  updateInputs(data: ExtendedUser | undefined) {
     const descriptionInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.descriptionId));
     descriptionInput.value = data?.description ?? "";
 

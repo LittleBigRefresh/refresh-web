@@ -14,7 +14,7 @@ import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';
 import {NgxMasonryOptions} from "ngx-masonry";
-import {OwnUser} from "./api/types/own-user";
+import {ExtendedUser} from "./api/types/extended-user";
 import {UserRoles} from "./api/types/user-roles";
 
 const fadeLength: string = "50ms";
@@ -56,7 +56,7 @@ export function GenerateEmptyList(i: number): any[] {
 })
 export class AppComponent {
   title: string = 'Refresh Website';
-  user: OwnUser | undefined = undefined;
+  user: ExtendedUser | undefined = undefined;
 
   @ViewChild("login") login!: ElementRef;
 
@@ -74,7 +74,7 @@ export class AppComponent {
     this.handleUserUpdate(undefined)
   }
 
-  handleUserUpdate(data: OwnUser | undefined) {
+  handleUserUpdate(data: ExtendedUser | undefined) {
     this.user = data;
     this.rightSideRouterLinks = [];
 

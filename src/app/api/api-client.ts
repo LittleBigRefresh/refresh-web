@@ -22,7 +22,7 @@ import {UserUpdateRequest} from "./types/user-update-request";
 import {ActivityPage} from "./types/activity/activity-page";
 import {ApiListResponse} from "./types/response/api-list-response";
 import {IpVerificationRequest} from "./types/auth/ip-verification-request";
-import {OwnUser} from "./types/own-user";
+import {ExtendedUser} from "./types/extended-user";
 import {Instance} from "./types/instance";
 import {Announcement} from "./types/announcement";
 import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
@@ -30,19 +30,19 @@ import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
 @Injectable({providedIn: 'root'})
 export class ApiClient {
   private _userId: string | undefined = undefined;
-  user: OwnUser | undefined = undefined;
+  user: ExtendedUser | undefined = undefined;
 
   resetToken: string | undefined = undefined;
 
   private categories: Category[] | undefined;
 
-  userWatcher: EventEmitter<OwnUser | undefined>
+  userWatcher: EventEmitter<ExtendedUser | undefined>
 
   private statistics: Statistics | undefined;
   private instance: Instance | undefined;
 
   constructor(private httpClient: HttpClient, private bannerService: BannerService, private router: Router) {
-    this.userWatcher = new EventEmitter<OwnUser | undefined>();
+    this.userWatcher = new EventEmitter<ExtendedUser | undefined>();
 
     const storedToken: string | null = localStorage.getItem('game_token');
 
@@ -106,7 +106,7 @@ export class ApiClient {
     return result;
   }
 
-  onUserUpdate(user: OwnUser | undefined): void {
+  onUserUpdate(user: ExtendedUser | undefined): void {
     console.log("Handling user change: " + user)
     if (user !== undefined) {
       this.bannerService.pushSuccess(`Hi, ${user.username}!`, 'You have been successfully signed in.')
@@ -205,7 +205,7 @@ export class ApiClient {
   }
 
   private GetMyUser(callback: Function | null = null) {
-    this.makeRequest<OwnUser>("GET", "users/me")
+    this.makeRequest<ExtendedUser>("GET", "users/me")
       .pipe(catchError((err) => {
         console.error(err);
         return of(undefined);
@@ -223,6 +223,10 @@ export class ApiClient {
 
   public GetUserByUuid(uuid: string): Observable<User> {
     return this.makeRequest<User>("GET", "users/uuid/" + uuid)
+  }
+
+  public GetExtendedUserByUuid(uuid: string): Observable<ExtendedUser> {
+    return this.makeRequest<ExtendedUser>("GET", "admin/users/uuid/" + uuid)
   }
 
   public LogOut() {
@@ -309,7 +313,7 @@ export class ApiClient {
   }
 
   public UpdateUser(data: UserUpdateRequest): void {
-    this.makeRequest<OwnUser>("PATCH", "users/me", data)
+    this.makeRequest<ExtendedUser>("PATCH", "users/me", data)
       .subscribe(data => {
         this.bannerService.pushSuccess("User updated", "Your profile was successfully updated.");
         this.user = data;

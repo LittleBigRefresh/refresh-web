@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../api/types/user";
-import {catchError, EMPTY, of, switchMap, tap} from "rxjs";
+import {EMPTY, switchMap, tap} from "rxjs";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {ApiClient} from "../../api/api-client";
-import {HttpErrorResponse} from "@angular/common/http";
-import {faBan, faBullhorn, faCalendar, faCheck, faGavel, faHammer} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faCalendar, faFlag, faGavel} from "@fortawesome/free-solid-svg-icons";
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
+import {ExtendedUser} from "../../api/types/extended-user";
+import {UserRoles} from "../../api/types/user-roles";
 
 @Component({
   selector: 'app-admin-user',
   templateUrl: './admin-user.component.html'
 })
 export class AdminUserComponent implements OnInit {
-  user: User | undefined = undefined;
+  user: ExtendedUser | undefined = undefined;
 
   public readonly reasonId: string = "admin-user-punish-reason";
   public readonly dateId: string = "admin-user-punish-date";
@@ -33,10 +33,18 @@ export class AdminUserComponent implements OnInit {
   }
 
   private getUserByUuid(uuid: string) {
-    return this.apiClient.GetUserByUuid(uuid)
+    return this.apiClient.GetExtendedUserByUuid(uuid)
       .pipe(tap((data) => {
           this.user = data;
           if (data === undefined) return;
+
+          const reasonInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.reasonId));
+          const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));
+
+          if(data.banReason !== null) {
+            reasonInput.value = data.banReason;
+            dateInput.valueAsDate = new Date(data.banExpiryDate!);
+          }
         })
       );
   }
@@ -47,6 +55,9 @@ export class AdminUserComponent implements OnInit {
 
     if(this.user == undefined) return;
     this.apiClient.PunishUser(this.user, punishmentType, dateInput.valueAsDate!, reasonInput.value);
+
+    this.user.banReason = reasonInput.value;
+    this.user.banExpiryDate = dateInput.valueAsDate;
   }
 
   ban() {
@@ -57,10 +68,29 @@ export class AdminUserComponent implements OnInit {
     this.punish("restrict");
   }
 
+  pardon() {
+    if(this.user == undefined) return;
+    this.apiClient.PardonUser(this.user);
+
+    const reasonInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.reasonId));
+    const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));
+
+    reasonInput.value = "";
+    dateInput.value = "";
+
+    this.user.banReason = null;
+    this.user.banExpiryDate = null;
+  }
+
+  getRole(role: number | undefined) {
+    if(role == undefined) return "";
+    return UserRoles.getRoleName(role);
+  }
+
   protected readonly faPencil = faPencil;
   protected readonly faCalendar = faCalendar;
-  protected readonly faHammer = faHammer;
   protected readonly faGavel = faGavel;
   protected readonly faBan = faBan;
+  protected readonly faFlag = faFlag;
   protected readonly undefined = undefined;
 }

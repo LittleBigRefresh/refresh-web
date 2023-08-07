@@ -11,7 +11,7 @@ import {ActivityPage} from "../../api/types/activity/activity-page";
 import {User} from "../../api/types/user";
 import {GenerateEmptyList} from "../../app.component";
 import {faWrench} from "@fortawesome/free-solid-svg-icons";
-import {OwnUser} from "../../api/types/own-user";
+import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
 
 @Component({
@@ -24,7 +24,7 @@ export class LevelComponent implements OnInit {
   activity: ActivityPage | undefined
   scoreType: number = 1;
 
-  ownUser: OwnUser | undefined;
+  ownUser: ExtendedUser | undefined;
 
   scoreTypeId: string = "level-leaderboard-scoretype"
 
