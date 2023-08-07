@@ -33,6 +33,11 @@
   </div>
 </div>
 
+<app-banner *ngIf="instance?.maintenanceModeEnabled && user?.role !== UserRoles.Admin" title="Maintenance mode"
+  text="The server is currently in maintenance mode, meaning only administrators can use the website right now.
+  Check back later."
+  color="warning" [icon]="faExclamationTriangle" [id]="-1"></app-banner>
+
 <app-banner *ngIf="user?.role == UserRoles.Restricted" title="You are restricted!"
   text="Your account is currently in restricted mode. You can still play, but you won't be able to publish levels,
   post comments, or otherwise interact with the community. For more information, please contact an administrator."

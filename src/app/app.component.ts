@@ -16,6 +16,7 @@ import { BannerService } from './banners/banner.service';
 import {NgxMasonryOptions} from "ngx-masonry";
 import {ExtendedUser} from "./api/types/extended-user";
 import {UserRoles} from "./api/types/user-roles";
+import {Instance} from "./api/types/instance";
 
 const fadeLength: string = "50ms";
 
@@ -58,6 +59,8 @@ export class AppComponent {
   title: string = 'Refresh Website';
   user: ExtendedUser | undefined = undefined;
 
+  instance: Instance | undefined = undefined;
+
   @ViewChild("login") login!: ElementRef;
 
   routerLinks: HeaderLink[] = [
@@ -72,6 +75,10 @@ export class AppComponent {
   constructor(apiClient: ApiClient, public bannerService: BannerService) {
     apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
+
+    apiClient.GetInstanceInformation().subscribe((data) => {
+      this.instance = data;
+    });
   }
 
   handleUserUpdate(data: ExtendedUser | undefined) {
@@ -98,5 +105,4 @@ export class AppComponent {
   protected readonly faSignIn = faSignIn;
   protected readonly faExclamationTriangle = faExclamationTriangle;
   protected readonly UserRoles = UserRoles;
-  protected readonly undefined = undefined;
 }
