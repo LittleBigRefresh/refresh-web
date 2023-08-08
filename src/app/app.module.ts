@@ -20,7 +20,7 @@ import {
   faShuffle,
   faThumbsUp,
   faThumbsDown,
-  faPlay,
+  faPlay, faCertificate,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -157,5 +157,6 @@ export class AppModule {
     library.addIcons(faThumbsUp)
     library.addIcons(faThumbsDown)
     library.addIcons(faPlay)
+    library.addIcons(faCertificate)
   }
 }
