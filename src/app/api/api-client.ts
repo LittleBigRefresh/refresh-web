@@ -341,14 +341,14 @@ export class ApiClient {
     return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
   }
 
-  public AddAnnouncement(title: string, body: string) {
+  public AdminAddAnnouncement(title: string, body: string) {
     this.makeRequest<Announcement>("POST", "admin/announcements", {title, text: body})
       .subscribe(data => {
         this.instance?.announcements.push({title, text: body, announcementId: data.announcementId})
       });
   }
 
-  public RemoveAnnouncement(id: string) {
+  public AdminRemoveAnnouncement(id: string) {
     this.makeRequest("DELETE", "admin/announcements/" + id).subscribe();
 
     // TODO: do this client-side instead of refreshing from server
@@ -356,7 +356,7 @@ export class ApiClient {
     this.GetInstanceInformation().subscribe();
   }
 
-  public PunishUser(user: User, punishmentType: 'restrict' | 'ban', expiryDate: Date, reason: string) {
+  public AdminPunishUser(user: User, punishmentType: 'restrict' | 'ban', expiryDate: Date, reason: string) {
     const body: AdminPunishUserRequest = {
       expiryDate,
       reason
@@ -365,8 +365,18 @@ export class ApiClient {
     this.makeRequest("POST", `admin/users/uuid/${user.userId}/${punishmentType}`, body).subscribe();
   }
 
-  public PardonUser(user: User) {
+  public AdminPardonUser(user: User) {
     this.makeRequest("POST", `admin/users/uuid/${user.userId}/pardon`).subscribe();
+  }
+
+  public AdminAddTeamPick(level: Level) {
+    this.makeRequest("POST", `admin/levels/id/${level.levelId}/teamPick`).subscribe();
+    level.teamPicked = true;
+  }
+
+  public AdminRemoveTeamPick(level: Level) {
+    this.makeRequest("POST", `admin/levels/id/${level.levelId}/removeTeamPick`).subscribe();
+    level.teamPicked = false;
   }
 }
 

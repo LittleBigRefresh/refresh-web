@@ -58,7 +58,7 @@ export class AdminPanelComponent implements OnInit {
     const titleInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementTitleId));
     const bodyInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementBodyId));
 
-    this.apiClient.AddAnnouncement(titleInput.value, bodyInput.value);
+    this.apiClient.AdminAddAnnouncement(titleInput.value, bodyInput.value);
   }
 
   updateAnnouncementPreview() {
@@ -70,7 +70,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   removeAnnouncement(announcement: Announcement) {
-    this.apiClient.RemoveAnnouncement(announcement.announcementId);
+    this.apiClient.AdminRemoveAnnouncement(announcement.announcementId);
   }
 
   protected readonly faBullhorn = faBullhorn;

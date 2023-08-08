@@ -17,7 +17,7 @@ export class AdminUserComponent implements OnInit {
   public readonly reasonId: string = "admin-user-punish-reason";
   public readonly dateId: string = "admin-user-punish-date";
 
-  constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router) {}
+  constructor(private route: ActivatedRoute, private apiClient: ApiClient) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -54,7 +54,7 @@ export class AdminUserComponent implements OnInit {
     const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));
 
     if(this.user == undefined) return;
-    this.apiClient.PunishUser(this.user, punishmentType, dateInput.valueAsDate!, reasonInput.value);
+    this.apiClient.AdminPunishUser(this.user, punishmentType, dateInput.valueAsDate!, reasonInput.value);
 
     this.user.banReason = reasonInput.value;
     this.user.banExpiryDate = dateInput.valueAsDate;
@@ -70,7 +70,7 @@ export class AdminUserComponent implements OnInit {
 
   pardon() {
     if(this.user == undefined) return;
-    this.apiClient.PardonUser(this.user);
+    this.apiClient.AdminPardonUser(this.user);
 
     const reasonInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.reasonId));
     const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));

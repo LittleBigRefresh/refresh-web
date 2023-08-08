@@ -1,1 +1,10 @@
-<p>admin-level works!</p>
+<page-header class="text-3xl">Manage {{level?.title}} (by <user-link [user]="level?.publisher!"></user-link>)</page-header>
+<p>(id: <code>{{level?.levelId}}</code>)</p>
+
+<divider></divider>
+<page-header class="text-2xl">Team Pick</page-header>
+
+<div class="w-[19rem]">
+  <form-checkbox [icon]="faCertificate" name="Team Pick?" [id]="pickId"></form-checkbox>
+  <primary-button [icon]="faCheck" text="Submit changes" (click)="submit()" class="text-center"></primary-button>
+</div>
