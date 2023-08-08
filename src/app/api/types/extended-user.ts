@@ -5,4 +5,7 @@ export interface ExtendedUser extends User {
   role: number;
   banReason: string | null;
   banExpiryDate: Date | null;
+
+  rpcnAuthenticationAllowed: boolean;
+  psnAuthenticationAllowed: boolean;
 }

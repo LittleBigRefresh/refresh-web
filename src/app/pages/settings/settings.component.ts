@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
-import {faKey} from "@fortawesome/free-solid-svg-icons";
+import {faDesktop, faGamepad, faKey} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 
 @Component({
@@ -11,7 +11,10 @@ import {ExtendedUser} from "../../api/types/extended-user";
 })
 export class SettingsComponent implements OnInit {
   descriptionId: string = "settings-description";
+
   allowIpId: string = "settings-allow-ip";
+  allowPsnId: string = "settings-allow-psn";
+  allowRpcnId: string = "settings-allow-rpcn";
 
   protected readonly faPencil = faPencil;
   protected readonly faKey = faKey;
@@ -32,18 +35,32 @@ export class SettingsComponent implements OnInit {
     descriptionInput.value = data?.description ?? "";
 
     const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
+    const allowPsnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowPsnId));
+    const allowRpcnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowRpcnId));
+
     allowIpInput.checked = data?.allowIpAuthentication ?? false;
+    allowPsnInput.checked = data?.psnAuthenticationAllowed ?? false;
+    allowRpcnInput.checked = data?.rpcnAuthenticationAllowed ?? false;
   }
 
   saveChanges() {
     const descriptionInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.descriptionId));
     const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
 
+    const allowPsnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowPsnId));
+    const allowRpcnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowRpcnId));
+
     let request: UserUpdateRequest = {
       description: descriptionInput.value,
       allowIpAuthentication: allowIpInput.checked,
+
+      psnAuthenticationAllowed: allowPsnInput.checked,
+      rpcnAuthenticationAllowed: allowRpcnInput.checked,
     };
 
     this.apiClient.UpdateUser(request);
   }
+
+  protected readonly faDesktop = faDesktop;
+  protected readonly faGamepad = faGamepad;
 }
