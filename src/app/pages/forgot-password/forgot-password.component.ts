@@ -4,6 +4,7 @@ import { ApiClient } from 'src/app/api/api-client';
 import { sha512Async } from 'src/app/hash';
 import { Banner } from 'src/app/banners/banner';
 import { BannerService } from 'src/app/banners/banner.service';
+import {PasswordVerificationService} from "../../api/password-verification.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   usernameParam: string | undefined = undefined;
 
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private bannerService: BannerService) {}
+  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private passwordVerifier: PasswordVerificationService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -29,28 +30,7 @@ export class ForgotPasswordComponent implements OnInit {
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
     const confirmPasswordInput: string = (<HTMLInputElement>document.getElementById(this.confirmPasswordId)).value;
 
-    const error: Banner = {
-      Color: 'red',
-      Icon: 'exclamation-circle',
-      Title: "Skill Issue",
-      Text: "",
-    }
-
-    if(usernameInput.length <= 0) {
-      error.Text = "No username was provided."
-      this.bannerService.push(error)
-      return;
-    }
-
-    if(passwordInput.length <= 0) {
-      error.Text = "No password was provided."
-      this.bannerService.push(error)
-      return;
-    }
-
-    if(passwordInput != confirmPasswordInput) {
-      error.Text = "The passwords do not match."
-      this.bannerService.push(error)
+    if(!this.passwordVerifier.verifyPassword(usernameInput, passwordInput, confirmPasswordInput)) {
       return;
     }
 
