@@ -5,7 +5,8 @@ export type InputType =
   'text' |
   'password' |
   'dropdown' |
-  'datetime-local'
+  'datetime-local' |
+  'email'
 
 @Component({
   selector: 'form-input',

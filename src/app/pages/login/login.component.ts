@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
 import { sha512Async } from 'src/app/hash';
-import {Banner} from "../../banners/banner";
-import {BannerService} from "../../banners/banner.service";
 import {PasswordVerificationService} from "../../api/password-verification.service";
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
 let i: number = 0;
 
@@ -12,21 +11,23 @@ let i: number = 0;
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  usernameId: string = "login-username" + i++;
+  emailId: string = "login-email" + i++;
   passwordId: string = "login-password" + i++;
 
   constructor(private apiClient: ApiClient, private passwordVerifier: PasswordVerificationService) {}
 
   login() {
-    const usernameInput: string = (<HTMLInputElement>document.getElementById(this.usernameId)).value;
+    const emailInput: string = (<HTMLInputElement>document.getElementById(this.emailId)).value;
     const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
 
-    if(!this.passwordVerifier.verifyPassword(usernameInput, passwordInput)) {
+    if(!this.passwordVerifier.verifyPassword(emailInput, passwordInput)) {
       return;
     }
 
     sha512Async(passwordInput).then((hash) => {
-      this.apiClient.LogIn(usernameInput, hash)
+      this.apiClient.LogIn(emailInput, hash)
     });
   }
+
+  protected readonly faEnvelope = faEnvelope;
 }

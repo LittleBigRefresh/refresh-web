@@ -149,11 +149,12 @@ export class ApiClient {
       }))
   }
 
-  public LogIn(username: string, passwordSha512: string): boolean {
+  public LogIn(emailAddress: string, passwordSha512: string): boolean {
     if (this._userId !== undefined) throw Error("Cannot sign in when already signed in as someone."); // should never happen hopefully
 
     const body: ApiAuthenticationRequest = {
-      username: username,
+      username: undefined,
+      emailAddress,
       passwordSha512: passwordSha512,
     }
 
@@ -164,7 +165,7 @@ export class ApiClient {
 
         if (err.error?.ResetToken !== undefined) {
           this.resetToken = err.error.ResetToken;
-          this.router.navigateByUrl("/forgotPassword?username=" + username)
+          this.router.navigateByUrl("/forgotPassword?email=" + emailAddress)
         }
         return of(undefined);
       }))
@@ -179,12 +180,13 @@ export class ApiClient {
     return true;
   }
 
-  public Register(username: string, passwordSha512: string): boolean {
+  public Register(username: string, emailAddress: string, passwordSha512: string): boolean {
     if (this._userId !== undefined) throw Error("Cannot register when already signed in as someone."); // should never happen hopefully
 
     const body: ApiAuthenticationRequest = {
-      username: username,
-      passwordSha512: passwordSha512,
+      username,
+      emailAddress,
+      passwordSha512,
     }
 
     this.makeRequest<ApiAuthenticationResponse>("POST", "register", body, false)
@@ -239,7 +241,7 @@ export class ApiClient {
     localStorage.removeItem('game_token');
   }
 
-  public ResetPassword(username: string, passwordSha512: string, signIn: boolean = false): void {
+  public ResetPassword(emailAddress: string, passwordSha512: string, signIn: boolean = false): void {
     if (this.resetToken == undefined) {
       this.bannerService.pushError('Could not reset password', 'There was no token to authorize this action.')
       return;
@@ -252,7 +254,7 @@ export class ApiClient {
 
     this.makeRequest("PUT", "resetPassword", body)
       .subscribe(() => {
-        if (signIn) this.LogIn(username, passwordSha512);
+        if (signIn) this.LogIn(emailAddress, passwordSha512);
         this.bannerService.push({
           Color: 'success',
           Icon: 'key',

@@ -6,7 +6,7 @@ import {Banner} from "../banners/banner";
 export class PasswordVerificationService {
   constructor(private bannerService: BannerService) {}
 
-  public verifyPassword(username: string, password: string, confirmPassword: string | undefined = undefined): boolean {
+  public verifyPassword(email: string, password: string, username: string | undefined = undefined, confirmPassword: string | undefined = undefined): boolean {
     const error: Banner = {
       Color: 'dangerous',
       Icon: 'exclamation-circle',
@@ -14,8 +14,8 @@ export class PasswordVerificationService {
       Text: "",
     }
 
-    if(username.length <= 0) {
-      error.Text = "No username was provided."
+    if(email.length <= 0) {
+      error.Text = "No email was provided."
       this.bannerService.push(error)
       return false;
     }
@@ -38,6 +38,12 @@ export class PasswordVerificationService {
         this.bannerService.push(error)
         return false;
       }
+    }
+
+    if(username !== undefined && username.length <= 0) {
+      error.Text = "No username was provided."
+      this.bannerService.push(error)
+      return false;
     }
 
     return true;
