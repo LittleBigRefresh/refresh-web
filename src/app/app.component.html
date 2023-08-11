@@ -43,6 +43,15 @@
   post comments, or otherwise interact with the community. For more information, please contact an administrator."
   color="dangerous" [icon]="faExclamationTriangle" [id]="-1"></app-banner>
 
+<app-banner *ngIf="user !== undefined && user?.emailAddress === undefined" title="Add an email address"
+  text="Your account is missing an email address. Please add one in settings, or you may not be able to log in again."
+  color="dangerous" [icon]="faExclamationTriangle"></app-banner>
+
+<app-banner *ngIf="user !== undefined && !user?.emailAddressVerified" title="Verify your email address"
+  text="Your account's email address is not verified. Please check your email for a verification code, and verify it in settings.
+  If you do not see an email verification code, try resending the email or checking your spam folder."
+  color="warning" [icon]="faExclamationTriangle"></app-banner>
+
 <app-banner *ngFor="let n of bannerService.banners"
             [title]="n.Title" [text]="n.Text" [color]="n.Color" [icon]="n.Icon"
             [id]="bannerService.banners.indexOf(n)"

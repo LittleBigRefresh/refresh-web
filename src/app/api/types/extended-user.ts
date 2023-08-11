@@ -8,4 +8,7 @@ export interface ExtendedUser extends User {
 
   rpcnAuthenticationAllowed: boolean;
   psnAuthenticationAllowed: boolean;
+
+  emailAddress: string | undefined;
+  emailAddressVerified: boolean;
 }
