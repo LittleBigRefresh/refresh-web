@@ -264,6 +264,34 @@ export class ApiClient {
       });
   }
 
+  public VerifyEmail(code: string): void {
+    this.makeRequest("POST", "verify?code=" + code)
+      .subscribe(() => {
+        if(this.user !== undefined) {
+          this.user.emailAddressVerified = true;
+        }
+
+        this.bannerService.push({
+          Color: 'success',
+          Icon: 'key',
+          Title: "Email verification successful",
+          Text: "Your account's email has been verified.",
+        })
+      });
+  }
+
+  public ResendVerificationCode(): void {
+    this.makeRequest("POST", "verify/resend")
+      .subscribe(() => {
+        this.bannerService.push({
+          Color: 'success',
+          Icon: 'key',
+          Title: "Resent verification code",
+          Text: "The verification email has been sent to your email address.",
+        })
+      });
+  }
+
   public GetLevelCategories(): Observable<Category[]> {
     if (this.categories !== undefined) {
       return new Observable<Category[]>(observer => {

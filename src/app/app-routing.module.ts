@@ -21,6 +21,7 @@ import {RegisterComponent} from "./pages/register/register.component";
 import {AdminPanelComponent} from "./pages/admin-panel/admin-panel.component";
 import {AdminLevelComponent} from "./pages/admin-level/admin-level.component";
 import {AdminUserComponent} from "./pages/admin-user/admin-user.component";
+import {VerifyComponent} from "./pages/verify/verify.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: "auth", redirectTo: "authentication" },
   { path: "authentication", component: AuthenticationComponent },
   { path: "register", component: RegisterComponent },
+  { path: "verify", component: VerifyComponent },
   { path: "admin", component: AdminPanelComponent },
   { path: "admin/level/:id", component: AdminLevelComponent },
   { path: "admin/user/:uuid", component: AdminUserComponent },

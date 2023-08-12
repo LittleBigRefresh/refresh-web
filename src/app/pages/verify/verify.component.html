@@ -1,0 +1,16 @@
+<form-holder>
+  <page-header class="text-3xl">Verify Email</page-header>
+  <div class="h-5"></div>
+
+  <form-input [icon]="faKey" name="Code" type="text" [id]="codeId" [value]="codeParam"></form-input>
+
+  <div class="flex flex-row my-1 justify-between space-x-4">
+    <primary-button class="min-w-full" text="Verify" (click)="verify()"></primary-button>
+  </div>
+
+  <divider class="w-full"></divider>
+
+  <p class="pb-2">Didn't get the email?</p>
+
+  <secondary-button text="Resend Verification Code" (click)="resend()"></secondary-button>
+</form-holder>

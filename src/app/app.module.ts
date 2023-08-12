@@ -74,6 +74,7 @@ import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { AnnouncementComponent } from './components/announcement/announcement.component';
 import { AdminUserComponent } from './pages/admin-user/admin-user.component';
 import { AdminLevelComponent } from './pages/admin-level/admin-level.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { AdminLevelComponent } from './pages/admin-level/admin-level.component';
     AnnouncementComponent,
     AdminUserComponent,
     AdminLevelComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,
