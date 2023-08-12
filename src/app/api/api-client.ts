@@ -163,14 +163,17 @@ export class ApiClient {
         this.bannerService.pushError('Failed to sign in', err.error?.error?.message ?? "No error was provided by the server. Check the console for more details.")
         console.error(err);
 
-        if (err.error?.ResetToken !== undefined) {
-          this.resetToken = err.error.ResetToken;
-          this.router.navigateByUrl("/forgotPassword?email=" + emailAddress)
-        }
         return of(undefined);
       }))
       .subscribe((authResponse) => {
         if (authResponse === undefined) return;
+
+        if (authResponse.resetToken !== undefined) {
+          this.resetToken = authResponse.resetToken;
+          this.router.navigateByUrl("/forgotPassword?email=" + emailAddress);
+          this.bannerService.pushWarning("Create a password", "The account you are trying to sign into is a legacy account. Please set a password.");
+          return;
+        }
 
         this._userId = authResponse.userId;
         localStorage.setItem('game_token', authResponse.tokenData);
