@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
-import {faDesktop, faGamepad, faKey} from "@fortawesome/free-solid-svg-icons";
+import {faDesktop, faEnvelope, faGamepad, faKey} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 
 @Component({
@@ -11,6 +11,7 @@ import {ExtendedUser} from "../../api/types/extended-user";
 })
 export class SettingsComponent implements OnInit {
   descriptionId: string = "settings-description";
+  emailId: string = "settings-email";
 
   allowIpId: string = "settings-allow-ip";
   allowPsnId: string = "settings-allow-psn";
@@ -32,7 +33,9 @@ export class SettingsComponent implements OnInit {
 
   updateInputs(data: ExtendedUser | undefined) {
     const descriptionInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.descriptionId));
+    const emailInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.emailId));
     descriptionInput.value = data?.description ?? "";
+    emailInput.value = data?.emailAddress ?? "";
 
     const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
     const allowPsnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowPsnId));
@@ -45,8 +48,9 @@ export class SettingsComponent implements OnInit {
 
   saveChanges() {
     const descriptionInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.descriptionId));
-    const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
+    const emailInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.emailId));
 
+    const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
     const allowPsnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowPsnId));
     const allowRpcnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowRpcnId));
 
@@ -56,6 +60,7 @@ export class SettingsComponent implements OnInit {
 
       psnAuthenticationAllowed: allowPsnInput.checked,
       rpcnAuthenticationAllowed: allowRpcnInput.checked,
+      emailAddress: emailInput.value,
     };
 
     this.apiClient.UpdateUser(request);
@@ -63,4 +68,5 @@ export class SettingsComponent implements OnInit {
 
   protected readonly faDesktop = faDesktop;
   protected readonly faGamepad = faGamepad;
+  protected readonly faEnvelope = faEnvelope;
 }
