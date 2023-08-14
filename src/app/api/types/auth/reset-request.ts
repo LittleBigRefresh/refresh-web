@@ -1,4 +1,4 @@
 export interface ApiPasswordResetRequest {
     passwordSha512: string
-    resetToken: string
+    resetToken: string | undefined
 }

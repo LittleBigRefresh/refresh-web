@@ -58,6 +58,7 @@ export class ApiClient {
   }
 
   private handleRequestError<T>(data: ApiResponse<T>, catchErrors: boolean) {
+    console.log(data);
     if (catchErrors) {
       this.bannerService.pushError(`API Error: ${data.error?.name} (${data.error?.statusCode})`, data.error?.message ?? "Unknown error")
       return of(undefined);
@@ -73,13 +74,20 @@ export class ApiClient {
     });
 
     // @ts-ignore
-    result = result.pipe(switchMap((data: ApiResponse<T>) => {
-      if (!data.success) {
-        return this.handleRequestError(data, catchErrors);
-      }
+    result = result.pipe(
+      // @ts-ignore
+      catchError((err) => {
+        if (!err.success) {
+          console.log("Handling error")
+          return this.handleRequestError(err.error, catchErrors);
+        }
 
-      return of(data.data!);
-    }));
+        return of(undefined);
+      }),
+      switchMap((data: ApiResponse<T>) => {
+        return of(data.data);
+      }
+    ));
 
     // @ts-ignore
     return result;
@@ -89,18 +97,26 @@ export class ApiClient {
     let result: Observable<ApiResponse<T[]> | (T[] | undefined)> = this.httpClient.request<ApiResponse<T[]>>(method, environment.apiBaseUrl + '/' + endpoint);
 
     // @ts-ignore
-    result = result.pipe(switchMap((data: ApiResponse<T[]>) => {
-      if (!data.success) {
-        return this.handleRequestError(data, catchErrors);
+
+    result = result.pipe(
+      // @ts-ignore
+      catchError((err) => {
+        if (!err.success) {
+          console.log("Handling error")
+          return this.handleRequestError(err.error, catchErrors);
+        }
+
+        return of(undefined);
+      }),
+      switchMap((data: ApiResponse<T[]>) => {
+        const resp: ApiListResponse<T> = {
+          items: data.data!,
+          listInfo: data.listInfo!,
+        };
+
+        return of(resp);
       }
-
-      const resp: ApiListResponse<T> = {
-        items: data.data!,
-        listInfo: data.listInfo!,
-      };
-
-      return of(resp);
-    }));
+    ));
 
     // @ts-ignore
     return result;
@@ -245,7 +261,7 @@ export class ApiClient {
   }
 
   public ResetPassword(emailAddress: string, passwordSha512: string, signIn: boolean = false): void {
-    if (this.resetToken == undefined) {
+    if (this.user == undefined && this.resetToken == undefined) {
       this.bannerService.pushError('Could not reset password', 'There was no token to authorize this action.')
       return;
     }

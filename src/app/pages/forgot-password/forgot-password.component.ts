@@ -36,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     sha512Async(passwordInput).then((hash) => {
-      this.apiClient.ResetPassword(emailInput, hash, true)
+      this.apiClient.ResetPassword(emailInput, hash, this.apiClient.user == undefined)
     })
   }
 
