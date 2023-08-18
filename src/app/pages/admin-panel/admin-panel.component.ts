@@ -10,6 +10,7 @@ import {UserRoles} from "../../api/types/user-roles";
 import {User} from "../../api/types/user";
 import {Statistics} from "../../api/types/statistics";
 import {AdminStatistic} from "../../api/types/admin/admin-statistic";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-admin-panel',
@@ -27,7 +28,7 @@ export class AdminPanelComponent implements OnInit {
 
   public statistics: AdminStatistic[] = [];
 
-  constructor(private apiClient: ApiClient, private router: Router) {}
+  constructor(private apiClient: ApiClient, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.apiClient.userWatcher.subscribe((data) => {
@@ -73,8 +74,12 @@ export class AdminPanelComponent implements OnInit {
     this.apiClient.AdminRemoveAnnouncement(announcement.announcementId);
   }
 
+  getSanitizedGrafanaURL(): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.instance?.grafanaDashboardUrl!);
+  }
+
   protected readonly faBullhorn = faBullhorn;
   protected readonly faWrench = faWrench;
-  protected readonly undefined = undefined;
   protected readonly faCheck = faCheck;
+  protected readonly undefined = undefined;
 }

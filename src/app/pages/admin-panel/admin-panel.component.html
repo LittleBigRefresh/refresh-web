@@ -34,6 +34,11 @@
   </div>
 </div>
 
+<div *ngIf="instance?.grafanaDashboardUrl !== null">
+  <divider></divider>
+  <iframe [src]="getSanitizedGrafanaURL()" class="min-w-full h-[768px]"></iframe>
+</div>
+
 <!-- should always be last section -->
 <divider></divider>
 <p class="text-2xl font-bold pb-2.5">Other Actions</p>

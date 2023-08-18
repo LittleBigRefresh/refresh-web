@@ -13,4 +13,5 @@ export interface Instance {
 
   announcements: Announcement[];
   maintenanceModeEnabled: boolean;
+  grafanaDashboardUrl: string | null;
 }
