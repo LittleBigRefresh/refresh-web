@@ -238,18 +238,6 @@ export class ApiClient {
       });
   }
 
-  public GetUserByUsername(username: string): Observable<User> {
-    return this.makeRequest<User>("GET", "users/name/" + username)
-  }
-
-  public GetUserByUuid(uuid: string): Observable<User> {
-    return this.makeRequest<User>("GET", "users/uuid/" + uuid)
-  }
-
-  public GetExtendedUserByUuid(uuid: string): Observable<ExtendedUser> {
-    return this.makeRequest<ExtendedUser>("GET", "admin/users/uuid/" + uuid)
-  }
-
   public LogOut() {
     this._userId = undefined;
     this.user = undefined;
@@ -309,6 +297,36 @@ export class ApiClient {
           Text: "The verification email has been sent to your email address.",
         })
       });
+  }
+
+  public DeleteAccount(): void {
+    this.makeRequest("DELETE", "users/me")
+      .subscribe(() => {
+        this.bannerService.push({
+          Color: 'dangerous',
+          Icon: 'trash',
+          Title: "Account Deleted.",
+          Text: "Your account has been successfully deleted. Goodbye.",
+        });
+
+        this._userId = undefined;
+        this.user = undefined;
+
+        this.userWatcher.emit(undefined);
+        localStorage.removeItem('game_token');
+      });
+  }
+
+  public GetUserByUsername(username: string): Observable<User> {
+    return this.makeRequest<User>("GET", "users/name/" + username)
+  }
+
+  public GetUserByUuid(uuid: string): Observable<User> {
+    return this.makeRequest<User>("GET", "users/uuid/" + uuid)
+  }
+
+  public GetExtendedUserByUuid(uuid: string): Observable<ExtendedUser> {
+    return this.makeRequest<ExtendedUser>("GET", "admin/users/uuid/" + uuid)
   }
 
   public GetLevelCategories(): Observable<Category[]> {

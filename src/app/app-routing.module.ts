@@ -22,6 +22,7 @@ import {AdminPanelComponent} from "./pages/admin-panel/admin-panel.component";
 import {AdminLevelComponent} from "./pages/admin-level/admin-level.component";
 import {AdminUserComponent} from "./pages/admin-user/admin-user.component";
 import {VerifyComponent} from "./pages/verify/verify.component";
+import {DeleteAccountComponent} from "./pages/delete-account/delete-account.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: "logout", component: LogoutComponent },
   { path: "forgotPassword", component: ForgotPasswordComponent },
   { path: "settings", component: SettingsComponent },
+  { path: "settings/delete", component: DeleteAccountComponent },
   { path: "photos", component: PhotoListingComponent },
   { path: "photo/:id", component: PhotoPageComponent },
   { path: "notifications", component: NotificationListingComponent },

@@ -1,8 +1,6 @@
 <page-header class="text-3xl">Profile Settings</page-header>
 
 <primary-button class="w-48 inline-block text-center pr-2.5" [icon]="faKey" text="Authentication" routerLink="/authentication"></primary-button>
-<secondary-button class="w-64 inline-block text-center pr-2.5" [icon]="faKey" text="Verify Email Address" routerLink="/verify"></secondary-button>
-<secondary-button class="w-56 inline-block text-center pr-2.5" [icon]="faKey" text="Reset Password" routerLink="/forgotPassword"></secondary-button>
 
 <divider></divider>
 
@@ -23,4 +21,14 @@
 
 <div class="w-28 text-center inline-block pr-2.5">
   <dangerous-button text="Log out" routerLink="/logout"></dangerous-button>
+</div>
+
+<divider></divider>
+<page-header class="text-3xl">Account Management</page-header>
+
+<secondary-button class="w-64 inline-block text-center pr-2.5" [icon]="faEnvelope" text="Verify Email Address" routerLink="/verify"></secondary-button>
+<secondary-button class="w-56 inline-block text-center pr-2.5" [icon]="faKey" text="Reset Password" routerLink="/forgotPassword"></secondary-button>
+
+<div class="w-56 text-center inline-block pr-2.5">
+  <dangerous-button text="Delete Account" routerLink="/settings/delete" [icon]="faTrash"></dangerous-button>
 </div>

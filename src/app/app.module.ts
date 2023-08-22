@@ -20,7 +20,7 @@ import {
   faShuffle,
   faThumbsUp,
   faThumbsDown,
-  faPlay, faCertificate,
+  faPlay, faCertificate, faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -75,6 +75,7 @@ import { AnnouncementComponent } from './components/announcement/announcement.co
 import { AdminUserComponent } from './pages/admin-user/admin-user.component';
 import { AdminLevelComponent } from './pages/admin-level/admin-level.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { DeleteAccountComponent } from './pages/delete-account/delete-account.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { VerifyComponent } from './pages/verify/verify.component';
     AdminUserComponent,
     AdminLevelComponent,
     VerifyComponent,
+    DeleteAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -160,5 +162,6 @@ export class AppModule {
     library.addIcons(faThumbsDown)
     library.addIcons(faPlay)
     library.addIcons(faCertificate)
+    library.addIcons(faTrash)
   }
 }
