@@ -92,5 +92,4 @@ export class AdminUserComponent implements OnInit {
   protected readonly faGavel = faGavel;
   protected readonly faBan = faBan;
   protected readonly faFlag = faFlag;
-  protected readonly undefined = undefined;
 }

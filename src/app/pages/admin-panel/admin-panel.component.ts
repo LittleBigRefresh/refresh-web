@@ -81,5 +81,4 @@ export class AdminPanelComponent implements OnInit {
   protected readonly faBullhorn = faBullhorn;
   protected readonly faWrench = faWrench;
   protected readonly faCheck = faCheck;
-  protected readonly undefined = undefined;
 }

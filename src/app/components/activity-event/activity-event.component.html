@@ -3,9 +3,8 @@
     <user-avatar [user]="user" size="h-11 w-auto"></user-avatar>
   </div>
   <div>
-    <!-- TODO: this needs to be cleaned up, absolute mess -->
-    <a href="/u/{{user.userId}}" class="font-medium pr-1">{{user.username}}</a>
-    <div [ngSwitch]="_event.eventType" class="inline" *ngIf="_contextIsLevel">
+    <a [routerLink]="'/u/' + user.userId" class="font-medium pr-1">{{user.username}}</a>
+    <ng-container [ngSwitch]="_event.eventType" class="inline" *ngIf="_contextIsLevel; else notLevelContext">
       <span *ngSwitchCase="0">published this level</span>
       <span *ngSwitchCase="1">gave this level a heart</span>
       <span *ngSwitchCase="5">played this level</span>
@@ -16,8 +15,8 @@
         </span>
       </div>
       <span *ngSwitchDefault>Unhandled case: {{_event.eventType}}</span>
-    </div>
-    <div [ngSwitch]="_event.eventType" class="inline" *ngIf="!_contextIsLevel">
+    </ng-container>
+    <ng-template [ngSwitch]="_event.eventType" #notLevelContext>
       <span *ngSwitchCase="0">published <b><level-link [level]="getLevelFromEvent()"></level-link></b></span>
       <span *ngSwitchCase="1">gave <b><level-link [level]="getLevelFromEvent()"></level-link></b> a heart</span>
       <span *ngSwitchCase="5">played <b><level-link [level]="getLevelFromEvent()"></level-link></b></span>
@@ -31,7 +30,7 @@
         </span>
       </div>
       <span *ngSwitchDefault>Unhandled case: {{_event.eventType}}</span>
-    </div>
+    </ng-template>
     <p-gentle>{{getMoment(_event.occurredAt)}}</p-gentle>
   </div>
 </div>
