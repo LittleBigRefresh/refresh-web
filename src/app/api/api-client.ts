@@ -71,7 +71,7 @@ export class ApiClient {
     return of(respError);
   }
 
-  private makeRequest<T>(method: string, endpoint: string, body: any = null, catchErrors: boolean = true): Observable<T> {
+  private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
     let result: Observable<ApiResponse<T> | (T | undefined)> = this.httpClient.request<ApiResponse<T>>(method, environment.apiBaseUrl + '/' + endpoint, {
       body: body
     });
@@ -82,7 +82,8 @@ export class ApiClient {
       catchError((err) => {
         if (!err.success) {
           console.log("Handling error")
-          return this.handleRequestError(err.error, catchErrors);
+          if(errorHandler) errorHandler(err.error.error);
+          return this.handleRequestError(err.error, errorHandler == undefined);
         }
 
         return of(undefined);
@@ -181,11 +182,13 @@ export class ApiClient {
       passwordSha512: passwordSha512,
     }
 
-    this.makeRequest<ApiAuthenticationResponse>("POST", "login", body, false)
-      .pipe(catchError((err) => {
-        this.bannerService.pushError('Failed to sign in', err.error?.error?.message ?? "No error was provided by the server. Check the console for more details.")
-        console.error(err);
+    const errorHandler = (err: ApiError) => {
+      this.bannerService.pushError('Failed to sign in', err.message ?? "No error was provided by the server. Check the console for more details.")
+      console.error(err);
+    }
 
+    this.makeRequest<ApiAuthenticationResponse>("POST", "login", body, errorHandler)
+      .pipe(catchError(() => {
         return of(undefined);
       }))
       .subscribe((authResponse) => {
@@ -215,10 +218,13 @@ export class ApiClient {
       passwordSha512,
     }
 
-    this.makeRequest<ApiAuthenticationResponse>("POST", "register", body, false)
-      .pipe(catchError((err) => {
-        this.bannerService.pushError('Failed to register', err.error?.error?.message ?? "No error was provided by the server. Check the console for more details.")
-        console.error(err);
+    const errorHandler = (err: ApiError) => {
+      this.bannerService.pushError('Failed to register', err.message ?? "No error was provided by the server. Check the console for more details.")
+      console.error(err);
+    }
+
+    this.makeRequest<ApiAuthenticationResponse>("POST", "register", body, errorHandler)
+      .pipe(catchError(() => {
         return of(undefined);
       }))
       .subscribe((authResponse) => {
