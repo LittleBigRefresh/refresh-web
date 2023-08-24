@@ -15,14 +15,14 @@
 <div class="flex gap-10">
   <div class="w-[19rem]">
     <p class="text-xl font-bold pb-2.5">Create</p>
-    <form-input name="Title" [icon]="faBullhorn" [id]="announcementTitleId" (keyup)="updateAnnouncementPreview()"></form-input>
-    <form-input name="Body" [icon]="faPencil" [id]="announcementBodyId" (keyup)="updateAnnouncementPreview()"></form-input>
+    <form-input name="Title" [icon]="faBullhorn" [(value)]="announcementTitle"></form-input>
+    <form-input name="Body" [icon]="faPencil" [(value)]="announcementBody"></form-input>
 
     <primary-button [icon]="faCheck" text="Publish" (click)="postAnnouncement()" class="w-[19rem] text-center"></primary-button>
   </div>
   <div class="w-full">
     <p class="text-xl font-bold">Preview</p>
-    <announcement [title]="previewAnnouncement.title" [body]="previewAnnouncement.text"></announcement>
+    <announcement [title]="announcementTitle" [body]="announcementBody"></announcement>
     <divider></divider>
     <p class="text-xl font-bold">Live Announcements</p>
     <p-gentle *ngIf="instance?.announcements?.length === 0">There doesn't seem to be anything here.</p-gentle>

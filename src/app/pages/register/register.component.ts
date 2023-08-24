@@ -11,25 +11,21 @@ import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-  usernameId: string = "register-username";
-  emailId: string = "register-email";
-  passwordId: string = "register-password";
-  confirmPasswordId: string = "register-confirm-password";
+  username: string = "";
+  email: string = "";
+  password: string = "";
+  confirmPassword: string = "";
 
   constructor(private apiClient: ApiClient, private passwordVerifier: PasswordVerificationService) {}
 
   register() {
-    const usernameInput: string = (<HTMLInputElement>document.getElementById(this.usernameId)).value;
-    const emailInput: string = (<HTMLInputElement>document.getElementById(this.emailId)).value;
-    const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
-    const confirmPasswordInput: string = (<HTMLInputElement>document.getElementById(this.confirmPasswordId)).value;
 
-    if(!this.passwordVerifier.verifyPassword(usernameInput, passwordInput, usernameInput, confirmPasswordInput)) {
+    if(!this.passwordVerifier.verifyPassword(this.username, this.password, this.username, this.confirmPassword)) {
       return;
     }
 
-    sha512Async(passwordInput).then((hash) => {
-      this.apiClient.Register(usernameInput, emailInput, hash)
+    sha512Async(this.password).then((hash) => {
+      this.apiClient.Register(this.username, this.email, hash)
     });
   }
 

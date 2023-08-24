@@ -4,12 +4,5 @@
     <span>{{_name}}</span>
   </div>
 
-  <input type="checkbox" class="bg-teritary ml-2.5" [id]="_id" [readOnly]="_readonly" [checked]="_value">
-
-  <div *ngIf="isDev && _id === undefined">
-    <div class="text-xs pb-1 text-warning">
-      <fa-icon [icon]="'warning'" class="pr-1"></fa-icon>
-      <span>Dev: The above input does not have an ID set.</span>
-    </div>
-  </div>
+  <input type="checkbox" class="bg-teritary ml-2.5" [readOnly]="_readonly" [checked]="_value" (input)="onChange($event)">
 </div>

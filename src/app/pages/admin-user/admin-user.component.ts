@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EMPTY, switchMap, tap} from "rxjs";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 import {ApiClient} from "../../api/api-client";
 import {faBan, faCalendar, faFlag, faGavel} from "@fortawesome/free-solid-svg-icons";
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
@@ -14,8 +14,8 @@ import {UserRoles} from "../../api/types/user-roles";
 export class AdminUserComponent implements OnInit {
   user: ExtendedUser | undefined = undefined;
 
-  public readonly reasonId: string = "admin-user-punish-reason";
-  public readonly dateId: string = "admin-user-punish-date";
+  reason: string = "";
+  date: string = "";
 
   constructor(private route: ActivatedRoute, private apiClient: ApiClient) {}
 
@@ -38,26 +38,20 @@ export class AdminUserComponent implements OnInit {
           this.user = data;
           if (data === undefined) return;
 
-          const reasonInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.reasonId));
-          const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));
-
           if(data.banReason !== null) {
-            reasonInput.value = data.banReason;
-            dateInput.valueAsDate = new Date(data.banExpiryDate!);
+            this.reason = data.banReason;
+            this.date = data.banExpiryDate!.toString();
           }
         })
       );
   }
 
   private punish(punishmentType: 'ban' | 'restrict') {
-    const reasonInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.reasonId));
-    const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));
-
     if(this.user == undefined) return;
-    this.apiClient.AdminPunishUser(this.user, punishmentType, dateInput.valueAsDate!, reasonInput.value);
+    this.apiClient.AdminPunishUser(this.user, punishmentType, new Date(this.date), this.reason);
 
-    this.user.banReason = reasonInput.value;
-    this.user.banExpiryDate = dateInput.valueAsDate;
+    this.user.banReason = this.reason;
+    this.user.banExpiryDate = new Date(this.date);
   }
 
   ban() {
@@ -72,11 +66,8 @@ export class AdminUserComponent implements OnInit {
     if(this.user == undefined) return;
     this.apiClient.AdminPardonUser(this.user);
 
-    const reasonInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.reasonId));
-    const dateInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.dateId));
-
-    reasonInput.value = "";
-    dateInput.value = "";
+    this.reason = "";
+    this.date = "";
 
     this.user.banReason = null;
     this.user.banExpiryDate = null;

@@ -45,8 +45,7 @@
 <div class="flex flex-row gap-2.5">
   <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
     <page-header class="text-3xl">Leaderboard</page-header>
-    <form-dropdown name="Score Type" [options]="scoreTypes" [id]="this.scoreTypeId"
-                   (change)="this.formChanged()"></form-dropdown>
+    <form-dropdown name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
     <divider></divider>
     <div *ngIf="scores === undefined">
       <p>Loading scores...</p>

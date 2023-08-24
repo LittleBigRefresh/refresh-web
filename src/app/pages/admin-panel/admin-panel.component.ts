@@ -17,12 +17,11 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   templateUrl: './admin-panel.component.html'
 })
 export class AdminPanelComponent implements OnInit {
-  protected readonly announcementTitleId: string = "announcement-title-id"
-  protected readonly announcementBodyId: string = "announcement-body-id"
+  announcementTitle: string = "Example Announcement"
+  announcementBody: string = "This is an example announcement. Start typing on the left and preview your announcement here!"
 
   protected readonly faPencil = faPencil;
 
-  public previewAnnouncement: Announcement = {title: "Title", text: "Body", announcementId: ""};
   public instance: Instance | undefined = undefined;
   public user: ExtendedUser | undefined = undefined;
 
@@ -56,18 +55,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   postAnnouncement() {
-    const titleInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementTitleId));
-    const bodyInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementBodyId));
-
-    this.apiClient.AdminAddAnnouncement(titleInput.value, bodyInput.value);
-  }
-
-  updateAnnouncementPreview() {
-    const titleInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementTitleId));
-    const bodyInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.announcementBodyId));
-
-    this.previewAnnouncement.title = titleInput.value;
-    this.previewAnnouncement.text = bodyInput.value;
+    this.apiClient.AdminAddAnnouncement(this.announcementTitle, this.announcementBody);
   }
 
   removeAnnouncement(announcement: Announcement) {

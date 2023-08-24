@@ -1,4 +1,4 @@
-import {Component, Input, isDevMode} from '@angular/core';
+import {Component, EventEmitter, Input, isDevMode, Output} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 @Component({
@@ -8,16 +8,9 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 export class FormCheckboxComponent {
   _icon: IconProp = 'poo'; // this will get definitely someone's attention if this property is left undefined
   _name: string = 'NAME NOT SET, FIX ME';
-  _id: string | undefined = undefined;
   _readonly: boolean = false;
   _value: boolean = false;
   _showLabel: boolean = true;
-
-  isDev: boolean = false;
-
-  constructor() {
-    this.isDev = isDevMode();
-  }
 
   @Input()
   set icon(param: IconProp) {
@@ -27,11 +20,6 @@ export class FormCheckboxComponent {
   @Input()
   set name(param: string) {
     this._name = param;
-  }
-
-  @Input()
-  set id(param: string) {
-    this._id = param;
   }
 
   @Input()
@@ -48,5 +36,12 @@ export class FormCheckboxComponent {
   @Input()
   set showLabel(param: boolean) {
     this._showLabel = param;
+  }
+
+  @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>;
+
+  onChange(event: any): void {
+    this.value = event.target.checked;
+    this.valueChange.emit(this.value);
   }
 }

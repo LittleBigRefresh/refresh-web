@@ -8,22 +8,19 @@ import {ActivatedRoute, Params} from "@angular/router";
   templateUrl: './verify.component.html'
 })
 export class VerifyComponent implements OnInit {
-  protected readonly codeId: string = "verify-code";
+  code: string = "";
 
   constructor(private apiClient: ApiClient, private route: ActivatedRoute) {}
 
-  codeParam: string | undefined = undefined;
-
   public ngOnInit() {
     this.route.queryParams.subscribe((params: Params) => {
-      if(params['code'] === undefined) return;
-      this.codeParam = params['code'];
-    })
+      const codeParam: string | undefined = params['code'];
+      if(codeParam) this.code = codeParam;
+    });
   }
 
   verify() {
-    const codeInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.codeId));
-    this.apiClient.VerifyEmail(codeInput.value);
+    this.apiClient.VerifyEmail(this.code);
   }
 
   resend() {

@@ -12,31 +12,26 @@ import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
   templateUrl: './forgot-password.component.html'
 })
 export class ForgotPasswordComponent implements OnInit {
-  emailId: string = "forgot-email"
-  passwordId: string = "forgot-password"
-  confirmPasswordId: string = "forgot-password-confirm"
-
-  emailParam: string | undefined = undefined;
+  email: string = ""
+  password: string = ""
+  confirmPassword: string = ""
 
   constructor(private apiClient: ApiClient, private route: ActivatedRoute, private passwordVerifier: PasswordVerificationService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.emailParam = params['email'];
+      const emailParam: string | undefined = params['email'];
+      if(emailParam) this.email = emailParam;
     })
   }
 
   reset(): void {
-    const emailInput: string = (<HTMLInputElement>document.getElementById(this.emailId)).value;
-    const passwordInput: string = (<HTMLInputElement>document.getElementById(this.passwordId)).value;
-    const confirmPasswordInput: string = (<HTMLInputElement>document.getElementById(this.confirmPasswordId)).value;
-
-    if(!this.passwordVerifier.verifyPassword(emailInput, passwordInput, undefined, confirmPasswordInput)) {
+    if(!this.passwordVerifier.verifyPassword(this.email, this.password, undefined, this.confirmPassword)) {
       return;
     }
 
-    sha512Async(passwordInput).then((hash) => {
-      this.apiClient.ResetPassword(emailInput, hash, this.apiClient.user == undefined)
+    sha512Async(this.password).then((hash) => {
+      this.apiClient.ResetPassword(this.email, hash, this.apiClient.user == undefined)
     })
   }
 

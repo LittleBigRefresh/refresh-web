@@ -2,7 +2,7 @@
   <page-header class="text-3xl">Verify Email</page-header>
   <div class="h-5"></div>
 
-  <form-input [icon]="faKey" name="Code" type="text" [id]="codeId" [value]="codeParam"></form-input>
+  <form-input [icon]="faKey" name="Code" type="text" [(value)]="code"></form-input>
 
   <div class="flex flex-row my-1 justify-between space-x-4">
     <primary-button class="min-w-full" text="Verify" (click)="verify()"></primary-button>

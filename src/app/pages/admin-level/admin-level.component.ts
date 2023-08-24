@@ -12,7 +12,7 @@ import {faCertificate, faCheck, faFlag} from "@fortawesome/free-solid-svg-icons"
 export class AdminLevelComponent {
   level: Level | undefined = undefined;
 
-  public readonly pickId: string = "admin-level-pick";
+  teamPicked: boolean = false;
 
   constructor(private route: ActivatedRoute, private apiClient: ApiClient) {}
 
@@ -35,8 +35,7 @@ export class AdminLevelComponent {
           this.level = data;
           if (data === undefined) return;
 
-          const pickInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.pickId));
-          pickInput.checked = data.teamPicked;
+          this.teamPicked = data.teamPicked;
         })
       );
   }
@@ -46,10 +45,9 @@ export class AdminLevelComponent {
 
   submit() {
     if(this.level == undefined) return;
-    const pickInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.pickId));
 
-    if(pickInput.checked != this.level.teamPicked) {
-      if(pickInput.checked) this.apiClient.AdminAddTeamPick(this.level);
+    if(this.teamPicked != this.level.teamPicked) {
+      if(this.teamPicked) this.apiClient.AdminAddTeamPick(this.level);
       else this.apiClient.AdminRemoveTeamPick(this.level);
     }
   }

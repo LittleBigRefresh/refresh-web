@@ -22,11 +22,10 @@ export class LevelComponent implements OnInit {
   level: Level | undefined
   scores: Score[] | undefined
   activity: ActivityPage | undefined
-  scoreType: number = 1;
 
   ownUser: ExtendedUser | undefined;
 
-  scoreTypeId: string = "level-leaderboard-scoretype"
+  scoreType: string = "1";
 
   scoreTypes: DropdownOption[] = [
     {
@@ -80,9 +79,6 @@ export class LevelComponent implements OnInit {
 
   formChanged() {
     if(this.level === undefined) return;
-
-    const scoreTypeInput: string = (<HTMLSelectElement>document.getElementById(this.scoreTypeId)).value;
-    this.scoreType = Number(scoreTypeInput);
     this.getScores(this.level.levelId).subscribe()
   }
 
@@ -98,7 +94,7 @@ export class LevelComponent implements OnInit {
   }
 
   getScores(levelId: number, clear: boolean = true, skip: number = 0) {
-    return this.apiClient.GetScoresForLevel(levelId, this.scoreType, skip)
+    return this.apiClient.GetScoresForLevel(levelId, Number(this.scoreType), skip)
     .pipe(
       catchError((error: HttpErrorResponse) => {
         console.warn(error);

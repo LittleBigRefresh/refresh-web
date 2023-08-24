@@ -4,18 +4,19 @@ import {ApiClient} from "../../api/api-client";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
 import {faDesktop, faEnvelope, faGamepad, faKey, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
+import {startWith} from "rxjs";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
 })
 export class SettingsComponent implements OnInit {
-  descriptionId: string = "settings-description";
-  emailId: string = "settings-email";
+  description: string = "";
+  email: string = "";
 
-  allowIpId: string = "settings-allow-ip";
-  allowPsnId: string = "settings-allow-psn";
-  allowRpcnId: string = "settings-allow-rpcn";
+  allowIpAuth: boolean = false;
+  allowPsnAuth: boolean = false;
+  allowRpcnAuth: boolean = false;
 
   protected readonly faPencil = faPencil;
   protected readonly faKey = faKey;
@@ -24,43 +25,28 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiClient.userWatcher.subscribe((data) => {
-      this.updateInputs(data);
-    })
-    // FIXME: this is stupid
-    setTimeout(() => {this.updateInputs(this.apiClient.user);}, 0);
+    this.apiClient.userWatcher
+      .pipe(startWith(this.apiClient.user))
+      .subscribe((data) => this.updateInputs(data));
   }
 
   updateInputs(data: ExtendedUser | undefined) {
-    const descriptionInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.descriptionId));
-    const emailInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.emailId));
-    descriptionInput.value = data?.description ?? "";
-    emailInput.value = data?.emailAddress ?? "";
+    this.description = data?.description ?? "";
+    this.email = data?.emailAddress ?? "";
 
-    const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
-    const allowPsnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowPsnId));
-    const allowRpcnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowRpcnId));
-
-    allowIpInput.checked = data?.allowIpAuthentication ?? false;
-    allowPsnInput.checked = data?.psnAuthenticationAllowed ?? false;
-    allowRpcnInput.checked = data?.rpcnAuthenticationAllowed ?? false;
+    this.allowIpAuth = data?.allowIpAuthentication ?? false;
+    this.allowPsnAuth = data?.psnAuthenticationAllowed ?? false;
+    this.allowRpcnAuth = data?.rpcnAuthenticationAllowed ?? false;
   }
 
   saveChanges() {
-    const descriptionInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.descriptionId));
-    const emailInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.emailId));
-
-    const allowIpInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowIpId));
-    const allowPsnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowPsnId));
-    const allowRpcnInput: HTMLInputElement = (<HTMLInputElement>document.getElementById(this.allowRpcnId));
-
     let request: UserUpdateRequest = {
-      description: descriptionInput.value,
-      allowIpAuthentication: allowIpInput.checked,
+      description: this.description,
+      emailAddress: this.email,
 
-      psnAuthenticationAllowed: allowPsnInput.checked,
-      rpcnAuthenticationAllowed: allowRpcnInput.checked,
-      emailAddress: emailInput.value,
+      allowIpAuthentication: this.allowIpAuth,
+      psnAuthenticationAllowed: this.allowPsnAuth,
+      rpcnAuthenticationAllowed: this.allowRpcnAuth,
     };
 
     this.apiClient.UpdateUser(request);
