@@ -412,11 +412,14 @@ export class ApiClient {
     this.makeRequest<Announcement>("POST", "admin/announcements", {title, text: body})
       .subscribe(data => {
         this.instance?.announcements.push({title, text: body, announcementId: data.announcementId})
+        this.bannerService.pushSuccess("Posted announcement", "The announcement was successfully posted.");
       });
   }
 
   public AdminRemoveAnnouncement(id: string) {
-    this.makeRequest("DELETE", "admin/announcements/" + id).subscribe();
+    this.makeRequest("DELETE", "admin/announcements/" + id).subscribe(() => {
+      this.bannerService.pushWarning("Removed announcement", "The announcement was successfully removed.");
+    });
 
     // TODO: do this client-side instead of refreshing from server
     this.instance = undefined;
@@ -429,20 +432,30 @@ export class ApiClient {
       reason
     };
 
-    this.makeRequest("POST", `admin/users/uuid/${user.userId}/${punishmentType}`, body).subscribe();
+    this.makeRequest("POST", `admin/users/uuid/${user.userId}/${punishmentType}`, body).subscribe(() => {
+      this.bannerService.pushSuccess(user.username + " is punished", "The punishment was successfully applied.");
+    });
   }
 
   public AdminPardonUser(user: User) {
-    this.makeRequest("POST", `admin/users/uuid/${user.userId}/pardon`).subscribe();
+    this.makeRequest("POST", `admin/users/uuid/${user.userId}/pardon`).subscribe(() => {
+      this.bannerService.pushSuccess(user.username + " is forgiven", "The punishment was successfully removed.");
+    });
   }
 
   public AdminAddTeamPick(level: Level) {
-    this.makeRequest("POST", `admin/levels/id/${level.levelId}/teamPick`).subscribe();
+    this.makeRequest("POST", `admin/levels/id/${level.levelId}/teamPick`).subscribe(() => {
+      this.bannerService.pushSuccess("Team Picked", "The level was successfully team picked.");
+    });
+
     level.teamPicked = true;
   }
 
   public AdminRemoveTeamPick(level: Level) {
-    this.makeRequest("POST", `admin/levels/id/${level.levelId}/removeTeamPick`).subscribe();
+    this.makeRequest("POST", `admin/levels/id/${level.levelId}/removeTeamPick`).subscribe(() => {
+      this.bannerService.pushWarning("Team Pick Removed", "The team pick was successfully removed.");
+    });
+
     level.teamPicked = false;
   }
 }
