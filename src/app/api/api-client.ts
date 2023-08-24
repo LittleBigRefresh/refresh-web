@@ -421,9 +421,13 @@ export class ApiClient {
       this.bannerService.pushWarning("Removed announcement", "The announcement was successfully removed.");
     });
 
-    // TODO: do this client-side instead of refreshing from server
-    this.instance = undefined;
-    this.GetInstanceInformation().subscribe();
+    if(!this.instance) return;
+    let index = this.instance.announcements.
+      findIndex(announcement => announcement.announcementId === id);
+
+    if (index >= 0) {
+      this.instance.announcements.splice(index, 1);
+    }
   }
 
   public AdminPunishUser(user: User, punishmentType: 'restrict' | 'ban', expiryDate: Date, reason: string) {

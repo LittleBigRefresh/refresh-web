@@ -11,6 +11,7 @@ import {User} from "../../api/types/user";
 import {Statistics} from "../../api/types/statistics";
 import {AdminStatistic} from "../../api/types/admin/admin-statistic";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {startWith} from "rxjs";
 
 @Component({
   selector: 'app-admin-panel',
@@ -30,10 +31,12 @@ export class AdminPanelComponent implements OnInit {
   constructor(private apiClient: ApiClient, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.apiClient.userWatcher.subscribe((data) => {
-      this.redirectIfNotAdmin(data, this.router);
-      this.user = data;
-    });
+    this.apiClient.userWatcher
+      .pipe(startWith(this.apiClient.user))
+      .subscribe((data) => {
+        this.redirectIfNotAdmin(data, this.router);
+        this.user = data;
+      });
 
     this.apiClient.GetInstanceInformation().subscribe(data => {
       this.instance = data;
