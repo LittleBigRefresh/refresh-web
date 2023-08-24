@@ -30,6 +30,8 @@ import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
 @Injectable({providedIn: 'root'})
 export class ApiClient {
   private _userId: string | undefined = undefined;
+  private _loggedIn = false;
+
   user: ExtendedUser | undefined = undefined;
 
   resetToken: string | undefined = undefined;
@@ -46,6 +48,7 @@ export class ApiClient {
 
     const storedToken: string | null = localStorage.getItem('game_token');
 
+    this._loggedIn = storedToken !== null;
     if (storedToken) {
       this.GetMyUser(() => {
         // only subscribe after getting user
@@ -123,11 +126,15 @@ export class ApiClient {
   }
 
   onUserUpdate(user: ExtendedUser | undefined): void {
-    console.log("Handling user change: " + user)
+    console.log("Handling user change:", user)
     if (user !== undefined) {
-      this.bannerService.pushSuccess(`Hi, ${user.username}!`, 'You have been successfully signed in.')
-      this.router.navigate(['/'])
+      if(!this._loggedIn) {
+        this._loggedIn = true;
+        this.bannerService.pushSuccess(`Hi, ${user.username}!`, 'You have been successfully signed in.')
+        this.router.navigate(['/'])
+      }
     } else {
+      this._loggedIn = false;
       this.bannerService.push({
         Title: `Signed out`,
         Icon: 'right-from-bracket',
@@ -383,8 +390,9 @@ export class ApiClient {
     this.makeRequest<ExtendedUser>("PATCH", "users/me", data)
       .subscribe(data => {
         this.bannerService.pushSuccess("User updated", "Your profile was successfully updated.");
+
         this.user = data;
-        // this.userWatcher.emit(data); // TODO: don't trigger login detection
+        this.userWatcher.emit(data); // TODO: don't trigger login detection
       });
   }
 
