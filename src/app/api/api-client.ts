@@ -361,7 +361,7 @@ export class ApiClient {
   }
 
   public GetUsersRoom(userUuid: string): Observable<Room> {
-    return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid)
+    return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid, (_: ApiError) => {})
   }
 
   public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<ApiListResponse<Score>> {
