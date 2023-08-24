@@ -398,7 +398,7 @@ export class ApiClient {
         this.bannerService.pushSuccess("User updated", "Your profile was successfully updated.");
 
         this.user = data;
-        this.userWatcher.emit(data); // TODO: don't trigger login detection
+        this.userWatcher.emit(data);
       });
   }
 
