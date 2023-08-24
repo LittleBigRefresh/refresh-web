@@ -2,7 +2,7 @@
 
 This is a work-in-progress project intending to build a proper frontend for [Refresh](https://github.com/LittleBigRefresh/Refresh).
 
-![A look at the front page](https://github.com/LittleBigRefresh/refresh-web/assets/40577357/8ee24c78-8a26-4f65-b17c-4a3bff22f243)
+![A look at the front page](https://github.com/LittleBigRefresh/refresh-web/assets/40577357/90f06b4a-3956-4114-a341-362bc6513061)
 
 Design/structure is WIP. Suggestions and criticism are welcome!
 
