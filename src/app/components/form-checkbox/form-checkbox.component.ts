@@ -41,7 +41,7 @@ export class FormCheckboxComponent {
   @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>;
 
   onChange(event: any): void {
-    this.value = event.target.checked;
-    this.valueChange.emit(this.value);
+    this._value = event.target.checked;
+    this.valueChange.emit(this._value);
   }
 }
