@@ -29,6 +29,7 @@
           in <b>{{score.scoreType}}-player</b> mode
         </span>
       </div>
+      <span *ngSwitchCase="127">logged in for the first time</span>
       <span *ngSwitchDefault>Unhandled case: {{_event.eventType}}</span>
     </ng-template>
     <p-gentle>{{getMoment(_event.occurredAt)}}</p-gentle>
