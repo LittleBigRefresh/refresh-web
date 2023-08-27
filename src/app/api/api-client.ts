@@ -183,6 +183,12 @@ export class ApiClient {
     }
 
     const errorHandler = (err: ApiError) => {
+      if(err.warning) {
+        this.bannerService.pushWarning('Warning', err.message);
+        console.warn(err);
+        return;
+      }
+
       this.bannerService.pushError('Failed to sign in', err.message ?? "No error was provided by the server. Check the console for more details.")
       console.error(err);
     }
@@ -219,6 +225,12 @@ export class ApiClient {
     }
 
     const errorHandler = (err: ApiError) => {
+      if(err.warning) {
+        this.bannerService.pushWarning('Warning', err.message);
+        console.warn(err);
+        return;
+      }
+
       this.bannerService.pushError('Failed to register', err.message ?? "No error was provided by the server. Check the console for more details.")
       console.error(err);
     }
