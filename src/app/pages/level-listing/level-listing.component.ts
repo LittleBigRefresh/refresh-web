@@ -17,6 +17,8 @@ export class LevelListingComponent implements OnInit {
   levels: Level[] | undefined = undefined;
   routeName!: string
 
+  processedRoute: string = ''
+
   nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
@@ -28,6 +30,7 @@ export class LevelListingComponent implements OnInit {
       if(apiRoute == null) return;
 
       this.routeName = apiRoute;
+      this.processedRoute = this.processRoute(apiRoute);
 
       const pipe = this.apiClient.GetLevelListing(apiRoute, pageSize, 0)
         .pipe(catchError((error: HttpErrorResponse, caught) => {
@@ -47,6 +50,18 @@ export class LevelListingComponent implements OnInit {
     })
   }
 
+  // Instead of just showing the route in PascalCase in the level category, we can process the route and make it look nicer.
+  private processRoute(route: string): string {
+    const routeMap: { [key: string]: string } = {
+      'mostLiked': 'Most Liked',
+      'mostHearted': 'Most Loved',
+      'mostPlayed': 'Most Played',
+      'teamPicks': 'Team Picked',
+      'currentlyPlaying': "Busiest"
+    };
+
+    return routeMap[route] || route; // Default to the original route if it's not found in the mapping.
+  }
   loadNextPage(intersecting: boolean): void {
     if(!intersecting) return;
 
