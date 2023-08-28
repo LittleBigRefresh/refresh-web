@@ -25,6 +25,11 @@ export class AdminRegistrationsComponent implements OnInit {
 
   remove(registration: AdminQueuedRegistration): void {
     this.apiClient.AdminRemoveQueuedRegistration(registration);
+    this.ngOnInit();
+  }
+
+  clearAll(): void {
+
   }
 
   protected readonly faTrash = faTrash;

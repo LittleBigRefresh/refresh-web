@@ -3,6 +3,7 @@ import {ApiClient} from "../../api/api-client";
 import {catchError, of} from "rxjs";
 import {RefreshNotification} from "../../api/types/refresh-notification";
 import {Router} from "@angular/router";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-notification-listing',
@@ -50,4 +51,6 @@ export class NotificationListingComponent implements OnInit {
     this.apiClient.ClearAllNotifications()
       .subscribe();
   }
+
+  protected readonly faTrash = faTrash;
 }

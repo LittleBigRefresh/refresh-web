@@ -494,8 +494,14 @@ export class ApiClient {
   }
 
   public AdminRemoveQueuedRegistration(registration: AdminQueuedRegistration) {
-    return this.makeRequest("DELETE", "admin/registrations").subscribe(() => {
+    this.makeRequest("DELETE", `admin/registrations/${registration.registrationId}`).subscribe(() => {
       this.bannerService.pushSuccess(`Registration Removed`, `The queued registration for ${registration.username}/${registration.emailAddress} has been removed.`);
+    });
+  }
+
+  public AdminRemoveAllQueuedRegistrations() {
+    this.makeRequest("DELETE", "admin/registrations").subscribe(() => {
+      this.bannerService.pushSuccess(`All Registrations Removed`, `All queued registrations have been removed.`);
     });
   }
 }
