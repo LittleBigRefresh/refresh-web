@@ -46,6 +46,7 @@ export class AdminPanelComponent implements OnInit {
       this.statistics.push({ unit: "user", count: data.totalUsers });
       this.statistics.push({ unit: "photo", count: data.totalPhotos });
       this.statistics.push({ unit: "level", count: data.totalLevels });
+      this.statistics.push({ unit: "event", count: data.totalEvents });
     });
   }
 
