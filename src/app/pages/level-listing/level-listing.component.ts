@@ -57,7 +57,8 @@ export class LevelListingComponent implements OnInit {
       'mostHearted': 'Most Loved',
       'mostPlayed': 'Most Played',
       'teamPicks': 'Team Picked',
-      'currentlyPlaying': 'Busiest'
+      'currentlyPlaying': 'Busiest',
+      'byUser': 'Your',
     };
 
     return routeMap[route] || route; // Default to the original route if it's not found in the mapping.
