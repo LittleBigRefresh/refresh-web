@@ -29,7 +29,6 @@ export class LevelListingComponent implements OnInit {
       const apiRoute: string | null = params.get('route');
       if(apiRoute == null) return;
       this.apiRoute = apiRoute;
-      console.log(this.apiRoute)
       const pipe = this.apiClient.GetLevelListing(apiRoute, pageSize, 0)
         .pipe(catchError((error: HttpErrorResponse, caught) => {
           console.warn(error)
@@ -65,7 +64,7 @@ export class LevelListingComponent implements OnInit {
 
     if(this.nextPageIndex <= 0) return; // This is the server telling us there's no more data
 
-    this.apiClient.GetLevelListing(this.routeName, pageSize, this.nextPageIndex).subscribe((data) => {
+    this.apiClient.GetLevelListing(this.apiRoute, pageSize, this.nextPageIndex).subscribe((data) => {
       this.levels = this.levels!.concat(data.items);
       this.nextPageIndex = data.listInfo.nextPageIndex;
       this.total = data.listInfo.totalItems;
