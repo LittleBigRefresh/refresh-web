@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
-import {faBullhorn, faCheck, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {faBullhorn, faCheck, faRegistered, faUserPlus, faUsers, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {Announcement} from "../../api/types/announcement";
@@ -32,7 +32,6 @@ export class AdminPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiClient.userWatcher
-      .pipe(startWith(this.apiClient.user))
       .subscribe((data) => {
         this.redirectIfNotAdmin(data, this.router);
         this.user = data;
@@ -72,4 +71,7 @@ export class AdminPanelComponent implements OnInit {
   protected readonly faBullhorn = faBullhorn;
   protected readonly faWrench = faWrench;
   protected readonly faCheck = faCheck;
+  protected readonly faUsers = faUsers;
+  protected readonly faRegistered = faRegistered;
+  protected readonly faUserPlus = faUserPlus;
 }
