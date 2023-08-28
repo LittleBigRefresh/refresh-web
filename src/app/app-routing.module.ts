@@ -23,6 +23,8 @@ import {AdminLevelComponent} from "./pages/admin-level/admin-level.component";
 import {AdminUserComponent} from "./pages/admin-user/admin-user.component";
 import {VerifyComponent} from "./pages/verify/verify.component";
 import {DeleteAccountComponent} from "./pages/delete-account/delete-account.component";
+import {AdminRegistrationsComponent} from "./pages/admin-registrations/admin-registrations.component";
+import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -51,6 +53,8 @@ const routes: Routes = [
   { path: "admin", component: AdminPanelComponent },
   { path: "admin/level/:id", component: AdminLevelComponent },
   { path: "admin/user/:uuid", component: AdminUserComponent },
+  { path: "admin/users", component: AdminUsersComponent },
+  { path: "admin/registrations", component: AdminRegistrationsComponent },
 ];
 
 if(isDevMode()) {

@@ -1,0 +1,11 @@
+<page-header class="text-3xl">Queued Registrations</page-header>
+
+<div *ngFor="let registration of registrations" class="bg-form-background rounded-[11px] px-5 py-2.5">
+  <div class="float-right cursor-pointer rounded-md bg-dangerous w-7 h-7 text-center" (click)="remove(registration)">
+    <fa-icon [icon]="faTrash"></fa-icon>
+  </div>
+
+  <p class="text-xl font-bold">{{registration.username}}</p>
+  <p>{{registration.emailAddress}}</p>
+  <p-gentle>Expires {{getMoment(registration.expiryDate)}}</p-gentle>
+</div>

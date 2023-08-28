@@ -76,6 +76,8 @@ import { AdminUserComponent } from './pages/admin-user/admin-user.component';
 import { AdminLevelComponent } from './pages/admin-level/admin-level.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { DeleteAccountComponent } from './pages/delete-account/delete-account.component';
+import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
+import { AdminRegistrationsComponent } from './pages/admin-registrations/admin-registrations.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +129,8 @@ import { DeleteAccountComponent } from './pages/delete-account/delete-account.co
     AdminLevelComponent,
     VerifyComponent,
     DeleteAccountComponent,
+    AdminUsersComponent,
+    AdminRegistrationsComponent,
   ],
   imports: [
     BrowserModule,

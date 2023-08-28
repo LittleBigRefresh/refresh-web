@@ -26,6 +26,7 @@ import {ExtendedUser} from "./types/extended-user";
 import {Instance} from "./types/instance";
 import {Announcement} from "./types/announcement";
 import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
+import {AdminQueuedRegistration} from "./types/admin/admin-queued-registration";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -223,7 +224,6 @@ export class ApiClient {
       emailAddress,
       passwordSha512,
     }
-
     const errorHandler = (err: ApiError) => {
       if(err.warning) {
         this.bannerService.pushWarning('Warning', err.message);
@@ -487,6 +487,16 @@ export class ApiClient {
     });
 
     level.teamPicked = false;
+  }
+
+  public AdminGetQueuedRegistrations() {
+    return this.makeListRequest<AdminQueuedRegistration>("GET", "admin/registrations");
+  }
+
+  public AdminRemoveQueuedRegistration(registration: AdminQueuedRegistration) {
+    return this.makeRequest("DELETE", "admin/registrations").subscribe(() => {
+      this.bannerService.pushSuccess(`Registration Removed`, `The queued registration for ${registration.username}/${registration.emailAddress} has been removed.`);
+    });
   }
 }
 
