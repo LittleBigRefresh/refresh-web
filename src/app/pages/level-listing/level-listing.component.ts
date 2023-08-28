@@ -57,7 +57,7 @@ export class LevelListingComponent implements OnInit {
   // Instead of just showing the route in PascalCase in the level category, we can process the route and make it look nicer.
   private getCategoryName(apiRoute: string): string {
     const category = this.categories.find(cat => cat.apiRoute === apiRoute);
-    return category ? category.name : '';
+    return category ? category.name : 'Unknown';
   }
   loadNextPage(intersecting: boolean): void {
     if(!intersecting) return;
