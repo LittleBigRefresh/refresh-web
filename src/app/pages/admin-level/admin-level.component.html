@@ -4,7 +4,10 @@
 <divider></divider>
 <page-header class="text-2xl">Team Pick</page-header>
 
-<div class="w-[19rem]">
+<div class="w-[22rem]">
   <form-checkbox [icon]="faCertificate" name="Team Pick?" [(value)]="teamPicked"></form-checkbox>
-  <primary-button [icon]="faCheck" text="Submit changes" (click)="submit()" class="text-center"></primary-button>
+  <div class="flex gap-x-2.5">
+    <primary-button [icon]="faCheck" text="Submit changes" (click)="submit()"></primary-button>
+    <dangerous-button [icon]="faTrash" text="Delete level" (click)="delete()"></dangerous-button>
+  </div>
 </div>

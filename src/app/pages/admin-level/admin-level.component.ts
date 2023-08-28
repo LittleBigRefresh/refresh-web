@@ -3,7 +3,7 @@ import {Level} from "../../api/types/level";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {ApiClient} from "../../api/api-client";
 import {EMPTY, switchMap, tap} from "rxjs";
-import {faCertificate, faCheck, faFlag} from "@fortawesome/free-solid-svg-icons";
+import {faCertificate, faCheck, faFlag, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-level',
@@ -51,4 +51,11 @@ export class AdminLevelComponent {
       else this.apiClient.AdminRemoveTeamPick(this.level);
     }
   }
+
+  delete() {
+    if(this.level == undefined) return;
+    this.apiClient.AdminDeleteLevel(this.level);
+  }
+
+  protected readonly faTrash = faTrash;
 }

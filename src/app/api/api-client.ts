@@ -489,6 +489,12 @@ export class ApiClient {
     level.teamPicked = false;
   }
 
+  public AdminDeleteLevel(level: Level) {
+    this.makeRequest("DELETE", `admin/levels/id/${level.levelId}`).subscribe(() => {
+      this.bannerService.pushSuccess("Level Removed", "The level was successfully deleted.");
+    });
+  }
+
   public AdminGetQueuedRegistrations() {
     return this.makeListRequest<AdminQueuedRegistration>("GET", "admin/registrations");
   }
