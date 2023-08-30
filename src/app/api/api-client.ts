@@ -510,6 +510,18 @@ export class ApiClient {
       this.bannerService.pushSuccess(`All Registrations Removed`, `All queued registrations have been removed.`);
     });
   }
+
+  public AdminDeleteUserPlanets(user: User) {
+    this.makeRequest("DELETE", `admin/users/uuid/${user.userId}/planets`).subscribe(() => {
+      this.bannerService.pushSuccess(`Planets Removed`, `${user.username}'s planets have been removed.`);
+    });
+  }
+
+  public AdminDeleteUser(user: User) {
+    this.makeRequest("DELETE", `admin/users/uuid/${user.userId}`).subscribe(() => {
+      this.bannerService.pushSuccess(`User Deleted`, `${user.username}'s account has been deleted.`);
+    });
+  }
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {

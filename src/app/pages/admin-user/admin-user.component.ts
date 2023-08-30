@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EMPTY, switchMap, tap} from "rxjs";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {ApiClient} from "../../api/api-client";
-import {faBan, faCalendar, faFlag, faGavel} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faCalendar, faEarthAmerica, faFlag, faGavel, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
@@ -73,6 +73,18 @@ export class AdminUserComponent implements OnInit {
     this.user.banExpiryDate = null;
   }
 
+  deletePlanets() {
+    if(this.user == undefined) return;
+    this.apiClient.AdminDeleteUserPlanets(this.user);
+  }
+
+  delete() {
+    if(this.user == undefined) return;
+    if(window.confirm("Are you sure you want to delete this user's account?")) {
+      this.apiClient.AdminDeleteUser(this.user);
+    }
+  }
+
   getRole(role: number | undefined) {
     if(role == undefined) return "";
     return UserRoles.getRoleName(role);
@@ -83,4 +95,6 @@ export class AdminUserComponent implements OnInit {
   protected readonly faGavel = faGavel;
   protected readonly faBan = faBan;
   protected readonly faFlag = faFlag;
+  protected readonly faEarthAmerica = faEarthAmerica;
+  protected readonly faTrash = faTrash;
 }
