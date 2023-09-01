@@ -2,7 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {EMPTY, switchMap, tap} from "rxjs";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {ApiClient} from "../../api/api-client";
-import {faBan, faCalendar, faEarthAmerica, faFlag, faGavel, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {
+  faBan,
+  faCalendar,
+  faEarthAmerica,
+  faFlag,
+  faGavel,
+  faTrash,
+  faUser,
+  faUsers
+} from "@fortawesome/free-solid-svg-icons";
 import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
@@ -97,4 +106,5 @@ export class AdminUserComponent implements OnInit {
   protected readonly faFlag = faFlag;
   protected readonly faEarthAmerica = faEarthAmerica;
   protected readonly faTrash = faTrash;
+  protected readonly faUser = faUser;
 }

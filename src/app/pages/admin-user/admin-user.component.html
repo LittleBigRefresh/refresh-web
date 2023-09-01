@@ -1,6 +1,10 @@
 <page-header class="text-3xl">Manage {{user?.username}} ({{getRole(user?.role)}})</page-header>
 <p>(id: <code>{{user?.userId}}</code>)</p>
 
+<div class="flex mt-2.5">
+  <secondary-button class="w-64" text="View User's Profile" [icon]="faUser" routerLink="/u/{{user?.userId}}"></secondary-button>
+</div>
+
 <divider></divider>
 <div class="flex gap-x-5">
   <div class="w-[19rem]">

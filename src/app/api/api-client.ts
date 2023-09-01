@@ -522,6 +522,10 @@ export class ApiClient {
       this.bannerService.pushSuccess(`User Deleted`, `${user.username}'s account has been deleted.`);
     });
   }
+
+  public AdminGetUsers() {
+    return this.makeListRequest<ExtendedUser>("GET", "admin/users");
+  }
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
