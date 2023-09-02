@@ -523,8 +523,8 @@ export class ApiClient {
     });
   }
 
-  public AdminGetUsers() {
-    return this.makeListRequest<ExtendedUser>("GET", "admin/users");
+  public AdminGetUsers(count: number, skip: number = 0) {
+    return this.makeListRequest<ExtendedUser>("GET", `admin/users?count=${count}&skip=${skip}`);
   }
 }
 

@@ -1,15 +1,15 @@
-import {Directive, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Directive({
   selector: '[intersectionObserver]'
 })
-export class IntersectionObserverDirective implements OnInit {
+export class IntersectionObserverDirective implements AfterViewInit {
   constructor(private element: ElementRef) {}
 
   @Input() root!: HTMLElement;
   @Output() visibilityChange = new EventEmitter<boolean>;
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const element: HTMLElement = this.element.nativeElement;
 
     const config: IntersectionObserverInit = {

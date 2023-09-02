@@ -1,5 +1,6 @@
 <page-header class="text-3xl">Manage {{user?.username}} ({{getRole(user?.role)}})</page-header>
 <p>(id: <code>{{user?.userId}}</code>)</p>
+<span-gentle>{{user?.emailAddress}} (verified: {{user?.emailAddressVerified}})</span-gentle>
 
 <div class="flex mt-2.5">
   <secondary-button class="w-64" text="View User's Profile" [icon]="faUser" routerLink="/u/{{user?.userId}}"></secondary-button>
