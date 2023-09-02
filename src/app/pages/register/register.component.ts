@@ -4,7 +4,7 @@ import {sha512Async} from "../../hash";
 import {Banner} from "../../banners/banner";
 import {BannerService} from "../../banners/banner.service";
 import {PasswordVerificationService} from "../../api/password-verification.service";
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-register',
@@ -30,4 +30,5 @@ export class RegisterComponent {
   }
 
   protected readonly faEnvelope = faEnvelope;
+  protected readonly faTriangleExclamation = faTriangleExclamation;
 }

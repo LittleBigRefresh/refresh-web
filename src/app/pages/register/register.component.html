@@ -1,5 +1,10 @@
 <form-holder>
   <page-header class="text-3xl">Sign Up</page-header>
+
+  <p class="text-warning">
+    <fa-icon [icon]="faTriangleExclamation" class="mr-1"></fa-icon>
+    Remember to make your username match your PSN/RPCN id!
+  </p>
   <div class="h-5"></div>
 
   <form-input [icon]="'user'" name="Username" type="text" [(value)]="username"></form-input>
