@@ -8,7 +8,6 @@ import { Level } from 'src/app/api/types/level';
 import { Score } from 'src/app/api/types/score';
 import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.component';
 import {ActivityPage} from "../../api/types/activity/activity-page";
-import {User} from "../../api/types/user";
 import {GenerateEmptyList} from "../../app.component";
 import {faWrench} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
@@ -22,7 +21,6 @@ export class LevelComponent implements OnInit {
   level: Level | undefined
   scores: Score[] | undefined
   activity: ActivityPage | undefined
-
   ownUser: ExtendedUser | undefined;
 
   scoreType: string = "1";
@@ -131,7 +129,6 @@ export class LevelComponent implements OnInit {
       this.activity = data;
     })
   }
-
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly GenerateEmptyList = GenerateEmptyList;
   protected readonly faWrench = faWrench;
