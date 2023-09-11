@@ -3,7 +3,10 @@
     <level-avatar [level]="level" size="h-auto w-44"></level-avatar>
     <div>
       <page-header class="text-3xl">
-        {{ level.title.length == 0 ? 'Unnamed Level' : level.title }} <div *ngIf="level.teamPicked" class="inline" aria-label="This level has been team picked." data-microtip-position="bottom" role="tooltip"><i class="fa-solid fa-circle-check pr-1 fa-xs" ></i></div>
+        {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
+        <div *ngIf="level.teamPicked" class="inline" aria-label="This level has been team picked." data-microtip-position="bottom" role="tooltip">
+          <i class="fa-solid fa-circle-check pr-1 fa-xs" ></i>
+        </div>
         <div class="inline-block text-sm font-normal">
           <span-gentle>by
             <user-link [user]="level.publisher" class="pl-1"></user-link>
@@ -16,10 +19,18 @@
         </div>
       </page-header>
       <div class="flex gap-2 pb-3 pl-1">
-        <div class="flex items-center"> <i class="fa-solid fa-thumbs-up pr-1"></i> {{level.yayRatings}} </div>
-        <div class="flex items-center"> <i class="fa-solid fa-thumbs-down pr-1"></i> {{level.booRatings}} </div>
-        <div class="flex items-center"> <i class="fa-solid fa-heart pr-1"></i> {{level.hearts}} </div>
-        <div class="flex items-center"> <i class="fa-solid fa-play pr-1"></i> {{level.uniquePlays}} </div>
+        <div class="flex items-center">
+          <i class="fa-solid fa-thumbs-up pr-1"></i>
+          {{level.yayRatings}}
+        </div>
+        <div class="flex items-center"> <i class="fa-solid fa-thumbs-down pr-1"></i>
+          {{level.booRatings}} </div>
+        <div class="flex items-center"> <i class="fa-solid fa-heart pr-1"></i>
+          {{level.hearts}}
+        </div>
+        <div class="flex items-center"> <i class="fa-solid fa-play pr-1"></i>
+          {{level.uniquePlays}}
+        </div>
       </div>
       <div class="bg-backdrop rounded-[11px] px-5 py-2.5">
         <p>{{ level.description.length == 0 ? 'No description was provided for this level.' : level.description }}</p>
