@@ -4,8 +4,12 @@
     <div>
       <page-header class="text-3xl">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
-        <div *ngIf="level.teamPicked" class="inline" aria-label="This level has been team picked." data-microtip-position="bottom" role="tooltip">
-          <i class="fa-solid fa-circle-check pr-1 fa-xs" ></i>
+
+        <div  class='inline'>
+          <i class="fa-solid fa-circle-check pr-1 fa-xs team-pick">
+            <span class="team-pick-text">This level has been team picked.</span>
+          </i>
+
         </div>
         <div class="inline-block text-sm font-normal">
           <span-gentle>by
