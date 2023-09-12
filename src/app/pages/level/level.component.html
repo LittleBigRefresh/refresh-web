@@ -5,12 +5,13 @@
       <page-header class="text-3xl">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
 
-        <div *ngIf="level.teamPicked" class='inline'>
-          <i class="fa-solid fa-circle-check pr-1 fa-xs team-pick">
-            <span class="team-pick-text">This level has been team picked.</span>
+        <div class="relative inline-block">
+          <i class="team-pick fa-solid fa-circle-check pr-1 text-xl">
+            <span class="team-pick-text absolute z-10 mt-1 left-1/2 transform -translate-x-1/2 p-2 w-auto bg-backdrop flex items-center justify-center opacity-0 transition-opacity duration-300 text-xs font-normal">This level has been team picked.</span>
           </i>
-
         </div>
+
+
         <div class="inline-block text-sm font-normal">
           <span-gentle>by
             <user-link [user]="level.publisher" class="pl-1"></user-link>
