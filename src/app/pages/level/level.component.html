@@ -5,7 +5,7 @@
       <page-header class="text-3xl">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
 
-        <div  class="relative inline-block">
+        <div *ngIf="level.teamPicked" class="relative inline-block">
           <i class="tooltip-container fa-solid fa-circle-check pr-1 text-xl">
             <tooltip>hello!</tooltip>
           </i>
