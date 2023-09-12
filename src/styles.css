@@ -12,11 +12,11 @@
   margin: 5px;
 }
 
-.team-pick-text {
+.tooltip {
   font-family: "Rubik", system-ui, sans-serif;
 }
 
-.team-pick:hover .team-pick-text {
+.tooltip-container:hover .tooltip {
   visibility: visible;
   opacity: 1;
 }

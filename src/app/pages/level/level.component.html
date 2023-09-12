@@ -5,9 +5,9 @@
       <page-header class="text-3xl">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
 
-        <div  *ngIf="level.teamPicked" class="relative inline-block">
-          <i class="team-pick fa-solid fa-circle-check pr-1 text-xl">
-            <span class="team-pick-text absolute z-10 mt-1 left-1/2 transform -translate-x-1/2 p-2 w-auto bg-backdrop flex items-center justify-center opacity-0 transition-opacity duration-300 text-xs font-normal whitespace-nowrap rounded-[11px] invisible">This level has been team picked.</span>
+        <div  class="relative inline-block">
+          <i class="tooltip-container fa-solid fa-circle-check pr-1 text-xl">
+            <tooltip>hello!</tooltip>
           </i>
         </div>
 
