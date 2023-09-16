@@ -11,12 +11,3 @@
   width: calc(33.333% - 10px);
   margin: 5px;
 }
-
-.tooltip {
-  font-family: "Rubik", system-ui, sans-serif;
-}
-
-.tooltip-container:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}

@@ -5,11 +5,11 @@
       <page-header class="text-3xl">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
 
-        <div *ngIf="level.teamPicked" class="relative inline-block">
-          <i class="tooltip-container fa-solid fa-circle-check pr-1 text-xl">
-            <tooltip>This level has been team picked.</tooltip>
-          </i>
-        </div>
+        <ng-container *ngIf="level.teamPicked">
+            <tooltip text="This level has been team picked.">
+              <fa-icon [icon]="faCircleCheck" class="text-xl pr-1"></fa-icon>
+            </tooltip>
+        </ng-container>
 
         <div class="inline-block text-sm font-normal">
           <span-gentle>by
