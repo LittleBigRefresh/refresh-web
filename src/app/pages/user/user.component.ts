@@ -44,8 +44,9 @@ export class UserComponent implements OnInit {
         if (username == null) return EMPTY;
 
         return this.getUserByUsername(username);
-      }))
-      .subscribe();
+      })).pipe(catchError(err => {
+          return of(undefined);
+      })).subscribe();
 
       this.ownUser = this.apiClient.user;
       this.apiClient.userWatcher.subscribe((data) => {
