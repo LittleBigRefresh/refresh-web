@@ -17,6 +17,7 @@ import {NgxMasonryOptions} from "ngx-masonry";
 import {ExtendedUser} from "./api/types/extended-user";
 import {UserRoles} from "./api/types/user-roles";
 import {Instance} from "./api/types/instance";
+import {EmbedService} from "./services/embed.service";
 
 const fadeLength: string = "50ms";
 
@@ -72,12 +73,13 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(apiClient: ApiClient, public bannerService: BannerService) {
+  constructor(apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService) {
     apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
 
     apiClient.GetInstanceInformation().subscribe((data) => {
       this.instance = data;
+      embedService.embedInstance(data);
     });
   }
 

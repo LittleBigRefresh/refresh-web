@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
 import { sha512Async } from 'src/app/hash';
-import {PasswordVerificationService} from "../../api/password-verification.service";
+import {PasswordVerificationService} from "../../services/password-verification.service";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
 @Component({

@@ -9,6 +9,7 @@ import { User } from 'src/app/api/types/user';
 import {UserRoles} from "../../api/types/user-roles";
 import {faWrench} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
+import {EmbedService} from "../../services/embed.service";
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,7 @@ export class UserComponent implements OnInit {
 
   ownUser: ExtendedUser | undefined;
 
-    constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router) {}
+    constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router, private embedService: EmbedService) {}
 
     ngOnInit(): void {
       this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -77,7 +78,7 @@ export class UserComponent implements OnInit {
             if (data === undefined) return;
 
             window.history.replaceState({}, '', `/user/${data?.username}`);
-            this.getUsersRoom(data.userId).subscribe();
+            this.handleResolvedUser(data);
           })
         );
     }
@@ -98,9 +99,14 @@ export class UserComponent implements OnInit {
             this.user = data;
             if (data === undefined) return;
 
-            this.getUsersRoom(data?.userId).subscribe();
+            this.handleResolvedUser(data);
           })
         );
+    }
+
+    private handleResolvedUser(user: User) {
+        this.getUsersRoom(user.userId).subscribe();
+        this.embedService.embedUser(user);
     }
 
     private getUsersRoom(userId: string) {

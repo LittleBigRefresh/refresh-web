@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { EMPTY, catchError, of, switchMap } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Photo } from 'src/app/api/types/photo';
+import {EmbedService} from "../../services/embed.service";
 
 @Component({
   selector: 'app-photo',
@@ -11,7 +12,7 @@ import { Photo } from 'src/app/api/types/photo';
 export class PhotoPageComponent implements OnInit {
   photo: Photo | undefined | null = null
 
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute) {}
+  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private embedService: EmbedService) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -27,6 +28,7 @@ export class PhotoPageComponent implements OnInit {
     }))
     .subscribe((data) => {
       this.photo = data;
+      if(data !== undefined) this.embedService.embedPhoto(data);
     });
   }
 }

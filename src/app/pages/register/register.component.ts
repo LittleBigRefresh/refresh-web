@@ -3,7 +3,7 @@ import {ApiClient} from "../../api/api-client";
 import {sha512Async} from "../../hash";
 import {Banner} from "../../banners/banner";
 import {BannerService} from "../../banners/banner.service";
-import {PasswordVerificationService} from "../../api/password-verification.service";
+import {PasswordVerificationService} from "../../services/password-verification.service";
 import {faEnvelope, faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
