@@ -4,6 +4,13 @@
     <div>
       <page-header class="text-3xl">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
+
+        <ng-container *ngIf="level.teamPicked">
+            <tooltip text="This level has been team picked.">
+              <fa-icon [icon]="faCircleCheck" class="text-xl pr-1"></fa-icon>
+            </tooltip>
+        </ng-container>
+
         <div class="inline-block text-sm font-normal">
           <span-gentle>by
             <user-link [user]="level.publisher" class="pl-1"></user-link>
@@ -15,7 +22,24 @@
             updated {{ getMoment(level.updateDate)}}</span-gentle>
         </div>
       </page-header>
-
+      <div class="flex gap-2 pb-3 pl-1">
+        <div class="items-center">
+          <fa-icon [icon]="faThumbsUp"></fa-icon>
+          {{level.yayRatings}}
+        </div>
+        <div class="items-center">
+          <fa-icon [icon]="faThumbsDown" ></fa-icon>
+          {{level.booRatings}}
+        </div>
+        <div class="items-center">
+          <fa-icon [icon]="faHeart"></fa-icon>
+          {{level.hearts}}
+        </div>
+        <div class="items-center">
+          <fa-icon [icon]="faPlay"></fa-icon>
+          {{level.uniquePlays}}
+        </div>
+      </div>
       <div class="bg-backdrop rounded-[11px] px-5 py-2.5">
         <p>{{ level.description.length == 0 ? 'No description was provided for this level.' : level.description }}</p>
       </div>

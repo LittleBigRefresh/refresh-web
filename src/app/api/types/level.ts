@@ -7,7 +7,10 @@ export interface Level {
   iconHash: string
   publishDate: number
   updateDate: number
-
+  booRatings: number
+  yayRatings: number
+  hearts: number
+  uniquePlays: number
   publisher: User
   teamPicked: boolean
 }
