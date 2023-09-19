@@ -45,6 +45,7 @@ function run(): void {
   const server = app();
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
+    console.log(`API Base URL will be https://${process.env["HOST"]}/api/v3`)
   });
 }
 
