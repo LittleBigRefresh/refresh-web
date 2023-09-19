@@ -12,6 +12,7 @@ import {GenerateEmptyList} from "../../app.component";
 import {faCircleCheck, faHeart, faPlay, faThumbsDown, faThumbsUp, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
+import {EmbedService} from "../../services/embed.service";
 
 @Component({
   selector: 'app-level',
@@ -44,7 +45,7 @@ export class LevelComponent implements OnInit {
     },
   ]
 
-  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
+  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private embedService: EmbedService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -66,6 +67,7 @@ export class LevelComponent implements OnInit {
 
         this.getScores(this.level.levelId).subscribe();
         this.getActivity(this.level.levelId);
+        this.embedService.embedLevel(this.level);
       });
     });
 

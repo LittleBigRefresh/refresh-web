@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
-import {Meta} from "@angular/platform-browser";
+import {Meta, Title} from "@angular/platform-browser";
 import {User} from "../api/types/user";
 import {Instance} from "../api/types/instance";
 import {GetAssetImageLink} from "../api/api-client";
 import {Photo} from "../api/types/photo";
+import {Level} from "../api/types/level";
 
 @Injectable({providedIn: 'root'})
 export class EmbedService {
@@ -27,11 +28,20 @@ export class EmbedService {
     }
 
     embedUser(user: User) {
-        this.embed(user.username + "'s profile", user.description.length == 0 ? 'This person hasn\'t introduced themselves yet.' : user.description);
+        const description: string = user.description.length == 0 ? "This person hasn't introduced themselves yet." : user.description;
+        this.embed(`${user.username}'s profile`, description);
 
         this.setNamedTag("og:image", GetAssetImageLink(user.iconHash));
         this.setPropertyTag("og:type", "profile");
         this.setPropertyTag("profile:username", user.username);
+    }
+
+    embedLevel(level: Level) {
+      const description: string = level.description.length == 0 ? "No description was provided for this level." : level.description;
+      const title: string = level.title.length == 0 ? "Unnamed Level" : level.title;
+
+      this.embed(title, description);
+      this.setNamedTag("og:image", GetAssetImageLink(level.iconHash));
     }
 
     embedInstance(instance: Instance) {
