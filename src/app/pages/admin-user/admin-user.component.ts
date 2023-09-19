@@ -10,9 +10,8 @@ import {
   faGavel,
   faTrash,
   faUser,
-  faUsers
+  faPencil
 } from "@fortawesome/free-solid-svg-icons";
-import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
 

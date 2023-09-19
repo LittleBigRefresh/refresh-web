@@ -1,17 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
-import {faBullhorn, faCheck, faRegistered, faUserPlus, faUsers, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {faBullhorn, faCheck, faUserPlus, faUsers, faWrench, faPencil} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {Announcement} from "../../api/types/announcement";
 import {Instance} from "../../api/types/instance";
 import {UserRoles} from "../../api/types/user-roles";
-import {User} from "../../api/types/user";
-import {Statistics} from "../../api/types/statistics";
 import {AdminStatistic} from "../../api/types/admin/admin-statistic";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {startWith} from "rxjs";
 
 @Component({
   selector: 'app-admin-panel',
@@ -20,8 +16,6 @@ import {startWith} from "rxjs";
 export class AdminPanelComponent implements OnInit {
   announcementTitle: string = "Example Announcement"
   announcementBody: string = "This is an example announcement. Start typing on the left and preview your announcement here!"
-
-  protected readonly faPencil = faPencil;
 
   public instance: Instance | undefined = undefined;
   public user: ExtendedUser | undefined = undefined;
@@ -73,6 +67,6 @@ export class AdminPanelComponent implements OnInit {
   protected readonly faWrench = faWrench;
   protected readonly faCheck = faCheck;
   protected readonly faUsers = faUsers;
-  protected readonly faRegistered = faRegistered;
   protected readonly faUserPlus = faUserPlus;
+  protected readonly faPencil = faPencil;
 }

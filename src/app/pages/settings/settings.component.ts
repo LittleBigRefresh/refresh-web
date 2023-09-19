@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {faPencil} from "@fortawesome/free-solid-svg-icons/faPencil";
 import {ApiClient} from "../../api/api-client";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
-import {faDesktop, faEnvelope, faGamepad, faKey, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faDesktop, faEnvelope, faGamepad, faKey, faTrash, faPencil} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {startWith} from "rxjs";
 
