@@ -4,6 +4,7 @@ import { EMPTY, catchError, of, switchMap } from 'rxjs';
 import { ApiClient } from 'src/app/api/api-client';
 import { Photo } from 'src/app/api/types/photo';
 import {EmbedService} from "../../services/embed.service";
+import {TitleService} from "../../services/title.service";
 
 @Component({
   selector: 'app-photo',
@@ -12,7 +13,7 @@ import {EmbedService} from "../../services/embed.service";
 export class PhotoPageComponent implements OnInit {
   photo: Photo | undefined | null = null
 
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private embedService: EmbedService) {}
+  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private embedService: EmbedService, private titleService: TitleService) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -28,7 +29,10 @@ export class PhotoPageComponent implements OnInit {
     }))
     .subscribe((data) => {
       this.photo = data;
-      if(data !== undefined) this.embedService.embedPhoto(data);
+      if(data !== undefined) {
+        this.embedService.embedPhoto(data);
+        this.titleService.setTitle("Photo by " + data.publisher.username);
+      }
     });
   }
 }

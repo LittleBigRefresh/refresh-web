@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {Category} from "../../api/types/category";
+import {TitleService} from "../../services/title.service";
 
 const pageSize: number = 10;
 
@@ -22,7 +23,7 @@ export class LevelListingComponent implements OnInit {
   nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
-  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) { }
+  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private titleService: TitleService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -51,6 +52,7 @@ export class LevelListingComponent implements OnInit {
       categoryPipe.subscribe(data => {
         this.categories = data;
         this.routeName = this.getCategoryName(apiRoute);
+        this.titleService.setTitle(this.routeName);
       })
     })
   }

@@ -3,6 +3,7 @@ import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
 import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
+import {TitleService} from "../../services/title.service";
 
 @Component({
   selector: 'app-level-categories',
@@ -11,7 +12,9 @@ import {GenerateEmptyList, masonryOptions} from "../../app.component";
 export class LevelCategoriesComponent implements OnInit {
   categories: Category[] | undefined = undefined!
 
-  constructor(private apiClient: ApiClient) { }
+  constructor(private apiClient: ApiClient, titleService: TitleService) {
+    titleService.setTitle("Categories");
+  }
   ngOnInit(): void {
     this.apiClient.GetLevelCategories()
       .subscribe(data => {

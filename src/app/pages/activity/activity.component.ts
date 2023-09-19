@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ApiClient} from "../../api/api-client";
 import {GenerateEmptyList} from "../../app.component";
+import {TitleService} from "../../services/title.service";
 
 const pageSize: number = 20;
 
@@ -10,7 +11,9 @@ const pageSize: number = 20;
   templateUrl: './activity.component.html'
 })
 export class ActivityComponent implements OnInit {
-  constructor(private apiClient: ApiClient) {}
+  constructor(private apiClient: ApiClient, titleService: TitleService) {
+    titleService.setTitle("Recent Activity");
+  }
 
   activity: ActivityPage[] | undefined;
   private pageNumber: number = 0;

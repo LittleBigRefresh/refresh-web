@@ -13,6 +13,7 @@ import {faCircleCheck, faHeart, faPlay, faThumbsDown, faThumbsUp, faWrench} from
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
 import {EmbedService} from "../../services/embed.service";
+import {TitleService} from "../../services/title.service";
 
 @Component({
   selector: 'app-level',
@@ -45,7 +46,7 @@ export class LevelComponent implements OnInit {
     },
   ]
 
-  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private embedService: EmbedService) { }
+  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private embedService: EmbedService, private titleService: TitleService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -68,6 +69,7 @@ export class LevelComponent implements OnInit {
         this.getScores(this.level.levelId).subscribe();
         this.getActivity(this.level.levelId);
         this.embedService.embedLevel(this.level);
+        this.titleService.setTitle(this.level.title);
       });
     });
 

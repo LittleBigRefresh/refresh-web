@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
 import { Photo } from 'src/app/api/types/photo';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
+import {TitleService} from "../../services/title.service";
 
 const pageSize: number = 10;
 
@@ -14,7 +15,9 @@ export class PhotoListingComponent implements OnInit {
   nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
-  constructor(private apiClient: ApiClient) {}
+  constructor(private apiClient: ApiClient, titleService: TitleService) {
+    titleService.setTitle("Photos");
+  }
 
   ngOnInit(): void {
     this.apiClient.GetRecentPhotos(pageSize).subscribe((data) => {

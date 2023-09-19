@@ -10,6 +10,7 @@ import {UserRoles} from "../../api/types/user-roles";
 import {faWrench} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {EmbedService} from "../../services/embed.service";
+import {TitleService} from "../../services/title.service";
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,7 @@ export class UserComponent implements OnInit {
 
   ownUser: ExtendedUser | undefined;
 
-    constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router, private embedService: EmbedService) {}
+    constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router, private embedService: EmbedService, private titleService: TitleService) {}
 
     ngOnInit(): void {
       this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -107,6 +108,7 @@ export class UserComponent implements OnInit {
     private handleResolvedUser(user: User) {
         this.getUsersRoom(user.userId).subscribe();
         this.embedService.embedUser(user);
+        this.titleService.setTitle(`${user.username}'s profile`);
     }
 
     private getUsersRoom(userId: string) {
