@@ -9,21 +9,13 @@ import {Photo} from "../api/types/photo";
 export class EmbedService {
     constructor(private meta: Meta) {}
 
-    private removeTag(type: "property" | "name", content: string) {
-        const selector = `[${type}="${content}"]`;
-        const element: HTMLMetaElement | null = document.head.querySelector(selector);
-
-        if(element === null) return;
-        element.remove();
-    }
-
     private setPropertyTag(property: string, content: string) {
-        this.removeTag("property", property);
+        this.meta.removeTag(`property="${property}"`);
         this.meta.addTag({ property: property, content: content });
     }
 
     private setNamedTag(name: string, content: string) {
-        this.removeTag("name", name);
+        this.meta.removeTag(`name="${name}"`);
         this.meta.addTag({ name: name, content: content });
     }
 
