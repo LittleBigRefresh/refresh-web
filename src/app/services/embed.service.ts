@@ -10,12 +10,12 @@ export class EmbedService {
     constructor(private meta: Meta) {}
 
     private setPropertyTag(property: string, content: string) {
-        this.meta.removeTag("property=" + property);
+        this.meta.removeTag(`property="${property}"`);
         this.meta.addTag({ property: property, content: content });
     }
 
     private setNamedTag(name: string, content: string) {
-        this.meta.removeTag("name=" + name);
+        this.meta.removeTag(`name="${name}"`);
         this.meta.addTag({ name: name, content: content });
     }
 
