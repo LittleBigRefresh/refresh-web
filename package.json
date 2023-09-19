@@ -4,12 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --source-map",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev:ssr": "ng run refresh-web:serve-ssr",
     "serve:ssr": "node dist/refresh-web/server/main.js",
-    "build:ssr": "ng build && ng run refresh-web:server",
+    "build:ssr": "ng build --source-map && ng run refresh-web:server",
     "prerender": "ng run refresh-web:prerender"
   },
   "private": true,
