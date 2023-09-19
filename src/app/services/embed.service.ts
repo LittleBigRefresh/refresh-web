@@ -22,6 +22,7 @@ export class EmbedService {
     private embed(title: string, description: string) {
         this.setPropertyTag("og:title", title)
         this.setPropertyTag("og:description", description)
+        this.setNamedTag("description", description)
         this.setNamedTag("theme-color", "#2A1936")
     }
 
