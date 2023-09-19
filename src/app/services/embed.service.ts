@@ -35,6 +35,8 @@ export class EmbedService {
     }
 
     embedInstance(instance: Instance) {
+        if(this.meta.getTag('name="og:title"')) return;
+
         this.embed(instance.instanceName, instance.instanceDescription);
         this.setPropertyTag("og:type", "website");
     }
