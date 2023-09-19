@@ -34,7 +34,12 @@
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "dayjs",
+              "dayjs/plugin/relativeTime",
+              "ev-emitter/ev-emitter"
+            ]
           },
           "configurations": {
             "production": {
