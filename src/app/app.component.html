@@ -6,24 +6,24 @@
     </div>
 
     <nav class="text-foreground text-xl leading-none">
-      <a *ngFor="let link of routerLinks" class="pr-8 inline-block" routerLink="{{link.link}}">
+      <a *ngFor="let link of routerLinks" class="pr-8 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title">
         <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
         <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block">{{link.title}}</span>
       </a>
     </nav>
 
     <div class="ml-auto flex-shrink text-xl leading-none">
-      <a *ngFor="let link of rightSideRouterLinks" class="pl-8 inline-block" routerLink="{{link.link}}">
+      <a *ngFor="let link of rightSideRouterLinks" class="pl-8 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title">
         <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
         <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block">{{link.title}}</span>
       </a>
     </div>
 
-    <a routerLink="/user/me" class="flex-shrink" *ngIf="user">
+    <a routerLink="/user/me" class="flex-shrink" *ngIf="user" aria-label="View Profile">
       <user-avatar [user]="user!" size="h-11 w-auto" class="ml-8"></user-avatar>
     </a>
 
-    <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user">
+    <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user" aria-label="Sign In">
       <fa-icon [icon]="faSignIn" class="inline-block"></fa-icon>
     </button>
 
