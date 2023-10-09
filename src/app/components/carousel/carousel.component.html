@@ -1,9 +1,9 @@
 <div class="flex justify-center items-center gap-x-5">
-  <fa-icon [icon]="faChevronCircleLeft" class="text-secondary text-3xl cursor-pointer" (click)="decrement()"></fa-icon>
+  <app-carousel-cycle-button side="left" (click)="decrement()" *ngIf="carouselItems.length > maxItems"></app-carousel-cycle-button>
 
-  <div class="flex gap-x-10 justify-center" #items>
+  <div class="flex gap-x-10 justify-center flex-grow" #items>
     <ng-content></ng-content>
   </div>
 
-  <fa-icon [icon]="faChevronCircleRight" class="text-secondary text-3xl cursor-pointer" (click)="increment()"></fa-icon>
+  <app-carousel-cycle-button side="right" (click)="increment()" *ngIf="carouselItems.length > maxItems"></app-carousel-cycle-button>
 </div>

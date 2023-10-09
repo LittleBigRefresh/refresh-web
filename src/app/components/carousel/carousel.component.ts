@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {faChevronCircleLeft, faChevronCircleRight} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'carousel',
@@ -45,7 +44,4 @@ export class CarouselComponent implements AfterViewInit {
     this.currentIndex = this.clampIndex(this.currentIndex - 1);
     this.updateCarousel();
   }
-
-  protected readonly faChevronCircleLeft = faChevronCircleLeft;
-  protected readonly faChevronCircleRight = faChevronCircleRight;
 }

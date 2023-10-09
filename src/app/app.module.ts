@@ -81,6 +81,7 @@ import { AdminRegistrationsComponent } from './pages/admin-registrations/admin-r
 import {TooltipComponent} from "./components/tooltip/tooltip.component";
 import { CategoryPreviewComponent } from './components/category-preview/category-preview.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselCycleButtonComponent } from './components/carousel-cycle-button/carousel-cycle-button.component';
 
 @NgModule({
     declarations: [
@@ -137,6 +138,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
         TooltipComponent,
         CategoryPreviewComponent,
         CarouselComponent,
+        CarouselCycleButtonComponent,
     ],
   imports: [
     BrowserModule,
