@@ -3,7 +3,8 @@ import { ApiClient } from 'src/app/api/api-client';
 import { Statistics } from 'src/app/api/types/statistics';
 import {Instance} from "../../api/types/instance";
 import {Level} from "../../api/types/level";
-import {faCertificate, faFireAlt} from "@fortawesome/free-solid-svg-icons";
+import {faBullhorn, faCertificate, faFireAlt, faPlayCircle} from "@fortawesome/free-solid-svg-icons";
+import {ActivityPage} from "../../api/types/activity/activity-page";
 
 @Component({
   selector: 'app-main',
@@ -17,6 +18,8 @@ export class MainComponent implements OnInit {
   pickedLevels: Level[] | undefined;
   totalBusyLevels: number = 0;
   busyLevels: Level[] | undefined;
+
+  activity: ActivityPage | undefined;
 
   constructor(public apiClient: ApiClient) {}
 
@@ -42,8 +45,15 @@ export class MainComponent implements OnInit {
         this.totalBusyLevels = data.listInfo.totalItems;
         this.busyLevels = data.items;
       });
+
+    this.apiClient.GetActivity(5, 0)
+      .subscribe(data => {
+        this.activity = data;
+      })
   }
 
   protected readonly faFireAlt = faFireAlt;
   protected readonly faCertificate = faCertificate;
+  protected readonly faBullhorn = faBullhorn;
+  protected readonly faPlayCircle = faPlayCircle;
 }

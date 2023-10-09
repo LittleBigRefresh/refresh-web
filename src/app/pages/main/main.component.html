@@ -1,27 +1,42 @@
+<div *ngIf="instance?.announcements?.length ?? 0">
+  <page-header class="text-2xl">
+    <fa-icon [icon]="faBullhorn" class="pr-1"></fa-icon>
+    Server Announcements
+  </page-header>
+
+  <div class="flex flex-col gap-2.5">
+    <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"></announcement>
+  </div>
+  <divider></divider>
+</div>
+
 <div class="text-center bg-form-background md:rounded-md py-32 bg-hero bg-cover">
     <page-header class="text-4xl">Welcome to {{instance?.instanceName ?? "Refresh"}}!</page-header>
-    <p *ngIf="instance">{{instance.instanceDescription}}</p><br>
+    <p *ngIf="instance">{{instance.instanceDescription}}</p>
+    <div class="h-1"></div>
 
     <div *ngIf="apiClient.user !== undefined">
         <p>Welcome back, <b>{{apiClient.user!.username}}</b>.</p>
-        <!-- <p>There have been <b>12</b> levels uploaded since you last visited.</p> -->
     </div>
 
     <p>There are currently <b>{{statistics?.currentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.currentRoomCount ?? 0}}</b> rooms.</p>
 </div>
 
-<div *ngIf="instance?.announcements?.length ?? 0">
+<div *ngIf="activity && activity.events.length > 0">
   <divider></divider>
-  <page-header class="text-2xl">Server Announcements</page-header>
+  <page-header class="text-2xl">
+    <fa-icon [icon]="faFireAlt" class="pr-1"></fa-icon>
+    What's New?
+  </page-header>
 
-  <div class="flex flex-col gap-2.5">
-    <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"></announcement>
+  <div *ngFor="let event of activity.events">
+    <activity-event [event]="event" [page]="activity"></activity-event>
   </div>
 </div>
 
 <div *ngIf="busyLevels?.length ?? 0">
   <divider></divider>
-  <category-preview [levels]="busyLevels" [total]="totalBusyLevels" title="Popular Now" [icon]="faFireAlt" route="currentlyPlaying"></category-preview>
+  <category-preview [levels]="busyLevels" [total]="totalBusyLevels" title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
 </div>
 
 <div *ngIf="pickedLevels?.length ?? 0">
