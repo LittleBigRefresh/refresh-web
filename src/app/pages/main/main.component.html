@@ -10,11 +10,21 @@
     <p>There are currently <b>{{statistics?.currentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.currentRoomCount ?? 0}}</b> rooms.</p>
 </div>
 
-<div *ngIf="(instance?.announcements?.length ?? 0) > 0">
+<div *ngIf="instance?.announcements?.length ?? 0">
   <divider></divider>
   <page-header class="text-2xl">Server Announcements</page-header>
 
   <div class="flex flex-col gap-2.5">
     <announcement *ngFor="let announcement of instance?.announcements" [title]="announcement.title" [body]="announcement.text"></announcement>
   </div>
+</div>
+
+<div *ngIf="busyLevels?.length ?? 0">
+  <divider></divider>
+  <category-preview [levels]="busyLevels" [total]="totalBusyLevels" title="Popular Now" [icon]="faFireAlt" route="currentlyPlaying"></category-preview>
+</div>
+
+<div *ngIf="pickedLevels?.length ?? 0">
+  <divider></divider>
+  <category-preview [levels]="pickedLevels" [total]="totalPickedLevels" title="Team Picks" [icon]="faCertificate" route="teamPicks"></category-preview>
 </div>

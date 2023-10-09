@@ -79,6 +79,8 @@ import { DeleteAccountComponent } from './pages/delete-account/delete-account.co
 import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
 import { AdminRegistrationsComponent } from './pages/admin-registrations/admin-registrations.component';
 import {TooltipComponent} from "./components/tooltip/tooltip.component";
+import { CategoryPreviewComponent } from './components/category-preview/category-preview.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
     declarations: [
@@ -133,6 +135,8 @@ import {TooltipComponent} from "./components/tooltip/tooltip.component";
         AdminUsersComponent,
         AdminRegistrationsComponent,
         TooltipComponent,
+        CategoryPreviewComponent,
+        CarouselComponent,
     ],
   imports: [
     BrowserModule,
