@@ -60,8 +60,16 @@ export class CarouselComponent implements AfterViewInit {
     this.updateCarousel();
   }
 
+  canIncrement(): boolean {
+    return this.clampIndex(this.currentIndex + 1) > this.currentIndex;
+  }
+
   decrement(): void {
     this.currentIndex = this.clampIndex(this.currentIndex - 1);
     this.updateCarousel();
+  }
+
+  canDecrement(): boolean {
+    return this.clampIndex(this.currentIndex - 1) < this.currentIndex;
   }
 }
