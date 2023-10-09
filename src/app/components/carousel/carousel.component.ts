@@ -9,7 +9,7 @@ export class CarouselComponent implements AfterViewInit {
   carouselItems: HTMLElement[] = [];
 
   currentIndex: number = 0;
-  @Input("maxItems") maxItems: number = 3;
+  shownItems: number = 0;
 
   ngAfterViewInit(): void {
     this.carouselItems = Array.from<HTMLElement>(this.itemsHolder.nativeElement.children);
@@ -18,19 +18,39 @@ export class CarouselComponent implements AfterViewInit {
 
   updateCarousel(): void {
     const i: number = this.currentIndex;
+    console.log(i);
 
     for (let carouselItem of this.carouselItems) {
-      carouselItem.hidden = true;
+      this.hideItem(carouselItem);
     }
 
-    for (let carouselItem of this.carouselItems.slice(i, i + this.maxItems)) {
-      carouselItem.hidden = false;
+    let top: number = 0;
+    this.shownItems = 0;
+    for (let carouselItem of this.carouselItems.slice(i, this.carouselItems.length)) {
+      this.showItem(carouselItem);
+
+      const thisTop: number = carouselItem.getBoundingClientRect().top;
+      if(top !== 0 && thisTop !== top) {
+        this.hideItem(carouselItem);
+        break;
+      }
+
+      top = thisTop;
+      this.shownItems++;
     }
+  }
+
+  hideItem(item: HTMLElement) {
+    item.hidden = true;
+  }
+
+  showItem(item: HTMLElement) {
+    item.hidden = false;
   }
 
   private clampIndex(value: number): number {
     const min: number = 0;
-    const max: number = this.carouselItems.length - Math.min(this.maxItems, this.carouselItems.length);
+    const max: number = Math.min(this.carouselItems.length, this.carouselItems.length - this.shownItems);
 
     return Math.min(Math.max(value, min), max);
   }
