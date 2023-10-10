@@ -13,4 +13,5 @@ export interface Level {
   uniquePlays: number
   publisher: User
   teamPicked: boolean
+  gameVersion: number
 }

@@ -8,6 +8,7 @@
       <span *ngSwitchCase="0">published this level</span>
       <span *ngSwitchCase="1">gave this level a heart</span>
       <span *ngSwitchCase="5">played this level</span>
+      <span *ngSwitchCase="13">team picked this level</span>
       <div *ngSwitchCase="20" class="inline">
         <span *ngIf="getScoreFromEvent() as score">got a score of
           <b>{{score.score}}</b>

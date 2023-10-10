@@ -14,6 +14,7 @@ import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
 import {EmbedService} from "../../services/embed.service";
 import {TitleService} from "../../services/title.service";
+import {GameVersion} from "../../api/types/game-version";
 
 @Component({
   selector: 'app-level',
@@ -95,6 +96,10 @@ export class LevelComponent implements OnInit {
     return moment(timestamp).fromNow();
   }
 
+  getGameVersion(version: number): string {
+    return GameVersion[version].replace("LittleBigPlanet", "LittleBigPlanet ");
+  }
+
   getScores(levelId: number, clear: boolean = true, skip: number = 0) {
     return this.apiClient.GetScoresForLevel(levelId, Number(this.scoreType), skip)
     .pipe(
@@ -142,4 +147,5 @@ export class LevelComponent implements OnInit {
   protected readonly faThumbsDown = faThumbsDown;
   protected readonly faPlay = faPlay;
   protected readonly faCircleCheck = faCircleCheck;
+  protected readonly GameVersion = GameVersion;
 }
