@@ -28,7 +28,7 @@ module.exports = {
 
       "success": "#52BC24",
       "dangerous": "#E52E2E",
-      "warning": "#E5B300",
+      "warning": "#F2AA00",
 
       "rank-gold": "#FFD234",
       "rank-silver": "#F2F2F2",
