@@ -15,12 +15,12 @@ module.exports = {
       "form-background": "#2A1936",
       "backdrop": "#1B0F23",
 
-      "divider": "#190B24",
+      "divider": "#13071A",
 
       "foreground": "#F7F7F7",
       "gentle": "#C3C3C3",
 
-      "primary": "#a13de3",
+      "primary": "#A13DE3",
       "secondary": "#87748A",
       "teritary": "#100915",
 
