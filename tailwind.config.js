@@ -20,7 +20,7 @@ module.exports = {
       "foreground": "#F7F7F7",
       "gentle": "#C3C3C3",
 
-      "primary": "#AA30F5",
+      "primary": "#a13de3",
       "secondary": "#87748A",
       "teritary": "#100915",
 
