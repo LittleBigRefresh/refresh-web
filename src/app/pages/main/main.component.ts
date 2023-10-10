@@ -3,7 +3,13 @@ import { ApiClient } from 'src/app/api/api-client';
 import { Statistics } from 'src/app/api/types/statistics';
 import {Instance} from "../../api/types/instance";
 import {Level} from "../../api/types/level";
-import {faBullhorn, faCertificate, faFireAlt, faPlayCircle} from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightToBracket,
+  faBullhorn,
+  faCertificate,
+  faFireAlt,
+  faPlayCircle, faUserPlus
+} from "@fortawesome/free-solid-svg-icons";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 
 @Component({
@@ -56,4 +62,6 @@ export class MainComponent implements OnInit {
   protected readonly faCertificate = faCertificate;
   protected readonly faBullhorn = faBullhorn;
   protected readonly faPlayCircle = faPlayCircle;
+  protected readonly faArrowRightToBracket = faArrowRightToBracket;
+  protected readonly faUserPlus = faUserPlus;
 }
