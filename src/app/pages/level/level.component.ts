@@ -148,4 +148,5 @@ export class LevelComponent implements OnInit {
   protected readonly faPlay = faPlay;
   protected readonly faCircleCheck = faCircleCheck;
   protected readonly GameVersion = GameVersion;
+  protected readonly undefined = undefined;
 }

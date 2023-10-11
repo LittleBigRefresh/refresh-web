@@ -11,7 +11,7 @@
             </tooltip>
         </ng-container>
 
-        <div class="inline-block text-sm font-normal">
+        <div class="inline-block text-sm font-normal" *ngIf="level.publisher">
           <span-gentle>by
             <user-link [user]="level.publisher" class="pl-1"></user-link>
           </span-gentle>
