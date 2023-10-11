@@ -8,6 +8,18 @@
   }
 
 .masonry-grid-item {
-  width: calc(33.333% - 10px);
+  width: calc(100% - 10px);
   margin: 5px;
+}
+
+@media (min-width: 768px) {
+  .masonry-grid-item {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (min-width: 1124px) {
+  .masonry-grid-item {
+    width: calc(33.333% - 10px);
+  }
 }
