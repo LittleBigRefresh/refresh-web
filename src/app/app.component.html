@@ -1,26 +1,25 @@
-<div class="bg-header-background border-b-backdrop border-b-2 h-[59px] flex items-center flex-col">
+<div class="bg-header-background text-foreground border-b-backdrop border-b-2 h-[59px] flex items-center flex-col">
   <div class="container items-center flex h-[59px]">
     <div class="flex mr-2.5">
       <a class="bg-logo bg-cover cursor-pointer w-12 h-12 drop-shadow-lg" routerLink="/" title="Home"></a>
-      <div class="mx-3 w-[3px] rounded-sm bg-divider"></div>
+      <div class="ml-3 w-[3px] rounded-sm bg-divider"></div>
     </div>
 
-    <nav class="text-foreground text-xl leading-none">
-      <a *ngFor="let link of routerLinks" class="pr-8 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title">
+    <nav class="text-xl leading-none">
+      <a *ngFor="let link of routerLinks" class="mr-2 p-3 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title" [title]="link.title">
         <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
-        <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block">{{link.title}}</span>
+        <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block max-sm:invisible max-sm:absolute">{{link.title}}</span>
       </a>
     </nav>
 
     <div class="ml-auto flex-shrink text-xl leading-none">
-      <a *ngFor="let link of rightSideRouterLinks" class="pl-8 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title">
+      <a *ngFor="let link of rightSideRouterLinks" class="ml-2 p-3 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title">
         <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
-        <span *ngIf="link.title.length > 0" class="pl-2.5 inline-block">{{link.title}}</span>
       </a>
     </div>
 
     <a routerLink="/user/me" class="flex-shrink" *ngIf="user" aria-label="View Profile">
-      <user-avatar [user]="user!" size="h-11 w-auto" class="ml-8"></user-avatar>
+      <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>
     </a>
 
     <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user" aria-label="Sign In">
@@ -57,7 +56,7 @@
             [id]="bannerService.banners.indexOf(n)"
 />
 
-<div class="container mx-auto bg-backdrop p-5 grid min-h-full h-full mb-10"
+<div class="container mx-auto bg-backdrop p-5 grid min-h-full h-full mb-10 text-foreground"
      [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
 </div>
