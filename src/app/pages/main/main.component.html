@@ -39,12 +39,17 @@
   </div>
 </div>
 
-<div *ngIf="busyLevels?.length ?? 0">
+<div *ngIf="busyLevels && busyLevels.items.length > 0">
   <divider></divider>
-  <category-preview [levels]="busyLevels" [total]="totalBusyLevels" category-title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
+  <category-preview [levels]="busyLevels?.items" [total]="busyLevels.listInfo.totalItems" category-title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
 </div>
 
-<div *ngIf="pickedLevels?.length ?? 0">
+<div *ngIf="newestLevels && newestLevels.items.length > 0">
   <divider></divider>
-  <category-preview [levels]="pickedLevels" [total]="totalPickedLevels" category-title="Team Picks" [icon]="faCertificate" route="teamPicks"></category-preview>
+  <category-preview [levels]="newestLevels.items" [total]="newestLevels.listInfo.totalItems" category-title="Newest Levels" [icon]="faCalendar" route="newest"></category-preview>
+</div>
+
+<div *ngIf="pickedLevels && pickedLevels.items.length > 0">
+  <divider></divider>
+  <category-preview [levels]="pickedLevels.items" [total]="pickedLevels.listInfo.totalItems" category-title="Team Picks" [icon]="faCertificate" route="teamPicks"></category-preview>
 </div>

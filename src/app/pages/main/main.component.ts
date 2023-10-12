@@ -5,12 +5,13 @@ import {Instance} from "../../api/types/instance";
 import {Level} from "../../api/types/level";
 import {
   faArrowRightToBracket,
-  faBullhorn,
+  faBullhorn, faCalendar,
   faCertificate,
   faFireAlt,
   faPlayCircle, faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {ActivityPage} from "../../api/types/activity/activity-page";
+import {ApiListResponse} from "../../api/types/response/api-list-response";
 
 @Component({
   selector: 'app-main',
@@ -20,10 +21,9 @@ export class MainComponent implements OnInit {
   statistics: Statistics | undefined;
   instance: Instance | undefined;
 
-  totalPickedLevels: number = 0;
-  pickedLevels: Level[] | undefined;
-  totalBusyLevels: number = 0;
-  busyLevels: Level[] | undefined;
+  busyLevels: ApiListResponse<Level> | undefined;
+  newestLevels: ApiListResponse<Level> | undefined;
+  pickedLevels: ApiListResponse<Level> | undefined;
 
   activity: ActivityPage | undefined;
 
@@ -42,14 +42,17 @@ export class MainComponent implements OnInit {
 
     this.apiClient.GetLevelListing("teamPicks", 10, 0)
       .subscribe(data => {
-        this.totalPickedLevels = data.listInfo.totalItems;
-        this.pickedLevels = data.items;
+        this.pickedLevels = data;
      });
+
+    this.apiClient.GetLevelListing("currentlyPlaying", 10, 0)
+      .subscribe(data => {
+        this.busyLevels = data;
+      });
 
     this.apiClient.GetLevelListing("newest", 10, 0)
       .subscribe(data => {
-        this.totalBusyLevels = data.listInfo.totalItems;
-        this.busyLevels = data.items;
+        this.newestLevels = data;
       });
 
     this.apiClient.GetActivity(5, 0)
@@ -64,4 +67,5 @@ export class MainComponent implements OnInit {
   protected readonly faPlayCircle = faPlayCircle;
   protected readonly faArrowRightToBracket = faArrowRightToBracket;
   protected readonly faUserPlus = faUserPlus;
+  protected readonly faCalendar = faCalendar;
 }
