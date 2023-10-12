@@ -82,6 +82,7 @@ import {TooltipComponent} from "./components/tooltip/tooltip.component";
 import { CategoryPreviewComponent } from './components/category-preview/category-preview.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselCycleButtonComponent } from './components/carousel-cycle-button/carousel-cycle-button.component';
+import { LevelStatisticsComponent } from './components/level-statistics/level-statistics.component';
 
 @NgModule({
     declarations: [
@@ -139,6 +140,7 @@ import { CarouselCycleButtonComponent } from './components/carousel-cycle-button
         CategoryPreviewComponent,
         CarouselComponent,
         CarouselCycleButtonComponent,
+        LevelStatisticsComponent,
     ],
   imports: [
     BrowserModule,

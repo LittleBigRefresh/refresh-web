@@ -1,15 +1,13 @@
 <page-header-block *ngIf="level">
   <div class="flex gap-3.5">
-    <level-avatar [level]="level" size="h-auto w-44"></level-avatar>
+    <level-avatar [level]="level" size="h-auto w-44 max-md:w-24"></level-avatar>
     <div>
-      <page-header class="text-3xl">
+      <div class="font-bold text-3xl mb-1">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
 
-        <ng-container *ngIf="level.teamPicked">
-            <tooltip text="This level has been team picked.">
-              <fa-icon [icon]="faCircleCheck" class="text-xl pr-1"></fa-icon>
-            </tooltip>
-        </ng-container>
+        <tooltip text="This level has been team picked." *ngIf="level.teamPicked">
+          <fa-icon [icon]="faCircleCheck" class="text-xl pr-1"></fa-icon>
+        </tooltip>
 
         <div class="inline-block text-sm font-normal" *ngIf="level.publisher">
           <span-gentle>by
@@ -21,25 +19,10 @@
           <span-gentle *ngIf="level.publishDate != level.updateDate">,
             updated {{ getMoment(level.updateDate)}}</span-gentle>
         </div>
-      </page-header>
-      <div class="flex gap-2 pb-3 pl-1">
-        <div class="items-center">
-          <fa-icon [icon]="faThumbsUp"></fa-icon>
-          {{level.yayRatings}}
-        </div>
-        <div class="items-center">
-          <fa-icon [icon]="faThumbsDown" ></fa-icon>
-          {{level.booRatings}}
-        </div>
-        <div class="items-center">
-          <fa-icon [icon]="faHeart"></fa-icon>
-          {{level.hearts}}
-        </div>
-        <div class="items-center">
-          <fa-icon [icon]="faPlay"></fa-icon>
-          {{level.uniquePlays}}
-        </div>
       </div>
+
+      <level-statistics [level]="level" class="inline-block ml-1 mb-1"></level-statistics>
+
       <div class="bg-backdrop rounded-[11px] px-5 py-2.5">
         <p>{{ level.description.length == 0 ? 'No description was provided for this level.' : level.description }}</p>
       </div>
@@ -66,7 +49,7 @@
   </div>
 </page-header-block>
 
-<div class="flex flex-row gap-2.5">
+<div class="flex flex-row gap-2.5 max-md:flex-col">
   <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
     <page-header class="text-3xl">Leaderboard</page-header>
     <form-dropdown name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>

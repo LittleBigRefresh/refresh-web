@@ -4,10 +4,14 @@
       <level-avatar [level]="_level" size="h-20 w-auto"></level-avatar>
     </div>
     <div>
-      <a [routerLink]="'/level/' + _level.levelId" class="text-xl font-medium" *ngIf="_level.title.length > 0">{{_level.title}}</a>
-      <a [routerLink]="'/level/' + _level.levelId" class="text-xl font-medium" *ngIf="_level.title.length <= 0">Unnamed Level</a>
+      <a [routerLink]="'/level/' + _level.levelId" class="text-xl font-medium mr-1" *ngIf="_level.title.length > 0">{{_level.title}}</a>
+      <a [routerLink]="'/level/' + _level.levelId" class="text-xl font-medium mr-1" *ngIf="_level.title.length <= 0">Unnamed Level</a>
+      <tooltip text="This level has been team picked." *ngIf="_level.teamPicked">
+        <fa-icon [icon]="faCircleCheck" class="pr-1"></fa-icon>
+      </tooltip>
+      <level-statistics [level]="_level" class="text-sm"></level-statistics>
       <p-gentle *ngIf="_level.publisher">by <user-link [user]="_level.publisher" class="pl-0.5"></user-link></p-gentle>
-      <p-gentle>Published {{getMoment(_level.publishDate)}}</p-gentle>
+      <p-gentle>Created in {{getGameVersion(_level.gameVersion)}} {{getMoment(_level.publishDate)}}</p-gentle>
     </div>
   </div>
 

@@ -97,7 +97,7 @@ export class LevelComponent implements OnInit {
   }
 
   getGameVersion(version: number): string {
-    return GameVersion[version].replace("LittleBigPlanet", "LittleBigPlanet ");
+    return GameVersion[version].replace("LittleBigPlanet", "LBP");
   }
 
   getScores(levelId: number, clear: boolean = true, skip: number = 0) {
@@ -142,11 +142,5 @@ export class LevelComponent implements OnInit {
   protected readonly GenerateEmptyList = GenerateEmptyList;
   protected readonly faWrench = faWrench;
   protected readonly UserRoles = UserRoles;
-  protected readonly faHeart = faHeart;
-  protected readonly faThumbsUp = faThumbsUp;
-  protected readonly faThumbsDown = faThumbsDown;
-  protected readonly faPlay = faPlay;
   protected readonly faCircleCheck = faCircleCheck;
-  protected readonly GameVersion = GameVersion;
-  protected readonly undefined = undefined;
 }

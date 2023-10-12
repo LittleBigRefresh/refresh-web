@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import {Level} from "../../api/types/level";
 import {GetAssetImageLink} from "../../api/api-client";
 import * as moment from "dayjs";
+import {GameVersion} from "../../api/types/game-version";
+import {faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'level-preview',
@@ -25,5 +27,11 @@ export class LevelPreviewComponent {
     return moment(timestamp).fromNow();
   }
 
+  getGameVersion(version: number): string {
+    return GameVersion[version].replace("LittleBigPlanet", "LBP");
+  }
+
   protected readonly GetAssetImageLink = GetAssetImageLink;
+  protected readonly faCircleCheck = faCircleCheck;
+  protected readonly undefined = undefined;
 }
