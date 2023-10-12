@@ -3,8 +3,10 @@
 <ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="categories">
   <div ngxMasonryItem *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">
     <div class="text-xl font-medium">
-      <fa-icon class="pr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
-      <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}</a>
+      <fa-icon class="mr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
+      <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}
+        <fa-icon class="text-sm text-gentle" [icon]="faLink"></fa-icon>
+      </a>
     </div>
     <p>{{c.description}}</p>
     <div *ngIf="c.previewLevel">

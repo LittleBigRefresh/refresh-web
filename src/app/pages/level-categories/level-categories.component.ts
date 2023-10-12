@@ -4,6 +4,7 @@ import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
 import { Category } from 'src/app/api/types/category';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {TitleService} from "../../services/title.service";
+import {faLink} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-level-categories',
@@ -45,4 +46,5 @@ export class LevelCategoriesComponent implements OnInit {
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly GenerateEmptyList = GenerateEmptyList;
   protected readonly masonryOptions = masonryOptions;
+  protected readonly faLink = faLink;
 }
