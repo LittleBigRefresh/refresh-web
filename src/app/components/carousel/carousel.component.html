@@ -1,7 +1,7 @@
 <div class="flex justify-center items-center gap-x-5">
   <app-carousel-cycle-button side="left" (click)="decrement()" *ngIf="canDecrement()"></app-carousel-cycle-button>
 
-  <div class="flex gap-x-10 justify-center items-center flex-grow flex-wrap h-20 overflow-hidden" #items>
+  <div class="flex gap-x-10 justify-center items-center flex-grow flex-wrap h-24 overflow-hidden" #items>
     <ng-content></ng-content>
   </div>
 

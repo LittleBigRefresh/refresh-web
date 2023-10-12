@@ -41,10 +41,10 @@
 
 <div *ngIf="busyLevels?.length ?? 0">
   <divider></divider>
-  <category-preview [levels]="busyLevels" [total]="totalBusyLevels" title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
+  <category-preview [levels]="busyLevels" [total]="totalBusyLevels" category-title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
 </div>
 
 <div *ngIf="pickedLevels?.length ?? 0">
   <divider></divider>
-  <category-preview [levels]="pickedLevels" [total]="totalPickedLevels" title="Team Picks" [icon]="faCertificate" route="teamPicks"></category-preview>
+  <category-preview [levels]="pickedLevels" [total]="totalPickedLevels" category-title="Team Picks" [icon]="faCertificate" route="teamPicks"></category-preview>
 </div>
