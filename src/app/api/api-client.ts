@@ -70,7 +70,6 @@ export class ApiClient {
     }
 
     if (err.status == 0) {
-      console.log(err)
       if (!this.handledConnectionError) {
         this.bannerService.pushError("Failed to connect", "We couldn't reach Refresh's backend. Please try again later in just a couple moments.")
       }
@@ -79,17 +78,22 @@ export class ApiClient {
       return of(undefined);
     }
 
-    if(data.error === undefined && err.status == 404) {
+    if(data?.error === undefined && err.status == 404) {
       this.bannerService.pushError("Not Found", "The requested resource could not be found.")
       return of(undefined);
     }
 
-    if(data.error === undefined && err.status == 500) {
+    if(data?.error === undefined && err.status == 403) {
+      this.bannerService.pushError("Forbidden", "Unfortunately, you lack the permissions to access this data.")
+      return of(undefined);
+    }
+
+    if(data?.error === undefined && err.status == 500) {
       this.bannerService.pushError("Internal Server Error", "The remote server couldn't handle your request.")
       return of(undefined);
     }
 
-    this.bannerService.pushError(`API Error: ${data.error?.name} (${err.status})`, data.error?.message ?? "Unknown error")
+    this.bannerService.pushError(`API Error: ${data?.error?.name} (${err.status})`, data?.error?.message ?? "Unknown error")
     return of(undefined);
   }
 
@@ -104,7 +108,19 @@ export class ApiClient {
       catchError((err) => {
         if (!err.success) {
           console.log("Handling error")
-          if(errorHandler) errorHandler(err.error.error);
+          if(errorHandler) {
+            let error: ApiError | undefined = err.error?.error;
+            if(error == undefined) {
+              error = {
+                warning: err.ok,
+                message: err.message,
+                name: err.statusText,
+                statusCode: err.status,
+              }
+            }
+
+            errorHandler(error!);
+          }
           return this.handleRequestError(err.error, err, errorHandler == undefined);
         }
 
@@ -275,11 +291,12 @@ export class ApiClient {
   }
 
   private GetMyUser(callback: Function | null = null) {
-    this.makeRequest<ExtendedUser>("GET", "users/me")
-      .pipe(catchError((err) => {
-        console.error(err);
-        return of(undefined);
-      }))
+    this.makeRequest<ExtendedUser>("GET", "users/me", undefined, (err) => {
+      if(err.statusCode) {
+        localStorage.removeItem('game_token');
+      }
+      return of(undefined);
+    })
       .subscribe((data) => {
         this.user = data;
         this.userWatcher.emit(this.user);

@@ -18,7 +18,6 @@ export class CarouselComponent implements AfterViewInit {
 
   updateCarousel(): void {
     const i: number = this.currentIndex;
-    console.log(i);
 
     for (let carouselItem of this.carouselItems) {
       this.hideItem(carouselItem);
