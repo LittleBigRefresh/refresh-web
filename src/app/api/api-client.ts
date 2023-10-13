@@ -61,15 +61,36 @@ export class ApiClient {
     }
   }
 
-  private handleRequestError<T>(data: ApiResponse<T>, catchErrors: boolean) {
-    console.log(data);
-    if (catchErrors) {
-      this.bannerService.pushError(`API Error: ${data.error?.name} (${data.error?.statusCode})`, data.error?.message ?? "Unknown error")
+  private handledConnectionError: boolean = false;
+
+  private handleRequestError<T>(data: ApiResponse<T>, err: any, catchErrors: boolean) {
+    if (!catchErrors) {
+      const respError: ApiError = data.error!;
+      return of(respError);
+    }
+
+    if (err.status == 0) {
+      console.log(err)
+      if (!this.handledConnectionError) {
+        this.bannerService.pushError("Failed to connect", "We couldn't reach Refresh's backend. Please try again later in just a couple moments.")
+      }
+
+      this.handledConnectionError = true;
       return of(undefined);
     }
 
-    const respError: ApiError = data.error!;
-    return of(respError);
+    if(data.error === undefined && err.status == 404) {
+      this.bannerService.pushError("Not Found", "The requested resource could not be found.")
+      return of(undefined);
+    }
+
+    if(data.error === undefined && err.status == 500) {
+      this.bannerService.pushError("Internal Server Error", "The remote server couldn't handle your request.")
+      return of(undefined);
+    }
+
+    this.bannerService.pushError(`API Error: ${data.error?.name} (${err.status})`, data.error?.message ?? "Unknown error")
+    return of(undefined);
   }
 
   private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
@@ -84,13 +105,14 @@ export class ApiClient {
         if (!err.success) {
           console.log("Handling error")
           if(errorHandler) errorHandler(err.error.error);
-          return this.handleRequestError(err.error, errorHandler == undefined);
+          return this.handleRequestError(err.error, err, errorHandler == undefined);
         }
 
         return of(undefined);
       }),
-      switchMap((data: ApiResponse<T>) => {
-        return of(data.data);
+      switchMap((resp: ApiResponse<T>) => {
+        if(resp === undefined) return of(undefined);
+        return of(resp.data);
       }
     ));
 
@@ -108,15 +130,17 @@ export class ApiClient {
       catchError((err) => {
         if (!err.success) {
           console.log("Handling error")
-          return this.handleRequestError(err.error, catchErrors);
+          return this.handleRequestError(err.error, err, catchErrors);
         }
 
         return of(undefined);
       }),
-      switchMap((data: ApiResponse<T[]>) => {
+      switchMap((respData: ApiResponse<T[]>) => {
+        if(respData === undefined) return of(undefined);
+
         const resp: ApiListResponse<T> = {
-          items: data.data!,
-          listInfo: data.listInfo!,
+          items: respData.data!,
+          listInfo: respData.listInfo!,
         };
 
         return of(resp);
