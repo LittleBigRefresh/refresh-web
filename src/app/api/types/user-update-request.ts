@@ -5,5 +5,7 @@ export interface UserUpdateRequest {
   psnAuthenticationAllowed: boolean | undefined;
   rpcnAuthenticationAllowed: boolean | undefined;
 
+  redirectGriefReportsToPhotos: boolean | undefined;
+
   emailAddress: string | undefined;
 }
