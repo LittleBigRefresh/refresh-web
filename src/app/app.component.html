@@ -12,22 +12,28 @@
       </a>
     </nav>
 
-    <div class="ml-auto flex-shrink text-xl leading-none">
-      <a *ngFor="let link of rightSideRouterLinks" class="ml-2 p-3 inline-block" routerLink="{{link.link}}" [attr.aria-label]="link.title">
-        <fa-icon [icon]="link.icon" class="inline-block"></fa-icon>
-      </a>
-    </div>
-
-    <a routerLink="/user/me" class="flex-shrink" *ngIf="user" aria-label="View Profile">
+    <button (click)="toggleMenu()" *ngIf="user" aria-label="More..." class="flex-shrink ml-auto p-3 cursor-pointer">
       <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>
-    </a>
+    </button>
+<!--    <a routerLink="/user/me" class="flex-shrink" *ngIf="user" aria-label="More...">-->
+<!--      <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>-->
+<!--    </a>-->
 
     <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user" aria-label="Sign In">
       <fa-icon [icon]="faSignIn" class="inline-block"></fa-icon>
     </button>
+  </div>
+</div>
 
-    <div class="absolute top-0 right-0 h-0 mr-5 mt-16 z-50" #login [hidden]="true">
+<div class="w-full flex justify-center">
+  <div class="flex container h-0 z-50">
+    <div class="flex-grow"></div> <!-- force all menus to be on the right -->
+    <div class="drop-shadow-lg" #login [hidden]="true">
       <app-login></app-login>
+    </div>
+
+    <div class="drop-shadow-lg" #menu [hidden]="true">
+      <app-menu [links]="rightSideRouterLinks"></app-menu>
     </div>
   </div>
 </div>

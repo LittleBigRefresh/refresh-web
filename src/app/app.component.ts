@@ -1,6 +1,7 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {
+  faBars,
   faBell,
   faCameraAlt,
   faCertificate, faExclamationTriangle,
@@ -63,6 +64,7 @@ export class AppComponent {
   instance: Instance | undefined = undefined;
 
   @ViewChild("login") login!: ElementRef;
+  @ViewChild("menu") menu!: ElementRef;
 
   routerLinks: HeaderLink[] = [
     new HeaderLink("Levels", "/levels", faCertificate),
@@ -91,11 +93,11 @@ export class AppComponent {
       this.login.nativeElement.hidden = true;
 
       if(data.role >= UserRoles.Admin) {
-        this.rightSideRouterLinks.push(new HeaderLink("", "/admin", faWrench))
+        this.rightSideRouterLinks.push(new HeaderLink("Admin Panel", "/admin", faWrench))
       }
 
-      this.rightSideRouterLinks.push(new HeaderLink("", "/notifications", faBell))
-      this.rightSideRouterLinks.push(new HeaderLink("", "/settings", faGear))
+      this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell))
+      this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
     }
   }
 
@@ -103,8 +105,13 @@ export class AppComponent {
     this.login.nativeElement.hidden = !this.login.nativeElement.hidden;
   }
 
+  toggleMenu(): void {
+    this.menu.nativeElement.hidden = !this.menu.nativeElement.hidden;
+  }
+
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly faSignIn = faSignIn;
   protected readonly faExclamationTriangle = faExclamationTriangle;
   protected readonly UserRoles = UserRoles;
+  protected readonly faBars = faBars;
 }
