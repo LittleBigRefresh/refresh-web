@@ -24,7 +24,7 @@
 
 <div *ngIf="!apiClient.user" class="flex justify-center gap-x-20 py-5 max-sm:flex-col max-sm:gap-y-5">
   <primary-button text="Create an account" [icon]="faUserPlus" class="flex-grow" routerLink="/register"></primary-button>
-  <secondary-button [text]="'Sign into ' + instance?.instanceName ?? 'Refresh'" [icon]="faArrowRightToBracket" class="flex-grow" routerLink="/login"></secondary-button>
+  <secondary-button [text]="'Sign into ' + (instance?.instanceName ?? 'Refresh')" [icon]="faArrowRightToBracket" class="flex-grow" routerLink="/login"></secondary-button>
 </div>
 
 <div *ngIf="activity && activity.events.length > 0">
@@ -41,7 +41,7 @@
 
 <div *ngIf="busyLevels && busyLevels.items.length > 0">
   <divider></divider>
-  <category-preview [levels]="busyLevels?.items" [total]="busyLevels.listInfo.totalItems" category-title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
+  <category-preview [levels]="busyLevels.items" [total]="busyLevels.listInfo.totalItems" category-title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
 </div>
 
 <div *ngIf="newestLevels && newestLevels.items.length > 0">
