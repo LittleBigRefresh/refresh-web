@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../api/types/level";
-import {GetAssetImageLink} from "../../api/api-client";
+import {GetAssetImageLink} from "../../api/api-client.service";
 import * as moment from "dayjs";
 import {GameVersion} from "../../api/types/game-version";
 import {faCircleCheck} from "@fortawesome/free-solid-svg-icons";

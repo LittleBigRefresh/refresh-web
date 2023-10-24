@@ -10,7 +10,7 @@ import {
   faSignIn,
   faUser, faWrench
 } from '@fortawesome/free-solid-svg-icons';
-import {ApiClient, GetAssetImageLink} from './api/api-client';
+import {ApiClient, GetAssetImageLink} from './api/api-client.service';
 import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';

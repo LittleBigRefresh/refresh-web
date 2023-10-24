@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Meta, Title} from "@angular/platform-browser";
 import {User} from "../api/types/user";
 import {Instance} from "../api/types/instance";
-import {GetAssetImageLink} from "../api/api-client";
+import {GetAssetImageLink} from "../api/api-client.service";
 import {Photo} from "../api/types/photo";
 import {Level} from "../api/types/level";
 

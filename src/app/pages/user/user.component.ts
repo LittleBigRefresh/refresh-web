@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'dayjs';
 import { EMPTY, catchError, of, switchMap, tap } from 'rxjs';
-import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
+import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client.service';
 import { Room } from 'src/app/api/types/rooms/room';
 import { User } from 'src/app/api/types/user';
 import {UserRoles} from "../../api/types/user-roles";

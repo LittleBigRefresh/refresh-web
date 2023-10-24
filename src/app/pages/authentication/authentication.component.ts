@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IpVerificationRequest} from "../../api/types/auth/ip-verification-request";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import * as moment from "dayjs";
 import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 

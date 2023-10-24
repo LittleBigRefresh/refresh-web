@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {catchError, of} from "rxjs";
 import {RefreshNotification} from "../../api/types/refresh-notification";
 import {Router} from "@angular/router";

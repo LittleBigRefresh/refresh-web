@@ -27,6 +27,8 @@ import {Instance} from "./types/instance";
 import {Announcement} from "./types/announcement";
 import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
 import {AdminQueuedRegistration} from "./types/admin/admin-queued-registration";
+import {AuthService} from "./auth.service";
+import {ApiRequestCreator} from "./api-request.creator";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -44,10 +46,10 @@ export class ApiClient {
   private statistics: Statistics | undefined;
   private instance: Instance | undefined;
 
-  constructor(private httpClient: HttpClient, private bannerService: BannerService, private router: Router) {
+  constructor(private apiRequestCreator: ApiRequestCreator, private authService: AuthService, private bannerService: BannerService, private router: Router) {
     this.userWatcher = new EventEmitter<ExtendedUser | undefined>();
 
-    const storedToken: string | null = localStorage.getItem('game_token');
+    const storedToken: string | null = this.authService.GetStoredGameToken();
 
     this._loggedIn = storedToken !== null;
     if (storedToken) {
@@ -61,110 +63,12 @@ export class ApiClient {
     }
   }
 
-  private handledConnectionError: boolean = false;
-
-  private handleRequestError<T>(data: ApiResponse<T>, err: any, catchErrors: boolean) {
-    if (!catchErrors) {
-      const respError: ApiError = data.error!;
-      return of(respError);
-    }
-
-    if (err.status == 0) {
-      if (!this.handledConnectionError) {
-        this.bannerService.pushError("Failed to connect", "We couldn't reach Refresh's backend. Please try again later in just a couple moments.")
-      }
-
-      this.handledConnectionError = true;
-      return of(undefined);
-    }
-
-    if(data?.error === undefined && err.status == 404) {
-      this.bannerService.pushError("Not Found", "The requested resource could not be found.")
-      return of(undefined);
-    }
-
-    if(data?.error === undefined && err.status == 403) {
-      this.bannerService.pushError("Forbidden", "Unfortunately, you lack the permissions to access this data.")
-      return of(undefined);
-    }
-
-    if(data?.error === undefined && err.status == 500) {
-      this.bannerService.pushError("Internal Server Error", "The remote server couldn't handle your request.")
-      return of(undefined);
-    }
-
-    this.bannerService.pushError(`API Error: ${data?.error?.name} (${err.status})`, data?.error?.message ?? "Unknown error")
-    return of(undefined);
-  }
-
   private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
-    let result: Observable<ApiResponse<T> | (T | undefined)> = this.httpClient.request<ApiResponse<T>>(method, environment.apiBaseUrl + '/' + endpoint, {
-      body: body
-    });
-
-    // @ts-ignore
-    result = result.pipe(
-      // @ts-ignore
-      catchError((err) => {
-        if (!err.success) {
-          console.log("Handling error")
-          if(errorHandler) {
-            let error: ApiError | undefined = err.error?.error;
-            if(error == undefined) {
-              error = {
-                warning: err.ok,
-                message: err.message,
-                name: err.statusText,
-                statusCode: err.status,
-              }
-            }
-
-            errorHandler(error!);
-          }
-          return this.handleRequestError(err.error, err, errorHandler == undefined);
-        }
-
-        return of(undefined);
-      }),
-      switchMap((resp: ApiResponse<T>) => {
-        if(resp === undefined) return of(undefined);
-        return of(resp.data);
-      }
-    ));
-
-    // @ts-ignore
-    return result;
+    return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
   }
 
   private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
-    let result: Observable<ApiResponse<T[]> | (T[] | undefined)> = this.httpClient.request<ApiResponse<T[]>>(method, environment.apiBaseUrl + '/' + endpoint);
-
-    // @ts-ignore
-
-    result = result.pipe(
-      // @ts-ignore
-      catchError((err) => {
-        if (!err.success) {
-          console.log("Handling error")
-          return this.handleRequestError(err.error, err, catchErrors);
-        }
-
-        return of(undefined);
-      }),
-      switchMap((respData: ApiResponse<T[]>) => {
-        if(respData === undefined) return of(undefined);
-
-        const resp: ApiListResponse<T> = {
-          items: respData.data!,
-          listInfo: respData.listInfo!,
-        };
-
-        return of(resp);
-      }
-    ));
-
-    // @ts-ignore
-    return result;
+    return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
   }
 
   onUserUpdate(user: ExtendedUser | undefined): void {
@@ -249,7 +153,7 @@ export class ApiClient {
         }
 
         this._userId = authResponse.userId;
-        localStorage.setItem('game_token', authResponse.tokenData);
+        this.authService.SetStoredGameToken(authResponse.tokenData);
         this.GetMyUser();
       });
 
@@ -283,7 +187,7 @@ export class ApiClient {
         if (authResponse === undefined) return;
 
         this._userId = authResponse.userId;
-        localStorage.setItem('game_token', authResponse.tokenData);
+        this.authService.SetStoredGameToken(authResponse.tokenData);
         this.GetMyUser();
       });
 
@@ -293,7 +197,7 @@ export class ApiClient {
   private GetMyUser(callback: Function | null = null) {
     this.makeRequest<ExtendedUser>("GET", "users/me", undefined, (err) => {
       if(err.statusCode) {
-        localStorage.removeItem('game_token');
+        this.authService.ClearStoredGameToken();
       }
       return of(undefined);
     })
@@ -311,7 +215,7 @@ export class ApiClient {
     this.userWatcher.emit(undefined);
     this.makeRequest("PUT", "logout", {}).subscribe();
 
-    localStorage.removeItem('game_token');
+    this.authService.ClearStoredGameToken();
   }
 
   public ResetPassword(emailAddress: string, passwordSha512: string, signIn: boolean = false): void {
@@ -379,7 +283,7 @@ export class ApiClient {
         this.user = undefined;
 
         this.userWatcher.emit(undefined);
-        localStorage.removeItem('game_token');
+        this.authService.ClearStoredGameToken();
       });
   }
 

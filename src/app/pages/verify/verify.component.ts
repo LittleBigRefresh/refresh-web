@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {faCheckCircle, faKey, faMailReply} from "@fortawesome/free-solid-svg-icons";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({

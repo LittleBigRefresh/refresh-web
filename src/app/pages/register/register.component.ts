@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {sha512Async} from "../../hash";
 import {Banner} from "../../banners/banner";
 import {BannerService} from "../../banners/banner.service";

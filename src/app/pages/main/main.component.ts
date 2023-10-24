@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ApiClient } from 'src/app/api/api-client';
+import { ApiClient } from 'src/app/api/api-client.service';
 import { Statistics } from 'src/app/api/types/statistics';
 import {Instance} from "../../api/types/instance";
 import {Level} from "../../api/types/level";

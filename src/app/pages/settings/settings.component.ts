@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
 import {faDesktop, faEnvelope, faGamepad, faKey, faTrash, faPencil, faCamera} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivityPage} from "../../api/types/activity/activity-page";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {GenerateEmptyList} from "../../app.component";
 import {TitleService} from "../../services/title.service";
 

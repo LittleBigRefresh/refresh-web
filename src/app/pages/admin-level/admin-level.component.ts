@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Level} from "../../api/types/level";
 import {ActivatedRoute, ParamMap} from "@angular/router";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {EMPTY, switchMap, tap} from "rxjs";
 import {faCertificate, faCheck, faFlag, faTrash} from "@fortawesome/free-solid-svg-icons";
 

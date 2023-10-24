@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiClient } from 'src/app/api/api-client';
+import { ApiClient } from 'src/app/api/api-client.service';
 
 @Component({
   selector: 'app-logout',

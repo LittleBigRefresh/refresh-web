@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { EMPTY, catchError, of, switchMap } from 'rxjs';
-import { ApiClient } from 'src/app/api/api-client';
+import { ApiClient } from 'src/app/api/api-client.service';
 import { Photo } from 'src/app/api/types/photo';
 import {EmbedService} from "../../services/embed.service";
 import {TitleService} from "../../services/title.service";

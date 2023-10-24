@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Photo} from "../../api/types/photo";
-import {GetPhotoLink} from "../../api/api-client";
+import {GetPhotoLink} from "../../api/api-client.service";
 
 @Component({
   selector: 'photo',

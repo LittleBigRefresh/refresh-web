@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiClient } from 'src/app/api/api-client';
+import { ApiClient } from 'src/app/api/api-client.service';
 import { sha512Async } from 'src/app/hash';
 import { Banner } from 'src/app/banners/banner';
 import { BannerService } from 'src/app/banners/banner.service';

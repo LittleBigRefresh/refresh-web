@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
 @Component({

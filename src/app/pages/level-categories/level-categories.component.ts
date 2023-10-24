@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
-import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
+import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client.service';
 import { Category } from 'src/app/api/types/category';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {TitleService} from "../../services/title.service";
