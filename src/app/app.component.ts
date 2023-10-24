@@ -116,5 +116,4 @@ export class AppComponent {
   protected readonly faSignIn = faSignIn;
   protected readonly faExclamationTriangle = faExclamationTriangle;
   protected readonly UserRoles = UserRoles;
-  protected readonly faBars = faBars;
 }

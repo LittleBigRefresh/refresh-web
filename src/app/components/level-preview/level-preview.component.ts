@@ -33,5 +33,4 @@ export class LevelPreviewComponent {
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly faCircleCheck = faCircleCheck;
-  protected readonly undefined = undefined;
 }

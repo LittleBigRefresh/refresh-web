@@ -15,11 +15,8 @@
     <button (click)="toggleMenu()" *ngIf="user" aria-label="More..." class="flex-shrink ml-auto p-3 cursor-pointer">
       <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>
     </button>
-<!--    <a routerLink="/user/me" class="flex-shrink" *ngIf="user" aria-label="More...">-->
-<!--      <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>-->
-<!--    </a>-->
 
-    <button (click)="toggleLogin()" class="flex-shrink text-2xl leading-none font-extralight" *ngIf="!user" aria-label="Sign In">
+    <button (click)="toggleLogin()" class="flex-shrink ml-auto p-3 text-2xl" *ngIf="!user" aria-label="Sign In">
       <fa-icon [icon]="faSignIn" class="inline-block"></fa-icon>
     </button>
   </div>
@@ -28,11 +25,11 @@
 <div class="w-full flex justify-center">
   <div class="flex container h-0 z-50">
     <div class="flex-grow"></div> <!-- force all menus to be on the right -->
-    <div class="drop-shadow-lg" #login [hidden]="true">
+    <div class="drop-shadow-lg" #login [hidden]="true" *ngIf="!user">
       <app-login></app-login>
     </div>
 
-    <div class="drop-shadow-lg" #menu [hidden]="true">
+    <div class="drop-shadow-lg" #menu [hidden]="true" *ngIf="user">
       <app-menu [links]="rightSideRouterLinks"></app-menu>
     </div>
   </div>
