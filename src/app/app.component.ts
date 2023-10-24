@@ -18,6 +18,7 @@ import {ExtendedUser} from "./api/types/extended-user";
 import {UserRoles} from "./api/types/user-roles";
 import {Instance} from "./api/types/instance";
 import {EmbedService} from "./services/embed.service";
+import {TitleService} from "./services/title.service";
 
 const fadeLength: string = "50ms";
 
@@ -73,7 +74,7 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService) {
+  constructor(apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService) {
     apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
 
@@ -81,6 +82,8 @@ export class AppComponent {
       this.instance = data;
       embedService.embedInstance(data);
     });
+
+    titleService.setTitle("")
   }
 
   handleUserUpdate(data: ExtendedUser | undefined) {
