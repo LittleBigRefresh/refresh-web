@@ -1,4 +1,5 @@
-<page-header class="text-3xl">Categories</page-header>
+<page-header class="text-3xl">{{title}}</page-header>
+<p>{{description}}</p>
 
 <ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="categories">
   <div ngxMasonryItem *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">

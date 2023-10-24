@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import {catchError} from 'rxjs';
-import { ApiClient } from 'src/app/api/api-client';
-import { Level } from 'src/app/api/types/level';
-import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {catchError, of} from 'rxjs';
+import {ApiClient} from 'src/app/api/api-client';
+import {Level} from 'src/app/api/types/level';
+import {HttpErrorResponse} from '@angular/common/http';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {Category} from "../../api/types/category";
 import {TitleService} from "../../services/title.service";
+import {EmbedService} from "../../services/embed.service";
 
 const pageSize: number = 10;
 
@@ -17,13 +17,13 @@ const pageSize: number = 10;
 })
 export class LevelListingComponent implements OnInit {
   levels: Level[] | undefined = undefined;
-  routeName!: string
+  routeCategory!: Category
   apiRoute: string = '';
   categories: Category[] = [];
   nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
-  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private titleService: TitleService) { }
+  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private titleService: TitleService, private embedService: EmbedService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -51,15 +51,19 @@ export class LevelListingComponent implements OnInit {
       }));
       categoryPipe.subscribe(data => {
         this.categories = data;
-        this.routeName = this.getCategoryName(apiRoute);
-        this.titleService.setTitle(this.routeName);
+        this.routeCategory = this.getCategory(apiRoute);
+        this.titleService.setTitle(this.routeCategory.name);
+        this.embedService.embed(this.routeCategory.name, this.routeCategory.description);
       })
     })
   }
   // Instead of just showing the route in PascalCase in the level category, we can process the route and make it look nicer.
-  private getCategoryName(apiRoute: string): string {
+  private getCategory(apiRoute: string): Category {
     const category = this.categories.find(cat => cat.apiRoute === apiRoute);
-    return category ? category.name : 'Unknown';
+    if(!category) {
+      throw new Error("Matching category was not found in API")
+    }
+    return category;
   }
   loadNextPage(intersecting: boolean): void {
     if(!intersecting) return;

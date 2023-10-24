@@ -5,6 +5,7 @@ import { Category } from 'src/app/api/types/category';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {TitleService} from "../../services/title.service";
 import {faLink} from "@fortawesome/free-solid-svg-icons";
+import {EmbedService} from "../../services/embed.service";
 
 @Component({
   selector: 'app-level-categories',
@@ -13,8 +14,12 @@ import {faLink} from "@fortawesome/free-solid-svg-icons";
 export class LevelCategoriesComponent implements OnInit {
   categories: Category[] | undefined = undefined!
 
-  constructor(private apiClient: ApiClient, titleService: TitleService) {
-    titleService.setTitle("Categories");
+  title: string = "Level Categories";
+  description: string = "Discover and browse through new levels using categories!";
+
+  constructor(private apiClient: ApiClient, titleService: TitleService, embedService: EmbedService) {
+    titleService.setTitle(this.title);
+    embedService.embed(this.title, this.description);
   }
   ngOnInit(): void {
     this.apiClient.GetLevelCategories()
