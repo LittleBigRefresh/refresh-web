@@ -1,7 +1,7 @@
 <page-header-block *ngIf="level">
   <div class="flex gap-3.5">
     <level-avatar [level]="level" size="h-auto w-44 max-md:w-24"></level-avatar>
-    <div>
+    <div class="flex-grow">
       <div class="font-bold text-3xl mb-1">
         {{ level.title.length == 0 ? 'Unnamed Level' : level.title }}
 

@@ -1,7 +1,7 @@
 <page-header-block *ngIf="user">
-  <div class="flex gap-3.5">
+  <div class="flex gap-x-3.5">
     <user-avatar [user]="user" size="h-auto w-44"></user-avatar>
-    <div>
+    <div class="flex-grow">
       <page-header class="text-3xl inline">
         {{ user.username }}'s profile
         <span-gentle>{{ getMoment(user.joinDate) }}</span-gentle>
@@ -16,12 +16,13 @@
         </div>
       </div>
 
-      <br>
-
-      <p>{{user.description.length == 0 ? 'This person hasn\'t introduced themselves yet.' : user.description}}</p>
+      <div class="bg-backdrop rounded-[11px] px-5 py-2.5 drop-shadow-lg mt-2">
+        <p>{{user.description.length == 0 ? 'This person hasn\'t introduced themselves yet.' : user.description}}</p>
+      </div>
     </div>
   </div>
 </page-header-block>
+
 <page-header-block *ngIf="ownUser?.role == UserRoles.Admin">
   <secondary-button text="Manage" class="flex" [icon]="faWrench" [routerLink]="'/admin/user/' + user?.userId"></secondary-button>
 </page-header-block>

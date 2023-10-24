@@ -127,4 +127,5 @@ export class UserComponent implements OnInit {
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly UserRoles = UserRoles;
   protected readonly faWrench = faWrench;
+  protected readonly undefined = undefined;
 }
