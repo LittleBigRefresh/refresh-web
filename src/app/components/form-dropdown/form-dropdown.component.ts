@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'form-dropdown',
@@ -30,6 +31,8 @@ export class FormDropdownComponent {
     this.value = event.target.value;
     this.valueChange.emit(this.value);
   }
+
+  protected readonly faChevronDown = faChevronDown;
 }
 
 export interface DropdownOption {

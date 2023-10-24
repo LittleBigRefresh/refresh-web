@@ -5,10 +5,9 @@
   <form-input [icon]="faKey" name="Password" type="password" [(value)]="password"></form-input>
 
   <primary-button [icon]="faSignIn" class="min-w-fit" text="Sign in" (click)="login()"></primary-button>
-  <div class="h-2.5"></div>
   <secondary-button [icon]="faKey" class="w-full" text="Forgot password?" routerLink="/forgotPassword"></secondary-button>
 
   <divider></divider>
-  <p class="pb-2">Haven't signed up yet?</p>
+  <p>Haven't signed up yet?</p>
   <secondary-button [icon]="faUserPlus" text="Create an account" routerLink="/register"></secondary-button>
 </form-holder>
