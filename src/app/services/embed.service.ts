@@ -20,7 +20,7 @@ export class EmbedService {
         this.meta.addTag({ name: name, content: content });
     }
 
-    private embed(title: string, description: string) {
+    public embed(title: string, description: string) {
         this.setPropertyTag("og:title", title)
         this.setPropertyTag("og:description", description)
         this.setNamedTag("description", description)

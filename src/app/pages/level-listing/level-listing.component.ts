@@ -7,6 +7,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {Category} from "../../api/types/category";
 import {TitleService} from "../../services/title.service";
+import {EmbedService} from "../../services/embed.service";
 
 const pageSize: number = 10;
 
@@ -22,7 +23,7 @@ export class LevelListingComponent implements OnInit {
   nextPageIndex: number = pageSize + 1;
   total: number = 0;
 
-  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private titleService: TitleService) { }
+  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private titleService: TitleService, private embedService: EmbedService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -52,6 +53,7 @@ export class LevelListingComponent implements OnInit {
         this.categories = data;
         this.routeCategory = this.getCategory(apiRoute);
         this.titleService.setTitle(this.routeCategory.name);
+        this.embedService.embed(this.routeCategory.name, this.routeCategory.description);
       })
     })
   }
