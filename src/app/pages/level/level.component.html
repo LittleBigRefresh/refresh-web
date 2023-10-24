@@ -51,14 +51,19 @@
 
 <div class="flex flex-row gap-2.5 max-md:flex-col">
   <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
-    <page-header class="text-3xl">Leaderboard</page-header>
-    <form-dropdown name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
+    <div class="flex">
+      <h2 class="text-3xl font-bold flex-grow">Leaderboard</h2>
+      <form-dropdown class="" name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
+    </div>
     <divider></divider>
     <div *ngIf="scores === undefined">
       <p>Loading scores...</p>
     </div>
-    <div *ngIf="scores !== undefined && scores!.length === 0">
-      <p>Nobody's played this level in this mode yet. Go for the top score!</p>
+    <div *ngIf="scores !== undefined && scores!.length === 0" class="text-center">
+      <p class="font-bold text-2xl">No {{scoreType}}-player scores</p>
+      <p>
+        Nobody has beaten this level with {{scoreType}} player{{scoreType == '1' ? '' : 's'}} yet. Go for it!
+      </p>
     </div>
     <div *ngFor="let score of scores">
       <div class="my-5 px-2.5">
@@ -92,7 +97,7 @@
     </div>
   </div>
   <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
-    <page-header class="text-3xl">Recent Activity</page-header>
+    <h2 class="text-3xl font-bold">Recent Activity</h2>
     <divider></divider>
 
     <div *ngIf="activity">
