@@ -5,7 +5,7 @@ import { sha512Async } from 'src/app/hash';
 import { Banner } from 'src/app/banners/banner';
 import { BannerService } from 'src/app/banners/banner.service';
 import {PasswordVerificationService} from "../../services/password-verification.service";
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {faCancel, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-forgot-password',
@@ -36,4 +36,6 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   protected readonly faEnvelope = faEnvelope;
+  protected readonly faKey = faKey;
+  protected readonly faCancel = faCancel;
 }

@@ -4,7 +4,14 @@ import {sha512Async} from "../../hash";
 import {Banner} from "../../banners/banner";
 import {BannerService} from "../../banners/banner.service";
 import {PasswordVerificationService} from "../../services/password-verification.service";
-import {faEnvelope, faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faKey,
+  faSignIn,
+  faTriangleExclamation,
+  faUser,
+  faUserPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-register',
@@ -31,4 +38,8 @@ export class RegisterComponent {
 
   protected readonly faEnvelope = faEnvelope;
   protected readonly faTriangleExclamation = faTriangleExclamation;
+  protected readonly faSignIn = faSignIn;
+  protected readonly faUser = faUser;
+  protected readonly faKey = faKey;
+  protected readonly faUserPlus = faUserPlus;
 }

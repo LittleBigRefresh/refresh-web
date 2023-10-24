@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faKey} from "@fortawesome/free-solid-svg-icons";
+import {faCheckCircle, faKey, faMailReply} from "@fortawesome/free-solid-svg-icons";
 import {ApiClient} from "../../api/api-client";
 import {ActivatedRoute, Params} from "@angular/router";
 
@@ -28,4 +28,6 @@ export class VerifyComponent implements OnInit {
   }
 
   protected readonly faKey = faKey;
+  protected readonly faCheckCircle = faCheckCircle;
+  protected readonly faMailReply = faMailReply;
 }

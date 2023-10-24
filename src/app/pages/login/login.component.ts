@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ApiClient } from 'src/app/api/api-client';
 import { sha512Async } from 'src/app/hash';
 import {PasswordVerificationService} from "../../services/password-verification.service";
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faKey, faQuestion, faSignIn, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-login',
@@ -25,4 +25,8 @@ export class LoginComponent {
   }
 
   protected readonly faEnvelope = faEnvelope;
+  protected readonly faKey = faKey;
+  protected readonly faSignIn = faSignIn;
+  protected readonly faQuestion = faQuestion;
+  protected readonly faUserPlus = faUserPlus;
 }
