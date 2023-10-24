@@ -17,7 +17,6 @@ export class FormInputComponent {
   _name: string = 'NAME NOT SET, FIX ME';
   _type: InputType = 'text';
   _readonly: boolean = false;
-  _showLabel: boolean = true;
 
   @Input() value: string | undefined = "";
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>;
@@ -40,11 +39,6 @@ export class FormInputComponent {
   @Input()
   set readonly(param: boolean) {
     this._readonly = param;
-  }
-
-  @Input()
-  set showLabel(param: boolean) {
-    this._showLabel = param;
   }
 
   onChange(event: any) {
