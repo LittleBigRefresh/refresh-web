@@ -26,4 +26,8 @@ export class TokenStorageService {
     public SetStoredRefreshToken(refreshToken: string): void {
         localStorage.setItem(this.RefreshTokenKey, refreshToken);
     }
+
+    public ClearStoredRefreshToken(): void {
+        localStorage.removeItem(this.RefreshTokenKey);
+    }
 }
