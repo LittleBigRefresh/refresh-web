@@ -46,7 +46,6 @@ export class AuthService {
             tokenData: refreshToken
         };
 
-        console.log(this);
         this.apiRequestCreator.makeRequest<ApiAuthenticationResponse>("POST", "refreshToken", payload, error => {
             if(error.statusCode !== 403) return;
             this.tokenStorage.ClearStoredRefreshToken();
@@ -54,19 +53,16 @@ export class AuthService {
             this.bannerService.pushWarning("Session Expired", "Your session has expired, please sign in again.")
             this.router.navigate(['/login']);
         }).subscribe((authResponse) => {
-            console.log(authResponse);
-
             this._userId = authResponse.userId;
             this.tokenStorage.SetStoredGameToken(authResponse.tokenData);
 
             callback();
         });
-        console.log(refreshToken);
         return null;
     }
 
     onUserUpdate(user: ExtendedUser | undefined): void {
-        console.log("Handling user change:", user)
+        console.log("Handling user change: ", user)
         if (user !== undefined) {
             if (!this._loggedIn) {
                 this._loggedIn = true;
@@ -76,7 +72,7 @@ export class AuthService {
         } else {
             this._loggedIn = false;
             this.bannerService.push({
-                Title: `Signed out`,
+                Title: 'Signed out',
                 Icon: 'right-from-bracket',
                 Color: 'warning',
                 Text: 'You have been logged out.'
