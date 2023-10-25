@@ -9,13 +9,13 @@ import {ApiAuthenticationResponse} from "./types/auth/auth-response";
 import {catchError, of} from "rxjs";
 import {ApiPasswordResetRequest} from "./types/auth/reset-request";
 import {UserUpdateRequest} from "./types/user-update-request";
+import {TokenStorageService} from "./token-storage.service";
+import {ApiAuthenticationRefreshRequest} from "./types/auth/auth-refresh-request";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly GameTokenKey: string = "game_token";
-
   private _userId: string | undefined = undefined;
   private _loggedIn = false;
 
@@ -24,10 +24,10 @@ export class AuthService {
 
   userWatcher: EventEmitter<ExtendedUser | undefined>
 
-  constructor(private apiRequestCreator: ApiRequestCreator, private bannerService: BannerService, private router: Router) {
+  constructor(private apiRequestCreator: ApiRequestCreator, private tokenStorage: TokenStorageService, private bannerService: BannerService, private router: Router) {
     this.userWatcher = new EventEmitter<ExtendedUser | undefined>();
 
-    const storedToken: string | null = this.GetStoredGameToken();
+    const storedToken: string | null = this.tokenStorage.GetStoredGameToken();
 
     this._loggedIn = storedToken !== null;
     if (storedToken) {
@@ -39,6 +39,26 @@ export class AuthService {
       this.userWatcher.emit(undefined);
       this.userWatcher.subscribe((user) => this.onUserUpdate(user));
     }
+  }
+
+  public RefreshGameToken(callback: Function, refreshToken: string): string | null {
+    const payload: ApiAuthenticationRefreshRequest = {
+      tokenData: refreshToken
+    };
+
+    console.log(this);
+    this.apiRequestCreator.makeRequest<ApiAuthenticationResponse>("POST", "refreshToken", payload)
+        .subscribe((authResponse) => {
+          console.log(authResponse);
+
+          this._userId = authResponse.userId;
+          this.tokenStorage.SetStoredGameToken(authResponse.tokenData);
+          this.tokenStorage.SetStoredRefreshToken(authResponse.refreshTokenData)
+
+          callback();
+        });
+    console.log(refreshToken);
+    return null;
   }
 
   onUserUpdate(user: ExtendedUser | undefined): void {
@@ -97,7 +117,8 @@ export class AuthService {
         }
 
         this._userId = authResponse.userId;
-        this.SetStoredGameToken(authResponse.tokenData);
+        this.tokenStorage.SetStoredGameToken(authResponse.tokenData);
+        this.tokenStorage.SetStoredRefreshToken(authResponse.refreshTokenData)
         this.GetMyUser();
       });
 
@@ -131,17 +152,26 @@ export class AuthService {
         if (authResponse === undefined) return;
 
         this._userId = authResponse.userId;
-        this.SetStoredGameToken(authResponse.tokenData);
+        this.tokenStorage.SetStoredGameToken(authResponse.tokenData);
+        this.tokenStorage.SetStoredRefreshToken(authResponse.refreshTokenData)
         this.GetMyUser();
       });
 
     return true;
   }
 
-  private GetMyUser(callback: Function | null = null) {
+  private GetMyUser(callback: Function | null = null, tryingToRefresh: boolean = false) {
     this.apiRequestCreator.makeRequest<ExtendedUser>("GET", "users/me", undefined, (err) => {
       if(err.statusCode) {
-        this.ClearStoredGameToken();
+        const refreshToken: string | null = this.tokenStorage.GetStoredRefreshToken();
+
+        if(!tryingToRefresh && refreshToken !== null) {
+          this.RefreshGameToken(() => {
+            this.GetMyUser(callback, tryingToRefresh = true);
+          }, refreshToken);
+        }
+
+        this.tokenStorage.ClearStoredGameToken();
       }
       return of(undefined);
     })
@@ -159,7 +189,7 @@ export class AuthService {
     this.userWatcher.emit(undefined);
     this.apiRequestCreator.makeRequest("PUT", "logout", {}).subscribe();
 
-    this.ClearStoredGameToken();
+    this.tokenStorage.ClearStoredGameToken();
   }
 
   public ResetPassword(emailAddress: string, passwordSha512: string, signIn: boolean = false): void {
@@ -227,7 +257,7 @@ export class AuthService {
         this.user = undefined;
 
         this.userWatcher.emit(undefined);
-        this.ClearStoredGameToken();
+        this.tokenStorage.ClearStoredGameToken();
       });
   }
 
@@ -239,17 +269,5 @@ export class AuthService {
         this.user = data;
         this.userWatcher.emit(data);
       });
-  }
-
-  public GetStoredGameToken(): string | null {
-    return localStorage.getItem(this.GameTokenKey);
-  }
-
-  public SetStoredGameToken(token: string): void {
-    localStorage.setItem(this.GameTokenKey, token);
-  }
-
-  public ClearStoredGameToken(): void {
-    localStorage.removeItem(this.GameTokenKey);
   }
 }

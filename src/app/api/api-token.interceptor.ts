@@ -2,15 +2,16 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {AuthService} from "./auth.service";
+import {TokenStorageService} from "./token-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiTokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private tokenStorage: TokenStorageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const storedToken: string | null = this.authService.GetStoredGameToken();
+    const storedToken: string | null = this.tokenStorage.GetStoredGameToken();
     if (storedToken) {
       const reqClone = req.clone({
         setHeaders: {
