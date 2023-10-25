@@ -11,6 +11,7 @@ import {faWrench} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {EmbedService} from "../../services/embed.service";
 import {TitleService} from "../../services/title.service";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-user',
@@ -22,7 +23,7 @@ export class UserComponent implements OnInit {
 
   ownUser: ExtendedUser | undefined;
 
-    constructor(private route: ActivatedRoute, private apiClient: ApiClient, private router: Router, private embedService: EmbedService, private titleService: TitleService) {}
+    constructor(private route: ActivatedRoute, private authService: AuthService, private apiClient: ApiClient, private router: Router, private embedService: EmbedService, private titleService: TitleService) {}
 
     ngOnInit(): void {
       this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -30,12 +31,12 @@ export class UserComponent implements OnInit {
         const uuid = params.get('uuid') as string | undefined;
 
         if (username == "me" || uuid == "me") {
-          if(this.apiClient.user === undefined) {
+          if(this.authService.user === undefined) {
             this.router.navigate(["/login"]);
             return EMPTY;
           }
 
-          this.router.navigate(["/user/", this.apiClient.user?.username]);
+          this.router.navigate(["/user/", this.authService.user?.username]);
           return EMPTY;
         }
 
@@ -50,8 +51,8 @@ export class UserComponent implements OnInit {
           return of(undefined);
       })).subscribe();
 
-      this.ownUser = this.apiClient.user;
-      this.apiClient.userWatcher.subscribe((data) => {
+      this.ownUser = this.authService.user;
+      this.authService.userWatcher.subscribe((data) => {
         this.ownUser = data;
       });
     }
@@ -127,5 +128,4 @@ export class UserComponent implements OnInit {
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly UserRoles = UserRoles;
   protected readonly faWrench = faWrench;
-  protected readonly undefined = undefined;
 }

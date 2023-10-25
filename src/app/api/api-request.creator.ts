@@ -13,8 +13,7 @@ import {Injectable} from "@angular/core";
 export class ApiRequestCreator {
   private handledConnectionError: boolean = false;
 
-  constructor(private httpClient: HttpClient, private bannerService: BannerService) {
-  }
+  constructor(private httpClient: HttpClient, private bannerService: BannerService) {}
 
   private handleRequestError<T>(data: ApiResponse<T>, err: any, catchErrors: boolean) {
     if (!catchErrors) {

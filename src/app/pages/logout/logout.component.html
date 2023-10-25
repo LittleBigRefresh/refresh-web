@@ -1,11 +1,11 @@
 <form-holder>
     <page-header class="text-3xl">Log out?</page-header>
     <p>Are you sure you want to log out?</p>
-    <p>You're currently signed in as <b>{{ apiClient.user?.username }}</b>.</p>
+    <p>You're currently signed in as <b>{{ authService.user?.username }}</b>.</p>
 
     <divider></divider>
 
-    <dangerous-button text="Yes, sign me out." (click)="apiClient.LogOut()"></dangerous-button>
+    <dangerous-button text="Yes, sign me out." (click)="authService.LogOut()"></dangerous-button>
     <div class="h-3"></div>
     <secondary-button text="No, take me back!" onclick="window.history.back()"></secondary-button>
 </form-holder>

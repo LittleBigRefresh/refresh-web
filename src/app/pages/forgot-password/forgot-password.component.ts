@@ -6,6 +6,7 @@ import { Banner } from 'src/app/banners/banner';
 import { BannerService } from 'src/app/banners/banner.service';
 import {PasswordVerificationService} from "../../services/password-verification.service";
 import {faCancel, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
   password: string = ""
   confirmPassword: string = ""
 
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute, private passwordVerifier: PasswordVerificationService) {}
+  constructor(private authService: AuthService, private route: ActivatedRoute, private passwordVerifier: PasswordVerificationService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -31,7 +32,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     sha512Async(this.password).then((hash) => {
-      this.apiClient.ResetPassword(this.email, hash, this.apiClient.user == undefined)
+      this.authService.ResetPassword(this.email, hash, this.authService.user == undefined)
     })
   }
 

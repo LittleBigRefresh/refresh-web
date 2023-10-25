@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ApiListResponse} from "../../api/types/response/api-list-response";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-main',
@@ -27,7 +28,7 @@ export class MainComponent implements OnInit {
 
   activity: ActivityPage | undefined;
 
-  constructor(public apiClient: ApiClient) {}
+  constructor(public authService: AuthService, public apiClient: ApiClient) {}
 
   ngOnInit(): void {
     this.apiClient.GetServerStatistics()

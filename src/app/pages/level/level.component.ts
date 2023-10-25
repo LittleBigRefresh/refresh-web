@@ -15,6 +15,7 @@ import {UserRoles} from "../../api/types/user-roles";
 import {EmbedService} from "../../services/embed.service";
 import {TitleService} from "../../services/title.service";
 import {GameVersion} from "../../api/types/game-version";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-level',
@@ -47,7 +48,7 @@ export class LevelComponent implements OnInit {
     },
   ]
 
-  constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private embedService: EmbedService, private titleService: TitleService) { }
+  constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private embedService: EmbedService, private titleService: TitleService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -74,8 +75,8 @@ export class LevelComponent implements OnInit {
       });
     });
 
-    this.ownUser = this.apiClient.user;
-    this.apiClient.userWatcher.subscribe((data) => {
+    this.ownUser = this.authService.user;
+    this.authService.userWatcher.subscribe((data) => {
       this.ownUser = data;
     });
   }

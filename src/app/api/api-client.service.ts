@@ -1,11 +1,7 @@
-import {HttpClient} from "@angular/common/http";
-import {EventEmitter, Injectable} from "@angular/core";
-import {catchError, Observable, of, switchMap, tap} from "rxjs";
+import {Injectable} from "@angular/core";
+import {Observable, tap} from "rxjs";
 import {environment} from "src/environments/environment";
 import {BannerService} from "../banners/banner.service";
-import {ApiAuthenticationRequest} from "./types/auth/auth-request";
-import {ApiAuthenticationResponse} from "./types/auth/auth-response";
-import {ApiPasswordResetRequest} from "./types/auth/reset-request";
 import {Category} from "./types/category";
 import {Level} from "./types/level";
 import {User} from "./types/user";
@@ -14,11 +10,8 @@ import {Room} from "./types/rooms/room";
 import {Score} from "./types/score";
 import {Photo} from "./types/photo";
 import {RefreshNotification} from "./types/refresh-notification";
-import {ApiResponse} from "./types/response/api-response";
 import {ApiError} from "./types/response/api-error";
 import {Route} from "./types/documentation/route";
-import {Router} from "@angular/router";
-import {UserUpdateRequest} from "./types/user-update-request";
 import {ActivityPage} from "./types/activity/activity-page";
 import {ApiListResponse} from "./types/response/api-list-response";
 import {IpVerificationRequest} from "./types/auth/ip-verification-request";
@@ -27,41 +20,16 @@ import {Instance} from "./types/instance";
 import {Announcement} from "./types/announcement";
 import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
 import {AdminQueuedRegistration} from "./types/admin/admin-queued-registration";
-import {AuthService} from "./auth.service";
 import {ApiRequestCreator} from "./api-request.creator";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
-  private _userId: string | undefined = undefined;
-  private _loggedIn = false;
-
-  user: ExtendedUser | undefined = undefined;
-
-  resetToken: string | undefined = undefined;
-
   private categories: Category[] | undefined;
-
-  userWatcher: EventEmitter<ExtendedUser | undefined>
 
   private statistics: Statistics | undefined;
   private instance: Instance | undefined;
 
-  constructor(private apiRequestCreator: ApiRequestCreator, private authService: AuthService, private bannerService: BannerService, private router: Router) {
-    this.userWatcher = new EventEmitter<ExtendedUser | undefined>();
-
-    const storedToken: string | null = this.authService.GetStoredGameToken();
-
-    this._loggedIn = storedToken !== null;
-    if (storedToken) {
-      this.GetMyUser(() => {
-        // only subscribe after getting user
-        this.userWatcher.subscribe((user) => this.onUserUpdate(user));
-      });
-    } else {
-      this.userWatcher.emit(undefined);
-      this.userWatcher.subscribe((user) => this.onUserUpdate(user));
-    }
-  }
+  constructor(private apiRequestCreator: ApiRequestCreator, private bannerService: BannerService) {}
 
   private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
     return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
@@ -69,27 +37,6 @@ export class ApiClient {
 
   private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
     return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
-  }
-
-  onUserUpdate(user: ExtendedUser | undefined): void {
-    console.log("Handling user change:", user)
-    if (user !== undefined) {
-      if(!this._loggedIn) {
-        this._loggedIn = true;
-        this.bannerService.pushSuccess(`Hi, ${user.username}!`, 'You have been successfully signed in.')
-        this.router.navigate(['/'])
-      }
-    } else {
-      this._loggedIn = false;
-      this.bannerService.push({
-        Title: `Signed out`,
-        Icon: 'right-from-bracket',
-        Color: 'warning',
-        Text: 'You have been logged out.'
-      })
-
-      this.router.navigate(['/login'])
-    }
   }
 
   public GetServerStatistics(): Observable<Statistics> {
@@ -116,175 +63,6 @@ export class ApiClient {
       .pipe(tap(data => {
         this.instance = data;
       }))
-  }
-
-  public LogIn(emailAddress: string, passwordSha512: string): boolean {
-    if (this._userId !== undefined) throw Error("Cannot sign in when already signed in as someone."); // should never happen hopefully
-
-    const body: ApiAuthenticationRequest = {
-      username: undefined,
-      emailAddress,
-      passwordSha512: passwordSha512,
-    }
-
-    const errorHandler = (err: ApiError) => {
-      if(err.warning) {
-        this.bannerService.pushWarning('Warning', err.message);
-        console.warn(err);
-        return;
-      }
-
-      this.bannerService.pushError('Failed to sign in', err.message ?? "No error was provided by the server. Check the console for more details.")
-      console.error(err);
-    }
-
-    this.makeRequest<ApiAuthenticationResponse>("POST", "login", body, errorHandler)
-      .pipe(catchError(() => {
-        return of(undefined);
-      }))
-      .subscribe((authResponse) => {
-        if (authResponse === undefined) return;
-
-        if (authResponse.resetToken !== undefined) {
-          this.resetToken = authResponse.resetToken;
-          this.router.navigateByUrl("/forgotPassword?email=" + emailAddress);
-          this.bannerService.pushWarning("Create a password", "The account you are trying to sign into is a legacy account. Please set a password.");
-          return;
-        }
-
-        this._userId = authResponse.userId;
-        this.authService.SetStoredGameToken(authResponse.tokenData);
-        this.GetMyUser();
-      });
-
-    return true;
-  }
-
-  public Register(username: string, emailAddress: string, passwordSha512: string): boolean {
-    if (this._userId !== undefined) throw Error("Cannot register when already signed in as someone."); // should never happen hopefully
-
-    const body: ApiAuthenticationRequest = {
-      username,
-      emailAddress,
-      passwordSha512,
-    }
-    const errorHandler = (err: ApiError) => {
-      if(err.warning) {
-        this.bannerService.pushWarning('Warning', err.message);
-        console.warn(err);
-        return;
-      }
-
-      this.bannerService.pushError('Failed to register', err.message ?? "No error was provided by the server. Check the console for more details.")
-      console.error(err);
-    }
-
-    this.makeRequest<ApiAuthenticationResponse>("POST", "register", body, errorHandler)
-      .pipe(catchError(() => {
-        return of(undefined);
-      }))
-      .subscribe((authResponse) => {
-        if (authResponse === undefined) return;
-
-        this._userId = authResponse.userId;
-        this.authService.SetStoredGameToken(authResponse.tokenData);
-        this.GetMyUser();
-      });
-
-    return true;
-  }
-
-  private GetMyUser(callback: Function | null = null) {
-    this.makeRequest<ExtendedUser>("GET", "users/me", undefined, (err) => {
-      if(err.statusCode) {
-        this.authService.ClearStoredGameToken();
-      }
-      return of(undefined);
-    })
-      .subscribe((data) => {
-        this.user = data;
-        this.userWatcher.emit(this.user);
-        if (callback) callback();
-      });
-  }
-
-  public LogOut() {
-    this._userId = undefined;
-    this.user = undefined;
-
-    this.userWatcher.emit(undefined);
-    this.makeRequest("PUT", "logout", {}).subscribe();
-
-    this.authService.ClearStoredGameToken();
-  }
-
-  public ResetPassword(emailAddress: string, passwordSha512: string, signIn: boolean = false): void {
-    if (this.user == undefined && this.resetToken == undefined) {
-      this.bannerService.pushError('Could not reset password', 'There was no token to authorize this action.')
-      return;
-    }
-
-    const body: ApiPasswordResetRequest = {
-      passwordSha512: passwordSha512,
-      resetToken: this.resetToken,
-    }
-
-    this.makeRequest("PUT", "resetPassword", body)
-      .subscribe(() => {
-        if (signIn) this.LogIn(emailAddress, passwordSha512);
-        this.bannerService.push({
-          Color: 'success',
-          Icon: 'key',
-          Title: "Password reset successful",
-          Text: "Your account's password has been reset.",
-        })
-      });
-  }
-
-  public VerifyEmail(code: string): void {
-    this.makeRequest("POST", "verify?code=" + code)
-      .subscribe(() => {
-        if(this.user !== undefined) {
-          this.user.emailAddressVerified = true;
-        }
-
-        this.bannerService.push({
-          Color: 'success',
-          Icon: 'key',
-          Title: "Email verification successful",
-          Text: "Your account's email has been verified.",
-        })
-      });
-  }
-
-  public ResendVerificationCode(): void {
-    this.makeRequest("POST", "verify/resend")
-      .subscribe(() => {
-        this.bannerService.push({
-          Color: 'success',
-          Icon: 'key',
-          Title: "Resent verification code",
-          Text: "The verification email has been sent to your email address.",
-        })
-      });
-  }
-
-  public DeleteAccount(): void {
-    this.makeRequest("DELETE", "users/me")
-      .subscribe(() => {
-        this.bannerService.push({
-          Color: 'dangerous',
-          Icon: 'trash',
-          Title: "Account Deleted.",
-          Text: "Your account has been successfully deleted. Goodbye.",
-        });
-
-        this._userId = undefined;
-        this.user = undefined;
-
-        this.userWatcher.emit(undefined);
-        this.authService.ClearStoredGameToken();
-      });
   }
 
   public GetUserByUsername(username: string): Observable<User> {
@@ -347,16 +125,6 @@ export class ApiClient {
 
   public GetDocumentation() {
     return this.makeListRequest<Route>("GET", "documentation");
-  }
-
-  public UpdateUser(data: UserUpdateRequest): void {
-    this.makeRequest<ExtendedUser>("PATCH", "users/me", data)
-      .subscribe(data => {
-        this.bannerService.pushSuccess("User updated", "Your profile was successfully updated.");
-
-        this.user = data;
-        this.userWatcher.emit(data);
-      });
   }
 
   public GetActivity(count: number, skip: number): Observable<ActivityPage> {

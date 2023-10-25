@@ -20,6 +20,7 @@ import {UserRoles} from "./api/types/user-roles";
 import {Instance} from "./api/types/instance";
 import {EmbedService} from "./services/embed.service";
 import {TitleService} from "./services/title.service";
+import {AuthService} from "./api/auth.service";
 
 const fadeLength: string = "50ms";
 
@@ -76,8 +77,8 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService) {
-    apiClient.userWatcher.subscribe((data) => this.handleUserUpdate(data))
+  constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService) {
+    authService.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
 
     apiClient.GetInstanceInformation().subscribe((data) => {
