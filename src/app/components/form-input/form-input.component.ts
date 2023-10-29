@@ -21,6 +21,8 @@ export class FormInputComponent {
   @Input() value: string | undefined = "";
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>;
 
+  @Input("multiline") multiline: boolean = false;
+
   @Input()
   set icon(param: IconProp) {
     this._icon = param;
