@@ -1,35 +1,37 @@
-<page-header class="text-3xl">Profile Settings</page-header>
 
-<primary-button class="w-48 inline-block text-center pr-2.5" [icon]="faKey" text="Authentication" routerLink="/authentication"></primary-button>
+<div class="lg:grid lg:grid-cols-2 max-lg:flex max-lg:flex-col max-lg:gap-y-3">
+  <div class="justify-self-start">
+    <page-header class="text-3xl">Authentication Settings</page-header>
+    <ng-container>
+      <primary-button class="w-96 inline-block text-center pr-2.5" [icon]="faKey" text="View IP Authentication Requests" routerLink="/authentication"></primary-button>
+      <br><br>
+      <form-checkbox [icon]="faKey" name="Allow IP Authentication" [(value)]="allowIpAuth"></form-checkbox>
+      <form-checkbox [icon]="faGamepad" name="Allow PSN (PS3/Vita/PSP) Authentication" [(value)]="allowPsnAuth"></form-checkbox>
+      <form-checkbox [icon]="faDesktop" name="Allow RPCS3 Authentication" [(value)]="allowRpcnAuth"></form-checkbox>
+      <form-checkbox [icon]="faCamera" name="Redirect Grief Reports to Photos" [(value)]="redirectGriefReportsToPhotos"></form-checkbox>
+    </ng-container>
+  </div>
 
-<divider></divider>
+  <div class="justify-self-end">
+    <page-header class="text-3xl">Edit My Profile</page-header>
+    <ng-container>
+      <form-input [icon]="faPencil" name="Biography" [(value)]="description"></form-input>
+    </ng-container>
+  </div>
 
-<form-checkbox [icon]="faKey" name="Allow IP Authentication" [(value)]="allowIpAuth"></form-checkbox>
-<form-checkbox [icon]="faGamepad" name="Allow PSN (PS3/Vita/PSP) Authentication" [(value)]="allowPsnAuth"></form-checkbox>
-<form-checkbox [icon]="faDesktop" name="Allow RPCS3 Authentication" [(value)]="allowRpcnAuth"></form-checkbox>
-<form-checkbox [icon]="faCamera" name="Redirect Grief Reports to Photos" [(value)]="redirectGriefReportsToPhotos"></form-checkbox>
+  <div class="justify-self-start">
+    <page-header class="text-3xl">Account Management</page-header>
+    <form-input [icon]="faEnvelope" name="Email Address" [(value)]="email"></form-input>
 
-<form-input [icon]="faPencil" name="Biography" [(value)]="description"></form-input>
-<form-input [icon]="faEnvelope" name="Email Address" [(value)]="email"></form-input>
-
-<div class="w-44 text-center inline-block pr-2.5">
-  <primary-button text="Save changes" (click)="saveChanges()"></primary-button>
+    <div class="flex gap-x-2.5 my-2.5">
+      <secondary-button class="w-64 inline-block" [icon]="faEnvelope" text="Verify Email Address" routerLink="/verify" *ngIf="!emailVerified"></secondary-button>
+      <secondary-button class="w-56 inline-block" [icon]="faKey" text="Reset Password" routerLink="/forgotPassword"></secondary-button>
+      <dangerous-button text="Delete Account" routerLink="/settings/delete" [icon]="faTrash"></dangerous-button>
+    </div>
+  </div>
 </div>
 
-<div class="w-28 text-center inline-block pr-2.5">
-  <secondary-button text="Cancel" onclick="window.history.back()"></secondary-button>
-</div>
-
-<div class="w-28 text-center inline-block pr-2.5">
-  <dangerous-button text="Log out" routerLink="/logout"></dangerous-button>
-</div>
-
-<divider></divider>
-<page-header class="text-3xl">Account Management</page-header>
-
-<secondary-button class="w-64 inline-block text-center pr-2.5" [icon]="faEnvelope" text="Verify Email Address" routerLink="/verify"></secondary-button>
-<secondary-button class="w-56 inline-block text-center pr-2.5" [icon]="faKey" text="Reset Password" routerLink="/forgotPassword"></secondary-button>
-
-<div class="w-56 text-center inline-block pr-2.5">
-  <dangerous-button text="Delete Account" routerLink="/settings/delete" [icon]="faTrash"></dangerous-button>
+<div class="flex gap-x-2.5 float-right my-3">
+  <primary-button [icon]="faFloppyDisk" text="Save changes" (click)="saveChanges()"></primary-button>
+  <dangerous-button [icon]="faCancel" text="Cancel" onclick="window.history.back()"></dangerous-button>
 </div>

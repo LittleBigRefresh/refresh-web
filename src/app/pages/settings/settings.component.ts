@@ -1,7 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiClient} from "../../api/api-client.service";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
-import {faDesktop, faEnvelope, faGamepad, faKey, faTrash, faPencil, faCamera} from "@fortawesome/free-solid-svg-icons";
+import {
+  faDesktop,
+  faEnvelope,
+  faGamepad,
+  faKey,
+  faTrash,
+  faPencil,
+  faCamera,
+  faFloppyDisk, faCancel, faSignOut
+} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {startWith} from "rxjs";
 import {AuthService} from "../../api/auth.service";
@@ -13,6 +22,7 @@ import {AuthService} from "../../api/auth.service";
 export class SettingsComponent implements OnInit {
   description: string = "";
   email: string = "";
+  emailVerified: boolean = false;
 
   allowIpAuth: boolean = false;
   allowPsnAuth: boolean = false;
@@ -31,6 +41,7 @@ export class SettingsComponent implements OnInit {
   updateInputs(data: ExtendedUser | undefined) {
     this.description = data?.description ?? "";
     this.email = data?.emailAddress ?? "";
+    this.emailVerified = data?.emailAddressVerified ?? false;
 
     this.allowIpAuth = data?.allowIpAuthentication ?? false;
     this.allowPsnAuth = data?.psnAuthenticationAllowed ?? false;
@@ -59,4 +70,7 @@ export class SettingsComponent implements OnInit {
   protected readonly faEnvelope = faEnvelope;
   protected readonly faTrash = faTrash;
   protected readonly faCamera = faCamera;
+  protected readonly faFloppyDisk = faFloppyDisk;
+  protected readonly faCancel = faCancel;
+  protected readonly faSignOut = faSignOut;
 }
