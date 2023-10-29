@@ -24,7 +24,7 @@
 </page-header-block>
 
 <page-header-block *ngIf="ownUser?.role == UserRoles.Admin">
-  <secondary-button text="Manage" class="flex" [icon]="faWrench" [routerLink]="'/admin/user/' + user?.userId"></secondary-button>
+  <admin-link-button [routerLink]="'/admin/user/' + user?.userId"></admin-link-button>
 </page-header-block>
 
 <page-header-block *ngIf="!user">

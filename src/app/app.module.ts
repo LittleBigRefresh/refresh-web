@@ -85,6 +85,7 @@ import { CarouselCycleButtonComponent } from './components/carousel-cycle-button
 import { LevelStatisticsComponent } from './components/level-statistics/level-statistics.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuLinkComponent } from './components/menu-link/menu-link.component';
+import { AdminLinkButtonComponent } from './components/admin-link-button/admin-link-button.component';
 
 @NgModule({
     declarations: [
@@ -145,6 +146,7 @@ import { MenuLinkComponent } from './components/menu-link/menu-link.component';
         LevelStatisticsComponent,
         MenuComponent,
         MenuLinkComponent,
+        AdminLinkButtonComponent,
     ],
   imports: [
     BrowserModule,

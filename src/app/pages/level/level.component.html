@@ -30,7 +30,7 @@
   </div>
 </page-header-block>
 <page-header-block *ngIf="ownUser?.role == UserRoles.Admin">
-  <secondary-button text="Manage" class="flex" [icon]="faWrench" [routerLink]="'/admin/level/' + level?.levelId"></secondary-button>
+  <admin-link-button [routerLink]="'/admin/level/' + level?.levelId"></admin-link-button>
 </page-header-block>
 
 <page-header-block *ngIf="!level">
