@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../../api/types/level";
-import {GetAssetImageLink} from "../../../api/api-client";
+import {GetAssetImageLink} from "../../../api/api-client.service";
 
 @Component({
   selector: 'level-link',

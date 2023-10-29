@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {sha512Async} from "../../hash";
 import {Banner} from "../../banners/banner";
 import {BannerService} from "../../banners/banner.service";
@@ -12,6 +12,7 @@ import {
   faUser,
   faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -23,16 +24,15 @@ export class RegisterComponent {
   password: string = "";
   confirmPassword: string = "";
 
-  constructor(private apiClient: ApiClient, private passwordVerifier: PasswordVerificationService) {}
+  constructor(private authService: AuthService, private passwordVerifier: PasswordVerificationService) {}
 
   register() {
-
     if(!this.passwordVerifier.verifyPassword(this.username, this.password, this.username, this.confirmPassword)) {
       return;
     }
 
     sha512Async(this.password).then((hash) => {
-      this.apiClient.Register(this.username, this.email, hash)
+      this.authService.Register(this.username, this.email, hash)
     });
   }
 

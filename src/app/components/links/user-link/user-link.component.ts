@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../api/types/user";
-import {GetAssetImageLink} from "../../../api/api-client";
+import {GetAssetImageLink} from "../../../api/api-client.service";
 
 @Component({
   selector: 'user-link',

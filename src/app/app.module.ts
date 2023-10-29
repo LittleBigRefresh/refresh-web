@@ -40,7 +40,7 @@ import { PrimaryButtonComponent } from './components/primary-button/primary-butt
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { BannerComponent } from './components/notification/banner.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { ApiTokenInterceptor } from './api/api-token-interceptor';
+import { ApiTokenInterceptor } from './api/api-token.interceptor';
 import { UserComponent } from './pages/user/user.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { DangerousButtonComponent } from './components/dangerous-button/dangerous-button.component';

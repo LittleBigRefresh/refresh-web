@@ -15,14 +15,14 @@
     <p *ngIf="instance">{{instance.instanceDescription}}</p>
     <div class="h-1"></div>
 
-    <div *ngIf="apiClient.user !== undefined">
-        <p>Welcome back, <b>{{apiClient.user!.username}}</b>.</p>
+    <div *ngIf="authService.user !== undefined">
+        <p>Welcome back, <b>{{authService.user!.username}}</b>.</p>
     </div>
 
     <p>There are currently <b>{{statistics?.currentIngamePlayersCount ?? 0}}</b> players online across <b>{{statistics?.currentRoomCount ?? 0}}</b> rooms.</p>
 </div>
 
-<div *ngIf="!apiClient.user" class="flex justify-center gap-x-20 py-5 max-sm:flex-col max-sm:gap-y-5">
+<div *ngIf="!authService.user" class="flex justify-center gap-x-20 py-5 max-sm:flex-col max-sm:gap-y-5">
   <primary-button text="Create an account" [icon]="faUserPlus" class="flex-grow" routerLink="/register"></primary-button>
   <secondary-button [text]="'Sign into ' + (instance?.instanceName ?? 'Refresh')" [icon]="faArrowRightToBracket" class="flex-grow" routerLink="/login"></secondary-button>
 </div>

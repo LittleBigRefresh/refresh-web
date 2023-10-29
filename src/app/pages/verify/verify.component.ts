@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {faCheckCircle, faKey, faMailReply} from "@fortawesome/free-solid-svg-icons";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {ActivatedRoute, Params} from "@angular/router";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-verify',
@@ -10,7 +11,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 export class VerifyComponent implements OnInit {
   code: string = "";
 
-  constructor(private apiClient: ApiClient, private route: ActivatedRoute) {}
+  constructor(private authService: AuthService, private route: ActivatedRoute) {}
 
   public ngOnInit() {
     this.route.queryParams.subscribe((params: Params) => {
@@ -20,11 +21,11 @@ export class VerifyComponent implements OnInit {
   }
 
   verify() {
-    this.apiClient.VerifyEmail(this.code);
+    this.authService.VerifyEmail(this.code);
   }
 
   resend() {
-    this.apiClient.ResendVerificationCode();
+    this.authService.ResendVerificationCode();
   }
 
   protected readonly faKey = faKey;

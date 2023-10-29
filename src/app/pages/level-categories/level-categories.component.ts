@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import { IconName, IconProp } from '@fortawesome/fontawesome-svg-core';
-import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client';
+import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client.service';
 import { Category } from 'src/app/api/types/category';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {TitleService} from "../../services/title.service";
 import {faLink} from "@fortawesome/free-solid-svg-icons";
 import {EmbedService} from "../../services/embed.service";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-level-categories',
@@ -17,7 +18,7 @@ export class LevelCategoriesComponent implements OnInit {
   title: string = "Level Categories";
   description: string = "Discover and browse through new levels using categories!";
 
-  constructor(private apiClient: ApiClient, titleService: TitleService, embedService: EmbedService) {
+  constructor(private apiClient: ApiClient, private authService: AuthService, titleService: TitleService, embedService: EmbedService) {
     titleService.setTitle(this.title);
     embedService.embed(this.title, this.description);
   }
@@ -32,7 +33,7 @@ export class LevelCategoriesComponent implements OnInit {
           // if either of those conditions aren't met add it to the list
 
           if(c.requiresUser) {
-            if(this.apiClient.user !== undefined)
+            if(this.authService.user !== undefined)
               this.categories.push(c);
           }
           else if(c.apiRoute == "search" || c.apiRoute == "developer") {

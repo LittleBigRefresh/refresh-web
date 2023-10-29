@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {catchError, of} from 'rxjs';
-import {ApiClient} from 'src/app/api/api-client';
+import {ApiClient} from 'src/app/api/api-client.service';
 import {Level} from 'src/app/api/types/level';
 import {HttpErrorResponse} from '@angular/common/http';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";

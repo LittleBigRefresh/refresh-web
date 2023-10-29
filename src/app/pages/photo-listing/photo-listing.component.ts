@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ApiClient } from 'src/app/api/api-client';
+import { ApiClient } from 'src/app/api/api-client.service';
 import { Photo } from 'src/app/api/types/photo';
 import {GenerateEmptyList, masonryOptions} from "../../app.component";
 import {TitleService} from "../../services/title.service";

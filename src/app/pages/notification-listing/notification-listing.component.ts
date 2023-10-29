@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {catchError, of} from "rxjs";
 import {RefreshNotification} from "../../api/types/refresh-notification";
 import {Router} from "@angular/router";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-notification-listing',
@@ -12,12 +13,12 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 export class NotificationListingComponent implements OnInit {
   notifications: RefreshNotification[] | undefined | null = null;
 
-  constructor(private apiClient: ApiClient, private router: Router) {}
+  constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router) {}
 
   ngOnInit() {
     this.apiClient.GetNotifications()
       .pipe(catchError(() => {
-        if(!this.apiClient.user)
+        if(!this.authService.user)
           this.router.navigate(['/login']);
 
         return of(undefined);

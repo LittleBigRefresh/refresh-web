@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminQueuedRegistration} from "../../api/types/admin/admin-queued-registration";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import * as moment from "dayjs";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 

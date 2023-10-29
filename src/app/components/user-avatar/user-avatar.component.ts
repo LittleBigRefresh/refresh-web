@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {GetAssetImageLink} from "../../api/api-client";
+import {GetAssetImageLink} from "../../api/api-client.service";
 import {User} from "../../api/types/user";
 
 @Component({

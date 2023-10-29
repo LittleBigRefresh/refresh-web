@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {faBullhorn, faCheck, faUserPlus, faUsers, faWrench, faPencil} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {ExtendedUser} from "../../api/types/extended-user";
@@ -8,6 +8,7 @@ import {Instance} from "../../api/types/instance";
 import {UserRoles} from "../../api/types/user-roles";
 import {AdminStatistic} from "../../api/types/admin/admin-statistic";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-admin-panel',
@@ -22,10 +23,10 @@ export class AdminPanelComponent implements OnInit {
 
   public statistics: AdminStatistic[] = [];
 
-  constructor(private apiClient: ApiClient, private router: Router, private sanitizer: DomSanitizer) {}
+  constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.apiClient.userWatcher
+    this.authService.userWatcher
       .subscribe((data) => {
         this.redirectIfNotAdmin(data, this.router);
         this.user = data;

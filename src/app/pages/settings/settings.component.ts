@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {UserUpdateRequest} from "../../api/types/user-update-request";
 import {faDesktop, faEnvelope, faGamepad, faKey, faTrash, faPencil, faCamera} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {startWith} from "rxjs";
+import {AuthService} from "../../api/auth.service";
 
 @Component({
   selector: 'app-settings',
@@ -18,12 +19,12 @@ export class SettingsComponent implements OnInit {
   allowRpcnAuth: boolean = false;
   redirectGriefReportsToPhotos: boolean = false;
 
-  constructor(private apiClient: ApiClient) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.apiClient.userWatcher
-      .pipe(startWith(this.apiClient.user))
+    this.authService.userWatcher
+      .pipe(startWith(this.authService.user))
       .subscribe((data) => this.updateInputs(data));
   }
 
@@ -48,7 +49,7 @@ export class SettingsComponent implements OnInit {
       redirectGriefReportsToPhotos: this.redirectGriefReportsToPhotos,
     };
 
-    this.apiClient.UpdateUser(request);
+    this.authService.UpdateUser(request);
   }
 
   protected readonly faPencil = faPencil;

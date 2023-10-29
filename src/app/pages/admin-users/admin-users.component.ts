@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ExtendedUser} from "../../api/types/extended-user";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import * as moment from "dayjs";
 import {UserRoles} from "../../api/types/user-roles";
 

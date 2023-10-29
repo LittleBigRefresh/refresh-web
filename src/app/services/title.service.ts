@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Title} from "@angular/platform-browser";
-import {ApiClient} from "../api/api-client";
+import {ApiClient} from "../api/api-client.service";
 import {NavigationStart, Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})

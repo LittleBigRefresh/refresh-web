@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EMPTY, switchMap, tap} from "rxjs";
 import {ActivatedRoute, ParamMap} from "@angular/router";
-import {ApiClient} from "../../api/api-client";
+import {ApiClient} from "../../api/api-client.service";
 import {
   faBan,
   faCalendar,
