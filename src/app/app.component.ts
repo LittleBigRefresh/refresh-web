@@ -1,17 +1,15 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {
-  faBars,
-  faBell,
+  faBell, faBookBookmark,
   faCameraAlt,
   faCertificate, faExclamationTriangle,
   faFireAlt,
   faGear,
   faSignIn,
-  faUser, faWrench
+  faWrench
 } from '@fortawesome/free-solid-svg-icons';
 import {ApiClient, GetAssetImageLink} from './api/api-client.service';
-import { User } from './api/types/user';
 import { HeaderLink } from './header-link';
 import { BannerService } from './banners/banner.service';
 import {NgxMasonryOptions} from "ngx-masonry";
@@ -111,6 +109,7 @@ export class AppComponent {
         this.rightSideRouterLinks.push(new HeaderLink("Admin Panel", "/admin", faWrench))
       }
 
+      this.rightSideRouterLinks.push(new HeaderLink("API Documentation", "/documentation", faBookBookmark))
       this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell))
       this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
     }
