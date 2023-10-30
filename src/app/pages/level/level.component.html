@@ -23,14 +23,14 @@
 
       <level-statistics [level]="level" class="inline-block ml-1 mb-1"></level-statistics>
 
-      <div class="bg-backdrop rounded px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap">
+      <div class="bg-backdrop rounded px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap text-foreground">
         <p>{{ level.description.length == 0 ? 'No description was provided for this level.' : level.description }}</p>
       </div>
     </div>
   </div>
 </page-header-block>
 <page-header-block> <!-- controls row -->
-  <div class="flex gap-x-2.5">
+  <div class="flex gap-x-2.5 text-foreground">
     <secondary-button *ngIf="ownUser && ownUser?.userId == level?.publisher?.userId" [routerLink]="'/level/' + level?.levelId + '/edit'"
                       class="w-36" text="Edit Level" [icon]="faPencil"></secondary-button>
     <admin-link-button *ngIf="ownUser?.role == UserRoles.Admin" [routerLink]="'/admin/level/' + level?.levelId"></admin-link-button>

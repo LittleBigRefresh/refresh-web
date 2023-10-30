@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div class="bg-backdrop rounded px-5 py-2.5 drop-shadow-lg mt-2 whitespace-pre-wrap">
+      <div class="bg-backdrop rounded px-5 py-2.5 drop-shadow-lg mt-2 whitespace-pre-wrap text-foreground">
         <p>{{user.description.length == 0 ? 'This person hasn\'t introduced themselves yet.' : user.description}}</p>
       </div>
     </div>
@@ -24,7 +24,7 @@
 </page-header-block>
 
 <page-header-block *ngIf="ownUser">
-  <div class="flex gap-x-3.5">
+  <div class="flex gap-x-3.5 text-foreground">
     <secondary-button [icon]="faCog" text="Edit Profile" routerLink="/settings" class="w-48" *ngIf="user?.userId == ownUser.userId"></secondary-button>
     <admin-link-button [routerLink]="'/admin/user/' + user?.userId" *ngIf="ownUser?.role == UserRoles.Admin"></admin-link-button>
   </div>
