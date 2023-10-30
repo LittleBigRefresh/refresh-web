@@ -9,6 +9,13 @@ module.exports = {
       'display': ['Rubik'],
       'body': ['Rubik']
     },
+    borderRadius: {
+      'none': '0',
+      DEFAULT: '11px',
+      'md': '0.375rem',
+      'lg': '0.5rem',
+      'full': '9999px',
+    },
     colors: {
       "background": "#0F0814",
       "header-background": "#261731",

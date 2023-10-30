@@ -1,5 +1,5 @@
 <div class="text-left">
-  <div class="flex bg-secondary text-foreground px-5 py-2 rounded-[11px] w-[19rem] drop-shadow-lg">
+  <div class="flex bg-secondary text-foreground px-5 py-2 rounded w-[19rem] drop-shadow-lg">
     <select class="bg-secondary appearance-none flex-grow" (input)="onChange($event)">
         <option [value]="option.Value" *ngFor="let option of this._options">{{option.Name}}</option>
     </select>

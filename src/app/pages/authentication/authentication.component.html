@@ -6,7 +6,7 @@
   <secondary-button class="float-right" text="Refresh" (click)="refresh()"></secondary-button>
 </div>
 <p-gentle *ngIf="requests?.length == 0">There doesn't seem to be anything here...</p-gentle>
-<div *ngFor="let request of requests" class="bg-form-background px-5 py-3.5 rounded-[11px] flex">
+<div *ngFor="let request of requests" class="bg-form-background px-5 py-3.5 rounded flex">
   <div class="w-full">
     <p class="text-xl font-bold">{{request.ipAddress}}</p>
     <p-gentle>Sent {{getMoment(request.createdAt)}}</p-gentle>

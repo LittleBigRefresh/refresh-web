@@ -23,7 +23,7 @@
 
       <level-statistics [level]="level" class="inline-block ml-1 mb-1"></level-statistics>
 
-      <div class="bg-backdrop rounded-[11px] px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap">
+      <div class="bg-backdrop rounded px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap">
         <p>{{ level.description.length == 0 ? 'No description was provided for this level.' : level.description }}</p>
       </div>
     </div>
@@ -45,7 +45,7 @@
       <br>
       <div class="inline-block h-4 w-48 bg-secondary rounded-full"></div>
 
-      <div class="bg-backdrop rounded-[11px] px-5 py-2.5 flex">
+      <div class="bg-backdrop rounded px-5 py-2.5 flex">
         <div class="inline-block h-4 w-96 bg-secondary rounded-full m-1"></div>
         <div class="inline-block h-4 w-48 bg-secondary rounded-full m-1"></div>
       </div>
@@ -54,7 +54,7 @@
 </page-header-block>
 
 <div class="flex flex-row gap-2.5 max-md:flex-col">
-  <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
+  <div class="bg-form-background rounded p-5 mt-5 w-full">
     <div class="flex">
       <h2 class="text-3xl font-bold flex-grow">Leaderboard</h2>
       <form-dropdown class="" name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
@@ -100,7 +100,7 @@
       <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
     </div>
   </div>
-  <div class="bg-form-background rounded-[11px] p-5 mt-5 w-full">
+  <div class="bg-form-background rounded p-5 mt-5 w-full">
     <h2 class="text-3xl font-bold">Recent Activity</h2>
     <divider></divider>
 

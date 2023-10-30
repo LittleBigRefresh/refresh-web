@@ -2,7 +2,7 @@
 <p>{{description}}</p>
 
 <ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="categories">
-  <div ngxMasonryItem *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">
+  <div ngxMasonryItem *ngFor="let c of categories" class="bg-form-background px-5 py-3.5 rounded masonry-grid-item">
     <div class="text-xl font-medium">
       <fa-icon class="mr-2" [icon]="getIcon(c.fontAwesomeIcon)"></fa-icon>
       <a routerLink="/levels/{{c.apiRoute}}">{{c.name}}
@@ -18,7 +18,7 @@
 </ngx-masonry>
 
 <ngx-masonry [options]="masonryOptions" [ordered]="true" *ngIf="!categories">
-  <div ngxMasonryItem *ngFor="let i of GenerateEmptyList(3)" class="bg-form-background px-5 py-3.5 rounded-[11px] masonry-grid-item">
+  <div ngxMasonryItem *ngFor="let i of GenerateEmptyList(3)" class="bg-form-background px-5 py-3.5 rounded masonry-grid-item">
     <div class="animate-pulse">
       <div class="text-xl font-medium">
         <div class="inline-block bg-secondary w-5 h-5 rounded-md mr-2"></div>
