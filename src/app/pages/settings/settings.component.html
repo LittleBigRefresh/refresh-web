@@ -29,6 +29,11 @@
       <dangerous-button text="Delete Account" routerLink="/settings/delete" [icon]="faTrash"></dangerous-button>
     </div>
   </div>
+
+  <div class="justify-self-end">
+    <page-header class="text-3xl">Appearance</page-header>
+    <form-dropdown name="Theme" [options]="themes" (change)="themeChanged()" [(value)]="theme"></form-dropdown>
+  </div>
 </div>
 
 <div class="flex gap-x-2.5 float-right my-3">

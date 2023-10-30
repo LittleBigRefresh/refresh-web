@@ -14,6 +14,8 @@ import {
 import {ExtendedUser} from "../../api/types/extended-user";
 import {startWith} from "rxjs";
 import {AuthService} from "../../api/auth.service";
+import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
+import {ThemeService} from "../../theme.service";
 
 @Component({
   selector: 'app-settings',
@@ -29,7 +31,25 @@ export class SettingsComponent implements OnInit {
   allowRpcnAuth: boolean = false;
   redirectGriefReportsToPhotos: boolean = false;
 
-  constructor(private authService: AuthService) {
+
+  themes: DropdownOption[] = [
+    {
+      Name: "Default",
+      Value: "default",
+    },
+    {
+      Name: "Hack",
+      Value: "hack",
+    },
+    {
+      Name: "Ultra-Dark",
+      Value: "ultraDark",
+    },
+  ]
+
+  theme: string = this.themes[0].Name;
+
+  constructor(private authService: AuthService, private themeService: ThemeService) {
   }
 
   ngOnInit(): void {
@@ -63,6 +83,10 @@ export class SettingsComponent implements OnInit {
     this.authService.UpdateUser(request);
   }
 
+  themeChanged() {
+    this.themeService.SetTheme(this.theme);
+  }
+
   protected readonly faPencil = faPencil;
   protected readonly faKey = faKey;
   protected readonly faDesktop = faDesktop;
@@ -72,5 +96,4 @@ export class SettingsComponent implements OnInit {
   protected readonly faCamera = faCamera;
   protected readonly faFloppyDisk = faFloppyDisk;
   protected readonly faCancel = faCancel;
-  protected readonly faSignOut = faSignOut;
 }
