@@ -7,6 +7,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {AuthService} from "../../api/auth.service";
 import {ApiClient} from "../../api/api-client.service";
 import {faCancel, faCertificate, faFloppyDisk, faPencil, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {LevelEditRequest} from "../../api/types/level-edit-request";
 
 @Component({
   selector: 'edit-level',
@@ -48,6 +49,26 @@ export class EditLevelComponent implements OnInit{
     this.authService.userWatcher.subscribe((data) => {
       this.ownUser = data;
     });
+  }
+
+  update() {
+    if(this.level == undefined) return;
+
+    const payload: LevelEditRequest = {
+      title: this.title,
+      description: this.description,
+      iconHash: undefined
+    }
+
+    this.apiClient.EditLevel(payload, this.level.levelId)
+  }
+
+  cancel() {
+    window.history.back();
+  }
+
+  delete() {
+
   }
 
   protected readonly faCertificate = faCertificate;

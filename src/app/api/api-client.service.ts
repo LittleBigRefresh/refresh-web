@@ -21,6 +21,7 @@ import {Announcement} from "./types/announcement";
 import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
 import {AdminQueuedRegistration} from "./types/admin/admin-queued-registration";
 import {ApiRequestCreator} from "./api-request.creator";
+import {LevelEditRequest} from "./types/level-edit-request";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -145,6 +146,13 @@ export class ApiClient {
 
   public DenyIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
     return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
+  }
+
+  public EditLevel(level: LevelEditRequest, id: number): void {
+    this.apiRequestCreator.makeRequest("PATCH", "levels/id/" + id, level)
+      .subscribe(_ => {
+        this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
+      });
   }
 
   public AdminAddAnnouncement(title: string, body: string) {

@@ -9,10 +9,10 @@
     <form-input name="Description" [icon]="faPencil" [multiline]="true" [(value)]="description"></form-input>
 
     <div class="flex flex-col gap-y-1">
-      <primary-button [icon]="faFloppyDisk" text="Save changes"></primary-button>
+      <primary-button [icon]="faFloppyDisk" text="Save changes" (click)="update()"></primary-button>
       <div class="flex flex-row gap-x-1">
-        <secondary-button [icon]="faCancel" text="Cancel" class="flex-grow"></secondary-button>
-        <dangerous-button [icon]="faTrash" text="Delete level"></dangerous-button>
+        <secondary-button [icon]="faCancel" text="Cancel" class="flex-grow" (click)="cancel()"></secondary-button>
+        <dangerous-button [icon]="faTrash" text="Delete level" (click)="delete()"></dangerous-button>
       </div>
     </div>
   </div>
