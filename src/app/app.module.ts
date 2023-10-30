@@ -87,6 +87,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MenuLinkComponent } from './components/menu-link/menu-link.component';
 import { AdminLinkButtonComponent } from './components/admin-link-button/admin-link-button.component';
 import { EditLevelComponent } from './pages/edit-level/edit-level.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -150,16 +151,17 @@ import { EditLevelComponent } from './pages/edit-level/edit-level.component';
         AdminLinkButtonComponent,
         EditLevelComponent,
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FontAwesomeModule,
-    BrowserAnimationsModule,
-    TransferHttpCacheModule,
-    NgxMasonryModule,
-    NgOptimizedImage,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FontAwesomeModule,
+        BrowserAnimationsModule,
+        TransferHttpCacheModule,
+        NgxMasonryModule,
+        NgOptimizedImage,
+        FormsModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },
   ],

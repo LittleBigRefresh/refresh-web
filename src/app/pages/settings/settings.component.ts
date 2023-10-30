@@ -53,10 +53,11 @@ export class SettingsComponent implements OnInit {
     }
   ]
 
-  theme: string = this.themes[0].Name;
+  theme: string;
 
   constructor(private authService: AuthService, private themeService: ThemeService) {
     this.themingSupported = themeService.IsThemingSupported();
+    this.theme = themeService.GetTheme();
   }
 
   ngOnInit(): void {

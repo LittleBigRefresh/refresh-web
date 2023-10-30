@@ -24,6 +24,6 @@ export class ThemeService {
 
   public GetTheme(): string {
     // @ts-ignore
-    return document.getRootNode().children[0].className;
+    return document.getRootNode().children[0].className ?? "default";
   }
 }
