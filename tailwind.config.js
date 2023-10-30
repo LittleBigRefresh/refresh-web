@@ -79,6 +79,32 @@ module.exports = {
         "rank-bronze": "#009900",
         "rank-other": "#005500",
       },
+      ultraDark: {
+        "background": "#000000",
+        "header-background": "#0f0f0f",
+        "form-background": "#000000",
+        "backdrop": "#050505",
+
+        "divider": "#000000",
+
+        "foreground": "#F7F7F7",
+        "gentle": "#C3C3C3",
+
+        "primary": "#723896",
+        "secondary": "#575757",
+        "teritary": "#0f0f0f",
+
+        "secondary-bright": "#575757",
+
+        "success": "#52BC24",
+        "dangerous": "#E52E2E",
+        "warning": "#d99800",
+
+        "rank-gold": "#FFD234",
+        "rank-silver": "#F2F2F2",
+        "rank-bronze": "#FF8845",
+        "rank-other": "#ABABAB",
+      }
     })
   ],
   safelist: [ // force generation for notifications
