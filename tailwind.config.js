@@ -8,6 +8,7 @@ const defaultColors = {
 
   "divider": "#13071A",
 
+  "header-foreground": "#F7F7F7",
   "foreground": "#F7F7F7",
   "gentle": "#C3C3C3",
 
@@ -66,6 +67,7 @@ module.exports = {
 
         "divider": "#00EE00",
 
+        "header-foreground": "#00FF00",
         "foreground": "#00FF00",
         "gentle": "#00DD00",
 
@@ -90,6 +92,7 @@ module.exports = {
 
         "divider": "#000000",
 
+        "header-foreground": "#F7F7F7",
         "foreground": "#F7F7F7",
         "gentle": "#C3C3C3",
 
@@ -111,6 +114,7 @@ module.exports = {
 
         "divider": "#61493C",
 
+        "header-foreground": "#EED4BF",
         "foreground": "#181515",
         "gentle": "#8A7261",
 
