@@ -7,7 +7,13 @@
     <img [src]="GetPhotoLink(_photo)" class="rounded-md w-full drop-shadow-lg" alt="Photo">
   </div>
 
-  <div class="pt-2.5"><span>Taken by <user-link [user]="_photo.publisher"></user-link></span></div>
+  <div class="pt-2.5">
+    <span>
+      Taken by <user-link [user]="_photo.publisher" class="font-bold"></user-link>
+      <ng-container *ngIf="_photo.level">
+        in <level-link [level]="_photo.level" class="font-bold"></level-link>
+      </ng-container>
+    </span></div>
   <div class="text-sm text-gentle">
     <span *ngIf="_photo.subjects.length > 0">with </span>
     <span *ngFor="let subject of _photo.subjects; let last = last">

@@ -21,4 +21,5 @@ export class PhotoComponent {
   }
 
   protected readonly GetPhotoLink = GetPhotoLink;
+  protected readonly undefined = undefined;
 }
