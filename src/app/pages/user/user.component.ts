@@ -57,11 +57,17 @@ export class UserComponent implements OnInit {
       });
     }
 
-    getMoment(timestamp: Date): string {
+    getMomentJoined(timestamp: Date): string {
       // weird hack to get methods here - date objects from the API are not real Dates
-      if(new Date(timestamp).getTime() == 0) return "Here since before time was invented";
+      if(new Date(timestamp).getTime() == 0) return "Here forever";
       return "Joined " + moment(timestamp).fromNow();
     }
+
+  getMomentSeen(timestamp: Date): string {
+    // weird hack to get methods here - date objects from the API are not real Dates
+    if(new Date(timestamp).getTime() == 0) return "never";
+    return moment(timestamp).fromNow();
+  }
 
     private getUserByUuid(uuid: string) {
       return this.apiClient.GetUserByUuid(uuid)

@@ -4,4 +4,5 @@ export interface User {
     iconHash: string
     description: string
     joinDate: Date
+    lastLoginDate: Date
 }

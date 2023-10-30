@@ -4,12 +4,12 @@
     <div class="flex-grow">
       <page-header class="text-3xl inline">
         {{ user.username }}'s profile
-        <span-gentle>{{ getMoment(user.joinDate) }}</span-gentle>
+        <span-gentle>{{ getMomentJoined(user.joinDate) }}</span-gentle>
       </page-header>
 
       <div [ngSwitch]="room">
         <div *ngSwitchCase="undefined">
-          <span-gentle>Offline</span-gentle>
+          <span-gentle>Offline (last seen {{getMomentSeen(user.lastLoginDate)}})</span-gentle>
         </div>
         <div *ngSwitchDefault>
           <span-gentle>Playing a {{room!.LevelType}} level</span-gentle>
