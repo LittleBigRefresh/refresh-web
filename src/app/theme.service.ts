@@ -9,6 +9,8 @@ export class ThemeService {
   }
 
   public SetTheme(theme: string): void {
+    localStorage.setItem("theme", theme);
+
     // @ts-ignore
     return document.getRootNode().children[0].className = theme;
   }
