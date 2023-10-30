@@ -67,6 +67,7 @@ export class AppComponent {
 
   @ViewChild("login") login!: ElementRef;
   @ViewChild("menu") menu!: ElementRef;
+  @ViewChild("notifications") notifications!: ElementRef;
 
   routerLinks: HeaderLink[] = [
     new HeaderLink("Levels", "/levels", faCertificate),
@@ -111,10 +112,18 @@ export class AppComponent {
 
   toggleMenu(): void {
     this.menu.nativeElement.hidden = !this.menu.nativeElement.hidden;
+    this.notifications.nativeElement.hidden = true;
+  }
+
+  toggleNotifications(): void {
+    this.menu.nativeElement.hidden = true;
+    this.notifications.nativeElement.hidden = !this.notifications.nativeElement.hidden;
   }
 
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly faSignIn = faSignIn;
   protected readonly faExclamationTriangle = faExclamationTriangle;
   protected readonly UserRoles = UserRoles;
+  protected readonly faBell = faBell;
+  protected readonly undefined = undefined;
 }

@@ -12,7 +12,9 @@
       </a>
     </nav>
 
-    <button (click)="toggleMenu()" *ngIf="user" aria-label="More..." class="flex-shrink ml-auto p-3 cursor-pointer">
+    <fa-icon (click)="toggleNotifications()" [icon]="faBell" class="text-xl flex-shrink ml-auto p-1.5 m-1.5 cursor-pointer"></fa-icon>
+
+    <button (click)="toggleMenu()" *ngIf="user" aria-label="More..." class="p-1.5 m-1.5 cursor-pointer">
       <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>
     </button>
 
@@ -31,6 +33,12 @@
 
     <div class="drop-shadow-lg" #menu [hidden]="true" *ngIf="user">
       <app-menu [links]="rightSideRouterLinks"></app-menu>
+    </div>
+
+    <div class="drop-shadow-lg" #notifications [hidden]="true" *ngIf="user">
+      <form-holder>
+        <app-notification-listing></app-notification-listing>
+      </form-holder>
     </div>
   </div>
 </div>
