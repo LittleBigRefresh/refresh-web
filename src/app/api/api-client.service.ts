@@ -155,6 +155,13 @@ export class ApiClient {
       });
   }
 
+  public DeleteLevel(level: Level): void {
+    this.apiRequestCreator.makeRequest("DELETE", "levels/id/" + level.levelId)
+      .subscribe(_ => {
+        this.bannerService.pushWarning("Level Deleted", `${level.title} was successfully removed.`);
+      });
+  }
+
   public AdminAddAnnouncement(title: string, body: string) {
     this.makeRequest<Announcement>("POST", "admin/announcements", {title, text: body})
       .subscribe(data => {

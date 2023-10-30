@@ -68,7 +68,8 @@ export class EditLevelComponent implements OnInit{
   }
 
   delete() {
-
+    if(this.level == undefined) return;
+    this.apiClient.DeleteLevel(this.level)
   }
 
   protected readonly faCertificate = faCertificate;
