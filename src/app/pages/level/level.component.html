@@ -17,7 +17,7 @@
         <div class="text-sm font-normal">
           <span-gentle>Published for {{getGameVersion(level.gameVersion)}} {{ getMoment(level.publishDate) }}</span-gentle>
           <span-gentle *ngIf="level.publishDate != level.updateDate">,
-            updated {{ getMoment(level.updateDate)}}</span-gentle>
+            last updated {{ getMoment(level.updateDate)}}</span-gentle>
         </div>
       </div>
 
