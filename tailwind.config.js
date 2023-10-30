@@ -102,6 +102,31 @@ module.exports = {
         "success": "#52BC24",
         "dangerous": "#E52E2E",
         "warning": "#d99800",
+      },
+      soundShapes: {
+        "background": "#2F2A2A",
+        "header-background": "#181515",
+        "form-background": "#EED4BF",
+        "backdrop": "#FFF0E4",
+
+        "divider": "#61493C",
+
+        "foreground": "#181515",
+        "gentle": "#8A7261",
+
+        "primary": "#F07167",
+        "secondary": "#F4DECC",
+        "teritary": "#e5d2c3",
+
+        "secondary-bright": "#E2CFE5",
+
+        "success": "#79c501",
+        "dangerous": "#ea574d",
+        "warning": "#eeb231",
+
+        "api-retrieve": "#79c501",
+        "api-remove": "#ea574d",
+        "api-push": "#eeb231"
       }
     })
   ],

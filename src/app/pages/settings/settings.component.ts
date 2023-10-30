@@ -47,6 +47,10 @@ export class SettingsComponent implements OnInit {
       Name: "Ultra-Dark",
       Value: "ultraDark",
     },
+    {
+      Name: "Sound Shapes",
+      Value: "soundShapes",
+    }
   ]
 
   theme: string = this.themes[0].Name;
