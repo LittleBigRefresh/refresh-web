@@ -21,6 +21,7 @@ import {Instance} from "./api/types/instance";
 import {EmbedService} from "./services/embed.service";
 import {TitleService} from "./services/title.service";
 import {AuthService} from "./api/auth.service";
+import {ThemeService} from "./theme.service";
 
 const fadeLength: string = "50ms";
 
@@ -78,7 +79,7 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService) {
+  constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService, themeService: ThemeService) {
     authService.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
 
@@ -88,6 +89,15 @@ export class AppComponent {
     });
 
     titleService.setTitle("")
+
+    if(themeService.IsThemingSupported()) {
+      const theme : string | null = localStorage.getItem("theme");
+      if(theme) {
+        themeService.SetTheme(theme);
+      } else {
+        themeService.SetTheme("default");
+      }
+    }
   }
 
   handleUserUpdate(data: ExtendedUser | undefined) {
