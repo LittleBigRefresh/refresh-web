@@ -86,6 +86,7 @@ import { LevelStatisticsComponent } from './components/level-statistics/level-st
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuLinkComponent } from './components/menu-link/menu-link.component';
 import { AdminLinkButtonComponent } from './components/admin-link-button/admin-link-button.component';
+import { EditLevelComponent } from './pages/edit-level/edit-level.component';
 
 @NgModule({
     declarations: [
@@ -147,6 +148,7 @@ import { AdminLinkButtonComponent } from './components/admin-link-button/admin-l
         MenuComponent,
         MenuLinkComponent,
         AdminLinkButtonComponent,
+        EditLevelComponent,
     ],
   imports: [
     BrowserModule,

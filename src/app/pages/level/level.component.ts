@@ -9,7 +9,15 @@ import { Score } from 'src/app/api/types/score';
 import { DropdownOption } from 'src/app/components/form-dropdown/form-dropdown.component';
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {GenerateEmptyList} from "../../app.component";
-import {faCircleCheck, faHeart, faPlay, faThumbsDown, faThumbsUp, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleCheck,
+  faHeart,
+  faPencil,
+  faPlay,
+  faThumbsDown,
+  faThumbsUp,
+  faWrench
+} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
 import {EmbedService} from "../../services/embed.service";
@@ -144,4 +152,5 @@ export class LevelComponent implements OnInit {
   protected readonly faWrench = faWrench;
   protected readonly UserRoles = UserRoles;
   protected readonly faCircleCheck = faCircleCheck;
+  protected readonly faPencil = faPencil;
 }

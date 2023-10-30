@@ -24,7 +24,7 @@
     <form-input [icon]="faEnvelope" name="Email Address" [(value)]="email"></form-input>
 
     <div class="flex gap-x-2.5 my-2.5">
-      <secondary-button class="w-64 inline-block" [icon]="faEnvelope" text="Verify Email Address" routerLink="/verify" *ngIf="!emailVerified"></secondary-button>
+      <secondary-button class="w-64 inline-block" [icon]="faEnvelope" text="Verify Email Address" routerLink="/settings/verifyEmail" *ngIf="!emailVerified"></secondary-button>
       <secondary-button class="w-56 inline-block" [icon]="faKey" text="Reset Password" routerLink="/forgotPassword"></secondary-button>
       <dangerous-button text="Delete Account" routerLink="/settings/delete" [icon]="faTrash"></dangerous-button>
     </div>

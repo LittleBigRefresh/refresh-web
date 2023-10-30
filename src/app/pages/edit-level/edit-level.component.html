@@ -1,0 +1,36 @@
+<page-header class="text-3xl">Edit {{level?.title ?? '...'}}</page-header>
+<p>(id: <code>{{level?.levelId ?? 0}}</code>)</p>
+<divider></divider>
+
+<div class="flex gap-x-10">
+  <div class="flex flex-col gap-y-2.5">
+    <page-header class="text-2xl">Metadata</page-header>
+    <form-input name="Title" [icon]="faCertificate" [(value)]="title" class="font-bold"></form-input>
+    <form-input name="Description" [icon]="faPencil" [multiline]="true" [(value)]="description"></form-input>
+
+    <div class="flex flex-col gap-y-1">
+      <primary-button [icon]="faFloppyDisk" text="Save changes"></primary-button>
+      <div class="flex flex-row gap-x-1">
+        <secondary-button [icon]="faCancel" text="Cancel" class="flex-grow"></secondary-button>
+        <dangerous-button [icon]="faTrash" text="Delete level"></dangerous-button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="level" class="bg-header-background p-5 rounded-[11px] flex-grow">
+    <page-header class="text-2xl">Preview</page-header>
+    <div class="flex gap-3.5">
+      <level-avatar [level]="level" size="h-auto w-44 max-md:w-24"></level-avatar>
+
+      <div class="flex-grow">
+        <div class="font-bold text-3xl mb-1">
+          {{ title.length == 0 ? 'Unnamed Level' : title }}
+        </div>
+        <div class="bg-backdrop rounded-[11px] px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap">
+          <p>{{ description.length == 0 ? 'No description was provided for this level.' : description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

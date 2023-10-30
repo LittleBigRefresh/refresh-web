@@ -25,21 +25,33 @@ import {VerifyComponent} from "./pages/verify/verify.component";
 import {DeleteAccountComponent} from "./pages/delete-account/delete-account.component";
 import {AdminRegistrationsComponent} from "./pages/admin-registrations/admin-registrations.component";
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
+import {EditLevelComponent} from "./pages/edit-level/edit-level.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
+
   { path: "levels", component: LevelCategoriesComponent },
   { path: "slots", redirectTo: "levels" },
+
   { path: "levels/:route", component: LevelListingComponent },
   { path: "level/:id", component: LevelComponent },
+  { path: "level/:id/edit", component: EditLevelComponent },
   { path: "slot/:id", redirectTo: "level/:id" },
+  { path: "slot/:id/edit", redirectTo: "level/:id/edit" },
+
   { path: "user/:username", component: UserComponent },
   { path: "u/:uuid", component: UserComponent },
   { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent },
   { path: "forgotPassword", component: ForgotPasswordComponent },
+
   { path: "settings", component: SettingsComponent },
   { path: "settings/delete", component: DeleteAccountComponent },
+  { path: "verify", redirectTo: "settings/verifyEmail" },
+  { path: "settings/verifyEmail", component: VerifyComponent },
+  { path: "authentication", redirectTo: "settings/authentication" },
+  { path: "settings/authentication", component: AuthenticationComponent },
+
   { path: "photos", component: PhotoListingComponent },
   { path: "photo/:id", component: PhotoPageComponent },
   { path: "notifications", component: NotificationListingComponent },
@@ -47,14 +59,14 @@ const routes: Routes = [
   { path: "docs", redirectTo: "documentation" },
   { path: "documentation", component: DocumentationComponent },
   { path: "auth", redirectTo: "authentication" },
-  { path: "authentication", component: AuthenticationComponent },
   { path: "register", component: RegisterComponent },
-  { path: "verify", component: VerifyComponent },
+
   { path: "admin", component: AdminPanelComponent },
   { path: "admin/level/:id", component: AdminLevelComponent },
   { path: "admin/user/:uuid", component: AdminUserComponent },
   { path: "admin/users", component: AdminUsersComponent },
-  { path: "admin/registrations", component: AdminRegistrationsComponent },
+  { path: "admin/registrations", redirectTo: "admin/queuedRegistrations" },
+  { path: "admin/queuedRegistrations", component: AdminRegistrationsComponent },
 ];
 
 if(isDevMode()) {
