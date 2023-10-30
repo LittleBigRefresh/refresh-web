@@ -23,8 +23,11 @@
   </div>
 </page-header-block>
 
-<page-header-block *ngIf="ownUser?.role == UserRoles.Admin">
-  <admin-link-button [routerLink]="'/admin/user/' + user?.userId"></admin-link-button>
+<page-header-block *ngIf="user">
+  <div class="flex gap-x-3.5">
+    <secondary-button [icon]="faCog" text="Edit Profile" routerLink="/settings" class="w-48"></secondary-button>
+    <admin-link-button [routerLink]="'/admin/user/' + user?.userId" *ngIf="ownUser?.role == UserRoles.Admin"></admin-link-button>
+  </div>
 </page-header-block>
 
 <page-header-block *ngIf="!user">

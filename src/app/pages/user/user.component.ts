@@ -7,7 +7,7 @@ import {ApiClient, GetAssetImageLink} from 'src/app/api/api-client.service';
 import { Room } from 'src/app/api/types/rooms/room';
 import { User } from 'src/app/api/types/user';
 import {UserRoles} from "../../api/types/user-roles";
-import {faWrench} from "@fortawesome/free-solid-svg-icons";
+import {faCog, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {EmbedService} from "../../services/embed.service";
 import {TitleService} from "../../services/title.service";
@@ -134,4 +134,6 @@ export class UserComponent implements OnInit {
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly UserRoles = UserRoles;
   protected readonly faWrench = faWrench;
+  protected readonly undefined = undefined;
+  protected readonly faCog = faCog;
 }
