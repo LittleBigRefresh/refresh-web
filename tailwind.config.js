@@ -105,6 +105,15 @@ module.exports = {
         "success": "#52BC24",
         "dangerous": "#E52E2E",
         "warning": "#d99800",
+
+        "rank-gold": "#FFD234",
+        "rank-silver": "#F2F2F2",
+        "rank-bronze": "#FF8845",
+        "rank-other": "#ABABAB",
+
+        "api-retrieve": "#52BC24",
+        "api-remove": "#E52E2E",
+        "api-push": "#2D43E5"
       },
       soundShapes: {
         "background": "#2F2A2A",
@@ -128,9 +137,14 @@ module.exports = {
         "dangerous": "#ea574d",
         "warning": "#eeb231",
 
+        "rank-gold": "#eeb231",
+        "rank-silver": "#FFF0E4",
+        "rank-bronze": "#FF8845",
+        "rank-other": "#8A7261",
+
         "api-retrieve": "#79c501",
         "api-remove": "#ea574d",
-        "api-push": "#eeb231"
+        "api-push": "#eeb231",
       }
     })
   ],
