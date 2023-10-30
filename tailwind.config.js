@@ -1,3 +1,5 @@
+const { createThemes } = require('tw-colors');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -51,7 +53,34 @@ module.exports = {
       "logo": "url('/assets/logo.svg')",
     },
   },
-  plugins: [],
+  plugins: [
+    createThemes({
+      hack: {
+        "background": "#010101",
+        "header-background": "#010101",
+        "form-background": "#001100",
+        "backdrop": "#000000",
+
+        "divider": "#00EE00",
+
+        "foreground": "#00FF00",
+        "gentle": "#00DD00",
+
+        "primary": "#009900",
+        "secondary": "#008800",
+        "teritary": "#001100",
+
+        "success": "#009900",
+        "dangerous": "#005500",
+        "warning": "#005500",
+
+        "rank-gold": "#00FF00",
+        "rank-silver": "#00AA00",
+        "rank-bronze": "#009900",
+        "rank-other": "#005500",
+      },
+    })
+  ],
   safelist: [ // force generation for notifications
     "bg-success",
     "bg-warning",
