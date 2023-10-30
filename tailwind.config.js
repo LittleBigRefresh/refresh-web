@@ -94,16 +94,11 @@ module.exports = {
         "secondary": "#575757",
         "teritary": "#0f0f0f",
 
-        "secondary-bright": "#575757",
+        "secondary-bright": "#AAAAAA",
 
         "success": "#52BC24",
         "dangerous": "#E52E2E",
         "warning": "#d99800",
-
-        "rank-gold": "#FFD234",
-        "rank-silver": "#F2F2F2",
-        "rank-bronze": "#FF8845",
-        "rank-other": "#ABABAB",
       }
     })
   ],
