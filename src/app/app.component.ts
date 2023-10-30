@@ -90,12 +90,13 @@ export class AppComponent {
 
     titleService.setTitle("")
 
-    const theme : string | null = localStorage.getItem("theme");
-
-    if(theme) {
-      themeService.SetTheme(theme);
-    } else {
-      themeService.SetTheme("default");
+    if(themeService.IsThemingSupported()) {
+      const theme : string | null = localStorage.getItem("theme");
+      if(theme) {
+        themeService.SetTheme(theme);
+      } else {
+        themeService.SetTheme("default");
+      }
     }
   }
 

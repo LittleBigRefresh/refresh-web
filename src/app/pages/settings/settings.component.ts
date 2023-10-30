@@ -31,6 +31,8 @@ export class SettingsComponent implements OnInit {
   allowRpcnAuth: boolean = false;
   redirectGriefReportsToPhotos: boolean = false;
 
+  themingSupported: boolean;
+
 
   themes: DropdownOption[] = [
     {
@@ -50,6 +52,7 @@ export class SettingsComponent implements OnInit {
   theme: string = this.themes[0].Name;
 
   constructor(private authService: AuthService, private themeService: ThemeService) {
+    this.themingSupported = themeService.IsThemingSupported();
   }
 
   ngOnInit(): void {

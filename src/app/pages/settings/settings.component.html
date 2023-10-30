@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="justify-self-end">
+  <div class="justify-self-end" *ngIf="themingSupported">
     <page-header class="text-3xl">Appearance</page-header>
     <form-dropdown name="Theme" [options]="themes" (change)="themeChanged()" [(value)]="theme"></form-dropdown>
   </div>
