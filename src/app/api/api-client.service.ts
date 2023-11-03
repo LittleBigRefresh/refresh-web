@@ -163,9 +163,9 @@ export class ApiClient {
   }
 
   public SetLevelAsOverride(level: Level): void {
-    this.apiRequestCreator.makeRequest("POST", "levels/id/" + level.levelId + "/setAsOverride")
+    this.apiRequestCreator.makeRequest("POST", `levels/id/${level.levelId}/setAsOverride`)
       .subscribe(_ => {
-        this.bannerService.pushSuccess("Check your game!", `In LBP, head to any category and this level will pop up.`);
+        this.bannerService.pushSuccess("Check your game!", `In LBP, head to 'Lucky Dip' (or any category) and '${level.title}' will show up!`);
       });
   }
 
