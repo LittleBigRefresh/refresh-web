@@ -57,7 +57,7 @@
   <div class="bg-form-background rounded p-5 mt-5 w-full">
     <div class="flex">
       <h2 class="text-3xl font-bold flex-grow">Leaderboard</h2>
-      <form-dropdown class="" name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
+      <form-dropdown *ngIf="level?.gameVersion !== 4" name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
     </div>
     <divider></divider>
     <div *ngIf="scores === undefined">
