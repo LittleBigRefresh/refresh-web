@@ -111,7 +111,7 @@ export class AuthService {
 
                 if (authResponse.resetToken !== undefined) {
                     this.resetToken = authResponse.resetToken;
-                    this.router.navigateByUrl("/forgotPassword?email=" + emailAddress);
+                    this.router.navigateByUrl("/resetPassword");
                     this.bannerService.pushWarning("Create a password", "The account you are trying to sign into is a legacy account. Please set a password.");
                     return;
                 }
@@ -192,7 +192,7 @@ export class AuthService {
         this.tokenStorage.ClearStoredGameToken();
     }
 
-    public ResetPassword(emailAddress: string, passwordSha512: string, signIn: boolean = false): void {
+    public ResetPassword(passwordSha512: string): void {
         if (this.user == undefined && this.resetToken == undefined) {
             this.bannerService.pushError('Could not reset password', 'There was no token to authorize this action.')
             return;
@@ -205,7 +205,9 @@ export class AuthService {
 
         this.apiRequestCreator.makeRequest("PUT", "resetPassword", body)
             .subscribe(() => {
-                if (signIn) this.LogIn(emailAddress, passwordSha512);
+                if (!this.user) this.router.navigateByUrl('/login');
+                else this.router.navigateByUrl('/');
+
                 this.bannerService.push({
                     Color: 'success',
                     Icon: 'key',

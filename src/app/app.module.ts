@@ -39,7 +39,7 @@ import { FormInputComponent } from './components/form-input/form-input.component
 import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { BannerComponent } from './components/notification/banner.component';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ApiTokenInterceptor } from './api/api-token.interceptor';
 import { UserComponent } from './pages/user/user.component';
 import { LogoutComponent } from './pages/logout/logout.component';
@@ -105,7 +105,7 @@ import {FormsModule} from "@angular/forms";
         PrimaryButtonComponent,
         SecondaryButtonComponent,
         BannerComponent,
-        ForgotPasswordComponent,
+        ResetPasswordComponent,
         UserComponent,
         LogoutComponent,
         DangerousButtonComponent,

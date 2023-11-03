@@ -1,6 +1,6 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { LevelCategoriesComponent } from './pages/level-categories/level-categories.component';
 import { LevelListingComponent } from './pages/level-listing/level-listing.component';
 import { LevelComponent } from './pages/level/level.component';
@@ -47,7 +47,7 @@ const routes: Routes = [
 
   { path: "login", component: LoginComponent, canActivate: [noAuthenticationGuard] },
   { path: "logout", component: LogoutComponent, canActivate: [authenticationGuard] },
-  { path: "forgotPassword", component: ForgotPasswordComponent },
+  { path: "resetPassword", component: ResetPasswordComponent },
   { path: "register", component: RegisterComponent, canActivate: [noAuthenticationGuard] },
 
   { path: "settings", component: SettingsComponent, canActivate: [authenticationGuard] },
