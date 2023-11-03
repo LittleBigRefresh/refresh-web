@@ -147,10 +147,16 @@ export class LevelComponent implements OnInit {
       this.activity = data;
     })
   }
+
+  setAsOverride() {
+    if(!this.level) return;
+    this.apiClient.SetLevelAsOverride(this.level);
+  }
+
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly GenerateEmptyList = GenerateEmptyList;
-  protected readonly faWrench = faWrench;
   protected readonly UserRoles = UserRoles;
   protected readonly faCircleCheck = faCircleCheck;
   protected readonly faPencil = faPencil;
+  protected readonly faPlay = faPlay;
 }
