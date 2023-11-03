@@ -26,6 +26,9 @@ import {DeleteAccountComponent} from "./pages/delete-account/delete-account.comp
 import {AdminRegistrationsComponent} from "./pages/admin-registrations/admin-registrations.component";
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
 import {EditLevelComponent} from "./pages/edit-level/edit-level.component";
+import {authenticationGuard} from "./api/guards/authentication.guard";
+import {adminAuthenticationGuard} from "./api/guards/admin-authentication.guard";
+import {noAuthenticationGuard} from "./api/guards/no-authentication.guard";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -35,38 +38,39 @@ const routes: Routes = [
 
   { path: "levels/:route", component: LevelListingComponent },
   { path: "level/:id", component: LevelComponent },
-  { path: "level/:id/edit", component: EditLevelComponent },
+  { path: "level/:id/edit", component: EditLevelComponent, canActivate: [authenticationGuard] },
   { path: "slot/:id", redirectTo: "level/:id" },
   { path: "slot/:id/edit", redirectTo: "level/:id/edit" },
 
   { path: "user/:username", component: UserComponent },
   { path: "u/:uuid", component: UserComponent },
-  { path: "login", component: LoginComponent },
-  { path: "logout", component: LogoutComponent },
-  { path: "forgotPassword", component: ForgotPasswordComponent },
 
-  { path: "settings", component: SettingsComponent },
-  { path: "settings/delete", component: DeleteAccountComponent },
+  { path: "login", component: LoginComponent, canActivate: [noAuthenticationGuard] },
+  { path: "logout", component: LogoutComponent, canActivate: [authenticationGuard] },
+  { path: "forgotPassword", component: ForgotPasswordComponent },
+  { path: "register", component: RegisterComponent, canActivate: [noAuthenticationGuard] },
+
+  { path: "settings", component: SettingsComponent, canActivate: [authenticationGuard] },
+  { path: "settings/delete", component: DeleteAccountComponent, canActivate: [authenticationGuard] },
   { path: "verify", redirectTo: "settings/verifyEmail" },
-  { path: "settings/verifyEmail", component: VerifyComponent },
+  { path: "settings/verifyEmail", component: VerifyComponent, canActivate: [authenticationGuard] },
+  { path: "auth", redirectTo: "settings/authentication" },
   { path: "authentication", redirectTo: "settings/authentication" },
-  { path: "settings/authentication", component: AuthenticationComponent },
+  { path: "settings/authentication", component: AuthenticationComponent, canActivate: [authenticationGuard] },
 
   { path: "photos", component: PhotoListingComponent },
   { path: "photo/:id", component: PhotoPageComponent },
-  { path: "notifications", component: NotificationListingComponent },
+  { path: "notifications", component: NotificationListingComponent, canActivate: [authenticationGuard] },
   { path: "activity", component: ActivityComponent },
   { path: "docs", redirectTo: "documentation" },
   { path: "documentation", component: DocumentationComponent },
-  { path: "auth", redirectTo: "authentication" },
-  { path: "register", component: RegisterComponent },
 
-  { path: "admin", component: AdminPanelComponent },
-  { path: "admin/level/:id", component: AdminLevelComponent },
-  { path: "admin/user/:uuid", component: AdminUserComponent },
-  { path: "admin/users", component: AdminUsersComponent },
+  { path: "admin", component: AdminPanelComponent, canActivate: [adminAuthenticationGuard] },
+  { path: "admin/level/:id", component: AdminLevelComponent, canActivate: [adminAuthenticationGuard] },
+  { path: "admin/user/:uuid", component: AdminUserComponent, canActivate: [adminAuthenticationGuard] },
+  { path: "admin/users", component: AdminUsersComponent, canActivate: [adminAuthenticationGuard] },
   { path: "admin/registrations", redirectTo: "admin/queuedRegistrations" },
-  { path: "admin/queuedRegistrations", component: AdminRegistrationsComponent },
+  { path: "admin/queuedRegistrations", component: AdminRegistrationsComponent, canActivate: [adminAuthenticationGuard] },
 ];
 
 if(isDevMode()) {
