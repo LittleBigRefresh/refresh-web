@@ -145,6 +145,37 @@ module.exports = {
         "api-retrieve": "#79c501",
         "api-remove": "#ea574d",
         "api-push": "#eeb231",
+      },
+      lighthouse: {
+        "background": "#ededf0",
+        "header-background": "#121212",
+        "form-background": "#dddddd",
+        "backdrop": "#FFFFFF",
+
+        "divider": "#d4d4d5",
+
+        "header-foreground": "#F7F7F7",
+        "foreground": "#15141A",
+        "gentle": "#5B5B66",
+
+        "primary": "#0e91f5",
+        "secondary": "#d4d4d5",
+        "teritary": "#FFFFFF",
+
+        "secondary-bright": "#FFFFFF",
+
+        "success": "#23c841",
+        "dangerous": "#f12c2c",
+        "warning": "#fdc202",
+
+        "rank-gold": "#fdc202",
+        "rank-silver": "#F2F2F2",
+        "rank-bronze": "#FF8845",
+        "rank-other": "#d4d4d5",
+
+        "api-retrieve": "#23c841",
+        "api-remove": "#f12c2c",
+        "api-push": "#0e91f5"
       }
     })
   ],

@@ -50,7 +50,11 @@ export class SettingsComponent implements OnInit {
     {
       Name: "Sound Shapes",
       Value: "soundShapes",
-    }
+    },
+    {
+      Name: "Lighthouse",
+      Value: "lighthouse",
+    },
   ]
 
   theme: string;
