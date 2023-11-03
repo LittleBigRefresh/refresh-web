@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div *ngIf="level" class="bg-header-background p-5 rounded flex-grow">
+  <div *ngIf="level" class="bg-header-background text-header-foreground p-5 rounded flex-grow">
     <page-header class="text-2xl">Preview</page-header>
     <div class="flex gap-3.5">
       <level-avatar [level]="level" size="h-auto w-44 max-md:w-24"></level-avatar>
@@ -26,7 +26,7 @@
         <div class="font-bold text-3xl mb-1">
           {{ title.length == 0 ? 'Unnamed Level' : title }}
         </div>
-        <div class="bg-backdrop rounded px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap">
+        <div class="bg-backdrop text-foreground rounded px-5 py-2.5 drop-shadow-lg whitespace-pre-wrap">
           <p>{{ description.length == 0 ? 'No description was provided for this level.' : description }}</p>
         </div>
       </div>
