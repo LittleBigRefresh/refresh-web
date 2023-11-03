@@ -109,7 +109,7 @@ export class ApiClient {
   }
 
   public GetPhotoById(id: number) {
-    return this.makeRequest<Photo>("GET", "photos/" + id);
+    return this.makeRequest<Photo>("GET", "photos/id/" + id);
   }
 
   public GetNotifications(): Observable<ApiListResponse<RefreshNotification>> {
