@@ -88,6 +88,7 @@ import { MenuLinkComponent } from './components/menu-link/menu-link.component';
 import { AdminLinkButtonComponent } from './components/admin-link-button/admin-link-button.component';
 import { EditLevelComponent } from './pages/edit-level/edit-level.component';
 import {FormsModule} from "@angular/forms";
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
     declarations: [
@@ -150,6 +151,7 @@ import {FormsModule} from "@angular/forms";
         MenuLinkComponent,
         AdminLinkButtonComponent,
         EditLevelComponent,
+        ForgotPasswordComponent,
     ],
     imports: [
         BrowserModule,

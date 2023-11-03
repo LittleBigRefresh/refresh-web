@@ -29,6 +29,7 @@ import {EditLevelComponent} from "./pages/edit-level/edit-level.component";
 import {authenticationGuard} from "./api/guards/authentication.guard";
 import {adminAuthenticationGuard} from "./api/guards/admin-authentication.guard";
 import {noAuthenticationGuard} from "./api/guards/no-authentication.guard";
+import {ForgotPasswordComponent} from "./pages/forgot-password/forgot-password.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -48,6 +49,8 @@ const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [noAuthenticationGuard] },
   { path: "logout", component: LogoutComponent, canActivate: [authenticationGuard] },
   { path: "resetPassword", component: ResetPasswordComponent },
+  { path: "forgorPassword", redirectTo: "forgotPassword" }, // I'm sorry but I have to
+  { path: "forgotPassword", component: ForgotPasswordComponent },
   { path: "register", component: RegisterComponent, canActivate: [noAuthenticationGuard] },
 
   { path: "settings", component: SettingsComponent, canActivate: [authenticationGuard] },

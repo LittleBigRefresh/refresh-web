@@ -17,8 +17,12 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      const tokenParam: string | undefined = params['token'];
-      if(tokenParam) this.authService.resetToken = tokenParam;
+      let tokenParam: string | undefined = params['token'];
+      if(tokenParam) {
+        tokenParam = tokenParam.replaceAll(' ', '+');
+        this.authService.resetToken = tokenParam;
+        console.log(tokenParam);
+      }
     })
   }
 

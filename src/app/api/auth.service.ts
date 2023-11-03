@@ -11,6 +11,7 @@ import {ApiPasswordResetRequest} from "./types/auth/reset-request";
 import {UserUpdateRequest} from "./types/user-update-request";
 import {TokenStorageService} from "./token-storage.service";
 import {ApiAuthenticationRefreshRequest} from "./types/auth/auth-refresh-request";
+import {ApiResetPasswordRequest} from "./types/auth/send-reset-request";
 
 @Injectable({
     providedIn: 'root'
@@ -215,6 +216,24 @@ export class AuthService {
                     Text: "Your account's password has been reset.",
                 })
             });
+    }
+
+    public SendPasswordResetRequest(email: string): void {
+      const body: ApiResetPasswordRequest = {
+        emailAddress: email
+      }
+
+      this.apiRequestCreator.makeRequest("PUT", "sendPasswordResetEmail", body)
+        .subscribe(() => {
+          this.router.navigateByUrl('/login');
+
+          this.bannerService.push({
+            Color: 'success',
+            Icon: 'reply',
+            Title: "Sent Reset Code",
+            Text: "If the email you entered match an account, we will send a password reset request to that inbox.",
+          })
+        });
     }
 
     public VerifyEmail(code: string): void {
