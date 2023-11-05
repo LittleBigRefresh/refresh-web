@@ -9,6 +9,7 @@ import {UserRoles} from "../../api/types/user-roles";
 import {AdminStatistic} from "../../api/types/admin/admin-statistic";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {AuthService} from "../../api/auth.service";
+import {AdminService} from "../../api/admin.service";
 
 @Component({
   selector: 'app-admin-panel',
@@ -23,7 +24,7 @@ export class AdminPanelComponent implements OnInit {
 
   public statistics: AdminStatistic[] = [];
 
-  constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private sanitizer: DomSanitizer) {}
+  constructor(private authService: AuthService, private apiClient: ApiClient, private adminService: AdminService, private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.authService.userWatcher
@@ -53,11 +54,11 @@ export class AdminPanelComponent implements OnInit {
   }
 
   postAnnouncement() {
-    this.apiClient.AdminAddAnnouncement(this.announcementTitle, this.announcementBody);
+    this.adminService.AdminAddAnnouncement(this.announcementTitle, this.announcementBody);
   }
 
   removeAnnouncement(announcement: Announcement) {
-    this.apiClient.AdminRemoveAnnouncement(announcement.announcementId);
+    this.adminService.AdminRemoveAnnouncement(announcement.announcementId);
   }
 
   getSanitizedGrafanaURL(): SafeUrl {

@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {UserRoles} from "../../api/types/user-roles";
+import {AdminService} from "../../api/admin.service";
 
 @Component({
   selector: 'app-admin-user',
@@ -25,7 +26,7 @@ export class AdminUserComponent implements OnInit {
   reason: string = "";
   date: string = "";
 
-  constructor(private route: ActivatedRoute, private apiClient: ApiClient) {}
+  constructor(private route: ActivatedRoute, private apiClient: ApiClient, private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -41,7 +42,7 @@ export class AdminUserComponent implements OnInit {
   }
 
   private getUserByUuid(uuid: string) {
-    return this.apiClient.GetExtendedUserByUuid(uuid)
+    return this.adminService.GetExtendedUserByUuid(uuid)
       .pipe(tap((data) => {
           this.user = data;
           if (data === undefined) return;
@@ -56,7 +57,7 @@ export class AdminUserComponent implements OnInit {
 
   private punish(punishmentType: 'ban' | 'restrict') {
     if(this.user == undefined) return;
-    this.apiClient.AdminPunishUser(this.user, punishmentType, new Date(this.date), this.reason);
+    this.adminService.AdminPunishUser(this.user, punishmentType, new Date(this.date), this.reason);
 
     this.user.banReason = this.reason;
     this.user.banExpiryDate = new Date(this.date);
@@ -72,7 +73,7 @@ export class AdminUserComponent implements OnInit {
 
   pardon() {
     if(this.user == undefined) return;
-    this.apiClient.AdminPardonUser(this.user);
+    this.adminService.AdminPardonUser(this.user);
 
     this.reason = "";
     this.date = "";
@@ -83,13 +84,13 @@ export class AdminUserComponent implements OnInit {
 
   deletePlanets() {
     if(this.user == undefined) return;
-    this.apiClient.AdminDeleteUserPlanets(this.user);
+    this.adminService.AdminDeleteUserPlanets(this.user);
   }
 
   delete() {
     if(this.user == undefined) return;
     if(window.confirm("Are you sure you want to delete this user's account?")) {
-      this.apiClient.AdminDeleteUser(this.user);
+      this.adminService.AdminDeleteUser(this.user);
     }
   }
 
