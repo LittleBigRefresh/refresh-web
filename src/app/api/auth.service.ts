@@ -6,12 +6,13 @@ import {Router} from "@angular/router";
 import {ApiAuthenticationRequest} from "./types/auth/auth-request";
 import {ApiError} from "./types/response/api-error";
 import {ApiAuthenticationResponse} from "./types/auth/auth-response";
-import {catchError, of} from "rxjs";
+import {catchError, Observable, of, tap} from "rxjs";
 import {ApiPasswordResetRequest} from "./types/auth/reset-request";
 import {UserUpdateRequest} from "./types/user-update-request";
 import {TokenStorageService} from "./token-storage.service";
 import {ApiAuthenticationRefreshRequest} from "./types/auth/auth-refresh-request";
 import {ApiResetPasswordRequest} from "./types/auth/send-reset-request";
+import {Room} from "./types/rooms/room";
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,9 @@ export class AuthService {
     resetToken: string | undefined = undefined;
 
     userWatcher: EventEmitter<ExtendedUser | undefined>
+
+    private lastRoomUpdate: number = Date.now();
+    private currentRoom: Room | undefined;
 
     constructor(private apiRequestCreator: ApiRequestCreator, private tokenStorage: TokenStorageService, private bannerService: BannerService, private router: Router) {
         this.userWatcher = new EventEmitter<ExtendedUser | undefined>();
@@ -181,6 +185,21 @@ export class AuthService {
                 this.userWatcher.emit(this.user);
                 if (callback) callback();
             });
+    }
+
+    public GetMyRoom(): Observable<Room | undefined> {
+        if(!this.user) return of(undefined);
+
+        // If 5 minutes have passed, and we have a room cached
+        if((this.lastRoomUpdate > (Date.now() - 300 * 1000)) && this.currentRoom) {
+            return of(this.currentRoom);
+        }
+
+        return this.apiRequestCreator.makeRequest<Room>("GET", `rooms/uuid/${this.user.userId}`, null, (_: ApiError) => {})
+            .pipe(tap(data => {
+                this.lastRoomUpdate = Date.now();
+                this.currentRoom = data;
+            }),);
     }
 
     public LogOut() {

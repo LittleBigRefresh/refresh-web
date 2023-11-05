@@ -35,6 +35,8 @@ export class LevelComponent implements OnInit {
   activity: ActivityPage | undefined
   ownUser: ExtendedUser | undefined;
 
+  isOwnUserOnline: boolean = false;
+
   scoreType: string = "1";
 
   scoreTypes: DropdownOption[] = [
@@ -87,6 +89,10 @@ export class LevelComponent implements OnInit {
     this.authService.userWatcher.subscribe((data) => {
       this.ownUser = data;
     });
+
+    this.authService.GetMyRoom().subscribe(data => {
+      this.isOwnUserOnline = data != undefined;
+    })
   }
 
   formChanged() {
@@ -147,10 +153,16 @@ export class LevelComponent implements OnInit {
       this.activity = data;
     })
   }
+
+  setAsOverride() {
+    if(!this.level) return;
+    this.apiClient.SetLevelAsOverride(this.level);
+  }
+
   protected readonly GetAssetImageLink = GetAssetImageLink;
   protected readonly GenerateEmptyList = GenerateEmptyList;
-  protected readonly faWrench = faWrench;
   protected readonly UserRoles = UserRoles;
   protected readonly faCircleCheck = faCircleCheck;
   protected readonly faPencil = faPencil;
+  protected readonly faPlay = faPlay;
 }
