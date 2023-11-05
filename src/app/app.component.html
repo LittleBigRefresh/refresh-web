@@ -12,7 +12,7 @@
       </a>
     </nav>
 
-    <fa-icon (click)="toggleNotifications()" [icon]="faBell" class="text-xl flex-shrink ml-auto p-1.5 m-1.5 cursor-pointer"></fa-icon>
+    <fa-icon (click)="toggleNotifications()" [icon]="faBell" class="text-xl flex-shrink ml-auto p-1.5 m-1.5 cursor-pointer" *ngIf="user"></fa-icon>
 
     <button (click)="toggleMenu()" *ngIf="user" aria-label="More..." class="p-1.5 m-1.5 cursor-pointer">
       <user-avatar [user]="user" size="h-11 w-auto" class="ml-4"></user-avatar>

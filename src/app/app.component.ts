@@ -134,5 +134,4 @@ export class AppComponent {
   protected readonly faExclamationTriangle = faExclamationTriangle;
   protected readonly UserRoles = UserRoles;
   protected readonly faBell = faBell;
-  protected readonly undefined = undefined;
 }
