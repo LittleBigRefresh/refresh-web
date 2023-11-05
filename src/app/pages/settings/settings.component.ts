@@ -55,6 +55,10 @@ export class SettingsComponent implements OnInit {
       Name: "Lighthouse",
       Value: "lighthouse",
     },
+    {
+      Name: "Steam Green",
+      Value: "vgui",
+    },
   ]
 
   theme: string;

@@ -176,7 +176,52 @@ module.exports = {
         "api-retrieve": "#23c841",
         "api-remove": "#f12c2c",
         "api-push": "#0e91f5"
-      }
+      },
+      vgui: {
+        "background": "#2d3328",
+        "header-background": "#2d3328",
+        "form-background": "#4d5845",
+        "backdrop": "#3f4638",
+
+        "divider": "#c3b350",
+
+        "header-foreground": "#c3b350",
+        "foreground": "#c3b350",
+        "gentle": "#968a3f",
+
+        "primary": "#637059",
+        "secondary": "#3c4535",
+        "teritary": "#23291f",
+
+        "secondary-bright": "#637059",
+
+        "success": "#318831",
+        "dangerous": "#963f3f",
+        "warning": "#7a7032",
+
+        "rank-gold": "#c3b350",
+        "rank-silver": "#c2c2c0",
+        "rank-bronze": "#c38450",
+        "rank-other": "#968a3f",
+
+        "api-retrieve": "#318831",
+        "api-remove": "#963f3f",
+        "api-push": "#3da9b1",
+
+        // Taken from VGUI colors on steam deck
+        // "BackgroundAlternate": "#3f4638",
+        // "BackgroundNormal": "#4d5845",
+        // "DecorationFocus": "#318831",
+        // "DecorationHover": "#318831",
+        // "ForegroundActive": "#4cb07b",
+        // "ForegroundInactive": "#3da9b1",
+        // "ForegroundLink": "#4cb07b",
+        // "ForegroundNegative": "#37ffff",
+        // "ForegroundNeutral": "#37ffff",
+        // "ForegroundNormal": "#34fcfc",
+        // "ForegroundPositive": "#37ffff",
+        // "ForegroundVisited": "#4cb07b",
+      },
     })
   ],
   safelist: [ // force generation for notifications
