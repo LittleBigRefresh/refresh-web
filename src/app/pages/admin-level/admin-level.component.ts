@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import {ApiClient} from "../../api/api-client.service";
 import {EMPTY, switchMap, tap} from "rxjs";
 import {faCertificate, faCheck, faFlag, faFloppyDisk, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {AdminService} from "../../api/admin.service";
 
 @Component({
   selector: 'app-admin-level',
@@ -14,7 +15,7 @@ export class AdminLevelComponent {
 
   teamPicked: boolean = false;
 
-  constructor(private route: ActivatedRoute, private apiClient: ApiClient) {}
+  constructor(private route: ActivatedRoute, private apiClient: ApiClient, private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
@@ -47,14 +48,14 @@ export class AdminLevelComponent {
     if(this.level == undefined) return;
 
     if(this.teamPicked != this.level.teamPicked) {
-      if(this.teamPicked) this.apiClient.AdminAddTeamPick(this.level);
-      else this.apiClient.AdminRemoveTeamPick(this.level);
+      if(this.teamPicked) this.adminService.AdminAddTeamPick(this.level);
+      else this.adminService.AdminRemoveTeamPick(this.level);
     }
   }
 
   delete() {
     if(this.level == undefined) return;
-    this.apiClient.AdminDeleteLevel(this.level);
+    this.adminService.AdminDeleteLevel(this.level);
   }
 
   protected readonly faTrash = faTrash;
