@@ -39,10 +39,6 @@ export class SettingsComponent implements OnInit {
       Value: "default",
     },
     {
-      Name: "Hack",
-      Value: "hack",
-    },
-    {
       Name: "Ultra-Dark",
       Value: "ultraDark",
     },
