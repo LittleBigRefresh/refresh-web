@@ -21,10 +21,6 @@ export class RefreshNotificationComponent {
     return name as IconName;
   }
 
-  getMoment(timestamp: Date): string {
-    return moment(timestamp).fromNow();
-  }
-
   raiseClearEvent(): void {
     this.clearEvent.emit(this._notification.notificationId)
   }

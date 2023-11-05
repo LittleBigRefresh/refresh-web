@@ -14,5 +14,5 @@
 
   <p class="text-xl font-bold">{{registration.username}}</p>
   <p>{{registration.emailAddress}}</p>
-  <p-gentle>Expires {{getMoment(registration.expiryDate)}}</p-gentle>
+  <p-gentle>Expires <date [date]="registration.expiryDate"></date></p-gentle>
 </div>

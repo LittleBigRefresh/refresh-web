@@ -107,10 +107,6 @@ export class LevelComponent implements OnInit {
     this.getScores(this.level.levelId, false, this.scores.length + 1).subscribe();
   }
 
-  getMoment(timestamp: number | Date): string {
-    return moment(timestamp).fromNow();
-  }
-
   getGameVersion(version: number): string {
     return GameVersion[version].replace("LittleBigPlanet", "LBP");
   }

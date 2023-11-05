@@ -11,7 +11,7 @@
       </tooltip>
       <level-statistics [level]="_level" class="text-sm"></level-statistics>
       <p-gentle *ngIf="_level.publisher">by <user-link [user]="_level.publisher" class="pl-0.5"></user-link></p-gentle>
-      <p-gentle>Created in {{getGameVersion(_level.gameVersion)}} {{getMoment(_level.publishDate)}}</p-gentle>
+      <p-gentle>Created in {{getGameVersion(_level.gameVersion)}} <date [date]="_level.publishDate"></date></p-gentle>
     </div>
   </div>
 

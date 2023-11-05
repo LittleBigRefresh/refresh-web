@@ -20,10 +20,6 @@ export class AdminRegistrationsComponent implements OnInit {
     });
   }
 
-  getMoment(timestamp: Date): string {
-    return moment(timestamp).fromNow();
-  }
-
   remove(registration: AdminQueuedRegistration): void {
     this.adminService.AdminRemoveQueuedRegistration(registration);
     this.ngOnInit();

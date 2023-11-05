@@ -9,7 +9,7 @@
 <div *ngFor="let request of requests" class="bg-form-background px-5 py-3.5 rounded flex">
   <div class="w-full">
     <p class="text-xl font-bold">{{request.ipAddress}}</p>
-    <p-gentle>Sent {{getMoment(request.createdAt)}}</p-gentle>
+    <p-gentle>Sent <date [date]="request.createdAt"></date></p-gentle>
   </div>
   <div class="text-center align-top flex gap-2 text-xl float-right">
     <div class="rounded-full bg-success p-2.5 w-10 h-10 cursor-pointer" (click)="approve(request.ipAddress)">

@@ -15,9 +15,12 @@
           </span-gentle>
         </div>
         <div class="text-sm font-normal">
-          <span-gentle>Published for {{getGameVersion(level.gameVersion)}} {{ getMoment(level.publishDate) }}</span-gentle>
+          <span-gentle>Published for {{getGameVersion(level.gameVersion)}} </span-gentle>
+          <span-gentle>
+            <date [date]="level.publishDate"></date>
+          </span-gentle>
           <span-gentle *ngIf="level.publishDate != level.updateDate">,
-            last updated {{ getMoment(level.updateDate)}}</span-gentle>
+            last updated <date [date]="level.updateDate"></date></span-gentle>
         </div>
       </div>
 
@@ -86,12 +89,10 @@
             <span class="text-lg">{{score.score.toLocaleString(undefined)}} points</span>
 
             <span class="text-sm">
-                        Achieved by
-                        <b>
-                            <user-link [user]="score.players[0]"></user-link>
-                        </b>
-              {{getMoment(score.scoreSubmitted)}}
-                    </span>
+              Achieved by
+              <b><user-link [user]="score.players[0]"></user-link></b>
+              <date [date]="score.scoreSubmitted" class="ml-1"></date>
+            </span>
           </div>
         </a>
       </div>

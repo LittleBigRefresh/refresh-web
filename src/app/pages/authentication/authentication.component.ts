@@ -25,10 +25,6 @@ export class AuthenticationComponent implements OnInit {
       })
   }
 
-  getMoment(timestamp: Date): string {
-    return moment(timestamp).fromNow();
-  }
-
   approve(ipAddress: string) {
     this.apiClient.ApproveIpVerificationRequests(ipAddress).subscribe(() => {
       window.location.reload(); // TODO: reload the requests dynamically instead of ...this.

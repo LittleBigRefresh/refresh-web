@@ -27,10 +27,6 @@ export class ActivityEventComponent {
     this._contextIsLevel = contextIsLevel;
   }
 
-  getMoment(timestamp: number | Date): string {
-    return moment(timestamp).fromNow();
-  }
-
   getUserFromEvent(): User {
     if(this._page === undefined) return undefined!;
     if(this._event === undefined) return undefined!;

@@ -23,10 +23,6 @@ export class LevelPreviewComponent {
     this._description = description;
   }
 
-  getMoment(timestamp: number): string {
-    return moment(timestamp).fromNow();
-  }
-
   getGameVersion(version: number): string {
     return GameVersion[version].replace("LittleBigPlanet", "LBP");
   }

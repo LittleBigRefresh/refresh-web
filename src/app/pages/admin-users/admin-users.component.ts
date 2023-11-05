@@ -24,9 +24,6 @@ export class AdminUsersComponent {
       this.total = data.listInfo.totalItems;
     });
   }
-  getMoment(timestamp: Date): string {
-    return moment(timestamp).fromNow();
-  }
 
   getRole(role: number | undefined) {
     if(role == undefined) return "";

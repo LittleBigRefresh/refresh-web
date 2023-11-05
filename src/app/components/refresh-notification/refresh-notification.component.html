@@ -4,7 +4,9 @@
     {{_notification.title}}
   </span>
 
-  <span-gentle>{{getMoment(_notification.createdAt)}}</span-gentle>
+  <span-gentle>
+    <date [date]="_notification.createdAt"></date>
+  </span-gentle>
 
   <!-- close button-->
   <fa-icon class="float-right text-xl mr-2.5 text-secondary-bright cursor-pointer" [icon]="'xmark'" (click)="raiseClearEvent()"></fa-icon>

@@ -5,8 +5,8 @@ export interface Level {
   title: string
   description: string
   iconHash: string
-  publishDate: number
-  updateDate: number
+  publishDate: Date
+  updateDate: Date
   booRatings: number
   yayRatings: number
   hearts: number
