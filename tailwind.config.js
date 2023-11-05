@@ -87,9 +87,9 @@ module.exports = {
       },
       ultraDark: {
         "background": "#000000",
-        "header-background": "#0f0f0f",
-        "form-background": "#000000",
-        "backdrop": "#050505",
+        "header-background": "#040404",
+        "form-background": "#030303",
+        "backdrop": "#000000",
 
         "divider": "#000000",
 
@@ -98,7 +98,7 @@ module.exports = {
         "gentle": "#C3C3C3",
 
         "primary": "#723896",
-        "secondary": "#575757",
+        "secondary": "#373737",
         "teritary": "#0f0f0f",
 
         "secondary-bright": "#AAAAAA",
