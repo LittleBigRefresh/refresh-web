@@ -1,4 +1,4 @@
-<div *ngIf="_level">
+<ng-container *ngIf="_level">
   <div class="flex items-center gap-x-2">
     <div>
       <level-avatar [level]="_level" size="h-20 w-auto"></level-avatar>
@@ -15,11 +15,11 @@
     </div>
   </div>
 
-  <div *ngIf="_description && _level.description.length > 0">
+  <ng-container *ngIf="_description && _level.description.length > 0">
     <divider></divider>
-    <p>{{_level.description}}</p>
-  </div>
-</div>
+    <p class="overflow-hidden whitespace-pre-wrap">{{_level.description}}</p>
+  </ng-container>
+</ng-container>
 
 <div *ngIf="!_level" class="animate-pulse">
   <div class="flex items-center gap-x-2">
