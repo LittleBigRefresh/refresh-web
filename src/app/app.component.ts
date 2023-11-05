@@ -77,7 +77,7 @@ export class AppComponent {
 
   rightSideRouterLinks: HeaderLink[] = []
 
-  constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService, themeService: ThemeService) {
+  constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService, private themeService: ThemeService) {
     authService.userWatcher.subscribe((data) => this.handleUserUpdate(data))
     this.handleUserUpdate(undefined)
 
@@ -96,6 +96,10 @@ export class AppComponent {
         themeService.SetTheme("default");
       }
     }
+  }
+
+  isThemeHotdogStand(): boolean {
+    return this.themeService.GetTheme() == "hotdogStand";
   }
 
   handleUserUpdate(data: ExtendedUser | undefined) {

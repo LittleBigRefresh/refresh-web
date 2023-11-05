@@ -146,6 +146,37 @@ module.exports = {
         "api-remove": "#ea574d",
         "api-push": "#eeb231",
       },
+      hotdogStand: {
+        "background": "yellow",
+        "header-background": "#c53c38",
+        "form-background": "#c53c38",
+        "backdrop": "red",
+
+        "divider": "yellow",
+
+        "header-foreground": "yellow",
+        "foreground": "#f58c78",
+        "gentle": "#9F8775",
+
+        "primary": "#EE0000",
+        "secondary": "yellow",
+        "teritary": "#b53c18",
+
+        "secondary-bright": "white",
+
+        "success": "green",
+        "dangerous": "#ea574d",
+        "warning": "#eeb231",
+
+        "rank-gold": "#eeb231",
+        "rank-silver": "#FFF0E4",
+        "rank-bronze": "#FF8845",
+        "rank-other": "#8A7261",
+
+        "api-retrieve": "#79c501",
+        "api-remove": "#ea574d",
+        "api-push": "#eeb231",
+      },
       lighthouse: {
         "background": "#ededf0",
         "header-background": "#121212",

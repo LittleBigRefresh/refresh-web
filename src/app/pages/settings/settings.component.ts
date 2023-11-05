@@ -56,6 +56,10 @@ export class SettingsComponent implements OnInit {
       Value: "lighthouse",
     },
     {
+      Name: "Hotdog Stand",
+      Value: "hotdogStand",
+    },
+    {
       Name: "Steam Green",
       Value: "vgui",
     },
