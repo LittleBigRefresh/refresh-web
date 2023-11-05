@@ -33,9 +33,16 @@ export class AuthService {
         this.userWatcher = new EventEmitter<ExtendedUser | undefined>();
 
         const storedToken: string | null = this.tokenStorage.GetStoredGameToken();
+        const storedUser: ExtendedUser | null = this.tokenStorage.GetStoredUser();
 
         this._loggedIn = storedToken !== null;
         if (storedToken) {
+            if(storedUser) {
+                this._userId = storedUser.userId;
+                this.user = storedUser;
+                this.userWatcher.emit(this.user);
+            }
+
             this.GetMyUser(() => {
                 // only subscribe after getting user
                 this.userWatcher.subscribe((user) => this.onUserUpdate(user));
@@ -168,6 +175,7 @@ export class AuthService {
     private GetMyUser(callback: Function | null = null, tryingToRefresh: boolean = false) {
         this.apiRequestCreator.makeRequest<ExtendedUser>("GET", "users/me", undefined, (err) => {
             if (err.statusCode) {
+                this.tokenStorage.ClearStoredUser();
                 const refreshToken: string | null = this.tokenStorage.GetStoredRefreshToken();
 
                 if (!tryingToRefresh && refreshToken !== null) {
@@ -183,6 +191,7 @@ export class AuthService {
             .subscribe((data) => {
                 this.user = data;
                 this.userWatcher.emit(this.user);
+                this.tokenStorage.SetStoredUser(this.user);
                 if (callback) callback();
             });
     }
@@ -210,6 +219,7 @@ export class AuthService {
         this.apiRequestCreator.makeRequest("PUT", "logout", {}).subscribe();
 
         this.tokenStorage.ClearStoredGameToken();
+        this.tokenStorage.ClearStoredUser();
     }
 
     public ResetPassword(passwordSha512: string): void {
@@ -298,6 +308,7 @@ export class AuthService {
 
                 this.userWatcher.emit(undefined);
                 this.tokenStorage.ClearStoredGameToken();
+                this.tokenStorage.ClearStoredUser();
             });
     }
 
@@ -308,6 +319,7 @@ export class AuthService {
 
                 this.user = data;
                 this.userWatcher.emit(data);
+                this.tokenStorage.SetStoredUser(data);
             });
     }
 }
