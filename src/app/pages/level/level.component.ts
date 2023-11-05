@@ -35,6 +35,8 @@ export class LevelComponent implements OnInit {
   activity: ActivityPage | undefined
   ownUser: ExtendedUser | undefined;
 
+  isOwnUserOnline: boolean = false;
+
   scoreType: string = "1";
 
   scoreTypes: DropdownOption[] = [
@@ -87,6 +89,10 @@ export class LevelComponent implements OnInit {
     this.authService.userWatcher.subscribe((data) => {
       this.ownUser = data;
     });
+
+    this.authService.GetMyRoom().subscribe(data => {
+      this.isOwnUserOnline = data != undefined;
+    })
   }
 
   formChanged() {
