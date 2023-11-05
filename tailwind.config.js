@@ -60,6 +60,31 @@ module.exports = {
   plugins: [
     createThemes({
       default: defaultColors,
+      hack: {
+        "background": "#010101",
+        "header-background": "#010101",
+        "form-background": "#001100",
+        "backdrop": "#000000",
+
+        "divider": "#00EE00",
+
+        "header-foreground": "#00FF00",
+        "foreground": "#00FF00",
+        "gentle": "#00DD00",
+
+        "primary": "#009900",
+        "secondary": "#008800",
+        "teritary": "#001100",
+
+        "success": "#009900",
+        "dangerous": "#005500",
+        "warning": "#005500",
+
+        "rank-gold": "#00FF00",
+        "rank-silver": "#00AA00",
+        "rank-bronze": "#009900",
+        "rank-other": "#005500",
+      },
       ultraDark: {
         "background": "#000000",
         "header-background": "#0f0f0f",
