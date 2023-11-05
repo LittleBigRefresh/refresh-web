@@ -37,7 +37,7 @@ export class AuthService {
 
         this._loggedIn = storedToken !== null;
         if (storedToken) {
-            if(storedUser) {
+            if (storedUser) {
                 this._userId = storedUser.userId;
                 this.user = storedUser;
                 this.userWatcher.emit(this.user);
@@ -59,7 +59,7 @@ export class AuthService {
         };
 
         this.apiRequestCreator.makeRequest<ApiAuthenticationResponse>("POST", "refreshToken", payload, error => {
-            if(error.statusCode !== 403) return;
+            if (error.statusCode !== 403) return;
             this.tokenStorage.ClearStoredRefreshToken();
 
             this.bannerService.pushWarning("Session Expired", "Your session has expired, please sign in again.")
@@ -197,14 +197,15 @@ export class AuthService {
     }
 
     public GetMyRoom(): Observable<Room | undefined> {
-        if(!this.user) return of(undefined);
+        if (!this.user) return of(undefined);
 
         // If 5 minutes have passed, and we have a room cached
-        if((this.lastRoomUpdate > (Date.now() - 300 * 1000)) && this.currentRoom) {
+        if ((this.lastRoomUpdate > (Date.now() - 300 * 1000)) && this.currentRoom) {
             return of(this.currentRoom);
         }
 
-        return this.apiRequestCreator.makeRequest<Room>("GET", `rooms/uuid/${this.user.userId}`, null, (_: ApiError) => {})
+        return this.apiRequestCreator.makeRequest<Room>("GET", `rooms/uuid/${this.user.userId}`, null, (_: ApiError) => {
+        })
             .pipe(tap(data => {
                 this.lastRoomUpdate = Date.now();
                 this.currentRoom = data;
@@ -248,21 +249,21 @@ export class AuthService {
     }
 
     public SendPasswordResetRequest(email: string): void {
-      const body: ApiResetPasswordRequest = {
-        emailAddress: email
-      }
+        const body: ApiResetPasswordRequest = {
+            emailAddress: email
+        }
 
-      this.apiRequestCreator.makeRequest("PUT", "sendPasswordResetEmail", body)
-        .subscribe(() => {
-          this.router.navigateByUrl('/login');
+        this.apiRequestCreator.makeRequest("PUT", "sendPasswordResetEmail", body)
+            .subscribe(() => {
+                this.router.navigateByUrl('/login');
 
-          this.bannerService.push({
-            Color: 'success',
-            Icon: 'reply',
-            Title: "Sent Reset Code",
-            Text: "If the email you entered match an account, we will send a password reset request to that inbox.",
-          })
-        });
+                this.bannerService.push({
+                    Color: 'success',
+                    Icon: 'reply',
+                    Title: "Sent Reset Code",
+                    Text: "If the email you entered match an account, we will send a password reset request to that inbox.",
+                })
+            });
     }
 
     public VerifyEmail(code: string): void {

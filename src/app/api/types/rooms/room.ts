@@ -1,4 +1,4 @@
-import { RoomPlayer } from "./roomplayer"
+import {RoomPlayer} from "./roomplayer"
 
 export interface Room {
     RoomId: string

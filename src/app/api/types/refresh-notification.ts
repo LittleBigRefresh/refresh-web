@@ -1,10 +1,10 @@
 // weird name since JS has a type named Notification
 export interface RefreshNotification {
-  notificationId: string
-  title: string
-  text: string
+    notificationId: string
+    title: string
+    text: string
 
-  createdAt: Date
+    createdAt: Date
 
-  fontAwesomeIcon: string
+    fontAwesomeIcon: string
 }

@@ -1,74 +1,74 @@
-import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
-  selector: 'carousel',
-  templateUrl: './carousel.component.html'
+    selector: 'carousel',
+    templateUrl: './carousel.component.html'
 })
 export class CarouselComponent implements AfterViewInit {
-  @ViewChild("items") itemsHolder: ElementRef = null!;
-  carouselItems: HTMLElement[] = [];
+    @ViewChild("items") itemsHolder: ElementRef = null!;
+    carouselItems: HTMLElement[] = [];
 
-  currentIndex: number = 0;
-  shownItems: number = 0;
+    currentIndex: number = 0;
+    shownItems: number = 0;
 
-  ngAfterViewInit(): void {
-    this.carouselItems = Array.from<HTMLElement>(this.itemsHolder.nativeElement.children);
-    this.updateCarousel()
-  }
-
-  updateCarousel(): void {
-    const i: number = this.currentIndex;
-
-    for (let carouselItem of this.carouselItems) {
-      this.hideItem(carouselItem);
+    ngAfterViewInit(): void {
+        this.carouselItems = Array.from<HTMLElement>(this.itemsHolder.nativeElement.children);
+        this.updateCarousel()
     }
 
-    let top: number = 0;
-    this.shownItems = 0;
-    for (let carouselItem of this.carouselItems.slice(i, this.carouselItems.length)) {
-      this.showItem(carouselItem);
+    updateCarousel(): void {
+        const i: number = this.currentIndex;
 
-      const thisTop: number = carouselItem.getBoundingClientRect().top;
-      if(top !== 0 && thisTop !== top) {
-        this.hideItem(carouselItem);
-        break;
-      }
+        for (let carouselItem of this.carouselItems) {
+            this.hideItem(carouselItem);
+        }
 
-      top = thisTop;
-      this.shownItems++;
+        let top: number = 0;
+        this.shownItems = 0;
+        for (let carouselItem of this.carouselItems.slice(i, this.carouselItems.length)) {
+            this.showItem(carouselItem);
+
+            const thisTop: number = carouselItem.getBoundingClientRect().top;
+            if (top !== 0 && thisTop !== top) {
+                this.hideItem(carouselItem);
+                break;
+            }
+
+            top = thisTop;
+            this.shownItems++;
+        }
     }
-  }
 
-  hideItem(item: HTMLElement) {
-    item.hidden = true;
-  }
+    hideItem(item: HTMLElement) {
+        item.hidden = true;
+    }
 
-  showItem(item: HTMLElement) {
-    item.hidden = false;
-  }
+    showItem(item: HTMLElement) {
+        item.hidden = false;
+    }
 
-  private clampIndex(value: number): number {
-    const min: number = 0;
-    const max: number = Math.min(this.carouselItems.length, this.carouselItems.length - this.shownItems);
+    private clampIndex(value: number): number {
+        const min: number = 0;
+        const max: number = Math.min(this.carouselItems.length, this.carouselItems.length - this.shownItems);
 
-    return Math.min(Math.max(value, min), max);
-  }
+        return Math.min(Math.max(value, min), max);
+    }
 
-  increment(): void {
-    this.currentIndex = this.clampIndex(this.currentIndex + 1);
-    this.updateCarousel();
-  }
+    increment(): void {
+        this.currentIndex = this.clampIndex(this.currentIndex + 1);
+        this.updateCarousel();
+    }
 
-  canIncrement(): boolean {
-    return this.clampIndex(this.currentIndex + 1) > this.currentIndex;
-  }
+    canIncrement(): boolean {
+        return this.clampIndex(this.currentIndex + 1) > this.currentIndex;
+    }
 
-  decrement(): void {
-    this.currentIndex = this.clampIndex(this.currentIndex - 1);
-    this.updateCarousel();
-  }
+    decrement(): void {
+        this.currentIndex = this.clampIndex(this.currentIndex - 1);
+        this.updateCarousel();
+    }
 
-  canDecrement(): boolean {
-    return this.clampIndex(this.currentIndex - 1) < this.currentIndex;
-  }
+    canDecrement(): boolean {
+        return this.clampIndex(this.currentIndex - 1) < this.currentIndex;
+    }
 }

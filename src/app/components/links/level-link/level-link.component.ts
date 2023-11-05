@@ -3,16 +3,16 @@ import {Level} from "../../../api/types/level";
 import {GetAssetImageLink} from "../../../api/api-client.service";
 
 @Component({
-  selector: 'level-link',
-  templateUrl: './level-link.component.html'
+    selector: 'level-link',
+    templateUrl: './level-link.component.html'
 })
 export class LevelLinkComponent {
-  _level: Level | undefined = undefined;
+    _level: Level | undefined = undefined;
 
-  @Input()
-  set level(param: Level) {
-    this._level = param;
-  }
+    @Input()
+    set level(param: Level) {
+        this._level = param;
+    }
 
-  protected readonly GetAssetImageLink = GetAssetImageLink;
+    protected readonly GetAssetImageLink = GetAssetImageLink;
 }

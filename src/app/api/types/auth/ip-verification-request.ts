@@ -1,4 +1,4 @@
 export interface IpVerificationRequest {
-  ipAddress: string;
-  createdAt: Date;
+    ipAddress: string;
+    createdAt: Date;
 }

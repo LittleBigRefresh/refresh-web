@@ -1,5 +1,5 @@
-import { Level } from "./level"
-import { User } from "./user"
+import {Level} from "./level"
+import {User} from "./user"
 
 export interface Score {
     scoreId: string

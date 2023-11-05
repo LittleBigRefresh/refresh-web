@@ -2,49 +2,49 @@ import {Injectable} from "@angular/core";
 import {ExtendedUser} from "./types/extended-user";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TokenStorageService {
-  private readonly GameTokenKey: string = "game_token";
-  private readonly RefreshTokenKey: string = "refresh_token";
-  private readonly UserKey: string = "cached_user_data";
+    private readonly GameTokenKey: string = "game_token";
+    private readonly RefreshTokenKey: string = "refresh_token";
+    private readonly UserKey: string = "cached_user_data";
 
-  public GetStoredGameToken(): string | null {
-    return localStorage.getItem(this.GameTokenKey);
-  }
+    public GetStoredGameToken(): string | null {
+        return localStorage.getItem(this.GameTokenKey);
+    }
 
-  public SetStoredGameToken(token: string): void {
-    localStorage.setItem(this.GameTokenKey, token);
-  }
+    public SetStoredGameToken(token: string): void {
+        localStorage.setItem(this.GameTokenKey, token);
+    }
 
-  public ClearStoredGameToken(): void {
-    localStorage.removeItem(this.GameTokenKey);
-  }
+    public ClearStoredGameToken(): void {
+        localStorage.removeItem(this.GameTokenKey);
+    }
 
-  public GetStoredRefreshToken(): string | null {
-    return localStorage.getItem(this.RefreshTokenKey);
-  }
+    public GetStoredRefreshToken(): string | null {
+        return localStorage.getItem(this.RefreshTokenKey);
+    }
 
-  public SetStoredRefreshToken(refreshToken: string): void {
-    localStorage.setItem(this.RefreshTokenKey, refreshToken);
-  }
+    public SetStoredRefreshToken(refreshToken: string): void {
+        localStorage.setItem(this.RefreshTokenKey, refreshToken);
+    }
 
-  public ClearStoredRefreshToken(): void {
-    localStorage.removeItem(this.RefreshTokenKey);
-  }
+    public ClearStoredRefreshToken(): void {
+        localStorage.removeItem(this.RefreshTokenKey);
+    }
 
-  public GetStoredUser(): ExtendedUser | null {
-    const str = localStorage.getItem(this.UserKey);
-    if(!str) return null;
+    public GetStoredUser(): ExtendedUser | null {
+        const str = localStorage.getItem(this.UserKey);
+        if (!str) return null;
 
-    return JSON.parse(str);
-  }
+        return JSON.parse(str);
+    }
 
-  public SetStoredUser(user: ExtendedUser): void {
-    localStorage.setItem(this.UserKey, JSON.stringify(user));
-  }
+    public SetStoredUser(user: ExtendedUser): void {
+        localStorage.setItem(this.UserKey, JSON.stringify(user));
+    }
 
-  public ClearStoredUser(): void {
-    localStorage.removeItem(this.UserKey);
-  }
+    public ClearStoredUser(): void {
+        localStorage.removeItem(this.UserKey);
+    }
 }

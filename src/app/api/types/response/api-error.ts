@@ -1,6 +1,6 @@
 export interface ApiError {
-  name: string;
-  message: string;
-  statusCode: number;
-  warning: boolean | undefined;
+    name: string;
+    message: string;
+    statusCode: number;
+    warning: boolean | undefined;
 }

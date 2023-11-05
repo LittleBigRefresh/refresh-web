@@ -15,162 +15,160 @@ import {Route} from "./types/documentation/route";
 import {ActivityPage} from "./types/activity/activity-page";
 import {ApiListResponse} from "./types/response/api-list-response";
 import {IpVerificationRequest} from "./types/auth/ip-verification-request";
-import {ExtendedUser} from "./types/extended-user";
 import {Instance} from "./types/instance";
-import {Announcement} from "./types/announcement";
-import {AdminPunishUserRequest} from "./types/admin/admin-punish-user-request";
-import {AdminQueuedRegistration} from "./types/admin/admin-queued-registration";
 import {ApiRequestCreator} from "./api-request.creator";
 import {LevelEditRequest} from "./types/level-edit-request";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
-  private categories: Category[] | undefined;
+    private categories: Category[] | undefined;
 
-  private statistics: Statistics | undefined;
-  private instance: Instance | undefined;
+    private statistics: Statistics | undefined;
+    private instance: Instance | undefined;
 
-  constructor(private apiRequestCreator: ApiRequestCreator, private bannerService: BannerService) {}
-
-  private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
-    return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
-  }
-
-  private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
-    return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
-  }
-
-  public GetServerStatistics(): Observable<Statistics> {
-    if(this.statistics !== undefined) {
-      return new Observable<Statistics>(observer => {
-        observer.next(this.statistics!)
-      });
+    constructor(private apiRequestCreator: ApiRequestCreator, private bannerService: BannerService) {
     }
 
-    return this.makeRequest<Statistics>("GET", "statistics")
-      .pipe(tap(data => {
-        this.statistics = data;
-      }))
-  }
-
-  public GetInstanceInformation(): Observable<Instance> {
-    if(this.instance !== undefined) {
-      return new Observable<Instance>(observer => {
-        observer.next(this.instance!)
-      });
+    private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
+        return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
     }
 
-    return this.makeRequest<Instance>("GET", "instance")
-      .pipe(tap(data => {
-        this.instance = data;
-      }))
-  }
-
-  public GetUserByUsername(username: string): Observable<User> {
-    return this.makeRequest<User>("GET", "users/name/" + username)
-  }
-
-  public GetUserByUuid(uuid: string): Observable<User> {
-    return this.makeRequest<User>("GET", "users/uuid/" + uuid)
-  }
-
-  public GetLevelCategories(): Observable<Category[]> {
-    if (this.categories !== undefined) {
-      return new Observable<Category[]>(observer => {
-        observer.next(this.categories!)
-      });
+    private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
+        return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
     }
 
-    return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
-  }
+    public GetServerStatistics(): Observable<Statistics> {
+        if (this.statistics !== undefined) {
+            return new Observable<Statistics>(observer => {
+                observer.next(this.statistics!)
+            });
+        }
 
-  public GetLevelListing(route: string, count: number = 20, skip: number = 0): Observable<ApiListResponse<Level>> {
-    return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}`);
-  }
+        return this.makeRequest<Statistics>("GET", "statistics")
+            .pipe(tap(data => {
+                this.statistics = data;
+            }))
+    }
 
-  public GetLevelById(id: number): Observable<Level> {
-    return this.makeRequest<Level>("GET", "levels/id/" + id)
-  }
+    public GetInstanceInformation(): Observable<Instance> {
+        if (this.instance !== undefined) {
+            return new Observable<Instance>(observer => {
+                observer.next(this.instance!)
+            });
+        }
 
-  public GetUsersRoom(userUuid: string): Observable<Room> {
-    return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid, null, (_: ApiError) => {})
-  }
+        return this.makeRequest<Instance>("GET", "instance")
+            .pipe(tap(data => {
+                this.instance = data;
+            }))
+    }
 
-  public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<ApiListResponse<Score>> {
-    return this.makeListRequest<Score>("GET", "scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
-  }
+    public GetUserByUsername(username: string): Observable<User> {
+        return this.makeRequest<User>("GET", "users/name/" + username)
+    }
 
-  public GetRecentPhotos(count: number = 20, skip: number = 0) {
-    return this.makeListRequest<Photo>("GET", "photos" + "?count=" + count + "&skip=" + skip);
-  }
+    public GetUserByUuid(uuid: string): Observable<User> {
+        return this.makeRequest<User>("GET", "users/uuid/" + uuid)
+    }
 
-  public GetPhotoById(id: number) {
-    return this.makeRequest<Photo>("GET", "photos/id/" + id);
-  }
+    public GetLevelCategories(): Observable<Category[]> {
+        if (this.categories !== undefined) {
+            return new Observable<Category[]>(observer => {
+                observer.next(this.categories!)
+            });
+        }
 
-  public GetNotifications(): Observable<ApiListResponse<RefreshNotification>> {
-    return this.makeListRequest<RefreshNotification>("GET", "notifications")
-  }
+        return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
+    }
 
-  public ClearNotification(notificationId: string) {
-    return this.makeRequest("DELETE", "notifications/" + notificationId);
-  }
+    public GetLevelListing(route: string, count: number = 20, skip: number = 0): Observable<ApiListResponse<Level>> {
+        return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}`);
+    }
 
-  public ClearAllNotifications() {
-    return this.makeRequest("DELETE", "notifications");
-  }
+    public GetLevelById(id: number): Observable<Level> {
+        return this.makeRequest<Level>("GET", "levels/id/" + id)
+    }
 
-  public GetDocumentation() {
-    return this.makeListRequest<Route>("GET", "documentation");
-  }
+    public GetUsersRoom(userUuid: string): Observable<Room> {
+        return this.makeRequest<Room>("GET", "rooms/uuid/" + userUuid, null, (_: ApiError) => {
+        })
+    }
 
-  public GetActivity(count: number, skip: number): Observable<ActivityPage> {
-    return this.makeRequest<ActivityPage>("GET", `activity?skip=${skip}&count=${count}`);
-  }
+    public GetScoresForLevel(levelId: number, scoreType: number, skip: number): Observable<ApiListResponse<Score>> {
+        return this.makeListRequest<Score>("GET", "scores/" + levelId + "/" + scoreType + "?showAll=false&count=10&skip=" + skip)
+    }
 
-  public GetActivityForLevel(levelId: number, count: number, skip: number): Observable<ActivityPage> {
-    return this.makeRequest<ActivityPage>("GET", "levels/id/" + levelId + "/activity?skip=" + skip + "&count=" + count);
-  }
+    public GetRecentPhotos(count: number = 20, skip: number = 0) {
+        return this.makeListRequest<Photo>("GET", "photos" + "?count=" + count + "&skip=" + skip);
+    }
 
-  public GetIpVerificationRequests(): Observable<ApiListResponse<IpVerificationRequest>> {
-    return this.makeListRequest<IpVerificationRequest>("GET", "verificationRequests?skip=0&count=100");
-  }
+    public GetPhotoById(id: number) {
+        return this.makeRequest<Photo>("GET", "photos/id/" + id);
+    }
 
-  public ApproveIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
-    return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/approve", ipAddress);
-  }
+    public GetNotifications(): Observable<ApiListResponse<RefreshNotification>> {
+        return this.makeListRequest<RefreshNotification>("GET", "notifications")
+    }
 
-  public DenyIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
-    return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
-  }
+    public ClearNotification(notificationId: string) {
+        return this.makeRequest("DELETE", "notifications/" + notificationId);
+    }
 
-  public EditLevel(level: LevelEditRequest, id: number): void {
-    this.apiRequestCreator.makeRequest("PATCH", "levels/id/" + id, level)
-      .subscribe(_ => {
-        this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
-      });
-  }
+    public ClearAllNotifications() {
+        return this.makeRequest("DELETE", "notifications");
+    }
 
-  public DeleteLevel(level: Level): void {
-    this.apiRequestCreator.makeRequest("DELETE", "levels/id/" + level.levelId)
-      .subscribe(_ => {
-        this.bannerService.pushWarning("Level Deleted", `${level.title} was successfully removed.`);
-      });
-  }
+    public GetDocumentation() {
+        return this.makeListRequest<Route>("GET", "documentation");
+    }
 
-  public SetLevelAsOverride(level: Level): void {
-    this.apiRequestCreator.makeRequest("POST", `levels/id/${level.levelId}/setAsOverride`)
-      .subscribe(_ => {
-        this.bannerService.pushSuccess("Check your game!", `In LBP, head to 'Lucky Dip' (or any category) and '${level.title}' will show up!`);
-      });
-  }
+    public GetActivity(count: number, skip: number): Observable<ActivityPage> {
+        return this.makeRequest<ActivityPage>("GET", `activity?skip=${skip}&count=${count}`);
+    }
+
+    public GetActivityForLevel(levelId: number, count: number, skip: number): Observable<ActivityPage> {
+        return this.makeRequest<ActivityPage>("GET", "levels/id/" + levelId + "/activity?skip=" + skip + "&count=" + count);
+    }
+
+    public GetIpVerificationRequests(): Observable<ApiListResponse<IpVerificationRequest>> {
+        return this.makeListRequest<IpVerificationRequest>("GET", "verificationRequests?skip=0&count=100");
+    }
+
+    public ApproveIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
+        return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/approve", ipAddress);
+    }
+
+    public DenyIpVerificationRequests(ipAddress: string): Observable<IpVerificationRequest> {
+        return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
+    }
+
+    public EditLevel(level: LevelEditRequest, id: number): void {
+        this.apiRequestCreator.makeRequest("PATCH", "levels/id/" + id, level)
+            .subscribe(_ => {
+                this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
+            });
+    }
+
+    public DeleteLevel(level: Level): void {
+        this.apiRequestCreator.makeRequest("DELETE", "levels/id/" + level.levelId)
+            .subscribe(_ => {
+                this.bannerService.pushWarning("Level Deleted", `${level.title} was successfully removed.`);
+            });
+    }
+
+    public SetLevelAsOverride(level: Level): void {
+        this.apiRequestCreator.makeRequest("POST", `levels/id/${level.levelId}/setAsOverride`)
+            .subscribe(_ => {
+                this.bannerService.pushSuccess("Check your game!", `In LBP, head to 'Lucky Dip' (or any category) and '${level.title}' will show up!`);
+            });
+    }
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
-  return GetAssetImageLink(large ? photo.largeHash : photo.smallHash);
+    return GetAssetImageLink(large ? photo.largeHash : photo.smallHash);
 }
 
 export function GetAssetImageLink(hash: string | undefined): string {
-  if (hash === undefined || hash === null || hash === "0" || hash.startsWith('g')) return "";
-  return environment.apiBaseUrl + "/assets/" + hash + "/image";
+    if (hash === undefined || hash === null || hash === "0" || hash.startsWith('g')) return "";
+    return environment.apiBaseUrl + "/assets/" + hash + "/image";
 }

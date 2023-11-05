@@ -6,12 +6,12 @@ import {ExtendedUser} from "../types/extended-user";
 import {UserRoles} from "../types/user-roles";
 
 export const adminAuthenticationGuard: CanActivateFn = () => {
-  const user: ExtendedUser | undefined = inject(AuthService).user;
-  if(!user || user.role < UserRoles.Admin) {
-    inject(Router).navigate(['/']);
-    inject(BannerService).pushError("Unauthorized", "You lack the permissions to view this page.")
-    return false;
-  }
+    const user: ExtendedUser | undefined = inject(AuthService).user;
+    if (!user || user.role < UserRoles.Admin) {
+        inject(Router).navigate(['/']);
+        inject(BannerService).pushError("Unauthorized", "You lack the permissions to view this page.")
+        return false;
+    }
 
-  return true;
+    return true;
 }

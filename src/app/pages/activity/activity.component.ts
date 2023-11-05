@@ -7,43 +7,43 @@ import {TitleService} from "../../services/title.service";
 const pageSize: number = 20;
 
 @Component({
-  selector: 'app-activity',
-  templateUrl: './activity.component.html'
+    selector: 'app-activity',
+    templateUrl: './activity.component.html'
 })
 export class ActivityComponent implements OnInit {
-  constructor(private apiClient: ApiClient, titleService: TitleService) {
-    titleService.setTitle("Recent Activity");
-  }
+    constructor(private apiClient: ApiClient, titleService: TitleService) {
+        titleService.setTitle("Recent Activity");
+    }
 
-  activity: ActivityPage[] | undefined;
-  private pageNumber: number = 0;
-  nextPageIndex: number = pageSize + 1;
+    activity: ActivityPage[] | undefined;
+    private pageNumber: number = 0;
+    nextPageIndex: number = pageSize + 1;
 
-  ngOnInit(): void {
-    this.getActivity();
-  }
+    ngOnInit(): void {
+        this.getActivity();
+    }
 
-  getActivity(skip: number = 0) {
-    this.apiClient.GetActivity(pageSize, skip).subscribe((data) => {
-      if(this.activity == undefined) this.activity = [];
-      this.activity = this.activity.concat(data);
+    getActivity(skip: number = 0) {
+        this.apiClient.GetActivity(pageSize, skip).subscribe((data) => {
+            if (this.activity == undefined) this.activity = [];
+            this.activity = this.activity.concat(data);
 
-      if(data.events.length !== 0) {
-        this.pageNumber++;
-        this.nextPageIndex = (pageSize * this.pageNumber) + 1;
-      } else {
-        this.nextPageIndex = 0;
-      }
-    })
-  }
+            if (data.events.length !== 0) {
+                this.pageNumber++;
+                this.nextPageIndex = (pageSize * this.pageNumber) + 1;
+            } else {
+                this.nextPageIndex = 0;
+            }
+        })
+    }
 
-  loadNextPage(intersecting: boolean): void {
-    if(!intersecting) return;
+    loadNextPage(intersecting: boolean): void {
+        if (!intersecting) return;
 
-    if(this.nextPageIndex <= 0) return; // This is the server telling us there's no more data
+        if (this.nextPageIndex <= 0) return; // This is the server telling us there's no more data
 
-    this.getActivity(this.nextPageIndex);
-  }
+        this.getActivity(this.nextPageIndex);
+    }
 
-  protected readonly GenerateEmptyList = GenerateEmptyList;
+    protected readonly GenerateEmptyList = GenerateEmptyList;
 }

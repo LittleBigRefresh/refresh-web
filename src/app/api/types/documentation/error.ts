@@ -1,4 +1,4 @@
 export interface PotentialError {
-  name: string;
-  occursWhen: string;
+    name: string;
+    occursWhen: string;
 }

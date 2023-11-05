@@ -1,4 +1,4 @@
 export interface AdminPunishUserRequest {
-  expiryDate: Date
-  reason: string
+    expiryDate: Date
+    reason: string
 }

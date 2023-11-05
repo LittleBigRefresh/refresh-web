@@ -3,16 +3,16 @@ import {User} from "../../../api/types/user";
 import {GetAssetImageLink} from "../../../api/api-client.service";
 
 @Component({
-  selector: 'user-link',
-  templateUrl: './user-link.component.html'
+    selector: 'user-link',
+    templateUrl: './user-link.component.html'
 })
 export class UserLinkComponent {
-  _user: User | undefined = undefined;
+    _user: User | undefined = undefined;
 
-  @Input()
-  set user(param: User) {
-    this._user = param;
-  }
+    @Input()
+    set user(param: User) {
+        this._user = param;
+    }
 
-  protected readonly GetAssetImageLink = GetAssetImageLink;
+    protected readonly GetAssetImageLink = GetAssetImageLink;
 }

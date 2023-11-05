@@ -1,3 +1,3 @@
 export interface ApiResetPasswordRequest {
-  emailAddress: string
+    emailAddress: string
 }

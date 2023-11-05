@@ -10,71 +10,72 @@ import {faCancel, faCertificate, faFloppyDisk, faPencil, faTrash} from "@fortawe
 import {LevelEditRequest} from "../../api/types/level-edit-request";
 
 @Component({
-  selector: 'edit-level',
-  templateUrl: './edit-level.component.html'
+    selector: 'edit-level',
+    templateUrl: './edit-level.component.html'
 })
-export class EditLevelComponent implements OnInit{
-  level: Level | undefined;
-  ownUser: ExtendedUser | undefined;
+export class EditLevelComponent implements OnInit {
+    level: Level | undefined;
+    ownUser: ExtendedUser | undefined;
 
-  title: string = "";
-  description: string = "";
+    title: string = "";
+    description: string = "";
 
-  constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      const id = params.get('id') as number | null;
-      if(id == null) return;
-      this.apiClient.GetLevelById(id)
-        .pipe(catchError((error: HttpErrorResponse, caught) => {
-          console.warn(error);
-          if (error.status === 404) {
-            this.router.navigate(["/404"]);
-            return of(undefined);
-          }
-
-          return caught;
-        }))
-        .subscribe(data => {
-          this.level = data;
-          if(data === undefined) return;
-
-          this.title = data.title;
-          this.description = data.description;
-        });
-    });
-
-    this.ownUser = this.authService.user;
-    this.authService.userWatcher.subscribe((data) => {
-      this.ownUser = data;
-    });
-  }
-
-  update() {
-    if(this.level == undefined) return;
-
-    const payload: LevelEditRequest = {
-      title: this.title,
-      description: this.description,
-      iconHash: undefined
+    constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) {
     }
 
-    this.apiClient.EditLevel(payload, this.level.levelId)
-  }
+    ngOnInit(): void {
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const id = params.get('id') as number | null;
+            if (id == null) return;
+            this.apiClient.GetLevelById(id)
+                .pipe(catchError((error: HttpErrorResponse, caught) => {
+                    console.warn(error);
+                    if (error.status === 404) {
+                        this.router.navigate(["/404"]);
+                        return of(undefined);
+                    }
 
-  cancel() {
-    window.history.back();
-  }
+                    return caught;
+                }))
+                .subscribe(data => {
+                    this.level = data;
+                    if (data === undefined) return;
 
-  delete() {
-    if(this.level == undefined) return;
-    this.apiClient.DeleteLevel(this.level)
-  }
+                    this.title = data.title;
+                    this.description = data.description;
+                });
+        });
 
-  protected readonly faCertificate = faCertificate;
-  protected readonly faPencil = faPencil;
-  protected readonly faFloppyDisk = faFloppyDisk;
-  protected readonly faTrash = faTrash;
-  protected readonly faCancel = faCancel;
+        this.ownUser = this.authService.user;
+        this.authService.userWatcher.subscribe((data) => {
+            this.ownUser = data;
+        });
+    }
+
+    update() {
+        if (this.level == undefined) return;
+
+        const payload: LevelEditRequest = {
+            title: this.title,
+            description: this.description,
+            iconHash: undefined
+        }
+
+        this.apiClient.EditLevel(payload, this.level.levelId)
+    }
+
+    cancel() {
+        window.history.back();
+    }
+
+    delete() {
+        if (this.level == undefined) return;
+        this.apiClient.DeleteLevel(this.level)
+    }
+
+    protected readonly faCertificate = faCertificate;
+    protected readonly faPencil = faPencil;
+    protected readonly faFloppyDisk = faFloppyDisk;
+    protected readonly faTrash = faTrash;
+    protected readonly faCancel = faCancel;
 }

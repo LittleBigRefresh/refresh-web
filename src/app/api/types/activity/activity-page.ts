@@ -4,8 +4,8 @@ import {ActivityEvent} from "./activity-event";
 import {Score} from "../score";
 
 export interface ActivityPage {
-  events: ActivityEvent[];
-  users: User[];
-  levels: Level[];
-  scores: Score[];
+    events: ActivityEvent[];
+    users: User[];
+    levels: Level[];
+    scores: Score[];
 }

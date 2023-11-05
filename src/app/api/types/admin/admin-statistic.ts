@@ -1,4 +1,4 @@
 export interface AdminStatistic {
-  count: number;
-  unit: string;
+    count: number;
+    unit: string;
 }

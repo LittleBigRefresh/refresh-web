@@ -1,4 +1,4 @@
-import { User } from "./user";
+import {User} from "./user";
 import {PhotoSubject} from "./photo-subject";
 import {Level} from "./level";
 
