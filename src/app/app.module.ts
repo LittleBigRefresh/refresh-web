@@ -90,6 +90,7 @@ import { EditLevelComponent } from './pages/edit-level/edit-level.component';
 import {FormsModule} from "@angular/forms";
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { DateComponent } from './components/date/date.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 @NgModule({
     declarations: [
@@ -154,6 +155,7 @@ import { DateComponent } from './components/date/date.component';
         EditLevelComponent,
         ForgotPasswordComponent,
         DateComponent,
+        StatisticsComponent,
     ],
     imports: [
         BrowserModule,

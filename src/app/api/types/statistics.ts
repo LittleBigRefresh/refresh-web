@@ -1,3 +1,5 @@
+import {RequestStatistics} from "./request-statistics";
+
 export interface Statistics {
   totalLevels: number
   totalUsers: number
@@ -5,4 +7,6 @@ export interface Statistics {
   totalEvents: number
   currentRoomCount: number
   currentIngamePlayersCount: number
+
+  requestStatistics : RequestStatistics
 }

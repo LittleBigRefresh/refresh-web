@@ -30,6 +30,7 @@ import {authenticationGuard} from "./api/guards/authentication.guard";
 import {adminAuthenticationGuard} from "./api/guards/admin-authentication.guard";
 import {noAuthenticationGuard} from "./api/guards/no-authentication.guard";
 import {ForgotPasswordComponent} from "./pages/forgot-password/forgot-password.component";
+import {StatisticsComponent} from "./pages/statistics/statistics.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -65,8 +66,10 @@ const routes: Routes = [
   { path: "photo/:id", component: PhotoPageComponent },
   { path: "notifications", component: NotificationListingComponent, canActivate: [authenticationGuard] },
   { path: "activity", component: ActivityComponent },
+
   { path: "docs", redirectTo: "documentation" },
   { path: "documentation", component: DocumentationComponent },
+  { path: "statistics", component: StatisticsComponent },
 
   { path: "admin", component: AdminPanelComponent, canActivate: [adminAuthenticationGuard] },
   { path: "admin/level/:id", component: AdminLevelComponent, canActivate: [adminAuthenticationGuard] },

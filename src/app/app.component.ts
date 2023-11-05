@@ -6,7 +6,7 @@ import {
   faCertificate, faExclamationTriangle,
   faFireAlt,
   faGear,
-  faSignIn,
+  faSignIn, faSquarePollVertical,
   faWrench
 } from '@fortawesome/free-solid-svg-icons';
 import {ApiClient, GetAssetImageLink} from './api/api-client.service';
@@ -110,6 +110,7 @@ export class AppComponent {
       }
 
       this.rightSideRouterLinks.push(new HeaderLink("API Documentation", "/documentation", faBookBookmark))
+      this.rightSideRouterLinks.push(new HeaderLink("Server Statistics", "/statistics", faSquarePollVertical))
       this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell))
       this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
     }
