@@ -62,6 +62,10 @@ export class SettingsComponent implements OnInit {
       Name: "Steam Green",
       Value: "vgui",
     },
+    {
+      Name: "Chicago",
+      Value: "chicago"
+    }
   ]
 
   theme: string;

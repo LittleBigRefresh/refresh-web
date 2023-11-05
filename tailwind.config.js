@@ -254,6 +254,37 @@ module.exports = {
         // "ForegroundPositive": "#37ffff",
         // "ForegroundVisited": "#4cb07b",
       },
+      chicago: {
+        "background": "#008081",
+        "header-background": "#000080",
+        "form-background": "#FFFFFF",
+        "backdrop": "#c0c0c0",
+
+        "divider": "#c0c0c0",
+
+        "header-foreground": "#FFFFFF",
+        "foreground": "#000000",
+        "gentle": "#777777",
+
+        "primary": "#54fcfc",
+        "secondary": "#808080",
+        "teritary": "#808080",
+
+        "secondary-bright": "#FFFFFF",
+
+        "success": "#54fc54",
+        "dangerous": "#fc5454",
+        "warning": "#fcfc54",
+
+        "rank-gold": "#fcfc54",
+        "rank-silver": "#FFFFFF",
+        "rank-bronze": "#a85400",
+        "rank-other": "#ABABAB",
+
+        "api-retrieve": "#54fc54",
+        "api-remove": "#fc5454",
+        "api-push": "#54fcfc"
+      }
     })
   ],
   safelist: [ // force generation for notifications
