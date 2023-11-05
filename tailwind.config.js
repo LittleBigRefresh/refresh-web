@@ -53,6 +53,7 @@ module.exports = {
     colors: defaultColors,
     backgroundImage: {
       "hero": "url('/assets/hero.svg')",
+      "ss-hero": "url('/assets/ss-hero.png')",
       "logo": "url('/assets/logo.svg')",
     },
   },

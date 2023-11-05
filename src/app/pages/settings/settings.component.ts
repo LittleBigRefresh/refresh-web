@@ -33,7 +33,6 @@ export class SettingsComponent implements OnInit {
 
   themingSupported: boolean;
 
-
   themes: DropdownOption[] = [
     {
       Name: "Default",
