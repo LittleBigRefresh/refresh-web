@@ -20,10 +20,12 @@
 <div class="flex gap-10">
   <div class="w-[19rem]">
     <p class="text-xl font-bold pb-2.5">Create</p>
-    <form-input name="Title" [icon]="faBullhorn" [(value)]="announcementTitle"></form-input>
-    <form-input name="Body" [icon]="faPencil" [(value)]="announcementBody"></form-input>
+    <form class="flex flex-col gap-y-1">
+      <form-input name="Title" [icon]="faBullhorn" [(value)]="announcementTitle"></form-input>
+      <form-input name="Body" [icon]="faPencil" [(value)]="announcementBody"></form-input>
 
-    <primary-button [icon]="faCheck" text="Publish" (click)="postAnnouncement()" class="w-[19rem] text-center"></primary-button>
+      <primary-button [icon]="faCheck" text="Publish" (click)="postAnnouncement()" class="w-[19rem] text-center my-1.5"></primary-button>
+    </form>
   </div>
   <div class="w-full">
     <p class="text-xl font-bold">Preview</p>
