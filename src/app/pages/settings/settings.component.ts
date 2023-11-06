@@ -7,7 +7,7 @@ import {
     faEnvelope,
     faFloppyDisk,
     faGamepad,
-    faKey,
+    faKey, faLeftRight,
     faPencil,
     faTrash
 } from "@fortawesome/free-solid-svg-icons";
@@ -69,10 +69,12 @@ export class SettingsComponent implements OnInit {
     ]
 
     theme: string;
+    useFullPageWidth: boolean;
 
     constructor(private authService: AuthService, private themeService: ThemeService) {
         this.themingSupported = themeService.IsThemingSupported();
         this.theme = themeService.GetTheme();
+        this.useFullPageWidth = themeService.GetUseFullPageWidth();
     }
 
     ngOnInit(): void {
@@ -108,6 +110,7 @@ export class SettingsComponent implements OnInit {
 
     themeChanged() {
         this.themeService.SetTheme(this.theme);
+        this.themeService.SetUseFullPageWidth(this.useFullPageWidth);
     }
 
     protected readonly faPencil = faPencil;
@@ -119,4 +122,5 @@ export class SettingsComponent implements OnInit {
     protected readonly faCamera = faCamera;
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faCancel = faCancel;
+    protected readonly faLeftRight = faLeftRight;
 }

@@ -33,6 +33,8 @@
   <div class="justify-self-end" *ngIf="themingSupported">
     <page-header class="text-3xl">Appearance <span-gentle>(beta)</span-gentle></page-header>
     <form-dropdown name="Theme" [options]="themes" (change)="themeChanged()" [(value)]="theme"></form-dropdown>
+    <br>
+    <form-checkbox [icon]="faLeftRight" name="Use full page width" (change)="themeChanged()" [(value)]="useFullPageWidth"></form-checkbox>
   </div>
 </div>
 
