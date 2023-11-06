@@ -2,11 +2,11 @@
 <p>Howdy, {{user?.username}}! This is where you manage and view information about {{instance?.instanceName}}.</p><br>
 
 <div class="flex gap-10">
-  <div *ngFor="let s of statistics" class="bg-form-background grow text-center rounded px-5 py-2.5">
+  <container *ngFor="let s of statistics" class="grow text-center rounded">
     <p class="text-2xl font-bold capitalize">Total {{s.unit}}s</p>
     <divider></divider>
     <p class="text-xl">{{s.count}} {{s.unit}}s</p>
-  </div>
+  </container>
 </div>
 
 <div class="mt-3 flex gap-x-2.5">
