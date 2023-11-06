@@ -3,9 +3,9 @@
 <div *ngIf="photos">
   <p>Users have uploaded {{total}} photos!</p>
   <ngx-masonry [options]="masonryOptions" [ordered]="true">
-    <div ngxMasonryItem *ngFor="let photo of photos" class="rounded-md bg-form-background m-1 p-2.5 masonry-grid-item">
+    <container ngxMasonryItem *ngFor="let photo of photos" class="masonry-grid-item">
       <photo [photo]="photo"></photo>
-    </div>
+    </container>
   </ngx-masonry>
   <div intersectionObserver (visibilityChange)="loadNextPage($event)"></div>
 
@@ -15,9 +15,9 @@
 <div *ngIf="!photos">
   <div class="inline-block h-5 w-56 bg-secondary rounded-full pt-2.5 animate-pulse"></div>
   <ngx-masonry [options]="masonryOptions" [ordered]="true">
-    <div ngxMasonryItem *ngFor="let i of GenerateEmptyList(20)"
-         class="rounded-md bg-form-background m-1 p-2.5 masonry-grid-item">
+    <container ngxMasonryItem *ngFor="let i of GenerateEmptyList(20)"
+         class="m-1 masonry-grid-item">
       <photo [photo]=""></photo>
-    </div>
+    </container>
   </ngx-masonry>
 </div>

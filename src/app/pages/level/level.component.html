@@ -57,8 +57,8 @@
   </div>
 </page-header-block>
 
-<div class="flex flex-row gap-2.5 max-md:flex-col">
-  <div class="bg-form-background rounded p-5 mt-5 w-full">
+<div class="flex flex-row gap-2.5 max-md:flex-col pt-5">
+  <container class="w-full">
     <div class="flex">
       <h2 class="text-3xl font-bold flex-grow">Leaderboard</h2>
       <form-dropdown *ngIf="level?.gameVersion !== 4" name="Score Type" [options]="scoreTypes" (change)="this.formChanged()" [(value)]="scoreType"></form-dropdown>
@@ -101,8 +101,8 @@
     <div *ngIf="this.scores !== undefined && this.scores!.length % 10 == 0 && this.scores!.length !== 0">
       <secondary-button text="Load more" (click)="loadMoreScores()"></secondary-button>
     </div>
-  </div>
-  <div class="bg-form-background rounded p-5 mt-5 w-full">
+  </container>
+  <container class="w-full">
     <h2 class="text-3xl font-bold">Recent Activity</h2>
     <divider></divider>
 
@@ -117,5 +117,5 @@
         <activity-event></activity-event>
       </div>
     </div>
-  </div>
+  </container>
 </div>

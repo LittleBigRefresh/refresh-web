@@ -4,9 +4,9 @@
   <p>{{routeCategory.description}}</p>
   <p>There are {{total}} total levels to browse in {{routeCategory.name}}.</p>
   <ngx-masonry [options]="masonryOptions" [ordered]="true">
-    <div ngxMasonryItem *ngFor="let l of levels" class="bg-form-background p-2.5 rounded masonry-grid-item">
+    <container ngxMasonryItem *ngFor="let l of levels" class="masonry-grid-item">
       <level-preview [level]="l" [description]="true"></level-preview>
-    </div>
+    </container>
   </ngx-masonry>
   <div intersectionObserver (visibilityChange)="loadNextPage($event)"></div>
 
@@ -16,9 +16,9 @@
 <div *ngIf="!levels">
   <div class="inline-block h-5 w-56 bg-secondary rounded-full pt-2.5 animate-pulse"></div>
   <ngx-masonry [options]="masonryOptions" [ordered]="true">
-    <div ngxMasonryItem *ngFor="let i of GenerateEmptyList(10)"
-         class="bg-form-background p-2.5 rounded masonry-grid-item">
+    <container ngxMasonryItem *ngFor="let i of GenerateEmptyList(10)"
+         class="masonry-grid-item">
       <level-preview [level]="" [description]="true"></level-preview>
-    </div>
+    </container>
   </ngx-masonry>
 </div>

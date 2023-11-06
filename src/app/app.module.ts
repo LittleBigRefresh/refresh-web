@@ -95,6 +95,7 @@ import {FormsModule} from "@angular/forms";
 import {ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
 import {DateComponent} from './components/date/date.component';
 import {StatisticsComponent} from './pages/statistics/statistics.component';
+import { ContainerComponent } from './components/container/container.component';
 
 @NgModule({
     declarations: [
@@ -160,6 +161,7 @@ import {StatisticsComponent} from './pages/statistics/statistics.component';
         ForgotPasswordComponent,
         DateComponent,
         StatisticsComponent,
+        ContainerComponent,
     ],
     imports: [
         BrowserModule,

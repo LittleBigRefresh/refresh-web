@@ -1,10 +1,10 @@
 <div *ngIf="_photo">
   <a [routerLink]="'/photo/' + _photo.photoId" *ngIf="_link">
-    <img [src]="GetPhotoLink(_photo)" class="rounded-md w-full drop-shadow-lg" alt="Photo">
+    <img [src]="GetPhotoLink(_photo)" class="rounded-md w-full" alt="Photo">
   </a>
 
   <div *ngIf="!_link">
-    <img [src]="GetPhotoLink(_photo)" class="rounded-md w-full drop-shadow-lg" alt="Photo">
+    <img [src]="GetPhotoLink(_photo)" class="rounded-md w-full" alt="Photo">
   </div>
 
   <div class="pt-2.5">
