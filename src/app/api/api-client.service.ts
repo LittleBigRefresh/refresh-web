@@ -18,6 +18,7 @@ import {IpVerificationRequest} from "./types/auth/ip-verification-request";
 import {Instance} from "./types/instance";
 import {ApiRequestCreator} from "./api-request.creator";
 import {LevelEditRequest} from "./types/level-edit-request";
+import {Asset} from "./types/asset";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -161,6 +162,10 @@ export class ApiClient {
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Check your game!", `In LBP, head to 'Lucky Dip' (or any category) and '${level.title}' will show up!`);
             });
+    }
+
+    public UploadImageAsset(hash: string, data: ArrayBuffer): Observable<Asset> {
+        return this.apiRequestCreator.makeRequest("POST", `assets/${hash}`, data);
     }
 }
 

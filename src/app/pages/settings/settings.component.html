@@ -15,6 +15,9 @@
   <div class="justify-self-end">
     <page-header class="text-3xl">Edit My Profile</page-header>
     <ng-container>
+      <img [src]="GetAssetImageLink(iconHash)" class="inline-block rounded-md object-cover aspect-square w-16 max-w-min drop-shadow-lg"
+           onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
+      <input type="file" (change)="avatarChanged($event).then()">
       <form-input [icon]="faPencil" name="Biography" [(value)]="description" [multiline]="true"></form-input>
     </ng-container>
   </div>

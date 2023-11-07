@@ -323,4 +323,14 @@ export class AuthService {
                 this.tokenStorage.SetStoredUser(data);
             });
     }
+
+    public UpdateUserAvatar(hash: string): void {
+        this.apiRequestCreator.makeRequest<ExtendedUser>("PATCH", "users/me", {iconHash: hash})
+            .subscribe(data => {
+                this.bannerService.pushSuccess("Avatar updated", "Your avatar was successfully updated.");
+                this.user!.iconHash = data.iconHash;
+                this.userWatcher.emit(data);
+                this.tokenStorage.SetStoredUser(data);
+            });
+    }
 }

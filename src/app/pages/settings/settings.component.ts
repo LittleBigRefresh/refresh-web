@@ -16,12 +16,16 @@ import {startWith} from "rxjs";
 import {AuthService} from "../../api/auth.service";
 import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
 import {ThemeService} from "../../theme.service";
+import {ApiClient, GetAssetImageLink} from "../../api/api-client.service";
+import {sha1Async} from "../../hash";
+import {BannerService} from "../../banners/banner.service";
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
 })
 export class SettingsComponent implements OnInit {
+    iconHash: string = "0";
     description: string = "";
     email: string = "";
     emailVerified: boolean = false;
@@ -71,7 +75,7 @@ export class SettingsComponent implements OnInit {
     theme: string;
     useFullPageWidth: boolean;
 
-    constructor(private authService: AuthService, private themeService: ThemeService) {
+    constructor(private authService: AuthService, private themeService: ThemeService, private apiClient: ApiClient, private bannerService: BannerService) {
         this.themingSupported = themeService.IsThemingSupported();
         this.theme = themeService.GetTheme();
         this.useFullPageWidth = themeService.GetUseFullPageWidth();
@@ -84,6 +88,7 @@ export class SettingsComponent implements OnInit {
     }
 
     updateInputs(data: ExtendedUser | undefined) {
+        this.iconHash = data?.iconHash ?? "0";
         this.description = data?.description ?? "";
         this.email = data?.emailAddress ?? "";
         this.emailVerified = data?.emailAddressVerified ?? false;
@@ -113,6 +118,18 @@ export class SettingsComponent implements OnInit {
         this.themeService.SetUseFullPageWidth(this.useFullPageWidth);
     }
 
+    async avatarChanged($event: any) {
+        const file: File = $event.target.files[0]
+        console.log(file);
+
+        const data: ArrayBuffer = await file.arrayBuffer();
+        const hash: string = await sha1Async(data);
+
+        this.apiClient.UploadImageAsset(hash, data).subscribe(_ => {
+            this.authService.UpdateUserAvatar(hash);
+        });
+    }
+
     protected readonly faPencil = faPencil;
     protected readonly faKey = faKey;
     protected readonly faDesktop = faDesktop;
@@ -123,4 +140,5 @@ export class SettingsComponent implements OnInit {
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faCancel = faCancel;
     protected readonly faLeftRight = faLeftRight;
+    protected readonly GetAssetImageLink = GetAssetImageLink;
 }
