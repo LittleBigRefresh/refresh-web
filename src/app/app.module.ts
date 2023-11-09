@@ -9,7 +9,7 @@ import {
     faCalendar,
     faCertificate,
     faCheckCircle,
-    faCircleExclamation,
+    faCircleExclamation, faFire, faFireAlt,
     faForward,
     faHeart,
     faKey,
@@ -201,5 +201,6 @@ export class AppModule {
         library.addIcons(faTrash)
         library.addIcons(faUsers)
         library.addIcons(faForward)
+        library.addIcons(faFire)
     }
 }
