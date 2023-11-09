@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {faHeart, faPlay, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
+import {faHeart, faPlay, faStar, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {Level} from "../../api/types/level";
 
 @Component({
@@ -13,4 +13,5 @@ export class LevelStatisticsComponent {
     protected readonly faPlay = faPlay;
     protected readonly faThumbsUp = faThumbsUp;
     protected readonly faThumbsDown = faThumbsDown;
+    protected readonly faStar = faStar;
 }

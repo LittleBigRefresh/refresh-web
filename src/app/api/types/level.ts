@@ -14,4 +14,5 @@ export interface Level {
     publisher: User
     teamPicked: boolean
     gameVersion: number
+    score: number
 }
