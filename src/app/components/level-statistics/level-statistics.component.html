@@ -1,22 +1,22 @@
 <div class="flex gap-2 cursor-default" *ngIf="level">
-    <div title="Yays">
+    <tooltip text="Yays">
         <fa-icon [icon]="faThumbsUp"></fa-icon>
         {{level.yayRatings}}
-    </div>
-    <div title="Boos">
+    </tooltip>
+    <tooltip text="Boos">
         <fa-icon [icon]="faThumbsDown"></fa-icon>
         {{level.booRatings}}
-    </div>
-    <div title="Hearts">
+    </tooltip>
+    <tooltip text="Hearts">
         <fa-icon [icon]="faHeart"></fa-icon>
         {{level.hearts}}
-    </div>
-    <div title="Unique Plays">
+    </tooltip>
+    <tooltip text="Unique Plays">
         <fa-icon [icon]="faPlay"></fa-icon>
         {{level.uniquePlays}}
-    </div>
-    <div title="Cool Rating (CR)">
+    </tooltip>
+    <tooltip text="Cool Rating (CR)">
         <fa-icon [icon]="faStar"></fa-icon>
         {{level.score | number:'1.0-1'}}
-    </div>
+    </tooltip>
 </div>
