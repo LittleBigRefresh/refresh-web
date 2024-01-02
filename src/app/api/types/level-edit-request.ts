@@ -4,5 +4,5 @@ export interface LevelEditRequest {
     title: string | undefined;
     description: string | undefined;
     iconHash: string | undefined;
-    gameVersion: GameVersion | undefined;
+    gameVersion: string | undefined;
 }
