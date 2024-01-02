@@ -8,6 +8,7 @@ import {AuthService} from "../../api/auth.service";
 import {ApiClient} from "../../api/api-client.service";
 import {faCancel, faCertificate, faFloppyDisk, faPencil, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {LevelEditRequest} from "../../api/types/level-edit-request";
+import {UserRoles} from "../../api/types/user-roles";
 
 @Component({
     selector: 'edit-level',
@@ -58,10 +59,11 @@ export class EditLevelComponent implements OnInit {
         const payload: LevelEditRequest = {
             title: this.title,
             description: this.description,
-            iconHash: undefined
+            iconHash: undefined,
+            gameVersion: undefined,
         }
 
-        this.apiClient.EditLevel(payload, this.level.levelId)
+        this.apiClient.EditLevel(payload, this.level.levelId, this.ownUser?.role == UserRoles.Admin);
     }
 
     cancel() {
