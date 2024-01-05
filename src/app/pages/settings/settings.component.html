@@ -19,13 +19,13 @@
     <div class="justify-self-end">
         <page-header class="text-3xl">Edit My Profile</page-header>
         <ng-container>
-            <div class="flex w-48 justify-center items-center relative rounded-md object-cover aspect-square drop-shadow-lg">
-                <label for="pfpInput" class="z-10 opacity-0 hover:opacity-100">
-                    <fa-icon [icon]="faPencil" class="w-48 max-w-min text-4xl"></fa-icon>
-                </label>
+            <div class="group flex w-48 justify-center items-center aspect-square my-2.5">
                 <input type="file" (change)="avatarChanged($event).then()" class="hidden" id="pfpInput">
+                <label for="pfpInput" class="flex rounded-md bg-[#000000aa] w-48 h-48 justify-center items-center z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
+                </label>
                 <img [src]="GetAssetImageLink(iconHash)"
-                     class="w-48 max-w-min absolute z-0"
+                     class="w-48 max-w-min rounded-md drop-shadow-lg absolute z-0"
                      onerror="this.onerror=null;this.src='/assets/missingUser.svg';">
             </div>
             <form-input [icon]="faPencil" name="Biography" [(value)]="description" [multiline]="true"></form-input>
