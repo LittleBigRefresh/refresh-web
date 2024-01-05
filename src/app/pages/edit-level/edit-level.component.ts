@@ -5,11 +5,12 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {catchError, of} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthService} from "../../api/auth.service";
-import {ApiClient} from "../../api/api-client.service";
+import {ApiClient, GetAssetImageLink} from "../../api/api-client.service";
 import {faCancel, faCertificate, faFloppyDisk, faPencil, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {LevelEditRequest} from "../../api/types/level-edit-request";
 import {UserRoles} from "../../api/types/user-roles";
 import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
+import {sha1Async} from "../../hash";
 
 @Component({
     selector: 'edit-level',
@@ -19,6 +20,7 @@ export class EditLevelComponent implements OnInit {
     level: Level | undefined;
     ownUser: ExtendedUser | undefined;
 
+    iconHash: string = "0";
     title: string = "";
     description: string = "";
     gameVersion: string = "0";
@@ -70,6 +72,7 @@ export class EditLevelComponent implements OnInit {
                     this.title = data.title;
                     this.description = data.description;
                     this.gameVersion = data.gameVersion.toString();
+                    this.iconHash = data.iconHash;
                 });
         });
 
@@ -101,10 +104,26 @@ export class EditLevelComponent implements OnInit {
         this.apiClient.DeleteLevel(this.level)
     }
 
+    async iconChanged($event: any) {
+        if(!this.level) return;
+
+        const file: File = $event.target.files[0]
+        console.log(file);
+
+        const data: ArrayBuffer = await file.arrayBuffer();
+        const hash: string = await sha1Async(data);
+
+        this.apiClient.UploadImageAsset(hash, data).subscribe(_ => {
+            this.apiClient.UpdateLevelIcon(hash, this.level!.levelId, this.ownUser?.role == UserRoles.Admin);
+            this.iconHash = hash;
+        });
+    }
+
     protected readonly faCertificate = faCertificate;
     protected readonly faPencil = faPencil;
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faTrash = faTrash;
     protected readonly faCancel = faCancel;
     protected readonly UserRoles = UserRoles;
+    protected readonly GetAssetImageLink = GetAssetImageLink;
 }

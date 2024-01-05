@@ -19,6 +19,7 @@ import {Instance} from "./types/instance";
 import {ApiRequestCreator} from "./api-request.creator";
 import {LevelEditRequest} from "./types/level-edit-request";
 import {Asset} from "./types/asset";
+import {ExtendedUser} from "./types/extended-user";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -149,6 +150,15 @@ export class ApiClient {
         this.apiRequestCreator.makeRequest("PATCH", endpoint, level)
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
+            });
+    }
+
+    public UpdateLevelIcon(hash: string, id: number, admin: boolean = false): void {
+        let endpoint: string = "levels/id/" + id;
+        if(admin) endpoint = "admin/" + endpoint;
+        this.apiRequestCreator.makeRequest("PATCH", endpoint, {iconHash: hash})
+            .subscribe(_ => {
+                this.bannerService.pushSuccess("Icon updated", "The level's icon was successfully updated.");
             });
     }
 
