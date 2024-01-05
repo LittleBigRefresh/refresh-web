@@ -8,6 +8,8 @@ import {AuthService} from "../../api/auth.service";
 import {ApiClient} from "../../api/api-client.service";
 import {faCancel, faCertificate, faFloppyDisk, faPencil, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {LevelEditRequest} from "../../api/types/level-edit-request";
+import {UserRoles} from "../../api/types/user-roles";
+import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
 
 @Component({
     selector: 'edit-level',
@@ -19,6 +21,30 @@ export class EditLevelComponent implements OnInit {
 
     title: string = "";
     description: string = "";
+    gameVersion: string = "0";
+
+    gameVersions: DropdownOption[] = [
+        {
+            Name: "LittleBigPlanet 1",
+            Value: "0",
+        },
+        {
+            Name: "LittleBigPlanet 2",
+            Value: "1",
+        },
+        {
+            Name: "LittleBigPlanet 3",
+            Value: "2",
+        },
+        {
+            Name: "LittleBigPlanet Vita",
+            Value: "3",
+        },
+        {
+            Name: "LittleBigPlanet PSP",
+            Value: "4",
+        },
+    ];
 
     constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) {
     }
@@ -43,6 +69,7 @@ export class EditLevelComponent implements OnInit {
 
                     this.title = data.title;
                     this.description = data.description;
+                    this.gameVersion = data.gameVersion.toString();
                 });
         });
 
@@ -58,10 +85,11 @@ export class EditLevelComponent implements OnInit {
         const payload: LevelEditRequest = {
             title: this.title,
             description: this.description,
-            iconHash: undefined
+            iconHash: undefined,
+            gameVersion: this.gameVersion,
         }
 
-        this.apiClient.EditLevel(payload, this.level.levelId)
+        this.apiClient.EditLevel(payload, this.level.levelId, this.ownUser?.role == UserRoles.Admin);
     }
 
     cancel() {
@@ -78,4 +106,5 @@ export class EditLevelComponent implements OnInit {
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faTrash = faTrash;
     protected readonly faCancel = faCancel;
+    protected readonly UserRoles = UserRoles;
 }

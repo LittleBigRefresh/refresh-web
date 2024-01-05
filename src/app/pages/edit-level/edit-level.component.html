@@ -2,6 +2,12 @@
 <p>(id: <code>{{level?.levelId ?? 0}}</code>)</p>
 <divider></divider>
 
+<div *ngIf="ownUser?.role == UserRoles.Admin">
+    <page-header class="text-2xl">Admin Settings</page-header>
+    <form-dropdown name="Game Version" [options]="gameVersions" [(value)]="gameVersion"></form-dropdown>
+</div>
+<divider></divider>
+
 <div class="flex max-lg:flex-col gap-x-10 gap-y-2.5">
   <div class="flex flex-col gap-y-2.5">
     <page-header class="text-2xl">Metadata</page-header>

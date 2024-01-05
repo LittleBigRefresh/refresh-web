@@ -143,8 +143,10 @@ export class ApiClient {
         return this.makeRequest<IpVerificationRequest>("PUT", "verificationRequests/deny", ipAddress);
     }
 
-    public EditLevel(level: LevelEditRequest, id: number): void {
-        this.apiRequestCreator.makeRequest("PATCH", "levels/id/" + id, level)
+    public EditLevel(level: LevelEditRequest, id: number, admin: boolean = false): void {
+        let endpoint: string = "levels/id/" + id;
+        if(admin) endpoint = "admin/" + endpoint;
+        this.apiRequestCreator.makeRequest("PATCH", endpoint, level)
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
             });

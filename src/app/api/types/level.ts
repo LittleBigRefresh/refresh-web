@@ -10,8 +10,10 @@ export interface Level {
     booRatings: number
     yayRatings: number
     hearts: number
+    totalPlays: number
     uniquePlays: number
     publisher: User
     teamPicked: boolean
     gameVersion: number
+    score: number
 }
