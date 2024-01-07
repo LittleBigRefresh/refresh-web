@@ -12,6 +12,7 @@ import {ExtendedUser} from "../../api/types/extended-user";
 import {EmbedService} from "../../services/embed.service";
 import {TitleService} from "../../services/title.service";
 import {AuthService} from "../../api/auth.service";
+import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
 
 @Component({
     selector: 'app-user',
@@ -22,6 +23,18 @@ export class UserComponent implements OnInit {
     room: Room | undefined = undefined;
 
     ownUser: ExtendedUser | undefined;
+
+    viewType: string = "3d";
+    viewTypes: DropdownOption[] = [
+        {
+            Name: "List",
+            Value: "2d",
+        },
+        {
+            Name: "Earth (3D)",
+            Value: "3d",
+        },
+    ]
 
     constructor(private route: ActivatedRoute, private authService: AuthService, private apiClient: ApiClient, private router: Router, private embedService: EmbedService, private titleService: TitleService) {
     }

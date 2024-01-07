@@ -45,3 +45,21 @@
 </page-header-block>
 
 <br>
+
+<div class="flex flex-row gap-2.5 max-md:flex-col pt-5">
+    <container class="w-full">
+        <div class="flex">
+            <h2 class="text-3xl font-bold flex-grow">Levels</h2>
+            <form-dropdown name="View" [options]="viewTypes" [(value)]="viewType"></form-dropdown>
+        </div>
+        <divider></divider>
+
+        <div class="rounded-md bg-dangerous w-full h-auto aspect-square" *ngIf="viewType == '3d'">
+            yo man the planet thing goes here
+        </div>
+    </container>
+    <container class="w-full">
+        <h2 class="text-3xl font-bold">Recent Activity</h2>
+        <divider></divider>
+    </container>
+</div>
