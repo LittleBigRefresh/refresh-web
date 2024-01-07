@@ -1,4 +1,5 @@
 import {User} from "./user"
+import {Location} from "./location"
 
 export interface Level {
     levelId: number
@@ -16,4 +17,5 @@ export interface Level {
     teamPicked: boolean
     gameVersion: number
     score: number
+    location: Location
 }

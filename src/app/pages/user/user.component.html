@@ -46,7 +46,7 @@
 
 <br>
 
-<div class="flex flex-row gap-2.5 max-md:flex-col pt-5">
+<div class="flex flex-row gap-2.5 max-md:flex-col pt-5" *ngIf="user">
     <container class="w-full">
         <div class="flex">
             <h2 class="text-3xl font-bold flex-grow">Levels</h2>
@@ -54,8 +54,8 @@
         </div>
         <divider></divider>
 
-        <div class="rounded-md bg-dangerous w-full h-auto aspect-square" *ngIf="viewType == '3d'">
-            yo man the planet thing goes here
+        <div class="rounded-md bg-backdrop w-full h-auto aspect-square" *ngIf="viewType == '3d'">
+            <planets [user]="user"></planets>
         </div>
     </container>
     <container class="w-full">

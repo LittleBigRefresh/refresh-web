@@ -87,6 +87,10 @@ export class ApiClient {
         return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}`);
     }
 
+    public GetLevelsByUser(user: string, count: number = 20, skip: number = 0): Observable<ApiListResponse<Level>> {
+        return this.makeListRequest<Level>("GET", `levels/byUser?count=${count}&skip=${skip}&u=${user}`);
+    }
+
     public GetLevelById(id: number): Observable<Level> {
         return this.makeRequest<Level>("GET", "levels/id/" + id)
     }
