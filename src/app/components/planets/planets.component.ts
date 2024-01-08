@@ -18,7 +18,7 @@ export class PlanetsComponent implements OnInit {
     @Input("user") public User: User | undefined;
 
     private levels: Level[] | undefined;
-    private earthModel: number[] = [];
+    private earthModel: {vertices: number[], indices: number[]} = {vertices: [], indices: []};
     private vertexShader: string | undefined;
     private fragmentShader: string | undefined;
     private debugVertexShader: string | undefined;
@@ -68,32 +68,24 @@ export class PlanetsComponent implements OnInit {
     }
 
     parseObj(file: string) {
-        let verts = [];
+        let verts: number[] = [];
         let idx: number[] = [];
 
         for(let line of file.split("\n")) {
             let split = line.split(" ");
 
             if(split[0] == 'v') {
-                verts.push([parseFloat(split[1]), parseFloat(split[2]), parseFloat(split[3])]);
+                verts.push(parseFloat(split[1]));
+                verts.push(parseFloat(split[2]));
+                verts.push(parseFloat(split[3]));
             } else if(split[0] == 'f') {
-                idx.push(parseInt(split[1].split("/")[0]));
-                idx.push(parseInt(split[2].split("/")[0]));
-                idx.push(parseInt(split[3].split("/")[0]));
+                idx.push(parseInt(split[1].split("/")[0]) - 1);
+                idx.push(parseInt(split[2].split("/")[0]) - 1);
+                idx.push(parseInt(split[3].split("/")[0]) - 1);
             }
         }
 
-        let ret: number[] = [];
-
-        for(let index of idx) {
-            let vert = verts[index - 1];
-
-            ret.push(vert[0]);
-            ret.push(vert[1]);
-            ret.push(vert[2]);
-        }
-
-        return ret;
+        return {vertices: verts, indices: idx};
     }
 
     main() {
@@ -109,7 +101,8 @@ export class PlanetsComponent implements OnInit {
         this.earthInfo = {
             programInfo: twgl.createProgramInfo(this.gl, [this.vertexShader!, this.fragmentShader!]),
             bufferInfo: twgl.createBufferInfoFromArrays(this.gl, {
-                position: this.earthModel
+                position: this.earthModel.vertices,
+                indices: this.earthModel.indices,
             }),
         };
 
@@ -124,7 +117,7 @@ export class PlanetsComponent implements OnInit {
         this.debugInfo = {
             programInfo: twgl.createProgramInfo(this.gl, [this.debugVertexShader!, this.debugFragmentShader!]),
             bufferInfo: twgl.createBufferInfoFromArrays(this.gl, {
-                position: debugPoints
+                position: debugPoints,
             }),
         };
 
@@ -134,6 +127,8 @@ export class PlanetsComponent implements OnInit {
             if(this.mouseDown) {
                 this.rotX += e.pageX - this.oldX;
                 this.rotY -= e.pageY - this.oldY;
+
+                this.rotY = Math.max(Math.min(180, this.rotY), -180);
             }
 
             this.oldX = e.pageX;
@@ -148,7 +143,7 @@ export class PlanetsComponent implements OnInit {
 
     render(time: number) {
         if(Date.now() - this.lastInteraction > 5000) {
-            this.rotX += 0.1;
+            this.rotX += 0.15;
             this.rotY = this.rotY * 0.95;
         }
 
@@ -169,8 +164,6 @@ export class PlanetsComponent implements OnInit {
             view: view,
             proj: proj,
         };
-
-        // model = twgl.m4.rotationY(time * 0.0005);
 
         //Use the earth shader
         this.gl.useProgram(this.earthInfo!.programInfo.program);
