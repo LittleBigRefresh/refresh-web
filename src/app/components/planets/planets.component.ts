@@ -24,6 +24,20 @@ export class PlanetsComponent implements OnInit {
     private debugVertexShader: string | undefined;
     private debugFragmentShader: string | undefined;
 
+    private mouseDown: boolean = false;
+
+    private oldX: number = 0;
+    private oldY: number = 0;
+
+    private rotX: number = 0;
+    private rotY: number = 0;
+
+    private gl: any | undefined;
+    private debugInfo: { bufferInfo: twgl.BufferInfo; programInfo: twgl.ProgramInfo } | undefined;
+    private earthInfo: { bufferInfo: twgl.BufferInfo; programInfo: twgl.ProgramInfo } | undefined;
+
+    private lastInteraction: number = 0;
+
     constructor(private apiClient: ApiClient, private httpClient: HttpClient) {
     }
 
@@ -83,18 +97,18 @@ export class PlanetsComponent implements OnInit {
     }
 
     main() {
-        const gl = this.canvas.nativeElement.getContext("webgl2");
+        this.gl = this.canvas.nativeElement.getContext("webgl2");
 
         //Enables some GL state
-        gl.enable(gl.BLEND)
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        this.gl.enable(this.gl.BLEND)
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
-        gl.enable(gl.DEPTH_TEST);
-        gl.depthFunc(gl.LESS);
+        this.gl.enable(this.gl.DEPTH_TEST);
+        this.gl.depthFunc(this.gl.LESS);
 
-        const earthInfo = {
-            programInfo: twgl.createProgramInfo(gl, [this.vertexShader!, this.fragmentShader!]),
-            bufferInfo: twgl.createBufferInfoFromArrays(gl, {
+        this.earthInfo = {
+            programInfo: twgl.createProgramInfo(this.gl, [this.vertexShader!, this.fragmentShader!]),
+            bufferInfo: twgl.createBufferInfoFromArrays(this.gl, {
                 position: this.earthModel
             }),
         };
@@ -107,52 +121,79 @@ export class PlanetsComponent implements OnInit {
             debugPoints = debugPoints.concat(loc);
         });
 
-        const debugInfo = {
-            programInfo: twgl.createProgramInfo(gl, [this.debugVertexShader!, this.debugFragmentShader!]),
-            bufferInfo: twgl.createBufferInfoFromArrays(gl, {
+        this.debugInfo = {
+            programInfo: twgl.createProgramInfo(this.gl, [this.debugVertexShader!, this.debugFragmentShader!]),
+            bufferInfo: twgl.createBufferInfoFromArrays(this.gl, {
                 position: debugPoints
             }),
         };
 
-        let proj = twgl.m4.perspective(Math.PI / 2 / 1.2, 1, 0.00001, 100);
-        let view = twgl.m4.lookAt(twgl.v3.create(0, 0, -2), twgl.v3.create(0, 0, 0), twgl.v3.create(0, 1, 0));
-        let model = twgl.m4.rotationY(0);
+        this.gl.canvas.addEventListener('mousemove', (e: any) => {
+            this.lastInteraction = Date.now();
+
+            if(this.mouseDown) {
+                this.rotX += e.pageX - this.oldX;
+                this.rotY -= e.pageY - this.oldY;
+            }
+
+            this.oldX = e.pageX;
+            this.oldY = e.pageY;
+        }, false);
+        this.gl.canvas.addEventListener('mousedown', () => this.mouseDown = true, false);
+        this.gl.canvas.addEventListener('mouseup', () => this.mouseDown = false, false);
 
         //Begin the render process
-        requestAnimationFrame(render);
+        requestAnimationFrame(time => this.render(time));
+    }
 
-        function render(time: number) {
-            twgl.resizeCanvasToDisplaySize(gl.canvas);
-            gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
-            //Clear color and depth buffers
-            gl.clearColor(0, 0, 0, 0);
-            gl.clearDepth(1);
-            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-            const uniforms = {
-                model: model,
-                view: view,
-                proj: proj,
-            };
-
-            model = twgl.m4.rotationY(time * 0.0005);
-
-            gl.useProgram(earthInfo.programInfo.program);
-
-            twgl.setBuffersAndAttributes(gl, earthInfo.programInfo, earthInfo.bufferInfo);
-            twgl.setUniforms(earthInfo.programInfo, uniforms);
-            twgl.drawBufferInfo(gl, earthInfo.bufferInfo);
-
-            gl.useProgram(debugInfo.programInfo.program);
-
-            twgl.setBuffersAndAttributes(gl, debugInfo.programInfo, debugInfo.bufferInfo);
-            twgl.setUniforms(debugInfo.programInfo, uniforms);
-            twgl.drawBufferInfo(gl, debugInfo.bufferInfo, gl.POINTS);
-
-            //Keep the loop going
-            requestAnimationFrame(render);
+    render(time: number) {
+        if(Date.now() - this.lastInteraction > 5000) {
+            this.rotX += 0.1;
+            this.rotY = this.rotY * 0.95;
         }
+
+        twgl.resizeCanvasToDisplaySize(this.gl.canvas);
+        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+
+        //Clear color and depth buffers
+        this.gl.clearColor(0, 0, 0, 0);
+        this.gl.clearDepth(1);
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
+        let proj = twgl.m4.perspective(Math.PI / 2 / 1.2, 1, 0.00001, 100);
+        let view = twgl.m4.lookAt(twgl.v3.create(0, 0, -2), twgl.v3.create(0, 0, 0), twgl.v3.create(0, 1, 0));
+        let model =  twgl.m4.rotateY(twgl.m4.rotationX(this.rotY / 200), this.rotX / 200);
+
+        const uniforms = {
+            model: model,
+            view: view,
+            proj: proj,
+        };
+
+        // model = twgl.m4.rotationY(time * 0.0005);
+
+        //Use the earth shader
+        this.gl.useProgram(this.earthInfo!.programInfo.program);
+
+        //Set the buffers to the earth buffers
+        twgl.setBuffersAndAttributes(this.gl, this.earthInfo!.programInfo, this.earthInfo!.bufferInfo);
+        //Set the uniforms
+        twgl.setUniforms(this.earthInfo!.programInfo, uniforms);
+        //Draw the buffers
+        twgl.drawBufferInfo(this.gl, this.earthInfo!.bufferInfo);
+
+        //Use the debug shader
+        this.gl.useProgram(this.debugInfo!.programInfo.program);
+
+        //Set the debug buffers
+        twgl.setBuffersAndAttributes(this.gl, this.debugInfo!.programInfo, this.debugInfo!.bufferInfo);
+        //Set the uniforms
+        twgl.setUniforms(this.debugInfo!.programInfo, uniforms);
+        //Draw the buffers
+        twgl.drawBufferInfo(this.gl, this.debugInfo!.bufferInfo, this.gl.POINTS);
+
+        //Keep the loop going
+        requestAnimationFrame(time => this.render(time));
     }
 
     locationToSphere(location: Location): number[] {
