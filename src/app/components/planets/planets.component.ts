@@ -6,6 +6,8 @@ import {ApiClient} from 'src/app/api/api-client.service';
 import {Level} from "../../api/types/level";
 import {concatWith, forkJoin, mergeWith, Observable, Subscription} from "rxjs";
 import {Location} from "../../api/types/location";
+import {Model} from "./Model";
+
 
 @Component({
   selector: 'planets',
@@ -18,7 +20,7 @@ export class PlanetsComponent implements OnInit {
     @Input("user") public User: User | undefined;
 
     private levels: Level[] | undefined;
-    private earthModel: {vertices: number[], indices: number[]} = {vertices: [], indices: []};
+    private earthModel: Model = {vertices: [], indices: []};
     private vertexShader: string | undefined;
     private fragmentShader: string | undefined;
     private debugVertexShader: string | undefined;
@@ -67,7 +69,7 @@ export class PlanetsComponent implements OnInit {
         });
     }
 
-    parseObj(file: string) {
+    parseObj(file: string): Model {
         let verts: number[] = [];
         let idx: number[] = [];
 
@@ -85,7 +87,10 @@ export class PlanetsComponent implements OnInit {
             }
         }
 
-        return {vertices: verts, indices: idx};
+        return {
+            vertices: verts,
+            indices: idx
+        };
     }
 
     main() {
