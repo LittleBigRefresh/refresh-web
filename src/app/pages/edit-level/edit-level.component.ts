@@ -46,6 +46,10 @@ export class EditLevelComponent implements OnInit {
             Name: "LittleBigPlanet PSP",
             Value: "4",
         },
+        {
+            Name: "Beta Build",
+            Value: "6",
+        }
     ];
 
     constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) {
