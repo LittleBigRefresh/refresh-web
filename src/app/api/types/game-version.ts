@@ -5,4 +5,5 @@ export enum GameVersion {
     LittleBigPlanetVita = 3,
     LittleBigPlanetPSP = 4,
     Website = 5,
+    BetaBuild = 6,
 }
