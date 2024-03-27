@@ -4,7 +4,7 @@ import {
     faBell,
     faBookBookmark,
     faCameraAlt,
-    faCertificate,
+    faCertificate, faEnvelope,
     faExclamationTriangle,
     faFireAlt,
     faGear,
@@ -120,6 +120,7 @@ export class AppComponent {
             this.rightSideRouterLinks.push(new HeaderLink("Server Statistics", "/statistics", faSquarePollVertical))
             this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell))
             this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
+            this.rightSideRouterLinks.push(new HeaderLink("Contact Us", `mailto:${this.instance?.contactInfo.emailAddress}`, faEnvelope, true))
         }
     }
 

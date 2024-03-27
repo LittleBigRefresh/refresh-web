@@ -7,9 +7,9 @@ import {
     faArrowRightToBracket,
     faBullhorn,
     faCalendar,
-    faCertificate,
+    faCertificate, faEnvelope,
     faFireAlt,
-    faPlayCircle,
+    faPlayCircle, faQuestionCircle,
     faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {ActivityPage} from "../../api/types/activity/activity-page";
@@ -72,4 +72,6 @@ export class MainComponent implements OnInit {
     protected readonly faArrowRightToBracket = faArrowRightToBracket;
     protected readonly faUserPlus = faUserPlus;
     protected readonly faCalendar = faCalendar;
+    protected readonly faQuestionCircle = faQuestionCircle;
+    protected readonly faEnvelope = faEnvelope;
 }

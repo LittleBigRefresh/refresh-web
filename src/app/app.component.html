@@ -43,6 +43,7 @@
     <div class="flex-grow"></div> <!-- force all menus to be on the right -->
     <div class="drop-shadow-lg" #login [hidden]="true" *ngIf="!user">
       <app-login></app-login>
+      <divider/>
     </div>
 
     <div class="drop-shadow-lg" #menu [hidden]="true" *ngIf="user">

@@ -10,4 +10,5 @@ export class MenuLinkComponent {
     @Input('link') link: string = "/";
     @Input('title') title: string = "Title";
     @Input('icon') icon: IconProp = faPoo;
+    @Input('raw') raw: boolean = false;
 }
