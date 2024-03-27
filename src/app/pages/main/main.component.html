@@ -32,14 +32,6 @@
   <secondary-button [text]="'Sign into ' + (instance?.instanceName ?? 'Refresh')" [icon]="faArrowRightToBracket" class="flex-grow" routerLink="/login"></secondary-button>
 </div>
 
-<div *ngIf="instance">
-    <divider></divider>
-    <page-header class="text-2xl">
-        <fa-icon [icon]="faQuestionCircle" class="pr-1"></fa-icon>
-        Having trouble?
-    </page-header>
-</div>
-
 <div *ngIf="activity && activity.events.length > 0">
   <divider></divider>
   <page-header class="text-2xl">
