@@ -1,10 +1,17 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, PLATFORM_ID, ViewChild} from '@angular/core';
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
     selector: 'carousel',
     templateUrl: './carousel.component.html'
 })
 export class CarouselComponent implements AfterViewInit {
+    private readonly isBrowser: boolean;
+
+    constructor(@Inject(PLATFORM_ID) platformId: Object) {
+        this.isBrowser = isPlatformBrowser(platformId);
+    }
+
     @ViewChild("items") itemsHolder: ElementRef = null!;
     carouselItems: HTMLElement[] = [];
 
@@ -17,6 +24,7 @@ export class CarouselComponent implements AfterViewInit {
     }
 
     updateCarousel(): void {
+        if(!this.isBrowser) return;
         const i: number = this.currentIndex;
 
         for (let carouselItem of this.carouselItems) {
