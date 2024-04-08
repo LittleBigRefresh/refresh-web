@@ -1,6 +1,10 @@
-# Refresh Website
+# This is the WIP Rewrite!
 
-This is an eternally work-in-progress project intending to build a proper frontend for [Refresh](https://github.com/LittleBigRefresh/Refresh).
+This branch hosts progress for the major rewrite for refresh-web. It is not the stable branch.
+
+# Refresh Web
+
+This is the primary frontend for [Refresh](https://github.com/LittleBigRefresh/Refresh).
 
 ![A look at the front page](https://github.com/LittleBigRefresh/refresh-web/assets/40577357/440a45f1-08c5-4a61-b8dd-0a312e059d72)
 
