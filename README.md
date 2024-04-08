@@ -1,6 +1,3 @@
-# Important: No longer in development
-This project is soon to be entirely replaced by [CosmosFE](https://github.com/LittleBigRefresh/CosmosFE), a rewrite of `refresh-web`. This will stay maintained for the time being as the rewrite matures, but will not receive new features or major upgrades (such as a migration to Angular 17).
-
 # Refresh Website
 
 This is an eternally work-in-progress project intending to build a proper frontend for [Refresh](https://github.com/LittleBigRefresh/Refresh).
