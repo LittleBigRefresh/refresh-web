@@ -9,9 +9,7 @@ import {ContainerComponent} from "./container.component";
   ],
   template: `
     <app-container>
-      <pre class="whitespace-pre-wrap">
-        <ng-content></ng-content>
-      </pre>
+      <pre class="whitespace-pre-wrap"><ng-content></ng-content></pre>
     </app-container>
   `
 })
