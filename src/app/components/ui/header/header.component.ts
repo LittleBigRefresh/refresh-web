@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NavbarItemComponent} from "./navbar-item.component";
 import {RouterLink} from "@angular/router";
+import {faCameraAlt, faCertificate, faFireAlt} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-header',
@@ -19,13 +20,15 @@ import {RouterLink} from "@angular/router";
 
       <div class="mx-1.5 w-[3px] rounded-full h-11 bg-divider"></div>
       <nav class="flex gap-x-5">
-        <app-navbar-item href="/levels" title="Levels"></app-navbar-item>
-        <app-navbar-item href="/photos" title="Photos"></app-navbar-item>
-        <app-navbar-item href="/levels" title="Activity"></app-navbar-item>
+        <app-navbar-item href="/levels" title="Levels" [icon]=faCertificate></app-navbar-item>
+        <app-navbar-item href="/photos" title="Photos" [icon]=faCameraAlt></app-navbar-item>
+        <app-navbar-item href="/levels" title="Activity" [icon]=faFireAlt></app-navbar-item>
       </nav>
     </div>
   `
 })
 export class HeaderComponent {
-
+  protected readonly faCertificate = faCertificate;
+  protected readonly faCameraAlt = faCameraAlt;
+  protected readonly faFireAlt = faFireAlt;
 }
