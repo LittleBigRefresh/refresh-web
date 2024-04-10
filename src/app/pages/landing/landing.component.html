@@ -1,4 +1,4 @@
-<app-page-title title="Welcome to Refresh!"></app-page-title>
+<app-page-title title="Welcome to {{this.instance?.instanceName ?? 'Refresh'}}!"></app-page-title>
 
 <p>API test</p>
 <app-codeblock>{{JSON.stringify(this.instance, null, 2)}}</app-codeblock>
