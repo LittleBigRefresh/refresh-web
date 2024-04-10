@@ -1,4 +1,4 @@
-import {User} from "@/api/types/users/user";
+import {User} from "../users/user";
 
 export interface Level {
     levelId: number;

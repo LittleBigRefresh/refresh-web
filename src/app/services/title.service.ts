@@ -8,7 +8,7 @@ export class TitleService {
   private instanceName: string = "Refresh";
   private currentTitle: string = "";
 
-  constructor(private title: Title, private client: ClientService, router: Router) {
+  constructor(private title: Title, client: ClientService, router: Router) {
     // Reset title when navigating
     router.events.subscribe((val) => {
       if (!(val instanceof NavigationStart)) return;
@@ -16,7 +16,7 @@ export class TitleService {
     });
 
     // Fetch name of instance from API
-    this.client.getInstance().subscribe((data) => {
+    client.getInstance().subscribe((data) => {
       this.instanceName = data.instanceName;
       this.setTitle(this.currentTitle);
     });
