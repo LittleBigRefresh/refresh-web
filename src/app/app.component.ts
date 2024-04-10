@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {ContainerComponent} from "./components/ui/container.component";
+import {DividerComponent} from "./components/ui/divider.component";
+import {ResponsiveGridComponent} from "./components/ui/responsive-grid.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: `
-    <h1 class="text-2xl">Welcome to {{title}}!</h1>
-
-    <router-outlet />
-  `,
-  styles: [],
+  imports: [RouterOutlet, ContainerComponent, DividerComponent, ResponsiveGridComponent],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'refresh-web';
