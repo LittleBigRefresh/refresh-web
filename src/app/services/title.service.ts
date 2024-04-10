@@ -17,7 +17,7 @@ export class TitleService {
 
       // set title from route definition after loading
       if(val instanceof NavigationEnd)
-        this.setTitle(this.getRouteTitle(router.routerState.snapshot.root) || "")
+        this.setTitle(this.getCurrentPageTitle(router) || "")
     });
 
     // Fetch name of instance from API
@@ -38,6 +38,10 @@ export class TitleService {
 
     this.title.setTitle(`${title} · ${this.instanceName}`)
     this.currentTitle = title;
+  }
+
+  public getCurrentPageTitle(router: Router) {
+    return this.getRouteTitle(router.routerState.snapshot.root);
   }
 
   private getRouteTitle(route: ActivatedRouteSnapshot): string | undefined {
