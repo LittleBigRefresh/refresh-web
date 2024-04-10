@@ -10,9 +10,10 @@ export class EmbedService {
     constructor(private meta: Meta, client: ClientService) {
         client.getInstance().subscribe(data => {
             this.embedInstance(data);
-        })
+        });
 
-        this.setNamedTag("theme-color", "#A13DE3")
+        this.setNamedTag("theme-color", "#A13DE3");
+        this.setPropertyTag("og:type", "website");
     }
 
     private setPropertyTag(property: string, content: string) {
@@ -52,7 +53,6 @@ export class EmbedService {
         if (this.meta.getTag('name="og:title"')) return;
 
         this.embed(`${instance.instanceName} · ${instance.instanceDescription}`, `${instance.instanceName} is a free custom server for LittleBigPlanet.`);
-        this.setPropertyTag("og:type", "website");
     }
 
     // embedPhoto(photo: Photo) {
