@@ -18,16 +18,24 @@ export class EmbedService {
 
     private setPropertyTag(property: string, content: string) {
         this.meta.removeTag(`property="${property}"`);
+
+        if(content.length === 0) return;
         this.meta.addTag({property: property, content: content});
     }
 
     private setNamedTag(name: string, content: string) {
         this.meta.removeTag(`name="${name}"`);
+
+        if(content.length === 0) return;
         this.meta.addTag({name: name, content: content});
     }
 
-    public embed(title: string, description: string) {
+    public setTitle(title: string) {
         this.setPropertyTag("og:title", title)
+    }
+
+    public embed(title: string, description: string) {
+        this.setTitle(title)
         this.setPropertyTag("og:description", description)
         this.setNamedTag("description", description)
     }

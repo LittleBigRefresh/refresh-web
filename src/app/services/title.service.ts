@@ -2,13 +2,14 @@ import {Injectable} from "@angular/core";
 import {Title} from "@angular/platform-browser";
 import {NavigationStart, Router} from "@angular/router";
 import {ClientService} from "../api/client.service";
+import {EmbedService} from "./embed.service";
 
 @Injectable({providedIn: 'root'})
 export class TitleService {
   private instanceName: string = "Refresh";
   private currentTitle: string = "";
 
-  constructor(private title: Title, client: ClientService, router: Router) {
+  constructor(private title: Title, private embedService: EmbedService, client: ClientService, router: Router) {
     // Reset title when navigating
     router.events.subscribe((val) => {
       if (!(val instanceof NavigationStart)) return;
@@ -28,6 +29,8 @@ export class TitleService {
       this.currentTitle = "";
       return;
     }
+
+    this.embedService.setTitle(title);
 
     this.title.setTitle(`${title} · ${this.instanceName}`)
     this.currentTitle = title;
