@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Title} from "@angular/platform-browser";
-import {NavigationStart, Router} from "@angular/router";
+import {ActivatedRouteSnapshot, NavigationEnd, NavigationStart, Router} from "@angular/router";
 import {ClientService} from "../api/client.service";
 import {EmbedService} from "./embed.service";
 
@@ -10,10 +10,14 @@ export class TitleService {
   private currentTitle: string = "";
 
   constructor(private title: Title, private embedService: EmbedService, client: ClientService, router: Router) {
-    // Reset title when navigating
     router.events.subscribe((val) => {
-      if (!(val instanceof NavigationStart)) return;
-      this.setTitle("yo mama");
+      // clear title when starting navigating
+      if (val instanceof NavigationStart)
+        this.setTitle("");
+
+      // set title from route definition after loading
+      if(val instanceof NavigationEnd)
+        this.setTitle(this.getRouteTitle(router.routerState.snapshot.root) || "")
     });
 
     // Fetch name of instance from API
@@ -35,4 +39,21 @@ export class TitleService {
     this.title.setTitle(`${title} · ${this.instanceName}`)
     this.currentTitle = title;
   }
+
+  private getRouteTitle(route: ActivatedRouteSnapshot): string | undefined {
+    let title: string | undefined = undefined;
+
+    // Traverse through the child routes
+    if (route.firstChild) {
+      title = this.getRouteTitle(route.firstChild);
+    }
+
+    // If the child route has a title, update the title
+    if (route.data && route.data["title"]) {
+      title = route.data["title"];
+    }
+
+    return title;
+  }
+
 }
