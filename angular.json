@@ -66,10 +66,12 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": false,
             "ssr": {
               "entry": "server.ts"
-            }
+            },
+            "namedChunks": true,
+            "progress": true
           },
           "configurations": {
             "production": {
