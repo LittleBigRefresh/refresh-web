@@ -13,7 +13,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
   ],
   template: `
     <a [routerLink]=href class="flex items-center gap-x-2 text-xl">
-        <fa-icon [icon]=icon class="w-5 h-5"></fa-icon>
+        <fa-icon [icon]=icon></fa-icon>
         <span>{{title}}</span>
     </a>
   `
