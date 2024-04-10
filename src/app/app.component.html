@@ -1,12 +1,15 @@
-<app-container>
-    <h1 class="text-2xl">Welcome to {{title}}!</h1>
-    <router-outlet />
-    <app-divider></app-divider>
-    <h1>test</h1>
-    <app-responsive-grid>
-        <app-container>hi</app-container>
-        <app-container>hi</app-container>
-        <app-container>hi</app-container>
-        <app-container>hi</app-container>
-    </app-responsive-grid>
-</app-container>
+<app-header></app-header>
+<div class="container mx-auto bg-backdrop p-5 border-divider">
+    <app-container>
+        <h1 class="text-2xl">Welcome to {{title}}!</h1>
+        <router-outlet />
+        <app-divider></app-divider>
+        <h1>test</h1>
+        <app-responsive-grid>
+            <app-container>hi</app-container>
+            <app-container>hi</app-container>
+            <app-container>hi</app-container>
+            <app-container>hi</app-container>
+        </app-responsive-grid>
+    </app-container>
+</div>

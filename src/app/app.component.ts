@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import {ContainerComponent} from "./components/ui/container.component";
 import {DividerComponent} from "./components/ui/divider.component";
 import {ResponsiveGridComponent} from "./components/ui/responsive-grid.component";
+import {HeaderComponent} from "./components/ui/header/header.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ContainerComponent, DividerComponent, ResponsiveGridComponent],
+  imports: [RouterOutlet, ContainerComponent, DividerComponent, ResponsiveGridComponent, HeaderComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent {

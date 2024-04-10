@@ -9,8 +9,7 @@ import {Component, Input} from '@angular/core';
     <div [title]=text>
       <ng-content></ng-content>
     </div>
-  `,
-  styles: ``
+  `
 })
 export class TooltipComponent {
   @Input({required: true}) public text: string = "";
