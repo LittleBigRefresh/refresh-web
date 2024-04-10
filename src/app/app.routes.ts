@@ -6,6 +6,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/landing/landing.component').then(x => x.LandingComponent),
         data: {title: "Home"}
     },
+    {
+        path: 'levels',
+        loadComponent: () => import('./pages/categories/categories.component').then(x => x.CategoriesComponent),
+        data: {title: "Level Categories"}
+    },
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
         path: '**',

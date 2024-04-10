@@ -5,6 +5,7 @@ import {DividerComponent} from "../../components/ui/divider.component";
 import {CodeBlockComponent} from "../../components/ui/code-block.component";
 import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
+import {PageTitleComponent} from "../../components/ui/page-title.component";
 
 @Component({
   selector: 'app-landing',
@@ -13,7 +14,8 @@ import {ClientService} from "../../api/client.service";
     ContainerComponent,
     ResponsiveGridComponent,
     DividerComponent,
-    CodeBlockComponent
+    CodeBlockComponent,
+    PageTitleComponent
   ],
   templateUrl: './landing.component.html',
 })

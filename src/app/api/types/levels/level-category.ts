@@ -1,4 +1,5 @@
-import {Level} from "@/api/types/levels/level";
+import {Level} from "./level";
+import {IconName} from "@fortawesome/free-solid-svg-icons";
 
 export interface LevelCategory {
     apiRoute: string;
@@ -6,7 +7,7 @@ export interface LevelCategory {
     name: string;
     description: string;
     iconHash: string;
-    fontAwesomeIcon: string;
+    fontAwesomeIcon: IconName;
     previewLevel: Level | undefined;
     hidden: boolean;
 }

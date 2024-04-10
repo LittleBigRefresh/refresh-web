@@ -17,10 +17,16 @@ export class LazySubject<TData> {
         })
     }
 
+    public tryLoad(): boolean {
+        if (this.madeRequest) return false;
+
+        this.consumeObservable();
+        this.madeRequest = true;
+        return true;
+    }
+
     asObservable() {
-        if (!this.madeRequest) {
-            this.consumeObservable();
-        }
+        this.tryLoad();
 
         return this.subject.asObservable().pipe(
             filter(value => value !== undefined),
