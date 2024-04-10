@@ -10,7 +10,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   template: `
-    <h1 class="font-bold text-3xl" *ngIf="title">
+    <h1 class="font-bold text-3xl mb-2.5" *ngIf="title">
       {{title}}
     </h1>
   `
