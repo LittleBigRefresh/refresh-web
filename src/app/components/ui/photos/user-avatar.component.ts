@@ -10,7 +10,7 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
     NgIf
   ],
   template: `
-    <img *ngIf="this.user" [ngSrc]=this.user.iconHash width=19 height=19 class="inline" alt="{{this.user.username}}'s avatar">
+    <img *ngIf="this.user" [ngSrc]=this.user.iconHash width=19 height=19 class="inline" alt="">
   `,
   styles: ``
 })
