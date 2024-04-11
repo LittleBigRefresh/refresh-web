@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import {ApiBaseInterceptor} from "./api/interceptors/api-base.interceptor";
 import {APIv3Interceptor} from "./api/interceptors/apiv3.interceptor";
+import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +15,12 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     importProvidersFrom(HttpClientModule),
     useInterceptor(ApiBaseInterceptor),
-    useInterceptor(APIv3Interceptor)
+    useInterceptor(APIv3Interceptor),
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `https://lbp.littlebigrefresh.com/api/v3/assets/${config.src}/image` }
+    }
   ]
 };
 
