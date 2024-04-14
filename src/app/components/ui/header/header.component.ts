@@ -22,7 +22,7 @@ import {faCameraAlt, faCertificate, faFireAlt} from "@fortawesome/free-solid-svg
       <nav class="flex gap-x-5">
         <app-navbar-item href="/levels" title="Levels" [icon]=faCertificate></app-navbar-item>
         <app-navbar-item href="/photos" title="Photos" [icon]=faCameraAlt></app-navbar-item>
-        <app-navbar-item href="/levels" title="Activity" [icon]=faFireAlt></app-navbar-item>
+        <app-navbar-item href="/activity" title="Activity" [icon]=faFireAlt></app-navbar-item>
       </nav>
     </div>
   `
