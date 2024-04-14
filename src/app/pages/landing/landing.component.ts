@@ -6,17 +6,32 @@ import {CodeBlockComponent} from "../../components/ui/code-block.component";
 import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
 import {PageTitleComponent} from "../../components/ui/page-title.component";
+import {RouterLink} from "@angular/router";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {ContainerTitleComponent} from "../../components/ui/container-title.component";
+import {SectionTitleComponent} from "../../components/ui/section-title.component";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faFireAlt, faGamepad, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {AnnouncementComponent} from "../../components/items/announcement.component";
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [
-    ContainerComponent,
-    ResponsiveGridComponent,
-    DividerComponent,
-    CodeBlockComponent,
-    PageTitleComponent
-  ],
+    imports: [
+        ContainerComponent,
+        ResponsiveGridComponent,
+        DividerComponent,
+        CodeBlockComponent,
+        PageTitleComponent,
+        RouterLink,
+        NgOptimizedImage,
+        ContainerTitleComponent,
+        SectionTitleComponent,
+        FaIconComponent,
+        AnnouncementComponent,
+        NgForOf,
+        NgIf
+    ],
   templateUrl: './landing.component.html',
 })
 export class LandingComponent {
@@ -27,4 +42,7 @@ export class LandingComponent {
   }
 
   protected readonly JSON = JSON;
+    protected readonly faFireAlt = faFireAlt;
+    protected readonly faUsers = faUsers;
+    protected readonly faGamepad = faGamepad;
 }

@@ -1,4 +1,37 @@
-<app-page-title title="Welcome to {{this.instance?.instanceName ?? 'Refresh'}}!"></app-page-title>
+<div class="bg-hero rounded-md py-16 px-5 bg-cover drop-shadow-lg">
+    <div class="text-5xl mb-2.5 font-black">
+        <h1>{{this.instance?.instanceName ?? 'Refresh'}}</h1>
+    </div>
+    <p>{{this.instance?.instanceDescription ?? 'Loading...'}}</p>
+</div>
 
-<p>API test</p>
-<app-codeblock>{{JSON.stringify(this.instance, null, 2)}}</app-codeblock>
+<div *ngIf="instance && instance.announcements.length > 0" class="my-5 flex flex-col gap-y-2.5">
+    <app-announcement *ngFor="let a of instance.announcements" [data]="a"></app-announcement>
+</div>
+
+<app-divider></app-divider>
+
+<div class="lg:flex">
+    <div class="lg:w-[70%]">
+        <app-section-title>
+            <fa-icon [icon]="faFireAlt"></fa-icon>
+            What's new?
+        </app-section-title>
+        <p>Lorem Ipsum</p>
+        <p>Lorem Ipsum</p>
+        <p>Lorem Ipsum</p>
+        <p>Lorem Ipsum</p>
+        <p>Lorem Ipsum</p>
+    </div>
+    <div class="grow">
+        <app-section-title>
+            <fa-icon [icon]="faGamepad"></fa-icon>
+            Who's playing?
+        </app-section-title>
+        <p>gamer</p>
+        <p>gamer</p>
+        <p>gamer</p>
+        <p>gamer</p>
+        <p>gamer</p>
+    </div>
+</div>
