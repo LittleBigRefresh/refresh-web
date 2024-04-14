@@ -28,10 +28,6 @@
             <fa-icon [icon]="faGamepad"></fa-icon>
             Who's playing?
         </app-section-title>
-        <p>gamer</p>
-        <p>gamer</p>
-        <p>gamer</p>
-        <p>gamer</p>
-        <p>gamer</p>
+        <app-room *ngFor="let room of this.rooms" [room]="room"></app-room>
     </div>
 </div>

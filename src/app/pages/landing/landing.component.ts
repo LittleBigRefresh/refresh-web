@@ -13,6 +13,8 @@ import {SectionTitleComponent} from "../../components/ui/section-title.component
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faFireAlt, faGamepad, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {AnnouncementComponent} from "../../components/items/announcement.component";
+import {Room} from "../../api/types/rooms/room";
+import {RoomComponent} from "../../components/items/room.component";
 
 @Component({
   selector: 'app-landing',
@@ -30,19 +32,20 @@ import {AnnouncementComponent} from "../../components/items/announcement.compone
         FaIconComponent,
         AnnouncementComponent,
         NgForOf,
-        NgIf
+        NgIf,
+        RoomComponent
     ],
   templateUrl: './landing.component.html',
 })
 export class LandingComponent {
-  protected instance: Instance | undefined;
+    protected instance: Instance | undefined;
+    protected rooms: Room[] | undefined;
 
-  constructor(client: ClientService) {
-    client.getInstance().subscribe(data => this.instance = data);
-  }
+    constructor(client: ClientService) {
+      client.getInstance().subscribe(data => this.instance = data);
+      client.getRoomListing().subscribe(data => this.rooms = data);
+    }
 
-  protected readonly JSON = JSON;
     protected readonly faFireAlt = faFireAlt;
-    protected readonly faUsers = faUsers;
     protected readonly faGamepad = faGamepad;
 }

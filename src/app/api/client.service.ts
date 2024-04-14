@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Instance} from "./types/instance";
 import {LazySubject} from "./lazy-subject";
 import {LevelCategory} from "./types/levels/level-category";
+import {Room} from "./types/rooms/room";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class ClientService {
   }
 
   getLevelCategories() {
-    return this.categories.asObservable()
+    return this.categories.asObservable();
+  }
+
+  getRoomListing() {
+    return this.http.get<Room[]>("/rooms");
   }
 }
