@@ -28,6 +28,10 @@
             <fa-icon [icon]="faGamepad"></fa-icon>
             Who's playing?
         </app-section-title>
+        <p *ngIf="this.rooms?.length == 0">
+            Nobody's playing right now.
+            Why not be the first one on?
+        </p>
         <app-room *ngFor="let room of this.rooms" [room]="room"></app-room>
     </div>
 </div>
