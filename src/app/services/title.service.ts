@@ -36,7 +36,7 @@ export class TitleService {
 
     this.embedService.setTitle(title);
 
-    this.title.setTitle(`${title} · ${this.instanceName}`)
+    this.title.setTitle(`[rewrite] ${title} · ${this.instanceName}`)
     this.currentTitle = title;
   }
 
