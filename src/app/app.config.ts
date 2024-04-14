@@ -20,7 +20,13 @@ export const appConfig: ApplicationConfig = {
       provide: IMAGE_LOADER,
       useValue: (config: ImageLoaderConfig) => {
         if(config.src.startsWith("/")) return config.src;
-        return `https://lbp.littlebigrefresh.com/api/v3/assets/${config.src}/image` }
+
+        // Only consider SHA1 asset hashes
+        // Naturally filters out GUIDs, and blank hashes.
+        if(config.src.length != 40) return undefined;
+
+        return `https://lbp.littlebigrefresh.com/api/v3/assets/${config.src}/image`
+      }
     }
   ]
 };
