@@ -1,17 +1,18 @@
 import {Component, Input} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {Level} from "../../../api/types/levels/level";
+import {SlugPipe} from "../../../pipes/slug.pipe";
 
 // A simple link to a level.
-// In the future, this will support slugs.
 @Component({
   selector: 'app-level-router-link',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    SlugPipe
   ],
   template: `
-    <a routerLink="/level/{{level.levelId}}">
+    <a routerLink="/level/{{level.levelId}}/{{level.title | slug}}">
       <ng-content></ng-content>
     </a>
   `
