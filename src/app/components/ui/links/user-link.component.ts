@@ -14,7 +14,7 @@ import {RouterLink} from "@angular/router";
   ],
   template: `
     <span *ngIf="!user">Deleted User</span>
-    <a routerLink="/u/{{user.userId}}" *ngIf="user">
+    <a routerLink="/user/{{user.username}}" *ngIf="user">
         <app-user-avatar class="ml-1" [user]="user"></app-user-avatar>
         {{user.username}}
     </a>
