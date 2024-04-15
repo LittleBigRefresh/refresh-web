@@ -32,6 +32,8 @@
             Nobody's playing right now.
             Why not be the first one on?
         </p>
-        <app-room *ngFor="let room of this.rooms" [room]="room"></app-room>
+        <div class="flex flex-col gap-y-2.5">
+            <app-room *ngFor="let room of this.rooms" [room]="room"></app-room>
+        </div>
     </div>
 </div>
