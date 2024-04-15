@@ -5,27 +5,28 @@ import {LazySubject} from "./lazy-subject";
 import {LevelCategory} from "./types/levels/level-category";
 import {Room} from "./types/rooms/room";
 import {Level} from "./types/levels/level";
+import {ListWithData} from "./list-with-data";
 
-const defaultPageSize: number = 40;
+export const defaultPageSize: number = 40;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
   private readonly instance: LazySubject<Instance>;
-  private readonly categories: LazySubject<LevelCategory[]>;
+  private readonly categories: LazySubject<ListWithData<LevelCategory>>;
 
   constructor(private http: HttpClient) {
     this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
     this.instance.tryLoad();
 
-    this.categories = new LazySubject<LevelCategory[]>(() => this.http.get<LevelCategory[]>("/levels?includePreviews=true"))
+    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"))
   }
 
-  private createPageQuery(count: number, skip: number) {
+  private createPageQuery(skip: number, count: number) {
     return new HttpParams()
-        .set('count', count)
-        .set('skip', skip);
+        .set('skip', skip)
+        .set('count', count);
   }
 
   getInstance() {
@@ -40,7 +41,7 @@ export class ClientService {
     return this.http.get<Room[]>("/rooms");
   }
 
-  getLevelsInCategory(category: string, count: number = defaultPageSize, skip: number = 0) {
-    return this.http.get<Level[]>(`/levels/${category}`, {params: this.createPageQuery(count, skip)});
+  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize) {
+    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.createPageQuery(skip, count)});
   }
 }

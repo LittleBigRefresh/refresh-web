@@ -9,6 +9,9 @@ import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.compo
 import {Level} from "../../api/types/levels/level";
 import {LevelPreviewComponent} from "../../components/items/level-preview.component";
 import {ContainerComponent} from "../../components/ui/container.component";
+import {Scrollable} from "../../api/scrollable";
+import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-info";
+import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
 
 @Component({
   selector: 'app-level-listing',
@@ -20,13 +23,14 @@ import {ContainerComponent} from "../../components/ui/container.component";
     ResponsiveGridComponent,
     LevelPreviewComponent,
     NgForOf,
-    ContainerComponent
+    ContainerComponent,
+    InfiniteScrollerComponent
   ],
   templateUrl: './level-listing.component.html'
 })
-export class LevelListingComponent implements OnInit {
+export class LevelListingComponent implements OnInit, Scrollable {
   category: LevelCategory | null | undefined = undefined;
-  levels: Level[] | undefined = undefined;
+  levels: Level[] = [];
 
   constructor(private client: ClientService, private route: ActivatedRoute) {
     // Start requesting category information immediately.
@@ -42,16 +46,13 @@ export class LevelListingComponent implements OnInit {
         return;
       }
 
-      this.client.getLevelsInCategory(route).subscribe(data => {
-        this.levels = data;
-      });
       this.setCategoryByRoute(route);
     })
   }
 
   setCategoryByRoute(route: string) {
     this.client.getLevelCategories().subscribe(list => {
-      for (let category of list) {
+      for (let category of list.data) {
         if (category.apiRoute != route) continue;
 
         this.category = category;
@@ -61,6 +62,24 @@ export class LevelListingComponent implements OnInit {
       // if we're still here without a category, set as null (marker for not found)
       if(this.category === undefined)
         this.category = null;
+
+      if(this.category)
+        this.loadData();
+    });
+  }
+
+  isLoading: boolean = false;
+  listInfo: RefreshApiListInfo = defaultListInfo;
+
+  loadData(): void {
+    if(!this.category) return;
+
+    this.isLoading = true;
+    this.client.getLevelsInCategory(this.category.apiRoute, this.listInfo.nextPageIndex).subscribe(list => {
+      this.isLoading = false;
+
+      this.levels = this.levels.concat(list.data);
+      this.listInfo = list.listInfo;
     });
   }
 }

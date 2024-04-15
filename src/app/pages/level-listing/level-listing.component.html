@@ -6,6 +6,7 @@
             <app-level-preview [level]="level"></app-level-preview>
         </app-container>
     </app-responsive-grid>
+    <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
 </ng-container>
 
 <ng-container *ngIf="category == null">

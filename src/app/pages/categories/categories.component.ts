@@ -23,8 +23,8 @@ export class CategoriesComponent {
   categories: LevelCategory[] | undefined;
 
   constructor(client: ClientService) {
-    client.getLevelCategories().subscribe(data => {
-      this.categories = data.filter(c => !c.requiresUser && !c.hidden);
+    client.getLevelCategories().subscribe(list => {
+      this.categories = list.data.filter(c => !c.requiresUser && !c.hidden);
     })
   }
 }
