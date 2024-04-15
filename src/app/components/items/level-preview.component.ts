@@ -17,9 +17,9 @@ import {GamePipe} from "../../pipes/game.pipe";
     GamePipe
   ],
   template: `
-    <div class="flex gap-x-2 leading-none">
-      <app-level-router-link [level]="level">
-        <app-level-avatar [level]="level" [size]=72></app-level-avatar>
+    <div class="flex gap-x-2.5 leading-none justify-center">
+      <app-level-router-link [level]="level" class="min-w-[72px] self-center">
+        <app-level-avatar [level]="level" [size]=72 class="align-middle"></app-level-avatar>
       </app-level-router-link>
       <div class="truncate grow">
         <app-level-router-link [level]=level>
@@ -29,10 +29,15 @@ import {GamePipe} from "../../pipes/game.pipe";
         
         <app-level-statistics [level]="level" class="text-md"></app-level-statistics>
         
-        <span class="text-gentle italic text-sm">
+        <div class="text-gentle text-sm mt-0.5">
+          <p>
             by <app-user-link [user]="level.publisher"></app-user-link>
             for {{level.gameVersion | game: true}}
-        </span>
+          </p>
+<!--          <p>-->
+<!--            Published 8 months ago-->
+<!--          </p>-->
+        </div>
       </div>
     </div>
   `,
