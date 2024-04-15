@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {GameVersion} from "../api/types/game-version";
 
-const lbp = "LittleBigPlanet ";
-
 @Pipe({
   name: 'game',
   standalone: true
 })
 export class GamePipe implements PipeTransform {
-  transform(value: GameVersion): string {
+  transform(value: GameVersion, short: boolean = false): string {
+    const lbp: string = short ? "LBP" : "LittleBigPlanet ";
+
     switch (value) {
       case GameVersion.LBP1:
         return lbp+"1";
@@ -23,7 +23,7 @@ export class GamePipe implements PipeTransform {
       case GameVersion.Website:
         return "Website";
       case GameVersion.BetaBuild:
-        return "Beta Build";
+        return short ? "Beta" : "Beta Build";
     }
   }
 }

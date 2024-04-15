@@ -4,6 +4,7 @@ import {UserLinkComponent} from "../ui/links/user-link.component";
 import {LevelAvatarComponent} from "../ui/photos/level-avatar.component";
 import {LevelStatisticsComponent} from "./level-statistics.component";
 import {LevelRouterLinkComponent} from "../ui/links/level-router-link.component";
+import {GamePipe} from "../../pipes/game.pipe";
 
 @Component({
   selector: 'app-level-preview',
@@ -12,14 +13,15 @@ import {LevelRouterLinkComponent} from "../ui/links/level-router-link.component"
     UserLinkComponent,
     LevelAvatarComponent,
     LevelStatisticsComponent,
-    LevelRouterLinkComponent
+    LevelRouterLinkComponent,
+    GamePipe
   ],
   template: `
     <div class="flex gap-x-2 leading-none">
       <app-level-router-link [level]="level">
         <app-level-avatar [level]="level" [size]=72></app-level-avatar>
       </app-level-router-link>
-      <div class="truncate">
+      <div class="truncate grow">
         <app-level-router-link [level]=level>
           <p class="font-medium text-lg truncate"
              [title]=level.title>{{ level.title }}</p>
@@ -29,6 +31,7 @@ import {LevelRouterLinkComponent} from "../ui/links/level-router-link.component"
         
         <span class="text-gentle italic text-sm">
             by <app-user-link [user]="level.publisher"></app-user-link>
+            for {{level.gameVersion | game: true}}
         </span>
       </div>
     </div>
