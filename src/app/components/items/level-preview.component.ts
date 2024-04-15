@@ -5,6 +5,7 @@ import {LevelAvatarComponent} from "../ui/photos/level-avatar.component";
 import {LevelStatisticsComponent} from "./level-statistics.component";
 import {LevelRouterLinkComponent} from "../ui/links/level-router-link.component";
 import {GamePipe} from "../../pipes/game.pipe";
+import {DateComponent} from "../ui/date.component";
 
 @Component({
   selector: 'app-level-preview',
@@ -14,7 +15,8 @@ import {GamePipe} from "../../pipes/game.pipe";
     LevelAvatarComponent,
     LevelStatisticsComponent,
     LevelRouterLinkComponent,
-    GamePipe
+    GamePipe,
+    DateComponent
   ],
   template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
@@ -34,9 +36,9 @@ import {GamePipe} from "../../pipes/game.pipe";
             by <app-user-link [user]="level.publisher"></app-user-link>
             for {{level.gameVersion | game: true}}
           </p>
-<!--          <p>-->
-<!--            Published 8 months ago-->
-<!--          </p>-->
+          <p>
+            Published <app-date [date]="level.publishDate"></app-date>
+          </p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <ng-container *ngIf="category">
-    <app-page-title [title]="category?.name" [icon]="category.fontAwesomeIcon"></app-page-title>
+    <app-page-title [title]="category.name" [icon]="category.fontAwesomeIcon"></app-page-title>
     <p>{{category.description}}</p>
     <app-responsive-grid *ngIf="levels">
         <app-container *ngFor="let level of this.levels">

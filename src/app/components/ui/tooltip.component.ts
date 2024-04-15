@@ -6,7 +6,7 @@ import {Component, Input} from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div [title]=text>
+    <div [title]=text class="inline">
       <ng-content></ng-content>
     </div>
   `
