@@ -93,7 +93,14 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "ssr": true
+            },
+            "developmentNoSSR": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "ssr": false
             }
           },
           "defaultConfiguration": "production"
@@ -106,6 +113,9 @@
             },
             "development": {
               "buildTarget": "refresh-web:build:development"
+            },
+            "developmentNoSSR": {
+              "buildTarget": "refresh-web:build:developmentNoSSR"
             }
           },
           "defaultConfiguration": "development"
