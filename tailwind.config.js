@@ -37,6 +37,11 @@ module.exports = {
   ],
   theme: {
     colors: defaultColors,
+    extend: {
+      fontSize: {
+        "md": "0.95rem"
+      }
+    },
     fontFamily: {
       'display': ['Rubik'],
       'body': ['Rubik']

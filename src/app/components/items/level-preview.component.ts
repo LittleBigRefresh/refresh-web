@@ -19,14 +19,15 @@ import {LevelRouterLinkComponent} from "../ui/links/level-router-link.component"
       <app-level-router-link [level]="level">
         <app-level-avatar [level]="level" [size]=72></app-level-avatar>
       </app-level-router-link>
-      <div>
+      <div class="truncate">
         <app-level-router-link [level]=level>
-          <p class="font-medium text-lg">{{ level.title }}</p>
+          <p class="font-medium text-lg truncate"
+             [title]=level.title>{{ level.title }}</p>
         </app-level-router-link>
         
-        <app-level-statistics [level]="level" class="text-sm"></app-level-statistics>
+        <app-level-statistics [level]="level" class="text-md"></app-level-statistics>
         
-        <span class="text-gentle italic">
+        <span class="text-gentle italic text-sm">
             by <app-user-link [user]="level.publisher"></app-user-link>
         </span>
       </div>

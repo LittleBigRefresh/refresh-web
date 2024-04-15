@@ -4,6 +4,7 @@ import {Instance} from "./types/instance";
 import {LazySubject} from "./lazy-subject";
 import {LevelCategory} from "./types/levels/level-category";
 import {Room} from "./types/rooms/room";
+import {Level} from "./types/levels/level";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class ClientService {
 
   getRoomListing() {
     return this.http.get<Room[]>("/rooms");
+  }
+
+  getLevelsInCategory(category: string) {
+    return this.http.get<Level[]>(`/levels/${category}`);
   }
 }
