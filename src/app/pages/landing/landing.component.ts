@@ -43,7 +43,7 @@ export class LandingComponent {
 
     constructor(client: ClientService) {
       client.getInstance().subscribe(data => this.instance = data);
-      client.getRoomListing().subscribe(data => this.rooms = data);
+      client.getRoomListing().subscribe(data => this.rooms = data.data);
     }
 
     protected readonly faFireAlt = faFireAlt;

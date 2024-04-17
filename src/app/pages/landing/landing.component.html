@@ -30,10 +30,10 @@
             <fa-icon [icon]="faGamepad"></fa-icon>
             Who's playing?
         </app-section-title>
-        <p *ngIf="this.rooms?.length == 0">
+        <p *ngIf="this.rooms && this.rooms.length == 0">
             Nobody's playing right now.
         </p>
-        <div class="flex flex-col gap-y-2.5">
+        <div class="flex flex-col gap-y-2.5" *ngIf="this.rooms">
             <app-room *ngFor="let room of this.rooms" [room]="room"></app-room>
         </div>
     </div>

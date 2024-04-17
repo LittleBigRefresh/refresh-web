@@ -38,7 +38,7 @@ export class ClientService {
   }
 
   getRoomListing() {
-    return this.http.get<Room[]>("/rooms");
+    return this.http.get<ListWithData<Room>>("/rooms");
   }
 
   getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize) {
