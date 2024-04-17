@@ -10,8 +10,8 @@ import {Level} from "../../../api/types/levels/level";
     NgOptimizedImage
   ],
   template: `
-    <img *ngIf="this.level" [ngSrc]=this.level.iconHash [width]=size [height]=size class="inline rounded-full" alt=""
-         (error)="err($event.target)">
+    <img *ngIf="this.level" [ngSrc]=this.level.iconHash [width]=size [height]=size class="inline rounded-full h-auto" alt=""
+         (error)="err($event.target)" style="min-width: {{size}}px;">
   `
 })
 export class LevelAvatarComponent {

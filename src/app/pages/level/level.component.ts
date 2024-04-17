@@ -5,13 +5,28 @@ import {ActivatedRoute} from "@angular/router";
 import {TitleService} from "../../services/title.service";
 import {SlugPipe} from "../../pipes/slug.pipe";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import {isPlatformBrowser} from "@angular/common";
+import {isPlatformBrowser, NgIf} from "@angular/common";
+import {ContainerComponent} from "../../components/ui/container.component";
+import {ContainerHeaderComponent} from "../../components/ui/container-header.component";
+import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
+import {DefaultPipe} from "../../pipes/default.pipe";
+import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
+import {DarkContainerComponent} from "../../components/ui/dark-container.component";
+import {UserLinkComponent} from "../../components/ui/text/links/user-link.component";
 
 @Component({
   selector: 'app-level',
   standalone: true,
   imports: [
-    PageTitleComponent
+    PageTitleComponent,
+    ContainerComponent,
+    ContainerHeaderComponent,
+    LevelStatisticsComponent,
+    NgIf,
+    DefaultPipe,
+    LevelAvatarComponent,
+    DarkContainerComponent,
+    UserLinkComponent
   ],
   providers: [
       SlugPipe

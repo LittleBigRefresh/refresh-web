@@ -12,7 +12,7 @@ export class EmbedService {
             this.embedInstance(data);
         });
 
-        this.setNamedTag("theme-color", "#A13DE3");
+        this.setNamedTag("theme-color", "#2A1936");
         this.setPropertyTag("og:type", "website");
     }
 
