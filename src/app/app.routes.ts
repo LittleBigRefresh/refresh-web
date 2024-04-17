@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Route, Routes} from '@angular/router';
 
 export const routes: Routes = [
     {
@@ -16,6 +16,18 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/level-listing/level-listing.component').then(x => x.LevelListingComponent),
         data: {title: "Category"}
     },
+    {
+        path: 'level/:id/:slug',
+        loadComponent: () => import('./pages/level/level.component').then(x => x.LevelComponent),
+        data: {title: "Unnamed Level"},
+    },
+    {
+        path: 'level/:id',
+        loadComponent: () => import('./pages/level/level.component').then(x => x.LevelComponent),
+        data: {title: "Unnamed Level"},
+    },
+    ...alias("level/:id/:slug", "slot/:id/:slug"),
+    ...alias("level/:id", "slot/:id",),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
         path: '**',
@@ -23,3 +35,15 @@ export const routes: Routes = [
         data: {title: "404 Not Found"}
     }
 ];
+
+function alias(route: string, ...names: string[]): Route[] {
+    let routes: Route[] = [];
+    for (let name of names) {
+        routes.push({
+            path: name,
+            redirectTo: route,
+        });
+    }
+
+    return routes;
+}

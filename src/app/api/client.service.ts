@@ -44,4 +44,8 @@ export class ClientService {
   getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize) {
     return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.createPageQuery(skip, count)});
   }
+
+  getLevelById(id: number) {
+    return this.http.get<Level>(`/levels/id/${id}`);
+  }
 }
