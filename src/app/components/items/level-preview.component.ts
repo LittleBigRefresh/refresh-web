@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
-import {UserLinkComponent} from "../ui/links/user-link.component";
+import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {LevelAvatarComponent} from "../ui/photos/level-avatar.component";
 import {LevelStatisticsComponent} from "./level-statistics.component";
-import {LevelRouterLinkComponent} from "../ui/links/level-router-link.component";
+import {LevelRouterLinkComponent} from "../ui/text/links/level-router-link.component";
 import {GamePipe} from "../../pipes/game.pipe";
 import {DateComponent} from "../ui/date.component";
 

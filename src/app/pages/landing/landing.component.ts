@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import {ContainerComponent} from "../../components/ui/container.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {DividerComponent} from "../../components/ui/divider.component";
-import {CodeBlockComponent} from "../../components/ui/code-block.component";
 import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
-import {PageTitleComponent} from "../../components/ui/page-title.component";
+import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {ContainerTitleComponent} from "../../components/ui/container-title.component";
-import {SectionTitleComponent} from "../../components/ui/section-title.component";
+import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
+import {SectionTitleComponent} from "../../components/ui/text/section-title.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faFireAlt, faGamepad, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {AnnouncementComponent} from "../../components/items/announcement.component";
@@ -23,7 +22,6 @@ import {RoomComponent} from "../../components/items/room.component";
         ContainerComponent,
         ResponsiveGridComponent,
         DividerComponent,
-        CodeBlockComponent,
         PageTitleComponent,
         RouterLink,
         NgOptimizedImage,

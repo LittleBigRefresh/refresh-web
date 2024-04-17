@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {TitleService} from "../../services/title.service";
+import {TitleService} from "../../../services/title.service";
 import {NgIf} from "@angular/common";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";

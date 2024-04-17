@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {PageTitleComponent} from "../../components/ui/page-title.component";
+import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 
 @Component({
   selector: 'app-404',

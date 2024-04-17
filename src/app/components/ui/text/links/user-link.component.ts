@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {User} from "../../../api/types/users/user";
+import {User} from "../../../../api/types/users/user";
 import {NgIf} from "@angular/common";
-import {UserAvatarComponent} from "../photos/user-avatar.component";
+import {UserAvatarComponent} from "../../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "./user-router-link.component";
 
 @Component({

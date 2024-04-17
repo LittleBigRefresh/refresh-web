@@ -4,7 +4,7 @@ import {ContainerComponent} from "../ui/container.component";
 import {RouterLink} from "@angular/router";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faLink} from "@fortawesome/free-solid-svg-icons";
-import {ContainerTitleComponent} from "../ui/container-title.component";
+import {ContainerTitleComponent} from "../ui/text/container-title.component";
 import {NgIf} from "@angular/common";
 import {DividerComponent} from "../ui/divider.component";
 import {LevelPreviewComponent} from "./level-preview.component";

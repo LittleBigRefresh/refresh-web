@@ -1,5 +1,5 @@
 import {Component, Inject, Input, PLATFORM_ID} from '@angular/core';
-import {TooltipComponent} from "./tooltip.component";
+import {TooltipComponent} from "./text/tooltip.component";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {isPlatformBrowser, NgIf} from "@angular/common";

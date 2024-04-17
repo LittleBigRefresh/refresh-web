@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LevelCategory} from "../../api/types/levels/level-category";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
-import {PageTitleComponent} from "../../components/ui/page-title.component";
+import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {CategoriesComponent} from "../categories/categories.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
