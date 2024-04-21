@@ -9,11 +9,11 @@
                     <fa-icon [icon]="faCircleCheck" class="text-xl pr-1"></fa-icon>
                 </tooltip>
 
-                <div class="inline-block text-sm font-normal" *ngIf="level.publisher">
+                <div class="inline-block text-sm font-normal">
                     <span-gentle>by
-                        <user-link [user]="level.publisher" class="px-1"
+                        <user-link [user]="level.publisher" class="pl-1" *ngIf="level.publisher"
                                    [ngClass]="level.isReUpload ? 'line-through' : ''"></user-link>
-                        <tooltip *ngIf="level.isReUpload"
+                        <tooltip *ngIf="level.isReUpload" class="pl-1"
                             [text]="'This level is a re-upload, originally created by ' + level.originalPublisher + '.'">
                             <span>{{ level.originalPublisher }}</span>
                         </tooltip>

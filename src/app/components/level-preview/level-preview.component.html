@@ -10,9 +10,9 @@
         <fa-icon [icon]="faCircleCheck" class="pr-1"></fa-icon>
       </tooltip>
       <level-statistics [level]="_level" class="text-sm"></level-statistics>
-      <p-gentle *ngIf="_level.publisher">by <user-link [user]="_level.publisher" class="px-0.5"
+      <p-gentle>by <user-link [user]="_level.publisher" class="pl-0.5" *ngIf="_level.publisher"
                                                        [ngClass]="_level.isReUpload ? 'line-through' : ''"></user-link>
-          <tooltip
+          <tooltip class="pl-0.5"
               [text]="'This level is a re-upload, originally created by ' + _level.originalPublisher + '.'">
               <span>{{ _level.originalPublisher }}</span>
           </tooltip></p-gentle>

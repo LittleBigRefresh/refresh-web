@@ -12,7 +12,7 @@ export interface Level {
     hearts: number
     totalPlays: number
     uniquePlays: number
-    publisher: User
+    publisher: User | undefined
     originalPublisher: string | undefined
     isReUpload: boolean
     teamPicked: boolean
