@@ -4,7 +4,11 @@
 
 <div *ngIf="ownUser?.role == UserRoles.Admin">
     <page-header class="text-2xl">Admin Settings</page-header>
-    <form-dropdown name="Game Version" [options]="gameVersions" [(value)]="gameVersion"></form-dropdown>
+    <div class="flex flex-col gap-y-2.5">
+        <form-dropdown name="Game Version" [options]="gameVersions" [(value)]="gameVersion"></form-dropdown>
+        <form-checkbox name="Mark as re-upload" [(value)]="isReUpload" [icon]="faClone"></form-checkbox>
+        <form-input name="Original Publisher" [(value)]="originalPublisher" [icon]="faUser"></form-input>
+    </div>
 </div>
 <divider></divider>
 
@@ -29,7 +33,8 @@
         <div class="flex gap-3.5">
             <div class="group flex h-auto w-44 max-md:w-24 justify-center items-center aspect-square my-2.5">
                 <input type="file" (change)="iconChanged($event).then()" class="hidden" id="pfpInput">
-                <label for="pfpInput" class="flex rounded-full bg-[#000000aa] h-auto w-44 max-md:w-24 justify-center items-center aspect-square z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                <label for="pfpInput"
+                       class="flex rounded-full bg-[#000000aa] h-auto w-44 max-md:w-24 justify-center items-center aspect-square z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                     <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
                 </label>
                 <img [src]="GetAssetImageLink(iconHash)"

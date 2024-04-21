@@ -13,6 +13,8 @@ export interface Level {
     totalPlays: number
     uniquePlays: number
     publisher: User
+    originalPublisher: string | undefined
+    isReUpload: boolean
     teamPicked: boolean
     gameVersion: number
     score: number
