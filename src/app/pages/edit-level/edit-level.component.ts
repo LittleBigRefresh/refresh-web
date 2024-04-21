@@ -6,7 +6,14 @@ import {catchError, of} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthService} from "../../api/auth.service";
 import {ApiClient, GetAssetImageLink} from "../../api/api-client.service";
-import {faCancel, faCertificate, faFloppyDisk, faPencil, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCancel,
+    faCertificate, faClone,
+    faFloppyDisk,
+    faPencil,
+    faTrash,
+    faUser
+} from "@fortawesome/free-solid-svg-icons";
 import {LevelEditRequest} from "../../api/types/level-edit-request";
 import {UserRoles} from "../../api/types/user-roles";
 import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
@@ -24,6 +31,8 @@ export class EditLevelComponent implements OnInit {
     title: string = "";
     description: string = "";
     gameVersion: string = "0";
+    isReUpload: boolean = false;
+    originalPublisher: string | undefined = undefined;
 
     gameVersions: DropdownOption[] = [
         {
@@ -77,6 +86,8 @@ export class EditLevelComponent implements OnInit {
                     this.description = data.description;
                     this.gameVersion = data.gameVersion.toString();
                     this.iconHash = data.iconHash;
+                    this.isReUpload = data.isReUpload;
+                    this.originalPublisher = data.originalPublisher;
                 });
         });
 
@@ -94,6 +105,8 @@ export class EditLevelComponent implements OnInit {
             description: this.description,
             iconHash: undefined,
             gameVersion: this.gameVersion,
+            originalPublisher: this.originalPublisher,
+            isReUpload: this.isReUpload,
         }
 
         this.apiClient.EditLevel(payload, this.level.levelId, this.ownUser?.role == UserRoles.Admin);
@@ -130,4 +143,6 @@ export class EditLevelComponent implements OnInit {
     protected readonly faCancel = faCancel;
     protected readonly UserRoles = UserRoles;
     protected readonly GetAssetImageLink = GetAssetImageLink;
+    protected readonly faUser = faUser;
+    protected readonly faClone = faClone;
 }
