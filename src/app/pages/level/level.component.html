@@ -13,7 +13,7 @@
                     <span-gentle>by
                         <user-link [user]="level.publisher" class="px-1"
                                    [ngClass]="level.isReUpload ? 'line-through' : ''"></user-link>
-                        <tooltip
+                        <tooltip *ngIf="level.isReUpload"
                             [text]="'This level is a re-upload, originally created by ' + level.originalPublisher + '.'">
                             <span>{{ level.originalPublisher }}</span>
                         </tooltip>
