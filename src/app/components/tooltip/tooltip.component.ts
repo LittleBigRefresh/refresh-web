@@ -6,9 +6,15 @@ import {Component, Input} from '@angular/core';
 })
 export class TooltipComponent {
     _text: string = "";
+    _active: boolean = true;
 
     @Input()
     set text(text: string) {
         this._text = text;
+    }
+
+    @Input()
+    set active(active: boolean) {
+        this._active = active;
     }
 }
