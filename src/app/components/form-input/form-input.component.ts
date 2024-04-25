@@ -19,7 +19,7 @@ export class FormInputComponent {
     _readonly: boolean = false;
 
     @Input() value: string | undefined = "";
-    @Input() valueDate: Date | undefined = undefined;
+    _valueDate: Date | undefined = undefined;
 
     @Output() valueChange: EventEmitter<string> = new EventEmitter<string>;
     @Output() valueDateChange: EventEmitter<Date> = new EventEmitter<Date>;
@@ -46,15 +46,21 @@ export class FormInputComponent {
         this._readonly = param;
     }
 
+    @Input()
+    set valueDate(value: Date | undefined) {
+        if(!value) this._valueDate = undefined;
+        else this._valueDate = new Date(value);
+    }
+
     onChange(event: any) {
         this.value = event.target.value;
         if (this.value) {
             this.valueChange.emit(this.value);
         }
 
-        this.valueDate = event.target.valueAsDate;
-        if(this.valueDate) {
-            this.valueDateChange.emit(this.valueDate);
+        this._valueDate = event.target.valueAsDate;
+        if(this._valueDate) {
+            this.valueDateChange.emit(this._valueDate);
         }
     }
 }

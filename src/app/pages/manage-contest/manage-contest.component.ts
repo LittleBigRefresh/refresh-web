@@ -70,11 +70,12 @@ export class ManageContestComponent implements OnInit {
     }
 
     submit(): void {
-        console.log(this.existingContest)
-        console.log(this.newContest)
+        if(!this.newContest) return;
 
         if(this.create) {
-            this.api.CreateContest(this.newContest!).subscribe()
+            this.api.CreateContest(this.newContest).subscribe()
+        } else {
+            this.api.UpdateContest(this.newContest).subscribe()
         }
     }
 

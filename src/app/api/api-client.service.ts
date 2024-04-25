@@ -193,6 +193,10 @@ export class ApiClient {
     public CreateContest(contest: ContestEditRequest): Observable<Contest> {
         return this.makeRequest<Contest>("POST", "admin/contests/" + contest.contestId, contest);
     }
+
+    public UpdateContest(contest: ContestEditRequest): Observable<Contest> {
+        return this.makeRequest<Contest>("PATCH", "contests/" + contest.contestId, contest);
+    }
 }
 
 export function GetPhotoLink(photo: Photo, large: boolean = true): string {
