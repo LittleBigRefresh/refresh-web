@@ -72,6 +72,10 @@ export class ManageContestComponent implements OnInit {
     submit(): void {
         console.log(this.existingContest)
         console.log(this.newContest)
+
+        if(this.create) {
+            this.api.CreateContest(this.newContest!).subscribe()
+        }
     }
 
     protected readonly faFloppyDisk = faFloppyDisk;

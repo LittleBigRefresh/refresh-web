@@ -21,6 +21,7 @@ import {LevelEditRequest} from "./types/level-edit-request";
 import {Asset} from "./types/asset";
 import {ExtendedUser} from "./types/extended-user";
 import {Contest} from "./types/contests/contest";
+import {ContestEditRequest} from "./types/contests/contest-edit-request";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -187,6 +188,10 @@ export class ApiClient {
 
     public GetContestById(contestId: string): Observable<Contest> {
         return this.makeRequest<Contest>("GET", "contests/" + contestId);
+    }
+
+    public CreateContest(contest: ContestEditRequest): Observable<Contest> {
+        return this.makeRequest<Contest>("POST", "admin/contests/" + contest.contestId, contest);
     }
 }
 
