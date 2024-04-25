@@ -20,7 +20,7 @@
         <h2 class="text-2xl font-bold">Metadata</h2>
         <form-input name="Title" [icon]="faPencil" [(value)]="newContest.contestTitle"></form-input>
         <form-input name="Short Summary" [icon]="faBook" [(value)]="newContest.contestSummary"></form-input>
-        <form-input name="Details" [icon]="faBook" [(value)]="newContest.contestDetails"></form-input>
+        <form-input name="Details" [icon]="faBook" [(value)]="newContest.contestDetails" [multiline]="true"></form-input>
         <form-input name="Banner URL" [icon]="faCamera" [(value)]="newContest.bannerUrl"></form-input>
 
         <container>
