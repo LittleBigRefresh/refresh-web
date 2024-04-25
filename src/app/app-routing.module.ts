@@ -33,6 +33,7 @@ import {ForgotPasswordComponent} from "./pages/forgot-password/forgot-password.c
 import {StatisticsComponent} from "./pages/statistics/statistics.component";
 import {ContestsComponent} from "./pages/contests/contests.component";
 import {ManageContestComponent} from "./pages/manage-contest/manage-contest.component";
+import {ContestComponent} from "./pages/contest/contest.component";
 
 const routes: Routes = [
     {path: "", component: MainComponent},
@@ -82,6 +83,7 @@ const routes: Routes = [
     {path: "admin/newContest", component: ManageContestComponent, canActivate: [adminAuthenticationGuard]},
 
     {path: "contests", component: ContestsComponent},
+    {path: "contests/:id", component: ContestComponent},
     {path: "contests/:id/manage", component: ManageContestComponent},
 ];
 

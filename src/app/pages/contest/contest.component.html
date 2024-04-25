@@ -1,0 +1,7 @@
+<h1>
+    <app-contest-banner [contest]="contest" *ngIf="contest"></app-contest-banner>
+</h1>
+
+<divider></divider>
+
+<markdown [data]="contest?.contestDetails"></markdown>

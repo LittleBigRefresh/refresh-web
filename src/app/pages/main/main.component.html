@@ -10,9 +10,9 @@
   <divider></divider>
 </div>
 
-<div *ngIf="instance && instance.activeContest" [title]="'Contest: ' + instance.activeContest.contestTitle" class="mb-5">
+<div *ngIf="instance && instance.activeContest" class="mb-5">
     <a [routerLink]="'/contests/' + instance.activeContest.contestId">
-        <img [src]="instance.activeContest.bannerUrl" class="w-full rounded-md">
+        <app-contest-banner [contest]="instance.activeContest"></app-contest-banner>
     </a>
 </div>
 
