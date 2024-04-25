@@ -7,7 +7,7 @@
     <input *ngIf="!multiline && _type == 'datetime-local'" class="bg-teritary placeholder:focus:text-secondary-bright placeholder:text-secondary text-foreground placeholder:italic flex-grow border-none outline-none overflow-hidden"
            [type]="_type" [readOnly]="_readonly" [valueAsDate]="_valueDate" (input)="onChange($event)">
 
-    <textarea *ngIf="multiline" class="bg-teritary placeholder:focus:text-secondary-bright placeholder:text-secondary text-foreground placeholder:italic flex-grow border-none outline-none min-h-[1.6rem] max-w-fit"
+    <textarea *ngIf="multiline" class="bg-teritary placeholder:focus:text-secondary-bright placeholder:text-secondary text-foreground placeholder:italic flex-grow border-none outline-none min-h-[1.6rem]"
               [placeholder]="_name" [readOnly]="_readonly" [value]="value" (input)="onChange($event)"></textarea>
   </div>
 </div>
