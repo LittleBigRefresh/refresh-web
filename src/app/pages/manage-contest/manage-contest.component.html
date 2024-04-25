@@ -1,0 +1,46 @@
+<page-header class="text-3xl" *ngIf="!create">Manage {{this.existingContest?.contestTitle ?? "Contest"}}</page-header>
+<page-header class="text-3xl" *ngIf="create">Create New Contest</page-header>
+
+<div class="mb-3" *ngIf="existingContest || newContest">
+    <span *ngIf="existingContest">
+        Contest ID:
+        <pre>{{existingContest.contestId}}</pre>
+    </span>
+
+    <div class="flex flex-col gap-y-1.5" *ngIf="newContest">
+        <h2 class="text-2xl font-bold">Identification</h2>
+        <form-input name="Contest ID" [icon]="faMedal" *ngIf="create" [(value)]="newContest.contestId"></form-input>
+        <form-input name="Contest Tag" [icon]="faHashtag" [(value)]="newContest.contestTag"></form-input>
+        <form-input name="Organizer User ID" [icon]="faUser" [(value)]="newContest.organizerId"></form-input>
+    </div>
+
+    <divider></divider>
+
+    <div class="flex flex-col gap-y-1.5" *ngIf="newContest">
+        <h2 class="text-2xl font-bold">Metadata</h2>
+        <form-input name="Title" [icon]="faPencil" [(value)]="newContest.contestTitle"></form-input>
+        <form-input name="Short Summary" [icon]="faBook" [(value)]="newContest.contestSummary"></form-input>
+        <form-input name="Details" [icon]="faBook" [(value)]="newContest.contestDetails"></form-input>
+        <form-input name="Banner URL" [icon]="faCamera" [(value)]="newContest.bannerUrl"></form-input>
+
+        <container>
+            <h3 class="font-bold text-xl">Banner Preview</h3>
+            <divider></divider>
+            <img [src]=newContest.bannerUrl class="h-56 w-full object-contain">
+        </container>
+    </div>
+
+    <divider></divider>
+
+    <div class="flex flex-col gap-y-1.5" *ngIf="newContest">
+        <h2 class="text-2xl font-bold">Time Period</h2>
+        <form-input [title]="'Start Date'" [icon]="faHourglassStart" [(valueDate)]="newContest.startDate" type="datetime-local"></form-input>
+        <form-input [title]="'End Date'" [icon]="faHourglassEnd" [(valueDate)]="newContest.endDate" type="datetime-local"></form-input>
+    </div>
+
+</div>
+
+<div class="flex gap-2">
+    <primary-button [text]="create ? 'Create Contest' : 'Save Contest'" [icon]="faFloppyDisk" class="w-48" (click)="submit()"></primary-button>
+    <secondary-button text="Cancel" [icon]="faCancel" class="w-36"></secondary-button>
+</div>

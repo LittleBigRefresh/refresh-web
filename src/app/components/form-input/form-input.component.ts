@@ -19,7 +19,10 @@ export class FormInputComponent {
     _readonly: boolean = false;
 
     @Input() value: string | undefined = "";
+    @Input() valueDate: Date | undefined = undefined;
+
     @Output() valueChange: EventEmitter<string> = new EventEmitter<string>;
+    @Output() valueDateChange: EventEmitter<Date> = new EventEmitter<Date>;
 
     @Input("multiline") multiline: boolean = false;
 
@@ -47,6 +50,11 @@ export class FormInputComponent {
         this.value = event.target.value;
         if (this.value) {
             this.valueChange.emit(this.value);
+        }
+
+        this.valueDate = event.target.valueAsDate;
+        if(this.valueDate) {
+            this.valueDateChange.emit(this.valueDate);
         }
     }
 }

@@ -96,6 +96,8 @@ import {ForgotPasswordComponent} from './pages/forgot-password/forgot-password.c
 import {DateComponent} from './components/date/date.component';
 import {StatisticsComponent} from './pages/statistics/statistics.component';
 import { ContainerComponent } from './components/container/container.component';
+import { ContestsComponent } from './pages/contests/contests.component';
+import { ManageContestComponent } from './pages/manage-contest/manage-contest.component';
 
 @NgModule({
     declarations: [
@@ -162,6 +164,8 @@ import { ContainerComponent } from './components/container/container.component';
         DateComponent,
         StatisticsComponent,
         ContainerComponent,
+        ContestsComponent,
+        ManageContestComponent,
     ],
     imports: [
         BrowserModule,

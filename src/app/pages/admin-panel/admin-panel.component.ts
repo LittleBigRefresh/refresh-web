@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiClient} from "../../api/api-client.service";
-import {faBullhorn, faCheck, faPencil, faUserPlus, faUsers, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {faBullhorn, faCheck, faMedal, faPencil, faUserPlus, faUsers, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {Announcement} from "../../api/types/announcement";
@@ -72,4 +72,5 @@ export class AdminPanelComponent implements OnInit {
     protected readonly faUsers = faUsers;
     protected readonly faUserPlus = faUserPlus;
     protected readonly faPencil = faPencil;
+    protected readonly faMedal = faMedal;
 }

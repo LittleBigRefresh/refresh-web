@@ -20,6 +20,7 @@ import {ApiRequestCreator} from "./api-request.creator";
 import {LevelEditRequest} from "./types/level-edit-request";
 import {Asset} from "./types/asset";
 import {ExtendedUser} from "./types/extended-user";
+import {Contest} from "./types/contests/contest";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -178,6 +179,14 @@ export class ApiClient {
 
     public UploadImageAsset(hash: string, data: ArrayBuffer): Observable<Asset> {
         return this.apiRequestCreator.makeRequest("POST", `assets/${hash}`, data);
+    }
+
+    public GetContests(): Observable<Contest[]> {
+        return this.makeRequest<Contest[]>("GET", "contests");
+    }
+
+    public GetContestById(contestId: string): Observable<Contest> {
+        return this.makeRequest<Contest>("GET", "contests/" + contestId);
     }
 }
 
