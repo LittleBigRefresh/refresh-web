@@ -21,17 +21,24 @@ export function markedOptionsFactory(): MarkedOptions {
                 break;
         }
 
-        return `<h${level} class="font-bold text-${tailwindFontSize}">${text}</h${level}>`;
+        return `<h${level} class="font-bold text-${tailwindFontSize} mt-2.5">${text}</h${level}>`;
     }
 
     renderer.link = (href, title) => {
         return `<a href="${href}" class="text-secondary-bright hover:underline">${title ?? href}</a>`;
     }
 
+    renderer.list = (body, ordered) => {
+        if(ordered)
+            return `<ol class="list-decimal list-inside">${body}</ol>`;
+        else
+            return `<ul class="list-disc list-inside">${body}</ul>`;
+    }
+
     return {
         renderer: renderer,
         gfm: true,
-        breaks: false,
+        breaks: true,
         pedantic: false,
     };
 }
