@@ -1,7 +1,24 @@
 <h1>
-    <app-contest-banner [contest]="contest" *ngIf="contest"></app-contest-banner>
+    <app-contest-banner *ngIf="contest" [contest]="contest"></app-contest-banner>
 </h1>
+
+<div class="pt-4 pb-1.5">
+    <div class="w-40">
+        <secondary-button *ngIf="ownUser?.role == UserRoles.Admin || contest?.organizer == ownUser"
+                          [icon]="faPen"
+                          [routerLink]="'/contests/' + contest?.contestId + '/manage'"
+                          text="Edit contest"></secondary-button>
+    </div>
+</div>
 
 <divider></divider>
 
-<markdown [data]="contest?.contestDetails"></markdown>
+<div>
+    <p class="text-3xl font-bold">{{ contest?.contestTitle }}</p>
+    <markdown [data]="contest?.contestDetails"></markdown>
+</div>
+
+<divider></divider>
+
+<category-preview [icon]="faCertificate" [route]="'contest'"
+                  category-title="Entries"></category-preview>

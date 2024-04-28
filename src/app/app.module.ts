@@ -102,6 +102,7 @@ import { ContestComponent } from './pages/contest/contest.component';
 import { ContestBannerComponent } from './components/contest-banner/contest-banner.component';
 import {MarkdownModule, MarkedOptions} from "ngx-markdown";
 import {markedOptionsFactory} from "./markdown.config";
+import {ContestPreviewComponent} from "./components/contest-preview/contest-preview.component";
 
 @NgModule({
     declarations: [
@@ -172,6 +173,7 @@ import {markedOptionsFactory} from "./markdown.config";
         ManageContestComponent,
         ContestComponent,
         ContestBannerComponent,
+        ContestPreviewComponent,
     ],
     imports: [
         BrowserModule,

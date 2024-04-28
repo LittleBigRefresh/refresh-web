@@ -4,10 +4,12 @@ import {
     faBell,
     faBookBookmark,
     faCameraAlt,
-    faCertificate, faEnvelope,
+    faCertificate,
+    faEnvelope,
     faExclamationTriangle,
     faFireAlt,
     faGear,
+    faMedal,
     faSignIn,
     faSquarePollVertical,
     faWrench
@@ -79,6 +81,11 @@ export class AppComponent {
     ];
 
     rightSideRouterLinks: HeaderLink[] = []
+    protected readonly GetAssetImageLink = GetAssetImageLink;
+    protected readonly faSignIn = faSignIn;
+    protected readonly faExclamationTriangle = faExclamationTriangle;
+    protected readonly UserRoles = UserRoles;
+    protected readonly faBell = faBell;
 
     constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService, public themeService: ThemeService) {
         authService.userWatcher.subscribe((data) => this.handleUserUpdate(data))
@@ -101,7 +108,7 @@ export class AppComponent {
         }
     }
 
-    getTheme(): string{
+    getTheme(): string {
         return this.themeService.GetTheme();
     }
 
@@ -118,6 +125,7 @@ export class AppComponent {
 
             this.rightSideRouterLinks.push(new HeaderLink("API Documentation", "/documentation", faBookBookmark))
             this.rightSideRouterLinks.push(new HeaderLink("Server Statistics", "/statistics", faSquarePollVertical))
+            this.rightSideRouterLinks.push(new HeaderLink("Contests", "/contests", faMedal))
             this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell))
             this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
             this.rightSideRouterLinks.push(new HeaderLink("Contact Us", `mailto:${this.instance?.contactInfo.emailAddress}`, faEnvelope, true))
@@ -137,10 +145,4 @@ export class AppComponent {
         this.menu.nativeElement.hidden = true;
         this.notifications.nativeElement.hidden = !this.notifications.nativeElement.hidden;
     }
-
-    protected readonly GetAssetImageLink = GetAssetImageLink;
-    protected readonly faSignIn = faSignIn;
-    protected readonly faExclamationTriangle = faExclamationTriangle;
-    protected readonly UserRoles = UserRoles;
-    protected readonly faBell = faBell;
 }
