@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Contest} from "../../api/types/contests/contest";
 import {ApiClient} from "../../api/api-client.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {
-    faBook,
+    faBook, faCalendar,
     faCamera,
     faCancel,
     faFloppyDisk,
@@ -26,7 +26,7 @@ export class ManageContestComponent implements OnInit {
 
     ownUser: ExtendedUser | undefined;
 
-    constructor(private api: ApiClient, private route: ActivatedRoute, private authService: AuthService) {
+    constructor(private api: ApiClient, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
         this.ownUser = this.authService.user;
         this.authService.userWatcher.subscribe((data) => {
             this.ownUser = data;
@@ -44,6 +44,7 @@ export class ManageContestComponent implements OnInit {
                     contestSummary: "",
                     contestTag: "",
                     contestTitle: "",
+                    creationDate : new Date(),
                     endDate: undefined,
                     organizerId: this.ownUser?.userId,
                     startDate: undefined,
@@ -64,6 +65,7 @@ export class ManageContestComponent implements OnInit {
                     endDate: contest.endDate,
                     organizerId: contest.organizer.userId,
                     startDate: contest.startDate,
+                    creationDate: contest.creationDate,
                 };
             })
         });
@@ -77,6 +79,8 @@ export class ManageContestComponent implements OnInit {
         } else {
             this.api.UpdateContest(this.newContest).subscribe()
         }
+
+        this.router.navigateByUrl("contests/" + this.newContest.contestId);
     }
 
     protected readonly faFloppyDisk = faFloppyDisk;
@@ -89,4 +93,5 @@ export class ManageContestComponent implements OnInit {
     protected readonly faHourglassStart = faHourglassStart;
     protected readonly faHourglassEnd = faHourglassEnd;
     protected readonly faUser = faUser;
+    protected readonly faCalendar = faCalendar;
 }
