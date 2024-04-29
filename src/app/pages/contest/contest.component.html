@@ -9,14 +9,20 @@
             <img class="lg:w-72 w-full rounded-md" src="{{contest.contestThemeImageUrl}}">
         </container>
         <container>
+            <p class="text-2xl font-bold">Allowed Games</p>
+            <div class="w-full flex">
+                <markdown [data]="formatAllowedGames()"></markdown>
+            </div>
+        </container>
+        <container>
             <p class="text-2xl font-bold">{{ hasStarted() ? 'Started' : 'Starts in' }}</p>
-            <div class="h-full w-full flex justify-center items-center">
+            <div class="h-full w-full flex items-center">
                 <p class="text-xl">{{ dateString(contest.startDate, hasStarted()!) }}</p>
             </div>
         </container>
         <container>
             <p class="text-2xl font-bold">{{ hasEnded() ? 'Ended' : 'Ends in' }}</p>
-            <div class="h-full w-full flex justify-center items-center">
+            <div class="h-full w-full flex items-center">
                 <p class="text-xl">{{ dateString(contest.endDate, hasEnded()!) }}</p>
             </div>
         </container>

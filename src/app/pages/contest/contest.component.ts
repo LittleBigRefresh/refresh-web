@@ -11,6 +11,7 @@ import {faCertificate, faPen, faStar} from "@fortawesome/free-solid-svg-icons";
 import {ApiListResponse} from "../../api/types/response/api-list-response";
 import {Level} from "../../api/types/level";
 import * as moment from "dayjs";
+import {GameVersion} from "../../api/types/game-version";
 
 @Component({
     selector: 'app-contest',
@@ -35,7 +36,6 @@ export class ContestComponent implements OnInit {
 
         let now: Date = new Date();
         let start: Date = new Date(this.contest.startDate);
-        let end: Date = new Date(this.contest.endDate);
 
         return now > start;
     }
@@ -55,6 +55,15 @@ export class ContestComponent implements OnInit {
             return new Date(date).toLocaleDateString();
         }
         return moment(date).fromNow(true);
+    }
+
+    formatAllowedGames(): string {
+        let response = "";
+        for (let game in this.contest?.allowedGames) {
+            response += "- " + GameVersion[parseInt(game)].replace("LittleBigPlanet", "LBP ") + "\n";
+        }
+
+        return response;
     }
 
     ngOnInit(): void {
