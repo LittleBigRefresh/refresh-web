@@ -1,47 +1,64 @@
-<page-header class="text-3xl" *ngIf="!create">Manage {{this.existingContest?.contestTitle ?? "Contest"}}</page-header>
-<page-header class="text-3xl" *ngIf="create">Create New Contest</page-header>
+<page-header *ngIf="!create" class="text-3xl">Manage {{ this.existingContest?.contestTitle ?? "Contest" }}</page-header>
+<page-header *ngIf="create" class="text-3xl">Create New Contest</page-header>
 
-<div class="mb-3" *ngIf="newContest">
+<div *ngIf="newContest" class="mb-3">
     <span *ngIf="existingContest">
         Contest ID:
-        <pre class="inline">{{existingContest.contestId}}</pre>
+        <pre class="inline">{{ existingContest.contestId }}</pre>
     </span>
 
-    <div class="flex flex-col gap-y-1.5" *ngIf="newContest">
+    <div *ngIf="newContest" class="flex flex-col gap-y-1.5">
         <h2 class="text-2xl font-bold">Identification</h2>
-        <form-input name="Contest ID" [icon]="faMedal" *ngIf="create" [(value)]="newContest.contestId"></form-input>
-        <form-input name="Contest Tag" [icon]="faHashtag" [(value)]="newContest.contestTag"></form-input>
-        <form-input name="Organizer User ID" [icon]="faUser" [(value)]="newContest.organizerId"></form-input>
+        <form-input *ngIf="create" [(value)]="newContest.contestId" [icon]="faMedal" name="Contest ID"></form-input>
+        <form-input [(value)]="newContest.contestTag" [icon]="faHashtag" name="Contest Tag"></form-input>
+        <form-input [(value)]="newContest.organizerId" [icon]="faUser" name="Organizer User ID"></form-input>
     </div>
 
     <divider></divider>
 
-    <div class="flex flex-col gap-y-1.5" *ngIf="newContest">
+    <div *ngIf="newContest" class="flex flex-col gap-y-1.5">
         <h2 class="text-2xl font-bold">Metadata</h2>
-        <form-input name="Title" [icon]="faPencil" [(value)]="newContest.contestTitle"></form-input>
-        <form-input name="Short Summary" [icon]="faBook" [(value)]="newContest.contestSummary"></form-input>
-        <form-input name="Details" [icon]="faBook" [(value)]="newContest.contestDetails" [multiline]="true"></form-input>
-        <form-input name="Banner URL" [icon]="faCamera" [(value)]="newContest.bannerUrl"></form-input>
+        <form-input [(value)]="newContest.contestTitle" [icon]="faPencil" name="Title"></form-input>
+        <form-input [(value)]="newContest.contestSummary" [icon]="faBook" name="Short Summary"></form-input>
+        <form-input [(value)]="newContest.contestDetails" [icon]="faBook" [multiline]="true"
+                    name="Details"></form-input>
+        <form-input [(value)]="newContest.bannerUrl" [icon]="faCamera" name="Banner URL"></form-input>
 
         <container>
             <h3 class="font-bold text-xl">Banner Preview</h3>
             <divider></divider>
             <img [src]=newContest.bannerUrl class="w-full object-contain">
         </container>
+
+        <form-input [(value)]="newContest.contestTheme" [icon]="faBrush" name="Theme"></form-input>
+        <form-input [(value)]="newContest.contestThemeImageUrl" [icon]="faCamera" name="Theme URL"></form-input>
+
+        <container>
+            <h3 class="font-bold text-xl">Theme Preview</h3>
+            <divider></divider>
+            <img [src]=newContest.contestThemeImageUrl class="w-full object-contain">
+        </container>
     </div>
 
     <divider></divider>
 
-    <div class="flex flex-col gap-y-1.5" *ngIf="newContest">
+    <div *ngIf="newContest" class="flex flex-col gap-y-1.5">
         <h2 class="text-2xl font-bold">Time Period</h2>
-        <form-input [title]="'Creation Date'" [icon]="faCalendar" [(valueDate)]="newContest.creationDate" type="datetime-local"></form-input>
-        <form-input [title]="'Start Date'" [icon]="faHourglassStart" [(valueDate)]="newContest.startDate" type="datetime-local"></form-input>
-        <form-input [title]="'End Date'" [icon]="faHourglassEnd" [(valueDate)]="newContest.endDate" type="datetime-local"></form-input>
+        <form-input [(valueDate)]="newContest.creationDate" [icon]="faCalendar" [title]="'Creation Date'"
+                    type="datetime-local"></form-input>
+        <form-input [(valueDate)]="newContest.startDate" [icon]="faHourglassStart" [title]="'Start Date'"
+                    type="datetime-local"></form-input>
+        <form-input [(valueDate)]="newContest.endDate" [icon]="faHourglassEnd" [title]="'End Date'"
+                    type="datetime-local"></form-input>
     </div>
+
+    <h1 class="text-5xl">ALLOWED GAMES AND THEME</h1>
 
 </div>
 
 <div class="flex gap-2">
-    <primary-button [text]="create ? 'Create Contest' : 'Save Contest'" [icon]="faFloppyDisk" class="w-48" (click)="submit()"></primary-button>
-    <secondary-button text="Cancel" [icon]="faCancel" class="w-36"></secondary-button>
+    <primary-button (click)="submit()" [icon]="faFloppyDisk" [text]="create ? 'Create Contest' : 'Save Contest'"
+                    class="w-48"></primary-button>
+    <secondary-button (click)="cancel()" [icon]="faCancel" class="w-36" text="Cancel"></secondary-button>
+    <dangerous-button *ngIf="!create" [icon]="faTrash" text="Delete Contest"></dangerous-button>
 </div>

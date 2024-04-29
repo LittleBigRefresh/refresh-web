@@ -1,9 +1,9 @@
 <page-header class="text-2xl">
-  <fa-icon [icon]="Icon" *ngIf="Icon" class="pr-1.5"></fa-icon>
-  <a [routerLink]="'/levels/' + Route" class="cursor-pointer pr-1">{{Title}}</a>
-  <span-gentle>({{Total}} total)</span-gentle>
+    <fa-icon *ngIf="Icon" [icon]="Icon" class="pr-1.5"></fa-icon>
+    <a [routerLink]="'/levels/' + Route + '?' + Query" class="cursor-pointer pr-1">{{ Title }}</a>
+    <span-gentle>({{ Total }} total)</span-gentle>
 </page-header>
 
 <carousel>
-  <level-preview *ngFor="let level of Levels" [level]="level"></level-preview>
+    <level-preview *ngFor="let level of Levels" [level]="level"></level-preview>
 </carousel>

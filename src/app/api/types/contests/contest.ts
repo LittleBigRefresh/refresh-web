@@ -1,4 +1,5 @@
 import {User} from "../user";
+import {GameVersion} from "../game-version";
 
 export interface Contest {
     contestId: string;
@@ -14,4 +15,9 @@ export interface Contest {
     contestTitle: string;
     contestSummary: string;
     contestDetails: string;
+
+    contestTheme: string;
+    contestThemeImageUrl: string;
+
+    allowedGames: GameVersion[];
 }

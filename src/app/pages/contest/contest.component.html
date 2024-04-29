@@ -2,7 +2,25 @@
     <app-contest-banner *ngIf="contest" [contest]="contest"></app-contest-banner>
 </h1>
 
-<div class="pt-4 pb-1.5">
+<div *ngIf="contest" class="pt-4 pb-1.5 flex lg:justify-between flex-col lg:flex-row gap-2">
+    <div class="flex gap-2 flex-col lg:flex-row">
+        <container *ngIf="contest.contestThemeImageUrl != null">
+            <p class="text-2xl font-bold">Theme</p>
+            <img class="lg:w-72 w-full rounded-md" src="{{contest.contestThemeImageUrl}}">
+        </container>
+        <container>
+            <p class="text-2xl font-bold">{{ hasStarted() ? 'Started' : 'Starts in' }}</p>
+            <div class="h-full w-full flex justify-center items-center">
+                <p class="text-xl">{{ dateString(contest.startDate, hasStarted()!) }}</p>
+            </div>
+        </container>
+        <container>
+            <p class="text-2xl font-bold">{{ hasEnded() ? 'Ended' : 'Ends in' }}</p>
+            <div class="h-full w-full flex justify-center items-center">
+                <p class="text-xl">{{ dateString(contest.endDate, hasEnded()!) }}</p>
+            </div>
+        </container>
+    </div>
     <div class="w-40">
         <secondary-button *ngIf="ownUser?.role == UserRoles.Admin || contest?.organizer == ownUser"
                           [icon]="faPen"
@@ -20,5 +38,7 @@
 
 <divider></divider>
 
-<category-preview [icon]="faCertificate" [route]="'contest'"
-                  category-title="Entries"></category-preview>
+<category-preview *ngIf="contest && levelEntries" [icon]="faCertificate" [levels]="levelEntries.items"
+                  [query]="'contest=' + contest.contestId"
+                  [total]="levelEntries.listInfo.totalItems" category-title="Entries"
+                  route="contest"></category-preview>

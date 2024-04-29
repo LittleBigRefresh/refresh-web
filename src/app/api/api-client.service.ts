@@ -19,7 +19,6 @@ import {Instance} from "./types/instance";
 import {ApiRequestCreator} from "./api-request.creator";
 import {LevelEditRequest} from "./types/level-edit-request";
 import {Asset} from "./types/asset";
-import {ExtendedUser} from "./types/extended-user";
 import {Contest} from "./types/contests/contest";
 import {ContestEditRequest} from "./types/contests/contest-edit-request";
 
@@ -31,14 +30,6 @@ export class ApiClient {
     private instance: Instance | undefined;
 
     constructor(private apiRequestCreator: ApiRequestCreator, private bannerService: BannerService) {
-    }
-
-    private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
-        return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
-    }
-
-    private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
-        return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
     }
 
     public GetServerStatistics(): Observable<Statistics> {
@@ -85,8 +76,8 @@ export class ApiClient {
         return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
     }
 
-    public GetLevelListing(route: string, count: number = 20, skip: number = 0): Observable<ApiListResponse<Level>> {
-        return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}`);
+    public GetLevelListing(route: string, count: number = 20, skip: number = 0, query: string = ""): Observable<ApiListResponse<Level>> {
+        return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}&${query}`);
     }
 
     public GetLevelById(id: number): Observable<Level> {
@@ -148,7 +139,7 @@ export class ApiClient {
 
     public EditLevel(level: LevelEditRequest, id: number, admin: boolean = false): void {
         let endpoint: string = "levels/id/" + id;
-        if(admin) endpoint = "admin/" + endpoint;
+        if (admin) endpoint = "admin/" + endpoint;
         this.apiRequestCreator.makeRequest("PATCH", endpoint, level)
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
@@ -157,7 +148,7 @@ export class ApiClient {
 
     public UpdateLevelIcon(hash: string, id: number, admin: boolean = false): void {
         let endpoint: string = "levels/id/" + id;
-        if(admin) endpoint = "admin/" + endpoint;
+        if (admin) endpoint = "admin/" + endpoint;
         this.apiRequestCreator.makeRequest("PATCH", endpoint, {iconHash: hash})
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Icon updated", "The level's icon was successfully updated.");
@@ -196,6 +187,21 @@ export class ApiClient {
 
     public UpdateContest(contest: ContestEditRequest): Observable<Contest> {
         return this.makeRequest<Contest>("PATCH", "contests/" + contest.contestId, contest);
+    }
+
+    public DeleteContest(contest: Contest): void {
+        this.apiRequestCreator.makeRequest("DELETE", "contests/id/" + contest.contestId)
+            .subscribe(_ => {
+                this.bannerService.pushWarning("Contest Deleted", `${contest.contestTitle} was successfully removed.`);
+            });
+    }
+
+    private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
+        return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
+    }
+
+    private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
+        return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
     }
 }
 

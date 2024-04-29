@@ -1,3 +1,5 @@
+import {GameVersion} from "../game-version";
+
 export interface ContestEditRequest {
     contestId: string | undefined;
     organizerId: string | undefined;
@@ -12,4 +14,9 @@ export interface ContestEditRequest {
     contestTitle: string | undefined;
     contestSummary: string | undefined;
     contestDetails: string | undefined;
+
+    contestTheme: string | undefined;
+    contestThemeImageUrl: string | undefined;
+
+    allowedGames: GameVersion[] | undefined;
 }

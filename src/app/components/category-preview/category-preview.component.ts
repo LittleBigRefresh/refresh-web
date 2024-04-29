@@ -12,4 +12,5 @@ export class CategoryPreviewComponent {
     @Input("route") public Route: string = "";
     @Input("levels") public Levels: Level[] | undefined;
     @Input("total") public Total: number = 0;
+    @Input("query") public Query: string | undefined = undefined;
 }

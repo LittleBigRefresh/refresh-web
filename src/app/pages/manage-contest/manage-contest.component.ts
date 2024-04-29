@@ -3,30 +3,49 @@ import {Contest} from "../../api/types/contests/contest";
 import {ApiClient} from "../../api/api-client.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {
-    faBook, faCalendar,
+    faBook,
+    faBrush,
+    faCalendar,
     faCamera,
     faCancel,
     faFloppyDisk,
-    faHashtag, faHourglassEnd, faHourglassStart,
+    faHashtag,
+    faHourglassEnd,
+    faHourglassStart,
     faMedal,
-    faPencil, faStop, faStopCircle, faTrafficLight, faUser
+    faPencil,
+    faTrash,
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 import {ContestEditRequest} from "../../api/types/contests/contest-edit-request";
 import {ExtendedUser} from "../../api/types/extended-user";
 import {AuthService} from "../../api/auth.service";
+import {Location} from "@angular/common";
 
 @Component({
-  selector: 'app-manage-contest',
-  templateUrl: './manage-contest.component.html'
+    selector: 'app-manage-contest',
+    templateUrl: './manage-contest.component.html'
 })
 export class ManageContestComponent implements OnInit {
+    ownUser: ExtendedUser | undefined;
     protected create: boolean = false;
     protected existingContest: Contest | undefined = undefined;
     protected newContest: ContestEditRequest | undefined = undefined;
+    protected readonly faFloppyDisk = faFloppyDisk;
+    protected readonly faCancel = faCancel;
+    protected readonly faMedal = faMedal;
+    protected readonly faHashtag = faHashtag;
+    protected readonly faCamera = faCamera;
+    protected readonly faPencil = faPencil;
+    protected readonly faBook = faBook;
+    protected readonly faHourglassStart = faHourglassStart;
+    protected readonly faHourglassEnd = faHourglassEnd;
+    protected readonly faUser = faUser;
+    protected readonly faCalendar = faCalendar;
+    protected readonly faTrash = faTrash;
+    protected readonly faBrush = faBrush;
 
-    ownUser: ExtendedUser | undefined;
-
-    constructor(private api: ApiClient, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
+    constructor(private api: ApiClient, private route: ActivatedRoute, private router: Router, private authService: AuthService, private location: Location) {
         this.ownUser = this.authService.user;
         this.authService.userWatcher.subscribe((data) => {
             this.ownUser = data;
@@ -35,7 +54,7 @@ export class ManageContestComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
-            if(!params.get('id')) {
+            if (!params.get('id')) {
                 this.create = true;
                 this.newContest = {
                     bannerUrl: "https://i.imgur.com/XhmwFvC.png",
@@ -44,10 +63,13 @@ export class ManageContestComponent implements OnInit {
                     contestSummary: "",
                     contestTag: "",
                     contestTitle: "",
-                    creationDate : new Date(),
+                    creationDate: new Date(),
                     endDate: undefined,
                     organizerId: this.ownUser?.userId,
                     startDate: undefined,
+                    contestTheme: "",
+                    contestThemeImageUrl: "https://i.imgur.com/qG0NSIw.png",
+                    allowedGames: [],
                 };
                 return;
             }
@@ -66,15 +88,18 @@ export class ManageContestComponent implements OnInit {
                     organizerId: contest.organizer.userId,
                     startDate: contest.startDate,
                     creationDate: contest.creationDate,
+                    contestTheme: contest.contestTheme,
+                    contestThemeImageUrl: contest.contestThemeImageUrl,
+                    allowedGames: contest.allowedGames,
                 };
             })
         });
     }
 
     submit(): void {
-        if(!this.newContest) return;
+        if (!this.newContest) return;
 
-        if(this.create) {
+        if (this.create) {
             this.api.CreateContest(this.newContest).subscribe()
         } else {
             this.api.UpdateContest(this.newContest).subscribe()
@@ -83,15 +108,14 @@ export class ManageContestComponent implements OnInit {
         this.router.navigateByUrl("contests/" + this.newContest.contestId);
     }
 
-    protected readonly faFloppyDisk = faFloppyDisk;
-    protected readonly faCancel = faCancel;
-    protected readonly faMedal = faMedal;
-    protected readonly faHashtag = faHashtag;
-    protected readonly faCamera = faCamera;
-    protected readonly faPencil = faPencil;
-    protected readonly faBook = faBook;
-    protected readonly faHourglassStart = faHourglassStart;
-    protected readonly faHourglassEnd = faHourglassEnd;
-    protected readonly faUser = faUser;
-    protected readonly faCalendar = faCalendar;
+    cancel() {
+        this.location.back()
+    }
+
+    delete() {
+        if (!this.existingContest)
+            return;
+
+        this.api.DeleteContest(this.existingContest);
+    }
 }
