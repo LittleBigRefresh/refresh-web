@@ -104,6 +104,7 @@ import {ContestBannerComponent} from './components/contest-banner/contest-banner
 import {MarkdownModule, MarkedOptions} from "ngx-markdown";
 import {markedOptionsFactory} from "./markdown.config";
 import {ContestPreviewComponent} from "./components/contest-preview/contest-preview.component";
+import {ContestLabelComponent} from "./components/contest-label/contest-label.component";
 
 @NgModule({
     declarations: [
@@ -175,6 +176,7 @@ import {ContestPreviewComponent} from "./components/contest-preview/contest-prev
         ContestComponent,
         ContestBannerComponent,
         ContestPreviewComponent,
+        ContestLabelComponent,
     ],
     imports: [
         BrowserModule,

@@ -8,6 +8,7 @@ import {
     faCalendar,
     faCamera,
     faCancel,
+    faCertificate,
     faFloppyDisk,
     faGamepad,
     faHashtag,
@@ -15,6 +16,7 @@ import {
     faHourglassStart,
     faMedal,
     faPencil,
+    faStar,
     faTrash,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
@@ -49,6 +51,8 @@ export class ManageContestComponent implements OnInit {
     protected readonly GameVersion = GameVersion;
     protected readonly faGamepad = faGamepad;
     protected readonly Object = Object;
+    protected readonly faStar = faStar;
+    protected readonly faCertificate = faCertificate;
 
     constructor(private api: ApiClient, private route: ActivatedRoute, private router: Router, private authService: AuthService, private location: Location) {
         this.ownUser = this.authService.user;
@@ -95,7 +99,7 @@ export class ManageContestComponent implements OnInit {
                     creationDate: contest.creationDate,
                     contestTheme: contest.contestTheme,
                     allowedGames: contest.allowedGames,
-                    templateLevelId: undefined,
+                    templateLevelId: contest.templateLevel.levelId,
                 };
             })
         });
@@ -135,5 +139,11 @@ export class ManageContestComponent implements OnInit {
         }
 
         console.log(this.newContest?.allowedGames);
+    }
+
+    setTemplateLevelId(id: string) {
+        if (!this.newContest) return;
+
+        this.newContest.templateLevelId = parseInt(id);
     }
 }

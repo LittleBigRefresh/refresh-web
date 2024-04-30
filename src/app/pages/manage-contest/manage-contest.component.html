@@ -31,6 +31,10 @@
         </container>
 
         <form-input [(value)]="newContest.contestTheme" [icon]="faBrush" name="Theme"></form-input>
+
+        <form-input (valueChange)="setTemplateLevelId($event)" [icon]="faCertificate"
+                    [value]="newContest.templateLevelId?.toString()"
+                    name="Template Level Id"></form-input>
     </div>
 
     <divider></divider>
@@ -72,5 +76,5 @@
     <primary-button (click)="submit()" [icon]="faFloppyDisk" [text]="create ? 'Create Contest' : 'Save Contest'"
                     class="w-48"></primary-button>
     <secondary-button (click)="cancel()" [icon]="faCancel" class="w-36" text="Cancel"></secondary-button>
-    <dangerous-button *ngIf="!create" [icon]="faTrash" text="Delete Contest"></dangerous-button>
+    <dangerous-button (click)="delete()" *ngIf="!create" [icon]="faTrash" text="Delete Contest"></dangerous-button>
 </div>

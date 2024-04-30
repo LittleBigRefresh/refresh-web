@@ -2,33 +2,20 @@
     <app-contest-banner *ngIf="contest" [contest]="contest"></app-contest-banner>
 </h1>
 
-<div *ngIf="contest" class="pt-4 pb-1.5 flex lg:justify-between flex-col lg:flex-row gap-2">
-    <div class="flex gap-2 flex-col lg:flex-row">
-        <container *ngIf="contest.contestTheme != null">
-            <p class="text-2xl font-bold">Theme</p>
-            <div class="w-full flex">
-                <p>{{ contest.contestTheme }}</p>
+<div class="flex justify-between pt-4">
+    <div class="flex flex-col gap-1">
+        <div class="flex items-end gap-2">
+            <p class="text-4xl font-bold">{{ contest?.contestTitle }}</p>
+            <div class="inline-block text-sm font-normal">
+                <span-gentle>by
+                    <user-link *ngIf="contest && contest?.organizer" [user]="contest.organizer"
+                               class="pl-1"></user-link>
+                </span-gentle>
             </div>
-        </container>
-        <container>
-            <p class="text-2xl font-bold">Allowed Games</p>
-            <div class="w-full flex">
-                <markdown [data]="formatAllowedGames()"></markdown>
-            </div>
-        </container>
-        <container>
-            <p class="text-2xl font-bold">{{ hasStarted() ? 'Started' : 'Starts in' }}</p>
-            <div class="h-full w-full flex items-center">
-                <p class="text-xl">{{ dateString(contest.startDate, hasStarted()!) }}</p>
-            </div>
-        </container>
-        <container>
-            <p class="text-2xl font-bold">{{ hasEnded() ? 'Ended' : 'Ends in' }}</p>
-            <div class="h-full w-full flex items-center">
-                <p class="text-xl">{{ dateString(contest.endDate, hasEnded()!) }}</p>
-            </div>
-        </container>
+        </div>
+        <p class="text-xl text-secondary-bright">{{ contest?.contestSummary }}</p>
     </div>
+
     <div class="w-40">
         <secondary-button *ngIf="ownUser?.role == UserRoles.Admin || contest?.organizer == ownUser"
                           [icon]="faPen"
@@ -37,10 +24,40 @@
     </div>
 </div>
 
+<container>
+    <p class="text-2xl font-bold">Template Level</p>
+    <level-preview *ngIf="contest?.templateLevel" [level]="contest!.templateLevel"></level-preview>
+</container>
+
+<div *ngIf="contest" class="pt-4 pb-1.5 flex lg:justify-between flex-col lg:flex-row gap-2">
+    <div class="flex gap-2 flex-col lg:flex-row">
+        <container>
+            <p class="text-2xl font-bold">Allowed Games</p>
+            <div class="w-full flex">
+                <markdown [data]="formatAllowedGames()" class="text-xl"></markdown>
+            </div>
+        </container>
+        <container *ngIf="contest.contestTheme != null">
+            <app-contest-label [text]="contest.contestTheme" title="Theme"></app-contest-label>
+        </container>
+        <container>
+            <app-contest-label [text]="contest.contestTag"
+                               title="Tag"></app-contest-label>
+        </container>
+        <container>
+            <app-contest-label [text]="dateString(contest.startDate, hasStarted()!)"
+                               [title]="hasStarted() ? 'Started' : 'Starts in'"></app-contest-label>
+        </container>
+        <container>
+            <app-contest-label [text]="dateString(contest.endDate, hasEnded()!)"
+                               [title]="hasEnded() ? 'Ended' : 'Ends in'"></app-contest-label>
+        </container>
+    </div>
+</div>
+
 <divider></divider>
 
 <div>
-    <p class="text-3xl font-bold">{{ contest?.contestTitle }}</p>
     <markdown [data]="contest?.contestDetails"></markdown>
 </div>
 
