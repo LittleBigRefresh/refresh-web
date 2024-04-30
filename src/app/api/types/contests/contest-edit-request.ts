@@ -14,9 +14,9 @@ export interface ContestEditRequest {
     contestTitle: string | undefined;
     contestSummary: string | undefined;
     contestDetails: string | undefined;
-
     contestTheme: string | undefined;
-    contestThemeImageUrl: string | undefined;
+
+    templateLevelId: number | undefined;
 
     allowedGames: GameVersion[] | undefined;
 }

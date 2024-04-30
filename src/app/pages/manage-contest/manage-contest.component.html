@@ -31,13 +31,27 @@
         </container>
 
         <form-input [(value)]="newContest.contestTheme" [icon]="faBrush" name="Theme"></form-input>
-        <form-input [(value)]="newContest.contestThemeImageUrl" [icon]="faCamera" name="Theme URL"></form-input>
+    </div>
 
-        <container>
-            <h3 class="font-bold text-xl">Theme Preview</h3>
-            <divider></divider>
-            <img [src]=newContest.contestThemeImageUrl class="w-full object-contain">
-        </container>
+    <divider></divider>
+
+    <div *ngIf="newContest" class="flex flex-col gap-y-1.5">
+        <h2 class="text-2xl font-bold">Allowed Games</h2>
+        <form-checkbox
+            (valueChange)="setAllowedGame(game, $event)"
+            *ngFor="let game of
+            [GameVersion.LittleBigPlanet1,
+            GameVersion.LittleBigPlanet2,
+            GameVersion.LittleBigPlanet3,
+            GameVersion.LittleBigPlanetVita,
+            GameVersion.LittleBigPlanetPSP,
+            GameVersion.BetaBuild,
+            GameVersion.Website]"
+
+            [icon]="faGamepad"
+            [name]="GameVersion[game]"
+            [value]="newContest.allowedGames?.includes(game)"
+        ></form-checkbox>
     </div>
 
     <divider></divider>
@@ -51,8 +65,6 @@
         <form-input [(valueDate)]="newContest.endDate" [icon]="faHourglassEnd" [title]="'End Date'"
                     type="datetime-local"></form-input>
     </div>
-
-    <h1 class="text-5xl">ALLOWED GAMES AND THEME</h1>
 
 </div>
 

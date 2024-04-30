@@ -9,6 +9,7 @@ import {
     faCamera,
     faCancel,
     faFloppyDisk,
+    faGamepad,
     faHashtag,
     faHourglassEnd,
     faHourglassStart,
@@ -21,6 +22,7 @@ import {ContestEditRequest} from "../../api/types/contests/contest-edit-request"
 import {ExtendedUser} from "../../api/types/extended-user";
 import {AuthService} from "../../api/auth.service";
 import {Location} from "@angular/common";
+import {GameVersion} from "../../api/types/game-version";
 
 @Component({
     selector: 'app-manage-contest',
@@ -44,6 +46,9 @@ export class ManageContestComponent implements OnInit {
     protected readonly faCalendar = faCalendar;
     protected readonly faTrash = faTrash;
     protected readonly faBrush = faBrush;
+    protected readonly GameVersion = GameVersion;
+    protected readonly faGamepad = faGamepad;
+    protected readonly Object = Object;
 
     constructor(private api: ApiClient, private route: ActivatedRoute, private router: Router, private authService: AuthService, private location: Location) {
         this.ownUser = this.authService.user;
@@ -68,8 +73,8 @@ export class ManageContestComponent implements OnInit {
                     organizerId: this.ownUser?.userId,
                     startDate: undefined,
                     contestTheme: "",
-                    contestThemeImageUrl: "https://i.imgur.com/qG0NSIw.png",
                     allowedGames: [],
+                    templateLevelId: undefined,
                 };
                 return;
             }
@@ -89,8 +94,8 @@ export class ManageContestComponent implements OnInit {
                     startDate: contest.startDate,
                     creationDate: contest.creationDate,
                     contestTheme: contest.contestTheme,
-                    contestThemeImageUrl: contest.contestThemeImageUrl,
                     allowedGames: contest.allowedGames,
+                    templateLevelId: undefined,
                 };
             })
         });
@@ -117,5 +122,18 @@ export class ManageContestComponent implements OnInit {
             return;
 
         this.api.DeleteContest(this.existingContest);
+    }
+
+    setAllowedGame(gameVersion: GameVersion, value: boolean) {
+        if (this.newContest == null)
+            return;
+
+        if (value) {
+            this.newContest.allowedGames?.push(gameVersion);
+        } else {
+            this.newContest.allowedGames = this.newContest.allowedGames?.filter((game) => game != gameVersion);
+        }
+
+        console.log(this.newContest?.allowedGames);
     }
 }
