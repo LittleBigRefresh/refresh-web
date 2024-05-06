@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../api/types/level";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import {Params} from "@angular/router";
 
 @Component({
     selector: 'category-preview',
@@ -12,5 +13,12 @@ export class CategoryPreviewComponent {
     @Input("route") public Route: string = "";
     @Input("levels") public Levels: Level[] | undefined;
     @Input("total") public Total: number = 0;
-    @Input("query") public Query: string | undefined = undefined;
+    @Input("query") public params: Params = {};
+    @Input("type") public Type: CategoryPreviewType = CategoryPreviewType.Carousel;
+    protected readonly CategoryPreviewType = CategoryPreviewType;
+}
+
+export enum CategoryPreviewType {
+    Carousel,
+    List
 }

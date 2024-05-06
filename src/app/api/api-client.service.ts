@@ -21,6 +21,7 @@ import {LevelEditRequest} from "./types/level-edit-request";
 import {Asset} from "./types/asset";
 import {Contest} from "./types/contests/contest";
 import {ContestEditRequest} from "./types/contests/contest-edit-request";
+import {Params} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -76,8 +77,15 @@ export class ApiClient {
         return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
     }
 
-    public GetLevelListing(route: string, count: number = 20, skip: number = 0, query: string = ""): Observable<ApiListResponse<Level>> {
-        return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}&${query}`);
+    public GetLevelListing(route: string, count: number = 20, skip: number = 0, params: Params = {}): Observable<ApiListResponse<Level>> {
+        let query: string = `count=${count}&skip=${skip}`;
+
+        for (let param in params) {
+            query += `&${param}=${params[param]}`
+        }
+
+
+        return this.makeListRequest<Level>("GET", `levels/${route}?${query}`);
     }
 
     public GetLevelById(id: number): Observable<Level> {

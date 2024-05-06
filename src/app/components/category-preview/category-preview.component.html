@@ -1,9 +1,20 @@
 <page-header class="text-2xl">
     <fa-icon *ngIf="Icon" [icon]="Icon" class="pr-1.5"></fa-icon>
-    <a [routerLink]="'/levels/' + Route + '?' + Query" class="cursor-pointer pr-1">{{ Title }}</a>
+    <a [queryParams]="params" [routerLink]="'/levels/' + Route" class="cursor-pointer pr-1">{{ Title }}</a>
     <span-gentle>({{ Total }} total)</span-gentle>
 </page-header>
 
-<carousel>
-    <level-preview *ngFor="let level of Levels" [level]="level"></level-preview>
-</carousel>
+<ng-container [ngSwitch]="Type">
+    <carousel *ngSwitchCase="CategoryPreviewType.Carousel">
+        <level-preview *ngFor="let level of Levels" [level]="level"></level-preview>
+    </carousel>
+
+    <div *ngSwitchCase="CategoryPreviewType.List" class="flex flex-col gap-2">
+        <container *ngFor="let level of Levels">
+            <level-preview [level]="level"></level-preview>
+        </container>
+        <secondary-button *ngIf="Levels && Total > Levels.length" [queryParams]="params"
+                          [routerLink]="'/levels/' + Route"
+                          text="More"></secondary-button>
+    </div>
+</ng-container>
