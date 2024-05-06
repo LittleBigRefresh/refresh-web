@@ -23,8 +23,6 @@ export class LevelListingComponent implements OnInit {
     params: Params = {};
     nextPageIndex: number = pageSize + 1;
     total: number = 0;
-    protected readonly masonryOptions = masonryOptions;
-    protected readonly GenerateEmptyList = GenerateEmptyList;
 
     constructor(private apiClient: ApiClient, private router: Router, private route: ActivatedRoute, private titleService: TitleService, private embedService: EmbedService) {
     }
@@ -34,11 +32,11 @@ export class LevelListingComponent implements OnInit {
             const apiRoute: string | null = params.get('route');
             if (apiRoute == null) return;
             this.apiRoute = apiRoute;
-            this.loadLevels();
-        })
-        this.route.queryParams.subscribe((params: Params) => {
-            this.params = params;
-            this.loadLevels();
+
+            this.route.queryParams.subscribe((params: Params) => {
+                this.params = params;
+                this.loadLevels();
+            });
         })
     }
 
@@ -90,4 +88,7 @@ export class LevelListingComponent implements OnInit {
         }
         return category;
     }
+
+    protected readonly masonryOptions = masonryOptions;
+    protected readonly GenerateEmptyList = GenerateEmptyList;
 }
