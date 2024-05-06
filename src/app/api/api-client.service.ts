@@ -33,6 +33,14 @@ export class ApiClient {
     constructor(private apiRequestCreator: ApiRequestCreator, private bannerService: BannerService) {
     }
 
+    private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
+        return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
+    }
+
+    private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
+        return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
+    }
+
     public GetServerStatistics(): Observable<Statistics> {
         if (this.statistics !== undefined) {
             return new Observable<Statistics>(observer => {
@@ -202,14 +210,6 @@ export class ApiClient {
             .subscribe(_ => {
                 this.bannerService.pushWarning("Contest Deleted", `${contest.contestTitle} was successfully removed.`);
             });
-    }
-
-    private makeRequest<T>(method: string, endpoint: string, body: any = null, errorHandler: ((error: ApiError) => void) | undefined = undefined): Observable<T> {
-        return this.apiRequestCreator.makeRequest<T>(method, endpoint, body, errorHandler);
-    }
-
-    private makeListRequest<T>(method: string, endpoint: string, catchErrors: boolean = true): Observable<ApiListResponse<T>> {
-        return this.apiRequestCreator.makeListRequest<T>(method, endpoint, catchErrors);
     }
 }
 
