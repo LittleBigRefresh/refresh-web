@@ -99,7 +99,7 @@ export class ManageContestComponent implements OnInit {
                     creationDate: contest.creationDate,
                     contestTheme: contest.contestTheme,
                     allowedGames: contest.allowedGames,
-                    templateLevelId: contest.templateLevel.levelId,
+                    templateLevelId: contest.templateLevel?.levelId,
                 };
             })
         });
