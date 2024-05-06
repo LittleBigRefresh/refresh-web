@@ -11,11 +11,12 @@
 
                 <div class="inline-block text-sm font-normal">
                     <span-gentle>by
+                        <tooltip [active]="level.isReUpload"
+                                            [text]="'This level is a re-upload, originally published by ' + (level.originalPublisher === null ? 'an unknown publisher' : level.originalPublisher) + '.'">
                         <user-link [user]="level.publisher" class="pl-1" *ngIf="level.publisher"
                                    [ngClass]="level.isReUpload ? 'line-through' : ''"></user-link>
-                        <tooltip *ngIf="level.isReUpload" class="pl-1"
-                            [text]="'This level is a re-upload, originally created by ' + level.originalPublisher + '.'">
-                            <span>{{ level.originalPublisher }}</span>
+
+                            <span class="pl-1">{{ level.originalPublisher }}</span>
                         </tooltip>
                     </span-gentle>
                 </div>

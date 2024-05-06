@@ -37,7 +37,12 @@ export class TokenStorageService {
         const str = localStorage.getItem(this.UserKey);
         if (!str) return null;
 
-        return JSON.parse(str);
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            console.error("Stored user is null");
+            return null;
+        }
     }
 
     public SetStoredUser(user: ExtendedUser): void {

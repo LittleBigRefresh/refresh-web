@@ -10,12 +10,12 @@
         <fa-icon [icon]="faCircleCheck" class="pr-1"></fa-icon>
       </tooltip>
       <level-statistics [level]="_level" class="text-sm"></level-statistics>
-      <p-gentle>by <user-link [user]="_level.publisher" class="pl-0.5" *ngIf="_level.publisher"
+      <p-gentle>by <tooltip [active]="_level.isReUpload"
+          [text]="'This level is a re-upload, originally published by ' + (_level.originalPublisher === null ? 'an unknown publisher' : _level.originalPublisher) + '.'"><user-link [user]="_level.publisher" class="pl-0.5" *ngIf="_level.publisher"
                                                        [ngClass]="_level.isReUpload ? 'line-through' : ''"></user-link>
-          <tooltip class="pl-0.5"
-              [text]="'This level is a re-upload, originally created by ' + _level.originalPublisher + '.'">
-              <span>{{ _level.originalPublisher }}</span>
-          </tooltip></p-gentle>
+
+              <span class="pl-0.5">{{ _level.originalPublisher }}</span>
+      </tooltip></p-gentle>
       <p-gentle>Created in {{getGameVersion(_level.gameVersion)}} <date [date]="_level.publishDate"></date></p-gentle>
     </div>
   </div>
