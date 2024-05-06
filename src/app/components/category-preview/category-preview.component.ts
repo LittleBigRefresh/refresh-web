@@ -8,13 +8,14 @@ import {Params} from "@angular/router";
     templateUrl: './category-preview.component.html'
 })
 export class CategoryPreviewComponent {
-    @Input("icon") public Icon: IconProp | undefined;
-    @Input("category-title") public Title: string = "";
-    @Input("route") public Route: string = "";
-    @Input("levels") public Levels: Level[] | undefined;
-    @Input("total") public Total: number = 0;
+    @Input("icon") public icon: IconProp | undefined;
+    @Input("category-title") public title: string = "";
+    @Input("route") public route: string = "";
+    @Input("levels") public levels: Level[] | undefined;
+    @Input("total") public total: number = 0;
     @Input("query") public params: Params = {};
-    @Input("type") public Type: CategoryPreviewType = CategoryPreviewType.Carousel;
+    @Input("type") public type: CategoryPreviewType = CategoryPreviewType.Carousel;
+
     protected readonly CategoryPreviewType = CategoryPreviewType;
 }
 
