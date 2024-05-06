@@ -1,8 +1,8 @@
 <page-header class="text-3xl capitalize" title="/api/v3/levels/{{apiRoute}}">{{ routeCategory?.name }}</page-header>
 
 <div *ngIf="levels && routeCategory">
-    <p>{{ routeCategory?.description }}</p>
-    <p>There are {{ total }} total levels to browse in {{ routeCategory?.name }}.</p>
+    <p>{{ routeCategory.description }}</p>
+    <p>There are {{ total }} total levels to browse in {{ routeCategory.name }}.</p>
     <ngx-masonry [options]="masonryOptions" [ordered]="true">
         <container *ngFor="let l of levels" class="masonry-grid-item" ngxMasonryItem>
             <level-preview [description]="true" [level]="l"></level-preview>
