@@ -4,7 +4,6 @@ export interface ContestEditRequest {
     contestId: string | undefined;
     organizerId: string | undefined;
 
-    creationDate: Date | undefined;
     startDate: Date | undefined;
     endDate: Date | undefined;
 

@@ -62,8 +62,6 @@
 
     <div *ngIf="newContest" class="flex flex-col gap-y-1.5">
         <h2 class="text-2xl font-bold">Time Period</h2>
-        <form-input [(valueDate)]="newContest.creationDate" [icon]="faCalendar" [title]="'Creation Date'"
-                    type="datetime-local"></form-input>
         <form-input [(valueDate)]="newContest.startDate" [icon]="faHourglassStart" [title]="'Start Date'"
                     type="datetime-local"></form-input>
         <form-input [(valueDate)]="newContest.endDate" [icon]="faHourglassEnd" [title]="'End Date'"
