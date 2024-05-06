@@ -198,7 +198,7 @@ export class ApiClient {
     }
 
     public DeleteContest(contest: Contest): void {
-        this.apiRequestCreator.makeRequest("DELETE", "contests/id/" + contest.contestId)
+        this.apiRequestCreator.makeRequest("DELETE", "admin/contests/" + contest.contestId)
             .subscribe(_ => {
                 this.bannerService.pushWarning("Contest Deleted", `${contest.contestTitle} was successfully removed.`);
             });
