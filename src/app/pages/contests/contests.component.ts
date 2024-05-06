@@ -13,7 +13,7 @@ export class ContestsComponent {
     total: number = 0;
 
     constructor(private apiClient: ApiClient, titleService: TitleService) {
-        titleService.setTitle("Photos");
+        titleService.setTitle("Contests");
     }
 
     ngOnInit(): void {
