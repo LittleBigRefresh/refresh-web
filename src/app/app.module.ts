@@ -9,7 +9,8 @@ import {
     faCalendar,
     faCertificate,
     faCheckCircle,
-    faCircleExclamation, faFire, faFireAlt,
+    faCircleExclamation,
+    faFire,
     faForward,
     faHeart,
     faKey,
@@ -95,7 +96,15 @@ import {FormsModule} from "@angular/forms";
 import {ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
 import {DateComponent} from './components/date/date.component';
 import {StatisticsComponent} from './pages/statistics/statistics.component';
-import { ContainerComponent } from './components/container/container.component';
+import {ContainerComponent} from './components/container/container.component';
+import {ContestsComponent} from './pages/contests/contests.component';
+import {ManageContestComponent} from './pages/manage-contest/manage-contest.component';
+import {ContestComponent} from './pages/contest/contest.component';
+import {ContestBannerComponent} from './components/contest-banner/contest-banner.component';
+import {MarkdownModule, MarkedOptions} from "ngx-markdown";
+import {markedOptionsFactory} from "./markdown.config";
+import {ContestPreviewComponent} from "./components/contest-preview/contest-preview.component";
+import {ContestLabelComponent} from "./components/contest-label/contest-label.component";
 
 @NgModule({
     declarations: [
@@ -162,6 +171,12 @@ import { ContainerComponent } from './components/container/container.component';
         DateComponent,
         StatisticsComponent,
         ContainerComponent,
+        ContestsComponent,
+        ManageContestComponent,
+        ContestComponent,
+        ContestBannerComponent,
+        ContestPreviewComponent,
+        ContestLabelComponent,
     ],
     imports: [
         BrowserModule,
@@ -173,6 +188,12 @@ import { ContainerComponent } from './components/container/container.component';
         NgxMasonryModule,
         NgOptimizedImage,
         FormsModule,
+        MarkdownModule.forRoot({
+            markedOptions: {
+                provide: MarkedOptions,
+                useFactory: markedOptionsFactory,
+            },
+        })
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true},

@@ -10,6 +10,12 @@
   <divider></divider>
 </div>
 
+<div *ngIf="instance && instance.activeContest" class="mb-5">
+    <a [routerLink]="'/contests/' + instance.activeContest.contestId">
+        <app-contest-banner [contest]="instance.activeContest"></app-contest-banner>
+    </a>
+</div>
+
 <div class="text-center bg-form-background md:rounded-md py-32 default:bg-hero soundShapes:bg-ss-hero soundShapes:text-header-foreground bg-cover drop-shadow-lg">
     <page-header class="text-4xl">Welcome to {{instance?.instanceName ?? "Refresh"}}!</page-header>
     <p *ngIf="instance">{{instance.instanceDescription}}</p>

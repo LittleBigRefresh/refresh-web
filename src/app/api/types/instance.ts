@@ -1,5 +1,6 @@
 import {Announcement} from "./announcement";
 import {ContactInfo} from "./contactInfo";
+import {Contest} from "./contests/contest";
 
 export interface Instance {
     instanceName: string;
@@ -17,4 +18,5 @@ export interface Instance {
     grafanaDashboardUrl: string | null;
 
     contactInfo: ContactInfo;
+    activeContest: Contest | null;
 }

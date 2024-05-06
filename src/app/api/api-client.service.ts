@@ -19,7 +19,9 @@ import {Instance} from "./types/instance";
 import {ApiRequestCreator} from "./api-request.creator";
 import {LevelEditRequest} from "./types/level-edit-request";
 import {Asset} from "./types/asset";
-import {ExtendedUser} from "./types/extended-user";
+import {Contest} from "./types/contests/contest";
+import {ContestEditRequest} from "./types/contests/contest-edit-request";
+import {Params} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class ApiClient {
@@ -83,8 +85,15 @@ export class ApiClient {
         return this.makeRequest<Category[]>("GET", "levels?includePreviews=true");
     }
 
-    public GetLevelListing(route: string, count: number = 20, skip: number = 0): Observable<ApiListResponse<Level>> {
-        return this.makeListRequest<Level>("GET", `levels/${route}?count=${count}&skip=${skip}`);
+    public GetLevelListing(route: string, count: number = 20, skip: number = 0, params: Params = {}): Observable<ApiListResponse<Level>> {
+        let query: string = `count=${count}&skip=${skip}`;
+
+        for (let param in params) {
+            query += `&${param}=${params[param]}`
+        }
+
+
+        return this.makeListRequest<Level>("GET", `levels/${route}?${query}`);
     }
 
     public GetLevelById(id: number): Observable<Level> {
@@ -146,7 +155,7 @@ export class ApiClient {
 
     public EditLevel(level: LevelEditRequest, id: number, admin: boolean = false): void {
         let endpoint: string = "levels/id/" + id;
-        if(admin) endpoint = "admin/" + endpoint;
+        if (admin) endpoint = "admin/" + endpoint;
         this.apiRequestCreator.makeRequest("PATCH", endpoint, level)
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Level Updated", `${level.title} was successfully updated.`);
@@ -155,7 +164,7 @@ export class ApiClient {
 
     public UpdateLevelIcon(hash: string, id: number, admin: boolean = false): void {
         let endpoint: string = "levels/id/" + id;
-        if(admin) endpoint = "admin/" + endpoint;
+        if (admin) endpoint = "admin/" + endpoint;
         this.apiRequestCreator.makeRequest("PATCH", endpoint, {iconHash: hash})
             .subscribe(_ => {
                 this.bannerService.pushSuccess("Icon updated", "The level's icon was successfully updated.");
@@ -178,6 +187,29 @@ export class ApiClient {
 
     public UploadImageAsset(hash: string, data: ArrayBuffer): Observable<Asset> {
         return this.apiRequestCreator.makeRequest("POST", `assets/${hash}`, data);
+    }
+
+    public GetContests(): Observable<Contest[]> {
+        return this.makeRequest<Contest[]>("GET", "contests");
+    }
+
+    public GetContestById(contestId: string): Observable<Contest> {
+        return this.makeRequest<Contest>("GET", "contests/" + contestId);
+    }
+
+    public CreateContest(contest: ContestEditRequest): Observable<Contest> {
+        return this.makeRequest<Contest>("POST", "admin/contests/" + contest.contestId, contest);
+    }
+
+    public UpdateContest(contest: ContestEditRequest): Observable<Contest> {
+        return this.makeRequest<Contest>("PATCH", "contests/" + contest.contestId, contest);
+    }
+
+    public DeleteContest(contest: Contest): void {
+        this.apiRequestCreator.makeRequest("DELETE", "admin/contests/" + contest.contestId)
+            .subscribe(_ => {
+                this.bannerService.pushWarning("Contest Deleted", `${contest.contestTitle} was successfully removed.`);
+            });
     }
 }
 
