@@ -105,6 +105,7 @@ import {MarkdownModule, MarkedOptions} from "ngx-markdown";
 import {markedOptionsFactory} from "./markdown.config";
 import {ContestPreviewComponent} from "./components/contest-preview/contest-preview.component";
 import {ContestLabelComponent} from "./components/contest-label/contest-label.component";
+import { PlayHashComponent } from './pages/play-hash/play-hash.component';
 
 @NgModule({
     declarations: [
@@ -177,6 +178,7 @@ import {ContestLabelComponent} from "./components/contest-label/contest-label.co
         ContestBannerComponent,
         ContestPreviewComponent,
         ContestLabelComponent,
+        PlayHashComponent,
     ],
     imports: [
         BrowserModule,

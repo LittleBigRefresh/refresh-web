@@ -34,6 +34,7 @@ import {StatisticsComponent} from "./pages/statistics/statistics.component";
 import {ContestsComponent} from "./pages/contests/contests.component";
 import {ManageContestComponent} from "./pages/manage-contest/manage-contest.component";
 import {ContestComponent} from "./pages/contest/contest.component";
+import {PlayHashComponent} from "./pages/play-hash/play-hash.component";
 
 const routes: Routes = [
     {path: "", component: MainComponent},
@@ -85,6 +86,8 @@ const routes: Routes = [
     {path: "contests", component: ContestsComponent},
     {path: "contests/:id", component: ContestComponent},
     {path: "contests/:id/manage", component: ManageContestComponent},
+
+    {path: "playhash", component: PlayHashComponent, canActivate: [authenticationGuard]},
 ];
 
 if (isDevMode()) {

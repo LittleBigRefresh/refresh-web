@@ -185,6 +185,13 @@ export class ApiClient {
             });
     }
 
+    public SetLevelHashAsOverride(hash: string): void {
+        this.apiRequestCreator.makeRequest("POST", `levels/hash/${hash}/setAsOverride`)
+            .subscribe(_ => {
+                this.bannerService.pushSuccess("Check your game!", `In LBP, head to 'Lucky Dip' (or any category) and that level will show up!`);
+            });
+    }
+
     public UploadImageAsset(hash: string, data: ArrayBuffer): Observable<Asset> {
         return this.apiRequestCreator.makeRequest("POST", `assets/${hash}`, data);
     }

@@ -24,8 +24,8 @@ export function markedOptionsFactory(): MarkedOptions {
         return `<h${level} class="font-bold text-${tailwindFontSize} mt-2.5">${text}</h${level}>`;
     }
 
-    renderer.link = (href, title) => {
-        return `<a href="${href}" class="text-secondary-bright hover:underline">${title ?? href}</a>`;
+    renderer.link = (href, title, text) => {
+        return `<a href="${href}" class="text-secondary-bright hover:underline">${text}</a>`;
     }
 
     renderer.list = (body, ordered) => {
@@ -38,7 +38,7 @@ export function markedOptionsFactory(): MarkedOptions {
     return {
         renderer: renderer,
         gfm: true,
-        breaks: true,
+        breaks: false,
         pedantic: false,
     };
 }
