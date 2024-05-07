@@ -47,8 +47,8 @@ export class EmbedService {
 
     embedInstance(instance: Instance) {
         if (this.meta.getTag('name="og:title"')) return;
-        this.setPropertyTag("og:site_name", instance.instanceName)
         this.embed(`${instance.instanceName} - ${instance.instanceDescription}`, `${instance.instanceName} is a free custom server for LittleBigPlanet.`);
+        this.setPropertyTag("og:site_name", instance.instanceName)
         this.setPropertyTag("og:type", "website");
     }
 
