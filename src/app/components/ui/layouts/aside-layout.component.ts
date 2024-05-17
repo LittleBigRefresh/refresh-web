@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
       <div class="lg:w-[70%]">
         <ng-content select="[left]"></ng-content>
       </div>
-      <div class="lg:grow">
+      <div class="grow">
         <ng-content select="[right]"></ng-content>
       </div>
     </div>
