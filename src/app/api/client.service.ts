@@ -6,6 +6,7 @@ import {LevelCategory} from "./types/levels/level-category";
 import {Room} from "./types/rooms/room";
 import {Level} from "./types/levels/level";
 import {ListWithData} from "./list-with-data";
+import {User} from "./types/users/user";
 
 export const defaultPageSize: number = 40;
 
@@ -47,5 +48,9 @@ export class ClientService {
 
   getLevelById(id: number) {
     return this.http.get<Level>(`/levels/id/${id}`);
+  }
+
+  getUserById(userId: string) {
+    return this.http.get<User>(`/users/uuid/${userId}`);
   }
 }
