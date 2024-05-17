@@ -47,6 +47,17 @@ export class LandingComponent {
       client.getRoomListing().subscribe(data => this.rooms = data.data);
     }
 
+    playerCount(): number {
+        if(!this.rooms) return -1;
+        let players: number = 0;
+
+        for (let room of this.rooms) {
+            players += room.playerIds.length;
+        }
+
+        return players;
+    }
+
     protected readonly faFireAlt = faFireAlt;
     protected readonly faGamepad = faGamepad;
 }
