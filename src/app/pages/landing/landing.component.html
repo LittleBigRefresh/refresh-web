@@ -11,8 +11,8 @@
 
 <app-divider></app-divider>
 
-<div class="flex max-md:flex-col gap-2.5">
-    <div class="lg:w-[70%]">
+<app-aside-layout>
+    <ng-container left>
         <app-section-title>
             <fa-icon [icon]="faFireAlt"></fa-icon>
             What's new?
@@ -24,8 +24,8 @@
             <app-container>jvyden420 played a level or something</app-container>
             <app-container>jvyden420 played a level or something</app-container>
         </div>
-    </div>
-    <div class="grow">
+    </ng-container>
+    <ng-container right>
         <app-section-title>
             <fa-icon [icon]="faGamepad"></fa-icon>
             Who's playing?
@@ -41,5 +41,5 @@
                 <app-router-link *ngIf="this.rooms.length > 3" routerLink="/rooms">See all {{rooms?.length}} rooms and {{playerCount()}} players</app-router-link>
             </div>
         </ng-container>
-    </div>
-</div>
+    </ng-container>
+</app-aside-layout>

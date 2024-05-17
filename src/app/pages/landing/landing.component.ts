@@ -15,6 +15,7 @@ import {AnnouncementComponent} from "../../components/items/announcement.compone
 import {Room} from "../../api/types/rooms/room";
 import {RoomComponent} from "../../components/items/room.component";
 import {RouterLinkComponent} from "../../components/ui/text/links/router-link.component";
+import {AsideLayoutComponent} from "../../components/ui/layouts/aside-layout.component";
 
 @Component({
   selector: 'app-landing',
@@ -34,7 +35,8 @@ import {RouterLinkComponent} from "../../components/ui/text/links/router-link.co
         NgIf,
         RoomComponent,
         SlicePipe,
-        RouterLinkComponent
+        RouterLinkComponent,
+        AsideLayoutComponent
     ],
   templateUrl: './landing.component.html',
 })
