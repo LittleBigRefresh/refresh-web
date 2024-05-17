@@ -6,7 +6,7 @@ import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RouterLink} from "@angular/router";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage, SlicePipe} from "@angular/common";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
 import {SectionTitleComponent} from "../../components/ui/text/section-title.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -14,6 +14,7 @@ import {faFireAlt, faGamepad, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {AnnouncementComponent} from "../../components/items/announcement.component";
 import {Room} from "../../api/types/rooms/room";
 import {RoomComponent} from "../../components/items/room.component";
+import {RouterLinkComponent} from "../../components/ui/text/links/router-link.component";
 
 @Component({
   selector: 'app-landing',
@@ -31,7 +32,9 @@ import {RoomComponent} from "../../components/items/room.component";
         AnnouncementComponent,
         NgForOf,
         NgIf,
-        RoomComponent
+        RoomComponent,
+        SlicePipe,
+        RouterLinkComponent
     ],
   templateUrl: './landing.component.html',
 })
