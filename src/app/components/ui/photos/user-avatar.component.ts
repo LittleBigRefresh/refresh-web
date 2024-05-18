@@ -10,7 +10,7 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
     NgIf
   ],
   template: `
-    <img *ngIf="this.user" [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded-md" alt=""
+    <img *ngIf="this.user" [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded" alt=""
          (error)="err($event.target)">
   `
 })

@@ -28,6 +28,11 @@ export const routes: Routes = [
     },
     ...alias("level/:id/:slug", "slot/:id/:slug"),
     ...alias("level/:id", "slot/:id",),
+    {
+        path: 'photos',
+        loadComponent: () => import('./pages/photo-listing/photo-listing.component').then(x => x.PhotoListingComponent),
+        data: {title: "Photos"},
+    },
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
         path: '**',

@@ -8,6 +8,7 @@ import {Level} from "./types/levels/level";
 import {ListWithData} from "./list-with-data";
 import {User} from "./types/users/user";
 import {ActivityPage} from "./types/activity/activity-page";
+import {Photo} from "./types/photos/photo";
 
 export const defaultPageSize: number = 40;
 
@@ -57,5 +58,9 @@ export class ClientService {
 
   getActivityPage(skip: number = 0, count: number = defaultPageSize) {
     return this.http.get<ActivityPage>(`/activity`, {params: this.createPageQuery(skip, count)});
+  }
+
+  getPhotos(skip: number = 0, count: number = defaultPageSize) {
+    return this.http.get<ListWithData<Photo>>(`/photos`, {params: this.createPageQuery(skip, count)});
   }
 }
