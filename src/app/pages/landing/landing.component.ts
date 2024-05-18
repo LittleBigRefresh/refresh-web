@@ -1,4 +1,14 @@
-import { Component } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    inject,
+    Inject,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    PLATFORM_ID
+} from '@angular/core';
 import {ContainerComponent} from "../../components/ui/container.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {DividerComponent} from "../../components/ui/divider.component";
@@ -6,7 +16,7 @@ import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RouterLink} from "@angular/router";
-import {NgForOf, NgIf, NgOptimizedImage, SlicePipe} from "@angular/common";
+import {isPlatformBrowser, NgForOf, NgIf, NgOptimizedImage, SlicePipe} from "@angular/common";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
 import {SectionTitleComponent} from "../../components/ui/text/section-title.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -19,6 +29,7 @@ import {AsideLayoutComponent} from "../../components/ui/layouts/aside-layout.com
 import {EventComponent} from "../../components/items/event.component";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventPageComponent} from "../../components/items/event-page.component";
+import {defer, delay, interval, repeat, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-landing',
@@ -45,15 +56,33 @@ import {EventPageComponent} from "../../components/items/event-page.component";
     ],
   templateUrl: './landing.component.html',
 })
-export class LandingComponent {
+export class LandingComponent implements OnDestroy {
     protected instance: Instance | undefined;
     protected rooms: Room[] | undefined;
     protected activity: ActivityPage | undefined;
 
-    constructor(client: ClientService) {
+    private activitySubscription: Subscription | undefined;
+
+    constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef) {
       client.getInstance().subscribe(data => this.instance = data);
       client.getRoomListing().subscribe(data => this.rooms = data.data);
-      client.getActivityPage(200, 5).subscribe(data => this.activity = data);
+
+      if(isPlatformBrowser(platformId)) {
+          inject(NgZone).runOutsideAngular(() => {
+              this.activitySubscription = this.fetchActivity()
+                  .pipe(repeat({delay: 5000}))
+                  .subscribe(data => {
+                      this.activity = data;
+                      changeDetector.detectChanges();
+                  });
+          })
+      }
+
+      this.fetchActivity().subscribe(data => this.activity = data);
+    }
+
+    ngOnDestroy(): void {
+        this.activitySubscription?.unsubscribe();
     }
 
     playerCount(): number {
@@ -65,6 +94,10 @@ export class LandingComponent {
         }
 
         return players;
+    }
+
+    fetchActivity() {
+        return this.client.getActivityPage(0, 5);
     }
 
     protected readonly faFireAlt = faFireAlt;
