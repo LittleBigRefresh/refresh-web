@@ -1,0 +1,26 @@
+export enum EventType {
+    Level_Upload = 0,
+    Level_Favourite = 1,
+    Level_Unfavourite = 2,
+    User_Favourite = 3,
+    User_Unfavourite = 4,
+    Level_Play = 5,
+    Level_Rate = 6,
+    Level_Tag = 7,
+    PostLevelComment = 8,
+    DeleteLevelComment = 9,
+    Photo_Upload = 10,
+    Level_Unpublish = 11,
+    News_Post = 12,
+    Level_TeamPick = 13,
+    RateLevelRelation_Create = 14,
+    Level_Review = 15,
+    PostUserComment = 16,
+    Playlist_Create = 17,
+    Playlist_Favourite = 18,
+    Playlist_AddLevel = 19,
+    SubmittedScore_Create = 20,
+
+    // Refresh's custom events
+    User_FirstLogin = 127,
+}

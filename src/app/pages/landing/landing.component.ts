@@ -16,6 +16,9 @@ import {Room} from "../../api/types/rooms/room";
 import {RoomComponent} from "../../components/items/room.component";
 import {RouterLinkComponent} from "../../components/ui/text/links/router-link.component";
 import {AsideLayoutComponent} from "../../components/ui/layouts/aside-layout.component";
+import {EventComponent} from "../../components/items/event.component";
+import {ActivityPage} from "../../api/types/activity/activity-page";
+import {EventPageComponent} from "../../components/items/event-page.component";
 
 @Component({
   selector: 'app-landing',
@@ -36,17 +39,21 @@ import {AsideLayoutComponent} from "../../components/ui/layouts/aside-layout.com
         RoomComponent,
         SlicePipe,
         RouterLinkComponent,
-        AsideLayoutComponent
+        AsideLayoutComponent,
+        EventComponent,
+        EventPageComponent
     ],
   templateUrl: './landing.component.html',
 })
 export class LandingComponent {
     protected instance: Instance | undefined;
     protected rooms: Room[] | undefined;
+    protected activity: ActivityPage | undefined;
 
     constructor(client: ClientService) {
       client.getInstance().subscribe(data => this.instance = data);
       client.getRoomListing().subscribe(data => this.rooms = data.data);
+      client.getActivityPage(200, 5).subscribe(data => this.activity = data);
     }
 
     playerCount(): number {
