@@ -24,10 +24,9 @@ import {LevelPreviewComponent} from "./level-preview.component";
   template: `
     <app-container>
       <app-container-title>
-        <a [routerLink]="'/levels/' + category.apiRoute">
+        <a [routerLink]="'/levels/' + category.apiRoute" class="underline">
           <fa-icon [icon]=category.fontAwesomeIcon class="mr-2"></fa-icon>
           <span>{{category.name}}</span>
-          <fa-icon [icon]=faLink class="text-gentle text-sm ml-1"></fa-icon>
         </a>
       </app-container-title>
       
