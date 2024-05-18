@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
-import {faHeart, faStar, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
+import {faHeart, faPlay, faStar, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {StatisticComponent} from "../ui/statistic.component";
 
 @Component({
@@ -14,6 +14,7 @@ import {StatisticComponent} from "../ui/statistic.component";
       <app-statistic [value]=level.yayRatings name="Yays" [icon]=faThumbsUp></app-statistic>
       <app-statistic [value]=level.booRatings name="Boos" [icon]=faThumbsDown></app-statistic>
       <app-statistic [value]=level.hearts name="Hearts" [icon]=faHeart></app-statistic>
+      <app-statistic [value]=level.uniquePlays name="Plays" [icon]=faPlay></app-statistic>
       <app-statistic [value]=level.score name="Cool Rating (CR)" [icon]=faStar [truncate]=true></app-statistic>
     </div>
   `
@@ -24,4 +25,5 @@ export class LevelStatisticsComponent {
   protected readonly faThumbsDown = faThumbsDown;
   protected readonly faHeart = faHeart;
   protected readonly faStar = faStar;
+  protected readonly faPlay = faPlay;
 }
