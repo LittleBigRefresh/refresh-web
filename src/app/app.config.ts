@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
 
         // Only consider SHA1 asset hashes
         // Naturally filters out GUIDs, and blank hashes.
-        if(config.src.length != 40) return undefined;
+        if(config.src.length != 40) return "/assets/missingLevel.svg";
 
         return `https://lbp.littlebigrefresh.com/api/v3/assets/${config.src}/image`
       }
