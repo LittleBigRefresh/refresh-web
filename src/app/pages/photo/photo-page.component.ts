@@ -27,6 +27,19 @@ export class PhotoPageComponent {
 
   private setDataFromPhoto(data: Photo) {
     this.photo = data;
-    this.title.setTitle(`Photo by ${data.publisher.username}`);
+
+    let title = `Photo by ${data.publisher.username}`;
+
+    const subjects = data.subjects.filter(s => s.user?.userId !== data.publisher.userId).length;
+    if(subjects > 0) {
+      title += ` and ${subjects} other${subjects == 1 ? '' : 's'}`;
+    }
+
+    if(data.level != null) {
+      title = title.replace("Photo by ", "");
+      title += ` in ${data.level.title}`
+    }
+
+    this.title.setTitle(title);
   }
 }
