@@ -1,6 +1,6 @@
 import {Component, Input, isDevMode, OnInit} from '@angular/core';
 import {Photo} from "../../api/types/photos/photo";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {DateComponent} from "../ui/date.component";
 import {UserWrapperComponent} from "../ui/text/wrappers/user-wrapper.component";
@@ -12,6 +12,7 @@ import {StatisticComponent} from "../ui/statistic.component";
 import {ButtonComponent} from "../ui/form/button.component";
 import {ButtonGroupComponent} from "../ui/form/button-group.component";
 import {PhotoSubject} from "../../api/types/photos/photo-subject";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-photo',
@@ -28,10 +29,12 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
     StatisticComponent,
     ButtonComponent,
     ButtonGroupComponent,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    NgClass
   ],
   template: `
-    <div class="p-1.5 overflow-hidden whitespace-nowrap">
+    <div class="overflow-hidden whitespace-nowrap" [ngClass]="padding ? 'p-1.5' : 'pb-1.5'">
       <app-user-wrapper [user]="photo.publisher">
         <div class="text-gentle text-sm">
           Posted
@@ -44,9 +47,11 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
     </div>
 
     <!--  640x360 is the size of the typical LBP2 photo  -->
-    <img [ngSrc]="photo.largeHash" width="640" height="360" class="">
+    <a [routerLink]="link ? '/photo/' + photo.photoId : null">
+      <img [ngSrc]="photo.largeHash" width="640" height="360" alt="" class="w-full h-auto">
+    </a>
     
-    <div class="text-sm p-2.5 flex">
+    <div class="text-sm flex" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
       <div *ngIf="subjectsWithoutAuthor.length > 0" class="flex grow overflow-hidden whitespace-nowrap overflow-ellipsis">
         <span>with</span>
         <div *ngFor="let subject of subjectsWithoutAuthor; let last = last">
@@ -61,7 +66,7 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
       </div>
     </div>
 
-    <div class="p-1.5 flex" *ngIf="interactionsSupported && isDevMode()">
+    <div class="flex" *ngIf="interactionsSupported && isDevMode()" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
       <app-button-group class="grow">
         <app-button [icon]="faHeart" text="Heart" color="heart"></app-button>
         <app-button [icon]="faComment" text="Comment"></app-button>
@@ -74,6 +79,8 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
 })
 export class PhotoComponent implements OnInit {
   @Input({required:true}) photo: Photo = null!;
+  @Input() link: boolean = false;
+  @Input() padding: boolean = true;
   subjectsWithoutAuthor: PhotoSubject[] = [];
 
   ngOnInit(): void {

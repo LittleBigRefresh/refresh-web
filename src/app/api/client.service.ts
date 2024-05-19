@@ -63,4 +63,8 @@ export class ClientService {
   getPhotos(skip: number = 0, count: number = defaultPageSize) {
     return this.http.get<ListWithData<Photo>>(`/photos`, {params: this.createPageQuery(skip, count)});
   }
+
+  getPhotoById(id: number) {
+    return this.http.get<Photo>(`/photos/id/${id}`);
+  }
 }

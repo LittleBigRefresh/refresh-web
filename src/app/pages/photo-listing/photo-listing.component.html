@@ -2,7 +2,7 @@
 
 <app-responsive-grid *ngIf="photos">
     <app-container *ngFor="let photo of this.photos" [padding]=false>
-        <app-photo [photo]="photo"></app-photo>
+        <app-photo [photo]="photo" [link]="true"></app-photo>
     </app-container>
 </app-responsive-grid>
 <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
