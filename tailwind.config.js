@@ -21,6 +21,7 @@ const defaultColors = {
   "success": "#52BC24",
   "dangerous": "#E52E2E",
   "warning": "#F2AA00",
+  "heart": "#ff68f4",
 
   "rank-gold": "#FFD234",
   "rank-silver": "#F2F2F2",
