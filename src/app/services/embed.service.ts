@@ -4,6 +4,8 @@ import {Meta} from "@angular/platform-browser";
 import {Injectable} from "@angular/core";
 import {User} from "../api/types/users/user";
 import {ClientService} from "../api/client.service";
+import {Photo} from "../api/types/photos/photo";
+import {getImageLink} from "../api/data-fetching";
 
 @Injectable({providedIn: 'root'})
 export class EmbedService {
@@ -54,7 +56,7 @@ export class EmbedService {
         const title: string = level.title.length == 0 ? "Unnamed Level" : level.title;
 
         this.embed(title, description);
-        // this.setNamedTag("og:image", GetAssetImageLink(level.iconHash));
+        this.setNamedTag("og:image", getImageLink(level.iconHash));
     }
 
     embedInstance(instance: Instance) {
@@ -63,15 +65,22 @@ export class EmbedService {
         this.embed(`${instance.instanceName} · ${instance.instanceDescription}`, `${instance.instanceName} is a free custom server for LittleBigPlanet.`);
     }
 
-    // embedPhoto(photo: Photo) {
-    //     let subjects: string[] = [];
-    //     for (let subject of photo.subjects) {
-    //         subjects.push(subject.displayName);
-    //     }
-    //
-    //     this.embed(subjects.join(", "), "A photo taken from LittleBigPlanet.");
-    //     this.setPropertyTag("og:type", "photo");
-    //     this.setNamedTag("twitter:card", "summary_large_image");
-    //     this.setNamedTag("twitter:image", GetAssetImageLink(photo.largeHash));
-    // }
+    embedPhoto(photo: Photo) {
+        let title = `Photo by ${photo.publisher.username}`;
+
+        const subjects = photo.subjects.filter(s => s.user?.userId !== photo.publisher.userId);
+        if(subjects.length > 0) {
+            title += ` and ${subjects.length} other${subjects.length == 1 ? '' : 's'}`;
+        }
+
+        if(photo.level != null) {
+            title = title.replace("Photo by ", "");
+            title += ` in ${photo.level.title}`
+        }
+
+        this.embed(title, subjects.map(s => s.displayName).join(", "));
+        this.setPropertyTag("og:type", "photo");
+        this.setNamedTag("twitter:card", "summary_large_image");
+        this.setNamedTag("twitter:image", getImageLink(photo.largeHash));
+    }
 }

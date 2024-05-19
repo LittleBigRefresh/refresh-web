@@ -8,6 +8,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import {ApiBaseInterceptor} from "./api/interceptors/api-base.interceptor";
 import {APIv3Interceptor} from "./api/interceptors/apiv3.interceptor";
 import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
+import {getImageLink} from "./api/data-fetching";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,7 +26,7 @@ export const appConfig: ApplicationConfig = {
         // Naturally filters out GUIDs, and blank hashes.
         if(config.src.length != 40) return "/assets/missingLevel.svg";
 
-        return `https://lbp.littlebigrefresh.com/api/v3/assets/${config.src}/image`
+        return getImageLink(config.src);
       }
     }
   ]
