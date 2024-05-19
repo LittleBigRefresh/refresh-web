@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, isDevMode} from '@angular/core';
 import {Photo} from "../../api/types/photos/photo";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
@@ -33,17 +33,17 @@ import {ButtonGroupComponent} from "../ui/form/button-group.component";
       <app-user-wrapper [user]="photo.publisher">
         <div class="text-gentle text-sm">
           <app-date [date]="photo.publishedAt"></app-date>
-          
+
           <span *ngIf="photo.level">in</span>
           <app-level-link *ngIf="photo.level" [level]="photo.level"></app-level-link>
         </div>
       </app-user-wrapper>
     </div>
-    
+
     <!--  640x360 is the size of the typical LBP2 photo  -->
     <img [ngSrc]="photo.largeHash" width="640" height="360" class="">
-    
-    <div class="p-1.5 flex">
+
+    <div class="p-1.5 flex" *ngIf="interactionsSupported && isDevMode()">
       <app-button-group class="grow">
         <app-button [icon]="faHeart" text="Heart" color="heart"></app-button>
         <app-button [icon]="faComment" text="Comment"></app-button>
@@ -58,4 +58,9 @@ export class PhotoComponent {
   @Input({required:true}) photo: Photo = null!;
   protected readonly faHeart = faHeart;
   protected readonly faComment = faComment;
+
+  // set to true to enable heart/comment buttons
+  // disabled because this does not exist in refresh
+  protected readonly interactionsSupported: boolean = false;
+  protected readonly isDevMode = isDevMode;
 }
