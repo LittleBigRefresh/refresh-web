@@ -31,9 +31,9 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
     NgForOf
   ],
   template: `
-    <div class="p-1.5">
+    <div class="p-1.5 overflow-hidden whitespace-nowrap">
       <app-user-wrapper [user]="photo.publisher">
-        <div class="text-gentle text-sm overflow-hidden text-nowrap">
+        <div class="text-gentle text-sm">
           Posted
           <app-date [date]="photo.publishedAt"></app-date>
 
@@ -47,7 +47,7 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
     <img [ngSrc]="photo.largeHash" width="640" height="360" class="">
     
     <div class="text-sm p-2.5 flex">
-      <div class="flex grow" *ngIf="subjectsWithoutAuthor.length > 0">
+      <div *ngIf="subjectsWithoutAuthor.length > 0" class="flex grow overflow-hidden whitespace-nowrap overflow-ellipsis">
         <span>with</span>
         <div *ngFor="let subject of subjectsWithoutAuthor; let last = last">
           <app-user-link [user]="subject.user ?? null" [username]="subject.displayName"></app-user-link>
@@ -55,7 +55,7 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
         </div>
       </div>
 
-      <div class="text-gentle italic">
+      <div class="text-gentle italic whitespace-nowrap">
         <span>Taken</span>
         <app-date [date]="photo.takenAt"></app-date>
       </div>
