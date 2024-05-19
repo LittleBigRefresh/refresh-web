@@ -13,6 +13,7 @@ import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
 import {DarkContainerComponent} from "../../components/ui/dark-container.component";
 import {UserLinkComponent} from "../../components/ui/text/links/user-link.component";
+import {EmbedService} from "../../services/embed.service";
 
 @Component({
   selector: 'app-level',
@@ -38,7 +39,7 @@ export class LevelComponent {
   level: Level | undefined | null;
   protected readonly isBrowser: boolean;
 
-  constructor(private title: TitleService, private client: ClientService, private slug: SlugPipe,
+  constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, @Inject(PLATFORM_ID) platformId: Object)
   {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -55,6 +56,6 @@ export class LevelComponent {
       window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}`);
     }
 
-    this.title.setTitle(data.title);
+    this.embed.embedLevel(data);
   }
 }

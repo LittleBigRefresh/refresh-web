@@ -53,7 +53,11 @@ export class EmbedService {
 
     embedLevel(level: Level) {
         const description: string = level.description.length == 0 ? "No description was provided for this level." : level.description;
-        const title: string = level.title.length == 0 ? "Unnamed Level" : level.title;
+        let title: string = level.title.length == 0 ? "Unnamed Level" : level.title;
+
+        if(level.publisher) {
+            title += " by " + level.publisher.username;
+        }
 
         this.embed(title, description);
         this.setNamedTag("og:image", getImageLink(level.iconHash));
