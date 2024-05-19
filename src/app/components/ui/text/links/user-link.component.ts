@@ -14,16 +14,17 @@ import {ClientService} from "../../../../api/client.service";
         UserRouterLinkComponent,
     ],
     template: `
-        <span *ngIf=!user>Deleted User</span>
-        <app-user-router-link [user]=user *ngIf=user>
-            <app-user-avatar class="ml-1" [user]=user></app-user-avatar>
-            {{ user.username }}
+        <span *ngIf=!user class="ml-1">{{username}}</span>
+        <app-user-router-link class="ml-1 inline" [user]=user *ngIf=user>
+            <app-user-avatar [user]=user class="inline mr-1"></app-user-avatar>
+            <span>{{ user.username }}</span>
         </app-user-router-link>
     `
 })
 export class UserLinkComponent implements OnInit {
     @Input({required: true}) public user: User | undefined | null;
     @Input() public userId: string | undefined;
+    @Input() public username: string = "Deleted User";
 
     constructor(private client: ClientService) {
     }

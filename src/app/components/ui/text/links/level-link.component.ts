@@ -1,9 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../../../api/types/users/user";
 import {ClientService} from "../../../../api/client.service";
 import {NgIf} from "@angular/common";
-import {UserAvatarComponent} from "../../photos/user-avatar.component";
-import {UserRouterLinkComponent} from "./user-router-link.component";
 import {Level} from "../../../../api/types/levels/level";
 import {LevelAvatarComponent} from "../../photos/level-avatar.component";
 import {LevelRouterLinkComponent} from "./level-router-link.component";
