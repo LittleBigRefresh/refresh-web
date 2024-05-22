@@ -25,11 +25,11 @@ jobs:
       # See https://github.com/docker/metadata-action#basic
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        uses: docker/metadata-action@v5.5.1
         with:
           images: ghcr.io/littlebigrefresh/refresh-web
       - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        uses: docker/build-push-action@v5.3.0
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
