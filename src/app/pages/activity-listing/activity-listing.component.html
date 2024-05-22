@@ -1,0 +1,12 @@
+<app-page-title></app-page-title>
+
+<div class="flex flex-col gap-y-2.5">
+    <ng-container *ngFor="let page of pages; let last = last">
+        <app-container-title>
+            {{page.events[0].occurredAt | date: 'medium'}}
+        </app-container-title>
+        <app-event-page [page]="page"></app-event-page>
+        <app-divider *ngIf="!last"></app-divider>
+    </ng-container>
+</div>
+<app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
