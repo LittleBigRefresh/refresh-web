@@ -1,5 +1,5 @@
 import {animate, group, query, style, transition, trigger} from '@angular/animations';
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {
     faBell,
     faBookBookmark,
@@ -63,7 +63,7 @@ export function GenerateEmptyList(i: number): any[] {
         ])
     ],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
     title: string = 'Refresh Website';
     user: ExtendedUser | undefined = undefined;
 
@@ -87,50 +87,56 @@ export class AppComponent {
     protected readonly UserRoles = UserRoles;
     protected readonly faBell = faBell;
 
-    constructor(authService: AuthService, apiClient: ApiClient, public bannerService: BannerService, embedService: EmbedService, titleService: TitleService, public themeService: ThemeService) {
-        authService.userWatcher.subscribe((data) => this.handleUserUpdate(data))
-        this.handleUserUpdate(undefined)
+    constructor(authService: AuthService, private apiClient: ApiClient, public bannerService: BannerService, private embedService: EmbedService, private titleService: TitleService, public themeService: ThemeService) {
+        authService.userWatcher.subscribe((data) => this.handleUserUpdate(data));
+    }
 
-        apiClient.GetInstanceInformation().subscribe((data) => {
+    ngAfterViewInit(): void {
+        this.handleUserUpdate(this.user);
+
+        this.apiClient.GetInstanceInformation().subscribe((data: Instance) => {
             this.instance = data;
-            embedService.embedInstance(data);
-        });
-
-        titleService.setTitle("")
-
-        if (themeService.IsThemingSupported()) {
-            const theme: string | null = localStorage.getItem("theme");
-            if (theme) {
-                themeService.SetTheme(theme);
-            } else {
-                themeService.SetTheme("default");
+            this.embedService.embedInstance(data);
+            this.titleService.setTitle("");
+            if (this.themeService.IsThemingSupported()) {
+                const theme: string | null = localStorage.getItem("theme");
+                if (theme) {
+                    this.themeService.SetTheme(theme);
+                } else {
+                    this.themeService.SetTheme("default");
+                }
             }
-        }
+        });
     }
 
     getTheme(): string {
         return this.themeService.GetTheme();
     }
 
-    handleUserUpdate(data: ExtendedUser | undefined) {
-        this.user = data;
-        this.rightSideRouterLinks = [];
+    handleUserUpdate(user: ExtendedUser | undefined) {
+        this.user = user;
 
-        if (data !== undefined) {
+        if (user && this.login?.nativeElement) {
             this.login.nativeElement.hidden = true;
 
-            if (data.role >= UserRoles.Admin) {
-                this.rightSideRouterLinks.push(new HeaderLink("Admin Panel", "/admin", faWrench))
-            }
-
-            this.rightSideRouterLinks.push(new HeaderLink("API Documentation", "/documentation", faBookBookmark))
-            this.rightSideRouterLinks.push(new HeaderLink("Server Statistics", "/statistics", faSquarePollVertical))
-            this.rightSideRouterLinks.push(new HeaderLink("Contests", "/contests", faMedal))
-            this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell))
-            this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear))
-            this.rightSideRouterLinks.push(new HeaderLink("Contact Us", `mailto:${this.instance?.contactInfo.emailAddress}`, faEnvelope, true))
+            this.addRightSideRouterLinks(user);
         }
+
     }
+
+    addRightSideRouterLinks(user: ExtendedUser) {
+        if (user.role >= UserRoles.Admin) {
+            this.rightSideRouterLinks.push(new HeaderLink("Admin Panel", "/admin", faWrench))
+        }
+
+        this.rightSideRouterLinks.push(new HeaderLink("API Documentation", "/documentation", faBookBookmark));
+        this.rightSideRouterLinks.push(new HeaderLink("Server Statistics", "/statistics", faSquarePollVertical));
+        this.rightSideRouterLinks.push(new HeaderLink("Contests", "/contests", faMedal));
+        this.rightSideRouterLinks.push(new HeaderLink("Notifications", "/notifications", faBell));
+        this.rightSideRouterLinks.push(new HeaderLink("Settings", "/settings", faGear));
+        this.rightSideRouterLinks.push(new HeaderLink("Contact Us", `mailto:${this.instance?.contactInfo.emailAddress}`, faEnvelope, true));
+    }
+
 
     toggleLogin(): void {
         this.login.nativeElement.hidden = !this.login.nativeElement.hidden;
