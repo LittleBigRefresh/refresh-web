@@ -88,12 +88,6 @@ export class AppComponent implements AfterViewInit {
     protected readonly faBell = faBell;
 
     constructor(authService: AuthService, private apiClient: ApiClient, public bannerService: BannerService, private embedService: EmbedService, private titleService: TitleService, public themeService: ThemeService) {
-        authService.userWatcher.subscribe((data) => this.handleUserUpdate(data));
-    }
-
-    ngAfterViewInit(): void {
-        this.handleUserUpdate(this.user);
-
         this.apiClient.GetInstanceInformation().subscribe((data: Instance) => {
             this.instance = data;
             this.embedService.embedInstance(data);
@@ -107,6 +101,12 @@ export class AppComponent implements AfterViewInit {
                 }
             }
         });
+
+        authService.userWatcher.subscribe((data) => this.handleUserUpdate(data));
+    }
+
+    ngAfterViewInit(): void {
+        this.handleUserUpdate(this.user);
     }
 
     getTheme(): string {
