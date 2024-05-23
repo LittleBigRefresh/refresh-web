@@ -9,7 +9,7 @@ export class TitleService {
   private instanceName: string = "Refresh";
   private currentTitle: string = "";
 
-  constructor(private title: Title, private embedService: EmbedService, client: ClientService, router: Router) {
+  constructor(private title: Title, client: ClientService, router: Router) {
     router.events.subscribe((val) => {
       // clear title when starting navigating
       if (val instanceof NavigationStart)
@@ -33,8 +33,6 @@ export class TitleService {
       this.currentTitle = "";
       return;
     }
-
-    this.embedService.setTitle(title);
 
     this.title.setTitle(`[rewrite] ${title} · ${this.instanceName}`)
     this.currentTitle = title;

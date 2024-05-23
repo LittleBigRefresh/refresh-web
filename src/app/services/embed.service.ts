@@ -6,10 +6,11 @@ import {User} from "../api/types/users/user";
 import {ClientService} from "../api/client.service";
 import {Photo} from "../api/types/photos/photo";
 import {getImageLink} from "../api/data-fetching";
+import {TitleService} from "./title.service";
 
 @Injectable({providedIn: 'root'})
 export class EmbedService {
-    constructor(private meta: Meta, client: ClientService) {
+    constructor(private meta: Meta, private title: TitleService, client: ClientService) {
         client.getInstance().subscribe(data => {
             this.embedInstance(data);
         });
@@ -34,6 +35,7 @@ export class EmbedService {
 
     public setTitle(title: string) {
         this.setPropertyTag("og:title", title)
+        this.title.setTitle(title);
     }
 
     public embed(title: string, description: string) {
