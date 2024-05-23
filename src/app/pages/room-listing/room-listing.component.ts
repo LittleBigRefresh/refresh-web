@@ -55,7 +55,7 @@ export class RoomListingComponent {
   getGameVersions(): number[] {
     return Object.values(GameVersion)
         // @ts-ignore
-        .filter(key => isNaN(Number(GameVersion[key])))
+        .filter(key => isNaN(Number(GameVersion[key])) && key != 5)
         .map(k => Number(k));
   }
 
