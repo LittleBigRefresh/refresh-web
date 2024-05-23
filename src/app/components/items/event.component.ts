@@ -10,6 +10,7 @@ import {EventDataType} from "../../api/types/activity/event-data-type";
 import {LevelPreviewComponent} from "./level-preview.component";
 import {DarkContainerComponent} from "../ui/dark-container.component";
 import {DateComponent} from "../ui/date.component";
+import {DecimalPipe} from "@angular/common";
 
 @Component({
   selector: 'app-event',
@@ -19,7 +20,8 @@ import {DateComponent} from "../ui/date.component";
     UserLinkComponent,
     LevelPreviewComponent,
     DarkContainerComponent,
-    DateComponent
+    DateComponent,
+    DecimalPipe
   ],
   template: `
     <app-container>
@@ -110,7 +112,7 @@ import {DateComponent} from "../ui/date.component";
               <app-level-preview [level]="level!" class="grow max-w-[75%]"></app-level-preview>
               <div class="flex flex-col text-center self-center">
                 <p class="font-bold text-xl">
-                  {{ score?.score }}
+                  {{ score?.score | number }}
                   points
                 </p>
                 <p>
