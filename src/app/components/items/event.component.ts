@@ -109,8 +109,8 @@ import {DecimalPipe} from "@angular/common";
               <app-level-preview [level]="level!"></app-level-preview>
             }
             @case (EventDataType.score) {
-              <app-level-preview [level]="level!" class="grow max-w-[75%]"></app-level-preview>
-              <div class="flex flex-col text-center self-center">
+              <app-level-preview [level]="level!" class="grow"></app-level-preview>
+              <div class="flex flex-col text-center self-center max-w-fit">
                 <p class="font-bold text-xl">
                   {{ score?.score | number }}
                   points
