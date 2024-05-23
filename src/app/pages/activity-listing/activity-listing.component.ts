@@ -37,12 +37,21 @@ export class ActivityListingComponent implements Scrollable {
     isLoading: boolean = false;
     listInfo: RefreshApiListInfo = defaultListInfo;
 
+    pagesCount: number = 0;
+    pageSize: number = 20;
+
     loadData(): void {
       this.isLoading = true;
-      this.client.getActivityPage(this.listInfo.nextPageIndex, 20).subscribe(page => {
+      this.client.getActivityPage(this.listInfo.nextPageIndex, this.pageSize).subscribe(page => {
         this.isLoading = false;
-        this.listInfo.nextPageIndex += page.events.length + 1;
+
+        this.listInfo = {
+            nextPageIndex: (this.pagesCount * this.pageSize) + page.events.length + 1,
+            totalItems: -1
+        };
+
         this.pages.push(page);
+        this.pagesCount++;
       });
     }
 }
