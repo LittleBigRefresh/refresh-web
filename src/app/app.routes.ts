@@ -48,6 +48,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/activity-listing/activity-listing.component').then(x => x.ActivityListingComponent),
         data: {title: "Recent Activity"},
     },
+    {
+        path: 'rooms',
+        loadComponent: () => import('./pages/room-listing/room-listing.component').then(x => x.RoomListingComponent),
+        data: {title: "Room Listing"},
+    },
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
         path: '**',

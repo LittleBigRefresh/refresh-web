@@ -1,4 +1,6 @@
 import {RoomPlayer} from "./room-player";
+import {GameVersion} from "../game-version";
+import {Platform} from "../platform";
 
 export interface Room {
     roomId: string;
@@ -10,6 +12,6 @@ export interface Room {
     levelType: number;
     levelId: number;
 
-    platform: number;
-    game: number
+    platform: Platform;
+    game: GameVersion
 }

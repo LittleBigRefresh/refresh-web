@@ -1,0 +1,10 @@
+<app-page-title></app-page-title>
+
+<app-container *ngFor="let version of getGameVersions()">
+    <app-container-title>Rooms for {{version | game}}</app-container-title>
+    <div class="flex flex-col gap-y-1.5">
+        <app-dark-container *ngFor="let room of getRoomsForGame(version)">
+            <app-room [room]="room" [showGame]="false"></app-room>
+        </app-dark-container>
+    </div>
+</app-container>
