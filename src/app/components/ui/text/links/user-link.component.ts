@@ -32,7 +32,7 @@ export class UserLinkComponent implements OnInit {
     ngOnInit(): void {
         if (this.user != null) return;
         if (this.userId == undefined) return;
-        this.client.getUserById(this.userId).subscribe(data => {
+        this.client.getUserByUuid(this.userId).subscribe(data => {
             this.user = data;
         });
     }

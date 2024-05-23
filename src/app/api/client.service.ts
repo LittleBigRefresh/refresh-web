@@ -9,6 +9,7 @@ import {ListWithData} from "./list-with-data";
 import {User} from "./types/users/user";
 import {ActivityPage} from "./types/activity/activity-page";
 import {Photo} from "./types/photos/photo";
+import {Observable, of} from "rxjs";
 
 export const defaultPageSize: number = 40;
 
@@ -52,8 +53,21 @@ export class ClientService {
     return this.http.get<Level>(`/levels/id/${id}`);
   }
 
-  getUserById(userId: string) {
+  getUserByUuid(userId: string) {
     return this.http.get<User>(`/users/uuid/${userId}`);
+  }
+
+  getUserByUsername(username: string) {
+    return this.http.get<User>(`/users/name/${username}`);
+  }
+
+  getUserByEitherLookup(username: string | undefined, uuid: string | undefined): Observable<User> {
+    if(!username && !uuid) {
+      throw new Error("no username or uuid was provided for lookup");
+    }
+
+    if(username) return this.getUserByUsername(username);
+    else return this.getUserByUuid(uuid!)
   }
 
   getActivityPage(skip: number = 0, count: number = defaultPageSize) {

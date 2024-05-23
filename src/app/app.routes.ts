@@ -53,6 +53,16 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/room-listing/room-listing.component').then(x => x.RoomListingComponent),
         data: {title: "Room Listing"},
     },
+    {
+        path: 'user/:username',
+        loadComponent: () => import('./pages/user/user.component').then(x => x.UserComponent),
+        data: {title: "User Page"},
+    },
+    {
+        path: 'u/:uuid',
+        loadComponent: () => import('./pages/user/user.component').then(x => x.UserComponent),
+        data: {title: "User Page"},
+    },
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
         path: '**',
