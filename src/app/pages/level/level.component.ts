@@ -2,33 +2,27 @@ import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
-import {TitleService} from "../../services/title.service";
 import {SlugPipe} from "../../pipes/slug.pipe";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {isPlatformBrowser, NgIf} from "@angular/common";
-import {ContainerComponent} from "../../components/ui/container.component";
-import {ContainerHeaderComponent} from "../../components/ui/container-header.component";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
-import {DarkContainerComponent} from "../../components/ui/dark-container.component";
 import {UserLinkComponent} from "../../components/ui/text/links/user-link.component";
 import {EmbedService} from "../../services/embed.service";
+import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
 
 @Component({
   selector: 'app-level',
   standalone: true,
-  imports: [
-    PageTitleComponent,
-    ContainerComponent,
-    ContainerHeaderComponent,
-    LevelStatisticsComponent,
-    NgIf,
-    DefaultPipe,
-    LevelAvatarComponent,
-    DarkContainerComponent,
-    UserLinkComponent
-  ],
+    imports: [
+        LevelStatisticsComponent,
+        NgIf,
+        DefaultPipe,
+        LevelAvatarComponent,
+        UserLinkComponent,
+        FancyHeaderComponent
+    ],
   providers: [
       SlugPipe
   ],

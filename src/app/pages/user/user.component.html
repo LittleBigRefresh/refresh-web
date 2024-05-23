@@ -1,16 +1,6 @@
-<app-container-header *ngIf="user">
-    <div class="flex gap-x-5">
-        <app-user-avatar [user]="user" [size]=176></app-user-avatar>
-        <div class="grow">
-            <div class="flex flex-row gap-x-1.5">
-                <app-page-title [title]="user.username"></app-page-title>
-                <span class="align-bottom text-gentle self-center">
-                    Joined <app-date [date]="user.joinDate"></app-date>
-                </span>
-            </div>
-            <app-dark-container>
-                <p>{{user.description | default: user.username + " hasn't introduced themselves yet."}}</p>
-            </app-dark-container>
-        </div>
-    </div>
-</app-container-header>
+<app-fancy-header *ngIf="user" [title]="user.username" [description]="user.description | default: user.username + ' hasn\'t introduced themselves yet.'">
+    <app-user-avatar [user]="user" [size]=176 avatar></app-user-avatar>
+    <ng-container titleSubtext>
+        Joined <app-date [date]="user.joinDate"></app-date>
+    </ng-container>
+</app-fancy-header>

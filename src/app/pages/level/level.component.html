@@ -1,17 +1,7 @@
-<app-container-header *ngIf="level">
-    <div class="flex gap-x-5">
-        <app-level-avatar [level]="level" [size]=176></app-level-avatar>
-        <div class="grow">
-            <div class="flex flex-row gap-x-1.5">
-                <app-page-title [title]="level.title | default: 'Unnamed Level'"></app-page-title>
-                <span class="align-bottom text-gentle self-center">
-                    by <app-user-link [user]="level.publisher"></app-user-link>
-                </span>
-            </div>
-            <app-level-statistics [level]="level"></app-level-statistics>
-            <app-dark-container>
-                <p>{{level.description | default: "This level doesn't have a description."}}</p>
-            </app-dark-container>
-        </div>
-    </div>
-</app-container-header>
+<app-fancy-header *ngIf="level" [title]="level.title | default: 'Unnamed Level'" [description]="level.description | default: 'This level doesn\'t have a description.'">
+    <app-level-avatar [level]="level" [size]=176 avatar></app-level-avatar>
+    <ng-container titleSubtext>
+        by <app-user-link [user]="level.publisher"></app-user-link>
+    </ng-container>
+    <app-level-statistics [level]="level" statistics></app-level-statistics>
+</app-fancy-header>
