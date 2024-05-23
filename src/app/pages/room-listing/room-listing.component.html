@@ -1,10 +1,19 @@
 <app-page-title></app-page-title>
+<p *ngIf="rooms.length > 0">
+    There's currently
+    {{'player' | plural: playerCount()}}
+    online across
+    {{'room' | plural: rooms.length}}.
+</p>
+<p *ngIf="rooms.length <= 0">Nobody's online right now. Come play!</p>
 
-<app-container *ngFor="let version of getGameVersions()">
-    <app-container-title>Rooms for {{version | game}}</app-container-title>
-    <div class="flex flex-col gap-y-1.5">
-        <app-dark-container *ngFor="let room of getRoomsForGame(version)">
-            <app-room [room]="room" [showGame]="false"></app-room>
-        </app-dark-container>
-    </div>
-</app-container>
+<div class="flex flex-col gap-y-2.5">
+    <app-container *ngFor="let version of getGameVersions()">
+        <app-container-title>Rooms for {{version | game}}</app-container-title>
+        <div class="flex flex-col gap-y-1.5">
+            <app-dark-container *ngFor="let room of getRoomsForGame(version)">
+                <app-room [room]="room" [showGame]="false"></app-room>
+            </app-dark-container>
+        </div>
+    </app-container>
+</div>
