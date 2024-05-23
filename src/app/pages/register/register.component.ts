@@ -10,18 +10,20 @@ import {
     faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../api/auth.service";
+import {FormHandler} from "../../helpers/FormHandler";
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html'
 })
-export class RegisterComponent {
+export class RegisterComponent extends FormHandler {
     username: string = "";
     email: string = "";
     password: string = "";
     confirmPassword: string = "";
 
     constructor(private authService: AuthService, private passwordVerifier: PasswordVerificationService) {
+        super();
     }
 
     register() {
@@ -36,13 +38,6 @@ export class RegisterComponent {
             this.authService.Register(username, email, hash)
         });
     }
-
-    cleanUpFormInputs(...formInputs: string[]): string[] {
-        return formInputs.map((formInput) => {
-            return formInput.trim()
-        })
-    }
-
     protected readonly faEnvelope = faEnvelope;
     protected readonly faTriangleExclamation = faTriangleExclamation;
     protected readonly faSignIn = faSignIn;
