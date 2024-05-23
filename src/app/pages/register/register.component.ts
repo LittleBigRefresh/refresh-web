@@ -25,13 +25,22 @@ export class RegisterComponent {
     }
 
     register() {
-        if (!this.passwordVerifier.verifyPassword(this.username, this.password, this.username, this.confirmPassword)) {
+        const formInputs = this.cleanUpFormInputs(this.username, this.email, this.password, this.confirmPassword);
+        const [username, email, password, confirmPassword] = formInputs;
+
+        if (!this.passwordVerifier.verifyPassword(username, password, username, confirmPassword)) {
             return;
         }
 
-        sha512Async(this.password).then((hash) => {
-            this.authService.Register(this.username, this.email, hash)
+        sha512Async(password).then((hash) => {
+            this.authService.Register(username, email, hash)
         });
+    }
+
+    cleanUpFormInputs(...formInputs: string[]): string[] {
+        return formInputs.map((formInput) => {
+            return formInput.trim()
+        })
     }
 
     protected readonly faEnvelope = faEnvelope;
