@@ -3,25 +3,30 @@ import {sha512Async} from 'src/app/hash';
 import {PasswordVerificationService} from "../../services/password-verification.service";
 import {faEnvelope, faKey, faSignIn, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../api/auth.service";
+import {FormHandler} from "../../helpers/FormHandler";
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent extends FormHandler {
     email: string = "";
     password: string = "";
 
     constructor(private authService: AuthService, private passwordVerifier: PasswordVerificationService) {
+        super();
     }
 
     login() {
-        if (!this.passwordVerifier.verifyPassword(this.email, this.password)) {
+        const formInputs = this.cleanUpFormInputs(this.email, this.password);
+        const [email, password] = formInputs;
+
+        if (!this.passwordVerifier.verifyPassword(email, password)) {
             return;
         }
 
-        sha512Async(this.password).then((hash) => {
-            this.authService.LogIn(this.email, hash)
+        sha512Async(password).then((hash) => {
+            this.authService.LogIn(email, hash)
         });
     }
 

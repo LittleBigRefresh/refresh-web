@@ -10,30 +10,34 @@ import {
     faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../api/auth.service";
+import {FormHandler} from "../../helpers/FormHandler";
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html'
 })
-export class RegisterComponent {
+export class RegisterComponent extends FormHandler {
     username: string = "";
     email: string = "";
     password: string = "";
     confirmPassword: string = "";
 
     constructor(private authService: AuthService, private passwordVerifier: PasswordVerificationService) {
+        super();
     }
 
     register() {
-        if (!this.passwordVerifier.verifyPassword(this.username, this.password, this.username, this.confirmPassword)) {
+        const formInputs = this.cleanUpFormInputs(this.username, this.email, this.password, this.confirmPassword);
+        const [username, email, password, confirmPassword] = formInputs;
+
+        if (!this.passwordVerifier.verifyPassword(username, password, username, confirmPassword)) {
             return;
         }
 
-        sha512Async(this.password).then((hash) => {
-            this.authService.Register(this.username, this.email, hash)
+        sha512Async(password).then((hash) => {
+            this.authService.Register(username, email, hash)
         });
     }
-
     protected readonly faEnvelope = faEnvelope;
     protected readonly faTriangleExclamation = faTriangleExclamation;
     protected readonly faSignIn = faSignIn;
