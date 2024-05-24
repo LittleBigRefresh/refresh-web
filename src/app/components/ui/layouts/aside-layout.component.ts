@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div class="flex max-md:flex-col gap-2.5">
-      <div class="lg:w-[70%]">
+    <div class="flex flex-row sm:flex-col md:flex-col gap-2.5">
+      <div class="w-[70%] sm:w-auto md:w-auto">
         <ng-content select="[left]"></ng-content>
       </div>
       <div class="grow">
