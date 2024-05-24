@@ -1,5 +1,5 @@
 <app-fancy-header *ngIf="user" [title]="user.username" [description]="user.description | default: user.username + ' hasn\'t introduced themselves yet.'">
-    <app-user-avatar [user]="user" [size]=176 avatar></app-user-avatar>
+    <app-user-avatar [user]="user" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-user-avatar>
     <ng-container titleSubtext>
         Joined <app-date [date]="user.joinDate"></app-date>
     </ng-container>

@@ -4,7 +4,7 @@ import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import {isPlatformBrowser, NgIf} from "@angular/common";
+import {AsyncPipe, isPlatformBrowser, NgIf} from "@angular/common";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
@@ -12,6 +12,7 @@ import {UserLinkComponent} from "../../components/ui/text/links/user-link.compon
 import {EmbedService} from "../../services/embed.service";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
 import {GamePipe} from "../../pipes/game.pipe";
+import {LayoutService} from "../../services/layout.service";
 
 @Component({
   selector: 'app-level',
@@ -23,7 +24,8 @@ import {GamePipe} from "../../pipes/game.pipe";
         LevelAvatarComponent,
         UserLinkComponent,
         FancyHeaderComponent,
-        GamePipe
+        GamePipe,
+        AsyncPipe
     ],
   providers: [
       SlugPipe
@@ -36,7 +38,7 @@ export class LevelComponent {
   protected readonly isBrowser: boolean;
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
-              route: ActivatedRoute, @Inject(PLATFORM_ID) platformId: Object)
+              route: ActivatedRoute, protected layout: LayoutService, @Inject(PLATFORM_ID) platformId: Object)
   {
     this.isBrowser = isPlatformBrowser(platformId);
     route.params.subscribe(params => {

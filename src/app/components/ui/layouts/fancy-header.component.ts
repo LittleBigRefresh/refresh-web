@@ -31,7 +31,7 @@ import {Subscription} from "rxjs";
     </ng-template>
 
     <app-container-header>
-      <div class="flex gap-x-5">
+      <div class="flex gap-x-5 sm:gap-x-2.5">
         <ng-content select="[avatar]"></ng-content>
         <div class="grow">
           <div class="flex flex-row sm:flex-col gap-x-1.5">
