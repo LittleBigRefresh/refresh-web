@@ -11,6 +11,7 @@ import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.comp
 import {UserLinkComponent} from "../../components/ui/text/links/user-link.component";
 import {EmbedService} from "../../services/embed.service";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
+import {GamePipe} from "../../pipes/game.pipe";
 
 @Component({
   selector: 'app-level',
@@ -21,7 +22,8 @@ import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.com
         DefaultPipe,
         LevelAvatarComponent,
         UserLinkComponent,
-        FancyHeaderComponent
+        FancyHeaderComponent,
+        GamePipe
     ],
   providers: [
       SlugPipe
