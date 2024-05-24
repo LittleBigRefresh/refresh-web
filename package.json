@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "startNoSSR": "ng serve --configuration developmentNoSSR",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "serve:ssr:refresh-web": "node dist/refresh-web/server/server.mjs"
