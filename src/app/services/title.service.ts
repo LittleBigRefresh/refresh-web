@@ -16,7 +16,7 @@ export class TitleService {
         this.setTitle("");
 
       // set title from route definition after loading
-      if(val instanceof NavigationEnd)
+      if(val instanceof NavigationEnd && !this.isTitleAlreadyDefined())
         this.setTitle(this.getCurrentPageTitle(router) || "")
     });
 
@@ -40,6 +40,11 @@ export class TitleService {
 
   public getCurrentPageTitle(router: Router) {
     return this.getRouteTitle(router.routerState.snapshot.root);
+  }
+
+  // stupid check because we can't persist the title information through hydration in ssr
+  private isTitleAlreadyDefined(): boolean {
+    return this.title.getTitle() != this.instanceName;
   }
 
   private getRouteTitle(route: ActivatedRouteSnapshot): string | undefined {
