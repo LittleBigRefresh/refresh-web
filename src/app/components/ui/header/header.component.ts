@@ -13,7 +13,7 @@ import {faCameraAlt, faCertificate, faFireAlt} from "@fortawesome/free-solid-svg
     RouterLink
   ],
   template: `
-    <div class="flex items-center bg-header-background gap-x-2.5 px-5 py-1 leading-none">
+    <header class="flex items-center bg-header-background gap-x-2.5 px-5 py-1 leading-none sticky top-0 left-0 w-full">
       <a routerLink="/" title="Home">
         <img ngSrc="/assets/logo.svg" alt="Refresh Logo" width="48" height="48" priority>
       </a>
@@ -24,7 +24,7 @@ import {faCameraAlt, faCertificate, faFireAlt} from "@fortawesome/free-solid-svg
         <app-navbar-item href="/photos" title="Photos" [icon]=faCameraAlt></app-navbar-item>
         <app-navbar-item href="/activity" title="Activity" [icon]=faFireAlt></app-navbar-item>
       </nav>
-    </div>
+    </header>
   `
 })
 export class HeaderComponent {
