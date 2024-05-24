@@ -1,10 +1,13 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
 import {DateComponent} from "../date.component";
 import {DefaultPipe} from "../../../pipes/default.pipe";
 import {PageTitleComponent} from "../text/page-title.component";
 import {LevelStatisticsComponent} from "../../items/level-statistics.component";
+import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
+import {LayoutService} from "../../../services/layout.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-fancy-header',
@@ -16,8 +19,17 @@ import {LevelStatisticsComponent} from "../../items/level-statistics.component";
     DefaultPipe,
     PageTitleComponent,
     LevelStatisticsComponent,
+    NgTemplateOutlet,
+    NgIf,
+    AsyncPipe,
   ],
   template: `
+    <ng-template #descriptionTemplate>
+      <app-dark-container>
+        <p>{{ description }}</p>
+      </app-dark-container>
+    </ng-template>
+
     <app-container-header>
       <div class="flex gap-x-5">
         <ng-content select="[avatar]"></ng-content>
@@ -29,10 +41,13 @@ import {LevelStatisticsComponent} from "../../items/level-statistics.component";
             </span>
           </div>
           <ng-content select="[statistics]"></ng-content>
-          <app-dark-container>
-            <p>{{description}}</p>
-          </app-dark-container>
+          <ng-container *ngIf="!(layout.isMobile | async)">
+            <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
+          </ng-container>
         </div>
+      </div>
+      <div *ngIf="layout.isMobile | async" class="mt-2.5">
+        <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
       </div>
     </app-container-header>
   `
@@ -41,4 +56,5 @@ export class FancyHeaderComponent {
   @Input({required: true}) title: string = "";
   @Input({required: true}) description: string = "";
 
+  constructor(protected layout: LayoutService) {}
 }
