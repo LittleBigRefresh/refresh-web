@@ -9,7 +9,7 @@ import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.compo
 import {Level} from "../../api/types/levels/level";
 import {LevelPreviewComponent} from "../../components/items/level-preview.component";
 import {ContainerComponent} from "../../components/ui/container.component";
-import {Scrollable} from "../../api/scrollable";
+import {Scrollable} from "../../helpers/scrollable";
 import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-info";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
 

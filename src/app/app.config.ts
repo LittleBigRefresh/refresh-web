@@ -7,8 +7,8 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import {ApiBaseInterceptor} from "./api/interceptors/api-base.interceptor";
 import {APIv3Interceptor} from "./api/interceptors/apiv3.interceptor";
-import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
-import {getImageLink} from "./api/data-fetching";
+import {IMAGE_LOADER} from "@angular/common";
+import {loadImage} from "./helpers/data-fetching";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,15 +19,7 @@ export const appConfig: ApplicationConfig = {
     useInterceptor(APIv3Interceptor),
     {
       provide: IMAGE_LOADER,
-      useValue: (config: ImageLoaderConfig) => {
-        if(config.src.startsWith("/")) return config.src;
-
-        // Only consider SHA1 asset hashes
-        // Naturally filters out GUIDs, and blank hashes.
-        if(config.src.length != 40) return "/assets/missingLevel.svg";
-
-        return getImageLink(config.src);
-      }
+      useValue: loadImage,
     }
   ]
 };

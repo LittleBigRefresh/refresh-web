@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Instance} from "./types/instance";
-import {LazySubject} from "./lazy-subject";
+import {LazySubject} from "../helpers/lazy-subject";
 import {LevelCategory} from "./types/levels/level-category";
 import {Room} from "./types/rooms/room";
 import {Level} from "./types/levels/level";
@@ -9,7 +9,7 @@ import {ListWithData} from "./list-with-data";
 import {User} from "./types/users/user";
 import {ActivityPage} from "./types/activity/activity-page";
 import {Photo} from "./types/photos/photo";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 
 export const defaultPageSize: number = 40;
 

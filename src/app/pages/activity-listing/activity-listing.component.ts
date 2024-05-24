@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import { Scrollable } from '../../api/scrollable';
+import { Scrollable } from '../../helpers/scrollable';
 import {defaultListInfo, RefreshApiListInfo} from '../../api/refresh-api-list-info';
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ClientService} from "../../api/client.service";

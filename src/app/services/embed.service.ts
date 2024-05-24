@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {User} from "../api/types/users/user";
 import {ClientService} from "../api/client.service";
 import {Photo} from "../api/types/photos/photo";
-import {getImageLink} from "../api/data-fetching";
+import {getImageLink} from "../helpers/data-fetching";
 import {TitleService} from "./title.service";
 
 @Injectable({providedIn: 'root'})

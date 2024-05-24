@@ -1,4 +1,4 @@
-import {RefreshApiListInfo} from "./refresh-api-list-info";
+import {RefreshApiListInfo} from "../api/refresh-api-list-info";
 
 export interface Scrollable {
     isLoading: boolean;

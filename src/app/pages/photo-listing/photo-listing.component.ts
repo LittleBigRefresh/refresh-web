@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ClientService} from "../../api/client.service";
 import {Photo} from "../../api/types/photos/photo";
-import {Scrollable} from "../../api/scrollable";
+import {Scrollable} from "../../helpers/scrollable";
 import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-info";
 import {ContainerComponent} from "../../components/ui/container.component";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";

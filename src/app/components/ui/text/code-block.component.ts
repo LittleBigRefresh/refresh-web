@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ContainerComponent} from "./container.component";
+import {ContainerComponent} from "../container.component";
 
 @Component({
   selector: 'app-codeblock',
