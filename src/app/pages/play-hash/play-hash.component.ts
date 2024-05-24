@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {faCertificate, faPlay, faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
 import {ApiClient} from "../../api/api-client.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-play-hash',
@@ -12,7 +13,12 @@ export class PlayHashComponent {
 
     levelHash: string = "";
 
-    constructor(private api: ApiClient) {
+    constructor(private api: ApiClient, private route: ActivatedRoute) {
+        this.route.queryParams.subscribe(params => {
+            if (params['hash'] !== undefined) {
+                this.levelHash = params['hash'];
+            }
+        });
     }
 
     setAsOverride() {
