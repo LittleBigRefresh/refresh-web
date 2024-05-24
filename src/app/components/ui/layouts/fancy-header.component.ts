@@ -22,9 +22,9 @@ import {LevelStatisticsComponent} from "../../items/level-statistics.component";
       <div class="flex gap-x-5">
         <ng-content select="[avatar]"></ng-content>
         <div class="grow">
-          <div class="flex flex-row gap-x-1.5">
-            <app-page-title [title]="title"></app-page-title>
-            <span class="align-bottom text-gentle self-center">
+          <div class="flex flex-row sm:flex-col gap-x-1.5">
+            <app-page-title [title]="title" class="text-nowrap"></app-page-title>
+            <span class="align-bottom text-gentle self-center sm:self-auto text-nowrap">
                 <ng-content select="[titleSubtext]"></ng-content>
             </span>
           </div>
