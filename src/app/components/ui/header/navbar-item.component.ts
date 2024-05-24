@@ -12,7 +12,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     FaIconComponent
   ],
   template: `
-    <a [routerLink]=href class="flex items-center gap-x-2 text-xl sm:gap-x-0 sm:text-2xl" [title]="title">
+    <a [routerLink]=href class="flex items-center gap-x-2 text-xl sm:gap-x-0 sm:text-[1.4rem]" [title]="title">
         <fa-icon [icon]=icon class="sm:px-2.5"></fa-icon>
         <span class="sm:text-[0px]">{{title}}</span>
     </a>
