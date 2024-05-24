@@ -13,7 +13,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     FaIconComponent
   ],
   template: `
-    <h1 class="font-bold text-3xl mb-1.5" *ngIf="title">
+    <h1 class="font-bold text-3xl mb-1.5 sm:text-2xl sm:leading-none sm:mb-0" *ngIf="title">
       <fa-icon *ngIf=icon [icon]=icon></fa-icon>
       {{title}}
     </h1>
