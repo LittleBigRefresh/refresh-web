@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NavbarItemComponent} from "./navbar-item.component";
 import {RouterLink} from "@angular/router";
-import {faCameraAlt, faCertificate, faFireAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEarth, faFireAlt, faImages} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-header',
@@ -20,15 +20,15 @@ import {faCameraAlt, faCertificate, faFireAlt} from "@fortawesome/free-solid-svg
 
       <div class="mx-1.5 w-[3px] rounded-full h-11 bg-divider"></div>
       <nav class="flex gap-x-5 sm:gap-x-2">
-        <app-navbar-item href="/levels" title="Levels" [icon]=faCertificate></app-navbar-item>
-        <app-navbar-item href="/photos" title="Photos" [icon]=faCameraAlt></app-navbar-item>
+        <app-navbar-item href="/levels" title="Levels" [icon]=faEarth></app-navbar-item>
+        <app-navbar-item href="/photos" title="Photos" [icon]=faImages></app-navbar-item>
         <app-navbar-item href="/activity" title="Activity" [icon]=faFireAlt></app-navbar-item>
       </nav>
     </header>
   `
 })
 export class HeaderComponent {
-  protected readonly faCertificate = faCertificate;
-  protected readonly faCameraAlt = faCameraAlt;
+  protected readonly faEarth = faEarth;
+  protected readonly faImages = faImages;
   protected readonly faFireAlt = faFireAlt;
 }
