@@ -1,7 +1,9 @@
 <app-page-title></app-page-title>
 
-<app-form>
-    <ng-container buttons>
-        <app-button-submit-form></app-button-submit-form>
+<app-form [form]="form" (submit)="submit()">
+    <app-textbox [icon]="faPencil" [form]="form" placeholder="test" ctrlName="textbox" label="Textbox"></app-textbox>
+
+    <ng-container buttons [formGroup]="form">
+        <app-button-submit-form [form]="form"></app-button-submit-form>
     </ng-container>
 </app-form>

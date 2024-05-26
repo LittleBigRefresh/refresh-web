@@ -1,16 +1,23 @@
-import { Component } from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonGroupComponent} from "./button-group.component";
+import {DividerComponent} from "../divider.component";
 
 @Component({
   selector: 'app-form',
   standalone: true,
   imports: [
     FormsModule,
-    ButtonGroupComponent
+    ButtonGroupComponent,
+    DividerComponent,
+    ReactiveFormsModule
   ],
   template: `
-    <form (ngSubmit)="submit()">
+    <form (ngSubmit)="submit.emit(null);" [formGroup]="form">
+      <ng-content></ng-content>
+
+      <app-divider></app-divider>
+
       <app-button-group>
         <ng-content select="[buttons]"></ng-content>
       </app-button-group>
@@ -18,7 +25,6 @@ import {ButtonGroupComponent} from "./button-group.component";
   `
 })
 export class FormComponent {
-  submit() {
-
-  }
+  @Input({required: true}) form: FormGroup = null!;
+  @Output() submit: EventEmitter<null> = new EventEmitter();
 }
