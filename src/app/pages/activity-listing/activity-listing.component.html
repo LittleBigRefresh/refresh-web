@@ -3,7 +3,9 @@
 <div class="flex flex-col gap-y-2.5">
     <ng-container *ngFor="let page of pages; let last = last">
         <app-container-title>
-            {{page.events[0].occurredAt | date: 'medium'}}
+            <span class="list-item list-disc list-inside">
+                {{page.events[0].occurredAt | date: 'medium'}}
+            </span>
         </app-container-title>
         <app-event-page [page]="page"></app-event-page>
         <app-divider *ngIf="!last"></app-divider>
