@@ -12,8 +12,8 @@ import {NgClass, NgIf} from "@angular/common";
     NgClass
   ],
   template: `
-    <button class="rounded px-4 py-1.5" (click)="click.emit()" [ngClass]="'bg-' + color">
-      <fa-icon *ngIf="icon" [icon]="icon"></fa-icon>
+    <button class="rounded px-4 py-1.5 hover:brightness-110 transition-[filter]" (click)="click.emit()" [ngClass]="color">
+      <fa-icon *ngIf="icon" [icon]="icon" class="mr-1"></fa-icon>
       {{ text }}
     </button>
   `
@@ -22,7 +22,7 @@ export class ButtonComponent {
   // metadata
   @Input({required: true}) text: string = "Button";
   @Input() icon: IconProp | undefined;
-  @Input() color: string = "secondary";
+  @Input() color: string = "bg-secondary";
 
   // actions
   @Input() routerLink: any[] | string | null | undefined
