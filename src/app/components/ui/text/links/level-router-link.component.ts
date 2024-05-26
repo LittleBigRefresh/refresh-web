@@ -12,7 +12,7 @@ import {SlugPipe} from "../../../../pipes/slug.pipe";
     SlugPipe
   ],
   template: `
-    <a routerLink="/level/{{level.levelId}}/{{level.title | slug}}">
+    <a routerLink="/level/{{level.levelId}}/{{level.title | slug}}" class="hover:underline">
       <ng-content></ng-content>
     </a>
   `

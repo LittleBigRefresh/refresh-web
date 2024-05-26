@@ -9,7 +9,7 @@ import {User} from "../../../../api/types/users/user";
     RouterLink
   ],
   template: `
-    <a routerLink="/user/{{user.username}}">
+    <a routerLink="/user/{{user.username}}" class="hover:underline">
       <ng-content></ng-content>
     </a>
   `
