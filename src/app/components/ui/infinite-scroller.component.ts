@@ -12,7 +12,7 @@ import {isPlatformBrowser, NgIf} from "@angular/common";
 import {defaultPageSize} from "../../api/client.service";
 import {RefreshApiListInfo} from "../../api/refresh-api-list-info";
 
-const debug: boolean = isDevMode() && true;
+const debug: boolean = isDevMode() && false;
 
 @Component({
   selector: 'app-infinite-scroller',
