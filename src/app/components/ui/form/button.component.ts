@@ -12,7 +12,7 @@ import {NgClass, NgIf} from "@angular/common";
     NgClass
   ],
   template: `
-    <button class="rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter]" (click)="click.emit()" [ngClass]="color">
+    <button class="rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter]" (click)="click.emit()" [ngClass]="color" [type]=type>
       <fa-icon *ngIf="icon" [icon]="icon" class="mr-1"></fa-icon>
       {{ text }}
     </button>
@@ -23,6 +23,8 @@ export class ButtonComponent {
   @Input({required: true}) text: string = "Button";
   @Input() icon: IconProp | undefined;
   @Input() color: string = "bg-secondary";
+
+  @Input() type: "submit" | "reset" | "button" = "button";
 
   // actions
   @Input() routerLink: any[] | string | null | undefined

@@ -9,7 +9,7 @@ import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
     ButtonComponent
   ],
   template: `
-    <app-button text="Submit" [icon]="faCheckCircle" color="bg-primary"></app-button>
+    <app-button text="Submit" [icon]="faCheckCircle" color="bg-primary" type="submit"></app-button>
   `,
   styles: ``
 })
