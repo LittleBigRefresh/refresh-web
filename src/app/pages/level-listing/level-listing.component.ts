@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LevelCategory} from "../../api/types/levels/level-category";
-import {ClientService} from "../../api/client.service";
-import {ActivatedRoute} from "@angular/router";
+import {ClientService, defaultPageSize} from "../../api/client.service";
+import {ActivatedRoute, Params} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {CategoriesComponent} from "../categories/categories.component";
@@ -32,6 +32,8 @@ export class LevelListingComponent implements OnInit, Scrollable {
   category: LevelCategory | null | undefined = undefined;
   levels: Level[] = [];
 
+  private queryParams: Params = {};
+
   constructor(private client: ClientService, private route: ActivatedRoute) {
     // Start requesting category information immediately.
     this.client.getLevelCategories().subscribe();
@@ -46,7 +48,10 @@ export class LevelListingComponent implements OnInit, Scrollable {
         return;
       }
 
-      this.setCategoryByRoute(route);
+      this.route.queryParams.subscribe((params: Params) => {
+        this.queryParams = params;
+        this.setCategoryByRoute(route);
+      });
     })
   }
 
@@ -75,7 +80,7 @@ export class LevelListingComponent implements OnInit, Scrollable {
     if(!this.category) return;
 
     this.isLoading = true;
-    this.client.getLevelsInCategory(this.category.apiRoute, this.listInfo.nextPageIndex).subscribe(list => {
+    this.client.getLevelsInCategory(this.category.apiRoute, this.listInfo.nextPageIndex, defaultPageSize, this.queryParams).subscribe(list => {
       this.isLoading = false;
 
       this.levels = this.levels.concat(list.data);

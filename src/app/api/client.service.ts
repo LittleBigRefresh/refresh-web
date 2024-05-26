@@ -10,6 +10,7 @@ import {User} from "./types/users/user";
 import {ActivityPage} from "./types/activity/activity-page";
 import {Photo} from "./types/photos/photo";
 import {Observable} from "rxjs";
+import {Params} from "@angular/router";
 
 export const defaultPageSize: number = 40;
 
@@ -28,7 +29,11 @@ export class ClientService {
   }
 
   private createPageQuery(skip: number, count: number) {
-    return new HttpParams()
+    return this.setPageQuery(null, skip, count);
+  }
+
+  private setPageQuery(params: Params | null, skip: number, count: number) {
+    return params ?? new HttpParams()
         .set('skip', skip)
         .set('count', count);
   }
@@ -45,8 +50,8 @@ export class ClientService {
     return this.http.get<ListWithData<Room>>("/rooms");
   }
 
-  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize) {
-    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.createPageQuery(skip, count)});
+  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null) {
+    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.setPageQuery(params, skip, count)});
   }
 
   getLevelById(id: number) {
