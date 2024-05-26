@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {NavbarItemComponent} from "./navbar-item.component";
 import {RouterLink} from "@angular/router";
-import {faEarth, faFireAlt, faImages} from "@fortawesome/free-solid-svg-icons";
+import {faEarth, faFireAlt, faImages, faSearch, faSignIn, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-header',
@@ -24,6 +24,11 @@ import {faEarth, faFireAlt, faImages} from "@fortawesome/free-solid-svg-icons";
         <app-navbar-item href="/photos" title="Photos" [icon]=faImages></app-navbar-item>
         <app-navbar-item href="/activity" title="Activity" [icon]=faFireAlt></app-navbar-item>
       </nav>
+      <div class="grow"></div>
+      <nav class="flex gap-x-5 sm:gap-x-2">
+        <app-navbar-item href="/search" [icon]=faSearch></app-navbar-item>
+        <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
+      </nav>
     </header>
   `
 })
@@ -31,4 +36,6 @@ export class HeaderComponent {
   protected readonly faEarth = faEarth;
   protected readonly faImages = faImages;
   protected readonly faFireAlt = faFireAlt;
+  protected readonly faSearch = faSearch;
+  protected readonly faSignInAlt = faSignInAlt;
 }
