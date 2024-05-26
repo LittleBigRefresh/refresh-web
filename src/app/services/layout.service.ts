@@ -22,7 +22,10 @@ export class LayoutService {
 
     private checkIsMobileLayout(): boolean {
         if(!this.isBrowser) {
-            return false; // TODO: attempt user-agent based detection to avoid layout shift on mobile
+            // TODO: attempt user-agent based detection to avoid layout shift on mobile
+            // this will not be possible until Angular provides a good way to access request data
+            // https://github.com/angular/angular-cli/issues/26323
+            return false;
         }
 
         const check = window.innerWidth < 768/*px*/;
