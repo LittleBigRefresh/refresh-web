@@ -6,6 +6,11 @@ const debugRoutes: Routes = [
         path: 'text',
         loadComponent: () => import('./pages/text-playground/text-playground.component').then(x => x.TextPlaygroundComponent),
         data: {title: "Page Title"},
+    },
+    {
+        path: 'form',
+        loadComponent: () => import('./pages/form-debug/form-debug.component').then(x => x.FormDebugComponent),
+        data: {title: "Example Form"},
     }
 ]
 
