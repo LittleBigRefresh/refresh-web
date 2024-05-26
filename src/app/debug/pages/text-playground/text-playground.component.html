@@ -1,0 +1,57 @@
+<app-page-title></app-page-title>
+<p>
+    A natus enim voluptatibus sed pariatur cumque. Quisquam harum eligendi sunt aut aut cum. Iste ut officia
+    consectetur. Nam eligendi nostrum distinctio cupiditate ea eligendi. Rem minus sed exercitationem. Sed nam qui quia
+    quis sint.
+</p>
+<p>
+    Odit rerum magnam autem qui et ut eum non. Amet repellat et perferendis qui et corrupti. Accusantium iusto saepe
+    ipsa distinctio soluta quae et fugiat. Enim quia quod accusantium. Quia accusamus quia expedita et eos sunt
+    quisquam. Temporibus incidunt hic adipisci et saepe eum dicta.</p><p>
+</p>
+<app-section-title>Section Title</app-section-title>
+<p>
+    Voluptatem sunt ab aliquid et facilis ratione. Labore sit quisquam autem. Ullam dolores eveniet aut rerum repellat aut.
+</p>
+<p>
+    Est occaecati id et est aliquid voluptatem ducimus. Quis esse a corporis maiores nisi sed debitis.
+    Molestiae nostrum maiores accusamus sunt. Et animi explicabo qui est et pariatur non.
+</p>
+
+<app-divider></app-divider>
+<app-section-title>Containers</app-section-title>
+
+<app-container>
+    <app-container-title>Container Title</app-container-title>
+    <p>
+        Dolorum modi ab voluptatem. Tempore ducimus quibusdam necessitatibus. Dignissimos asperiores aut ratione.
+        Voluptatem natus quia temporibus nemo fugiat nihil repellendus. Et molestias atque veritatis ullam et dolore dolor.
+        Error aspernatur ut totam iste.
+    </p>
+
+    <br/>
+    <app-dark-container>
+        <app-container-title>Dark Container</app-container-title>
+        <p>
+            Quis non reiciendis inventore quidem voluptate sed. Occaecati omnis dicta quia. Quaerat enim quae dolorem necessitatibus.
+            Ut qui eligendi quis aut iste tenetur. Ducimus cum laudantium nisi quia voluptatum minima.
+        </p>
+    </app-dark-container>
+</app-container>
+
+<app-divider></app-divider>
+<app-section-title>Code Blocks</app-section-title>
+
+<app-codeblock ngPreserveWhitespaces="">[DoesNotReturn]
+private static void Fail(string reason, int code = 1)
+{{'{'}}
+    ConsoleColor oldColor = Console.ForegroundColor;
+
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(reason);
+    Console.WriteLine($"Failed with exit code {{'{'}}code{{'}'}}");
+    Console.ForegroundColor = oldColor;
+
+    Environment.Exit(code);
+{{'}'}}
+</app-codeblock>

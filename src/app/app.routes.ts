@@ -1,4 +1,5 @@
 import {Route, Routes} from '@angular/router';
+import {appendDebugRoutes} from "./debug/debug.routes";
 
 export const routes: Routes = [
     {
@@ -63,6 +64,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/user/user.component').then(x => x.UserComponent),
         data: {title: "User Page"},
     },
+    ...appendDebugRoutes(),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
         path: '**',
