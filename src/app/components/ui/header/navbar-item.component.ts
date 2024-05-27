@@ -14,9 +14,9 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   template: `
-    <a [routerLink]=href class="flex items-center gap-x-2 text-xl hover:underline sm:gap-x-0 sm:text-[1.4rem]" [title]="title">
-        <fa-icon [icon]=icon class="sm:px-2.5"></fa-icon>
-        <span class="sm:text-[0px]" *ngIf="title.length > 0">{{title}}</span>
+    <a [routerLink]=href class="flex gap-x-2 text-xl font-normal hover:underline" [title]="title">
+        <fa-icon [icon]=icon class="text-[1.15rem]"></fa-icon>
+        <span *ngIf="title.length > 0">{{title}}</span>
     </a>
   `
 })
