@@ -3,11 +3,12 @@ import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {NavbarItemComponent} from "./navbar-item.component";
 import {Router, RouterLink} from "@angular/router";
 import {
+  faBookOpen,
   faCheckCircle,
-  faEarth, faFire,
+  faEarth, faEnvelope, faFire,
   faFireAlt,
   faImages,
-  faPlay, faRandom, faSearch,
+  faPlay, faQuestionCircle, faRandom, faSearch,
   faShareAlt,
   faSignInAlt, faThList,
   faTools, faTrophy
@@ -23,6 +24,14 @@ import {NavbarCategoryComponent} from "./navbar-category.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 @Component({
+  selector: 'header-vertical-divider',
+  standalone: true,
+  imports: [],
+  template: `<div class="mx-1.5 w-[3px] rounded-full h-11 bg-divider"></div>`
+})
+class VerticalDividerComponent {}
+
+@Component({
   selector: 'app-header',
   standalone: true,
   imports: [
@@ -36,7 +45,8 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     AsyncPipe,
     NavbarCategoryComponent,
     NgForOf,
-    FaIconComponent
+    FaIconComponent,
+    VerticalDividerComponent
   ],
   template: `
     <header
@@ -45,31 +55,26 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
         <img ngSrc="/assets/logo.svg" alt="Refresh Logo" width="48" height="48" priority>
       </a>
 
-      <div class="mx-1.5 w-[3px] rounded-full h-11 bg-divider"></div>
-<!--      <nav class="flex gap-x-5 sm:gap-x-2">-->
-<!--        <app-navbar-item href="/levels" title="Levels" [icon]=faEarth></app-navbar-item>-->
-<!--        <app-navbar-item href="/photos" title="Photos" [icon]=faImages></app-navbar-item>-->
-<!--        <app-navbar-item href="/activity" title="Activity" [icon]=faFireAlt></app-navbar-item>-->
-<!--      </nav>-->
+      <header-vertical-divider></header-vertical-divider>
       <nav class="flex gap-x-5 h-14 items-center">
         <app-navbar-category *ngFor="let category of navTree" [category]="category"></app-navbar-category>
       </nav>
       <div class="grow"></div>
-      <nav class="flex gap-x-5 sm:gap-x-2">
+      <nav class="flex gap-x-2.5 items-center">
 <!--        <app-form [form]="searchForm" [compact]="true" (submit)="search()" *ngIf="!(layout.isMobile | async)">-->
 <!--          <app-search-bar [form]="searchForm"></app-search-bar>-->
 <!--        </app-form>-->
         
         <app-navbar-item href="/login" [icon]=faSearch></app-navbar-item>
-        <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
+        <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false"></app-navbar-category>
+        
+        <header-vertical-divider></header-vertical-divider>
+        <app-navbar-item href="/login" [icon]=faSignInAlt [bigIcon]="true"></app-navbar-item>
       </nav>
     </header>
   `
 })
 export class HeaderComponent {
-  protected readonly faEarth = faEarth;
-  protected readonly faImages = faImages;
-  protected readonly faFireAlt = faFireAlt;
   protected readonly faSignInAlt = faSignInAlt;
 
   protected readonly navTree: NavCategory[] = [
@@ -127,6 +132,26 @@ export class HeaderComponent {
           icon: faImages,
           route: "/photos"
         }
+      ]
+    }
+  ]
+
+  protected readonly rightNavTree: NavCategory[] = [
+    {
+      name: "Other",
+      icon: faQuestionCircle,
+      defaultRoute: "/activity",
+      items: [
+        {
+          name: "API Documentation",
+          icon: faBookOpen,
+          route: "/docs"
+        },
+        {
+          name: "Contact Us",
+          icon: faEnvelope,
+          route: "/contact"
+        },
       ]
     }
   ]
