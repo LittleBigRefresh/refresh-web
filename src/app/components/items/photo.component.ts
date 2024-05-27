@@ -68,7 +68,7 @@ import {RouterLink} from "@angular/router";
 
     <div class="flex" *ngIf="interactionsSupported && isDevMode()" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
       <app-button-group class="grow">
-        <app-button [icon]="faHeart" text="Heart" color="heart"></app-button>
+        <app-button [icon]="faHeart" text="Heart" color="bg-heart"></app-button>
         <app-button [icon]="faComment" text="Comment"></app-button>
       </app-button-group>
       <div class="self-center">
@@ -92,6 +92,6 @@ export class PhotoComponent implements OnInit {
 
   // set to true to enable heart/comment buttons
   // disabled because this does not exist in refresh
-  protected readonly interactionsSupported: boolean = false;
+  protected readonly interactionsSupported: boolean = true;
   protected readonly isDevMode = isDevMode;
 }
