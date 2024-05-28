@@ -20,12 +20,12 @@ import {NavbarItemComponent} from "./navbar-item.component";
     <div class="group relative">
       <a [routerLink]=category.defaultRoute class="flex items-center gap-x-2 text-xl hover:underline h-14"
          [title]="category.name">
-        <fa-icon [icon]=category.icon [ngClass]="showNames ? '' : 'px-2.5 -mx-2.5'"></fa-icon>
+        <fa-icon [icon]=category.icon class="h-full content-center" [ngClass]="showNames ? '' : 'px-2.5 -mx-2.5'"></fa-icon>
         <span *ngIf="showNames">{{ category.name }}</span>
       </a>
       <div class="absolute z-[1] w-64 px-5 py-2.5 hidden group-hover:flex flex-col rounded-b bg-header-background gap-y-2"
            [ngClass]="!right ? 'left-0' : 'right-0'">
-        <app-navbar-item *ngFor="let link of category.items" [href]="link.route" [icon]="link.icon!" [title]="link.name" class="text-xl"></app-navbar-item>
+        <app-navbar-item *ngFor="let link of category.items" [href]="link.route" [icon]="link.icon!" [title]="link.name"></app-navbar-item>
       </div>
     </div>
   `

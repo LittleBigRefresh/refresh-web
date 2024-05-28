@@ -59,7 +59,7 @@ class VerticalDividerComponent {}
         <app-navbar-category *ngFor="let category of navTree" [category]="category"></app-navbar-category>
       </nav>
       <div class="grow"></div>
-      <nav class="flex gap-x-2.5 items-center">
+      <nav class="flex gap-x-4 items-center">
 <!--        <app-form [form]="searchForm" [compact]="true" (submit)="search()" *ngIf="!(layout.isMobile | async)">-->
 <!--          <app-search-bar [form]="searchForm"></app-search-bar>-->
 <!--        </app-form>-->
@@ -68,7 +68,7 @@ class VerticalDividerComponent {}
         <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
         
         <header-vertical-divider></header-vertical-divider>
-        <app-navbar-item href="/login" [icon]=faSignInAlt [bigIcon]="true"></app-navbar-item>
+        <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
       </nav>
     </header>
   `
