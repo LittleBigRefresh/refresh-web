@@ -5,7 +5,7 @@ import {Router, RouterLink} from "@angular/router";
 import {
   faBookOpen,
   faCheckCircle,
-  faEarth, faEnvelope, faFire,
+  faEnvelope, faFire,
   faFireAlt,
   faImages,
   faPlay, faQuestionCircle, faRandom, faSearch,
@@ -18,7 +18,6 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {TextboxComponent} from "../form/textbox.component";
 import {SearchBarComponent} from "../form/search-bar.component";
 import {LayoutService} from "../../../services/layout.service";
-import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {NavCategory} from "./navtypes";
 import {NavbarCategoryComponent} from "./navbar-category.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -66,7 +65,7 @@ class VerticalDividerComponent {}
 <!--        </app-form>-->
         
         <app-navbar-item href="/login" [icon]=faSearch></app-navbar-item>
-        <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false"></app-navbar-category>
+        <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
         
         <header-vertical-divider></header-vertical-divider>
         <app-navbar-item href="/login" [icon]=faSignInAlt [bigIcon]="true"></app-navbar-item>
@@ -140,7 +139,7 @@ export class HeaderComponent {
     {
       name: "Other",
       icon: faQuestionCircle,
-      defaultRoute: "/activity",
+      defaultRoute: null,
       items: [
         {
           name: "API Documentation",

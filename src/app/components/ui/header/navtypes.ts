@@ -3,7 +3,7 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 export interface NavCategory {
     name: string
     icon: IconProp
-    defaultRoute: string
+    defaultRoute: string | null
     items: NavItem[];
 }
 
