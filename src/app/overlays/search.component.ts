@@ -9,6 +9,8 @@ import {FormComponent} from "../components/ui/form/form.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {LayoutService} from "../services/layout.service";
+import {DividerComponent} from "../components/ui/divider.component";
+import {LevelPreviewComponent} from "../components/items/level-preview.component";
 
 @Component({
   selector: 'app-search',
@@ -20,7 +22,9 @@ import {LayoutService} from "../services/layout.service";
     NgIf,
     SearchBarComponent,
     AsyncPipe,
-    FormComponent
+    FormComponent,
+    DividerComponent,
+    LevelPreviewComponent
   ],
   template: `
     <a class="flex gap-x-2 text-[17px] font-normal cursor-pointer" title="Search" (click)="toggleModal()">
@@ -28,13 +32,20 @@ import {LayoutService} from "../services/layout.service";
     </a>
     
     <app-dialog *ngIf="show">
-      <div class="w-[640px] p-5">
+      <div class="w-[640px] h-full m-5 flex flex-col">
         <app-form [form]="searchForm" [compact]="true" (submit)="search()" *ngIf="!(layout.isMobile | async)" class="">
-          <div class="flex flex-col">
             <app-search-bar [form]="searchForm" appClass="min-w-full"></app-search-bar>
-          </div>
         </app-form>
       </div>
+      <app-divider></app-divider>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
+      <p>afhjklkl;sdfasdfjkl</p>
     </app-dialog>
   `,
   styles: ``
