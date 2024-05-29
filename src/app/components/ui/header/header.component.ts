@@ -21,6 +21,7 @@ import {LayoutService} from "../../../services/layout.service";
 import {NavCategory} from "./navtypes";
 import {NavbarCategoryComponent} from "./navbar-category.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {SearchComponent} from "../../../overlays/search.component";
 
 @Component({
   selector: 'header-vertical-divider',
@@ -45,7 +46,8 @@ class VerticalDividerComponent {}
     NavbarCategoryComponent,
     NgForOf,
     FaIconComponent,
-    VerticalDividerComponent
+    VerticalDividerComponent,
+    SearchComponent
   ],
   template: `
     <header
@@ -60,11 +62,7 @@ class VerticalDividerComponent {}
       </nav>
       <div class="grow"></div>
       <nav class="flex gap-x-4 items-center">
-<!--        <app-form [form]="searchForm" [compact]="true" (submit)="search()" *ngIf="!(layout.isMobile | async)">-->
-<!--          <app-search-bar [form]="searchForm"></app-search-bar>-->
-<!--        </app-form>-->
-        
-        <app-navbar-item href="/login" [icon]=faSearch></app-navbar-item>
+        <app-search></app-search>
         <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
         
         <header-vertical-divider></header-vertical-divider>
@@ -156,15 +154,4 @@ export class HeaderComponent {
   ]
 
   constructor(private router: Router, protected layout: LayoutService) {}
-
-  searchForm = new FormGroup({
-    query: new FormControl(),
-  });
-
-  search() {
-    const query: string = this.searchForm.controls.query.getRawValue();
-    this.router.navigate(["/levels/search"], {queryParams: {query: query}})
-  }
-
-  protected readonly faSearch = faSearch;
 }
