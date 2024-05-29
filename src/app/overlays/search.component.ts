@@ -23,7 +23,7 @@ import {LayoutService} from "../services/layout.service";
     FormComponent
   ],
   template: `
-    <a class="flex gap-x-2 text-xl font-normal cursor-pointer" title="Search" (click)="toggleModal()">
+    <a class="flex gap-x-2 text-[17px] font-normal cursor-pointer" title="Search" (click)="toggleModal()">
       <fa-icon [icon]=faSearch class="w-5 text-center"></fa-icon>
     </a>
     
