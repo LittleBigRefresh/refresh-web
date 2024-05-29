@@ -11,6 +11,7 @@ const defaultColors = {
   "gentle": "#C3C3C3",
   "link": "#d4c6d5",
   "link-hover": "#fde9ff",
+  "invisible": "#00000000",
 
   "primary": "#A13DE3",
   "secondary": "#87748A",

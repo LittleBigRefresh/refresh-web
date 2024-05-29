@@ -28,9 +28,13 @@ import {LayoutService} from "../services/layout.service";
     </a>
     
     <app-dialog *ngIf="show">
-      <app-form [form]="searchForm" [compact]="true" (submit)="search()" *ngIf="!(layout.isMobile | async)" class="w-[640px]">
-        <app-search-bar [form]="searchForm"></app-search-bar>
-      </app-form>
+      <div class="w-[640px] p-5">
+        <app-form [form]="searchForm" [compact]="true" (submit)="search()" *ngIf="!(layout.isMobile | async)" class="">
+          <div class="flex flex-col">
+            <app-search-bar [form]="searchForm" appClass="min-w-full"></app-search-bar>
+          </div>
+        </app-form>
+      </div>
     </app-dialog>
   `,
   styles: ``
