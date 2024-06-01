@@ -56,12 +56,14 @@ export class LevelListingComponent implements OnInit, Scrollable {
   }
 
   setCategoryByRoute(route: string) {
+    // clear out any bad state left by previous pages
+    this.reset();
+
     this.client.getLevelCategories().subscribe(list => {
       for (let category of list.data) {
         if (category.apiRoute != route) continue;
 
         this.category = category;
-        return;
       }
 
       // if we're still here without a category, set as null (marker for not found)
@@ -86,5 +88,11 @@ export class LevelListingComponent implements OnInit, Scrollable {
       this.levels = this.levels.concat(list.data);
       this.listInfo = list.listInfo;
     });
+  }
+
+  reset(): void {
+    this.levels = [];
+    this.isLoading = false;
+    this.listInfo = defaultListInfo;
   }
 }
