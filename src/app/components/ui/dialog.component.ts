@@ -5,7 +5,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
   standalone: true,
   imports: [],
   template: `
-    <dialog #dialog class="backdrop:backdrop-brightness-75 text-foreground bg-api-remove bg-opacity-0 overflow-y-clip" tabindex="-1">
+    <dialog #dialog class="backdrop:backdrop-brightness-50 text-foreground bg-api-remove bg-opacity-0 overflow-y-clip" tabindex="-1">
       <ng-content></ng-content>
     </dialog>
   `,
