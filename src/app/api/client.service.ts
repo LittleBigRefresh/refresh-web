@@ -32,8 +32,20 @@ export class ClientService {
     return this.setPageQuery(null, skip, count);
   }
 
+  private convertParamsToHttpParams(params: Params | null): HttpParams | null {
+    if(params == null) return null;
+
+    let httpParams = new HttpParams();
+
+    for (let key of Object.keys(params)) {
+      httpParams = httpParams.set(key, params[key]);
+    }
+
+    return httpParams;
+  }
+
   private setPageQuery(params: Params | null, skip: number, count: number) {
-    return params ?? new HttpParams()
+    return (this.convertParamsToHttpParams(params) ?? new HttpParams())
         .set('skip', skip)
         .set('count', count);
   }
