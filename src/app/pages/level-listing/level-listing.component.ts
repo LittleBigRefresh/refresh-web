@@ -12,6 +12,7 @@ import {ContainerComponent} from "../../components/ui/container.component";
 import {Scrollable} from "../../helpers/scrollable";
 import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-info";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
+import {EmbedService} from "../../services/embed.service";
 
 @Component({
   selector: 'app-level-listing',
@@ -34,7 +35,7 @@ export class LevelListingComponent implements OnInit, Scrollable {
 
   private queryParams: Params = {};
 
-  constructor(private client: ClientService, private route: ActivatedRoute) {
+  constructor(private client: ClientService, private embed: EmbedService, private route: ActivatedRoute) {
     // Start requesting category information immediately.
     this.client.getLevelCategories().subscribe();
   }
@@ -70,8 +71,12 @@ export class LevelListingComponent implements OnInit, Scrollable {
       if(this.category === undefined)
         this.category = null;
 
-      if(this.category)
+      if(this.category) {
         this.loadData();
+        this.embed.embedCategory(this.category)
+      } else {
+        console.warn("No category found for route " + route)
+      }
     });
   }
 
