@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Inject, NgZone, OnInit, PLATFORM_ID} from '@angular/core';
 import {Contest} from "../../api/types/contests/contest";
 import {ApiClient} from "../../api/api-client.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -12,6 +12,7 @@ import {ApiListResponse} from "../../api/types/response/api-list-response";
 import {Level} from "../../api/types/level";
 import {GameVersion} from "../../api/types/game-version";
 import {CategoryPreviewType} from "../../components/category-preview/category-preview.component";
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
     selector: 'app-contest',
@@ -29,7 +30,18 @@ export class ContestComponent implements OnInit {
     protected readonly faCertificate = faCertificate;
     protected readonly CategoryPreviewType = CategoryPreviewType;
 
-    constructor(private route: ActivatedRoute, private authService: AuthService, private api: ApiClient, private embed: EmbedService, private title: TitleService) {
+    constructor(private route: ActivatedRoute, private authService: AuthService, private api: ApiClient, private embed: EmbedService, private title: TitleService,
+                @Inject(PLATFORM_ID) platformId: Object) {
+        if(isPlatformBrowser(platformId)) {
+            inject(NgZone).runOutsideAngular(() => {
+                setInterval(() => {
+                    if (!this.contest) return;
+
+                    this.setEndsIn();
+                    this.setStartsIn();
+                }, 1000);
+            })
+        }
     }
 
     hasStarted(): boolean | undefined {
@@ -160,13 +172,5 @@ export class ContestComponent implements OnInit {
         this.authService.userWatcher.subscribe((data) => {
             this.ownUser = data;
         });
-
-        setInterval(() => {
-            if (!this.contest) return;
-
-            this.setEndsIn();
-            this.setStartsIn();
-
-        }, 1000);
     }
 }
