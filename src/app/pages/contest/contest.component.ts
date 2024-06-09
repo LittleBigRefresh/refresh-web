@@ -1,4 +1,4 @@
-import {Component, inject, Inject, NgZone, OnInit, PLATFORM_ID} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, Inject, NgZone, OnInit, PLATFORM_ID} from '@angular/core';
 import {Contest} from "../../api/types/contests/contest";
 import {ApiClient} from "../../api/api-client.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -31,7 +31,7 @@ export class ContestComponent implements OnInit {
     protected readonly CategoryPreviewType = CategoryPreviewType;
 
     constructor(private route: ActivatedRoute, private authService: AuthService, private api: ApiClient, private embed: EmbedService, private title: TitleService,
-                @Inject(PLATFORM_ID) platformId: Object) {
+                @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef) {
         if(isPlatformBrowser(platformId)) {
             inject(NgZone).runOutsideAngular(() => {
                 setInterval(() => {
@@ -39,6 +39,8 @@ export class ContestComponent implements OnInit {
 
                     this.setEndsIn();
                     this.setStartsIn();
+
+                    changeDetector.detectChanges();
                 }, 1000);
             })
         }
