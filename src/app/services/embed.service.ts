@@ -5,6 +5,7 @@ import {Instance} from "../api/types/instance";
 import {GetAssetImageLink} from "../api/api-client.service";
 import {Photo} from "../api/types/photo";
 import {Level} from "../api/types/level";
+import {Contest} from "../api/types/contests/contest";
 
 @Injectable({providedIn: 'root'})
 export class EmbedService {
@@ -47,7 +48,7 @@ export class EmbedService {
 
     embedInstance(instance: Instance) {
         if (this.meta.getTag('name="og:title"')) return;
-        
+
         this.embed(`${instance.instanceName} - ${instance.instanceDescription}`, `${instance.instanceName} is a free custom server for LittleBigPlanet.`);
         this.setPropertyTag("og:site_name", instance.instanceName)
         this.setPropertyTag("og:type", "website");
@@ -63,5 +64,11 @@ export class EmbedService {
         this.setPropertyTag("og:type", "photo");
         this.setNamedTag("twitter:card", "summary_large_image");
         this.setNamedTag("twitter:image", GetAssetImageLink(photo.largeHash));
+    }
+
+    embedContest(contest: Contest) {
+        this.embed(contest.contestTitle, contest.contestSummary);
+        this.setNamedTag("twitter:card", "summary_large_image");
+        this.setNamedTag("twitter:image", contest.bannerUrl);
     }
 }

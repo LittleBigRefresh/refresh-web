@@ -159,7 +159,7 @@ export class ContestComponent implements OnInit {
             this.api.GetContestById(id).subscribe(contest => {
                 this.contest = contest;
                 this.title.setTitle(contest.contestTitle);
-                this.embed.embed(contest.contestTitle, contest.contestSummary);
+                this.embed.embedContest(contest);
                 this.setStartsIn();
                 this.setEndsIn();
 
