@@ -4,10 +4,17 @@
 
 <div *ngIf="(ownUser?.role ?? 0) >= UserRoles.Curator">
     <page-header class="text-2xl">Admin/Curator Settings</page-header>
-    <div class="flex flex-col gap-y-2.5">
+    <div class="flex flex-col w-96 max-lg:w-auto gap-y-2.5">
         <form-dropdown name="Game Version" [options]="gameVersions" [(value)]="gameVersion"></form-dropdown>
-        <form-checkbox name="Mark as re-upload" [(value)]="isReUpload" [icon]="faClone"></form-checkbox>
+
+        <div>
+            <form-checkbox name="Team Picked" [(value)]="teamPicked" [icon]="faCertificate"></form-checkbox>
+            <form-checkbox name="Mark as re-upload" [(value)]="isReUpload" [icon]="faClone"></form-checkbox>
+        </div>
+
         <form-input name="Original Publisher" [(value)]="originalPublisher" [icon]="faUser"></form-input>
+
+        <primary-button [icon]="faFloppyDisk" text="Save changes" (click)="update()"></primary-button>
     </div>
 </div>
 <divider></divider>

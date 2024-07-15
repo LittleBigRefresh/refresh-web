@@ -18,6 +18,7 @@ import {LevelEditRequest} from "../../api/types/level-edit-request";
 import {UserRoles} from "../../api/types/user-roles";
 import {DropdownOption} from "../../components/form-dropdown/form-dropdown.component";
 import {sha1Async} from "../../hash";
+import {AdminService} from "../../api/admin.service";
 
 @Component({
     selector: 'edit-level',
@@ -32,6 +33,7 @@ export class EditLevelComponent implements OnInit {
     description: string = "";
     gameVersion: string = "0";
     isReUpload: boolean = false;
+    teamPicked: boolean = false;
     originalPublisher: string | undefined = undefined;
 
     gameVersions: DropdownOption[] = [
@@ -61,7 +63,8 @@ export class EditLevelComponent implements OnInit {
         }
     ];
 
-    constructor(private authService: AuthService, private apiClient: ApiClient, private router: Router, private route: ActivatedRoute) {
+    constructor(private authService: AuthService, private apiClient: ApiClient, private adminService: AdminService,
+                private router: Router, private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
@@ -100,6 +103,7 @@ export class EditLevelComponent implements OnInit {
     update() {
         if (this.level == undefined) return;
 
+        const isAdmin: boolean = (this.ownUser?.role ?? 0) >= UserRoles.Curator;
         const payload: LevelEditRequest = {
             title: this.title,
             description: this.description,
@@ -109,7 +113,12 @@ export class EditLevelComponent implements OnInit {
             isReUpload: this.isReUpload,
         }
 
-        this.apiClient.EditLevel(payload, this.level.levelId, this.ownUser?.role == UserRoles.Admin);
+        this.apiClient.EditLevel(payload, this.level.levelId, isAdmin);
+
+        if (isAdmin && this.teamPicked != this.level.teamPicked) {
+            if (this.teamPicked) this.adminService.AdminAddTeamPick(this.level);
+            else this.adminService.AdminRemoveTeamPick(this.level);
+        }
     }
 
     cancel() {

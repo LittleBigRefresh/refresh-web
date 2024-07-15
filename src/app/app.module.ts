@@ -78,7 +78,6 @@ import {RegisterComponent} from './pages/register/register.component';
 import {AdminPanelComponent} from './pages/admin-panel/admin-panel.component';
 import {AnnouncementComponent} from './components/announcement/announcement.component';
 import {AdminUserComponent} from './pages/admin-user/admin-user.component';
-import {AdminLevelComponent} from './pages/admin-level/admin-level.component';
 import {VerifyComponent} from './pages/verify/verify.component';
 import {DeleteAccountComponent} from './pages/delete-account/delete-account.component';
 import {AdminUsersComponent} from './pages/admin-users/admin-users.component';
@@ -154,7 +153,6 @@ import { PlayHashComponent } from './pages/play-hash/play-hash.component';
         AdminPanelComponent,
         AnnouncementComponent,
         AdminUserComponent,
-        AdminLevelComponent,
         VerifyComponent,
         DeleteAccountComponent,
         AdminUsersComponent,
