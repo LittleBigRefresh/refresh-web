@@ -2,8 +2,8 @@
 <p>(id: <code>{{ level?.levelId ?? 0 }}</code>)</p>
 <divider></divider>
 
-<div *ngIf="ownUser?.role == UserRoles.Admin">
-    <page-header class="text-2xl">Admin Settings</page-header>
+<div *ngIf="(ownUser?.role ?? 0) >= UserRoles.Curator">
+    <page-header class="text-2xl">Admin/Curator Settings</page-header>
     <div class="flex flex-col gap-y-2.5">
         <form-dropdown name="Game Version" [options]="gameVersions" [(value)]="gameVersion"></form-dropdown>
         <form-checkbox name="Mark as re-upload" [(value)]="isReUpload" [icon]="faClone"></form-checkbox>

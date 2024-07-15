@@ -76,7 +76,7 @@ const routes: Routes = [
     {path: "statistics", component: StatisticsComponent},
 
     {path: "admin", component: AdminPanelComponent, canActivate: [adminAuthenticationGuard]},
-    {path: "admin/level/:id", component: AdminLevelComponent, canActivate: [adminAuthenticationGuard]},
+    {path: "admin/level/:id", redirectTo: "level/:id/edit"},
     {path: "admin/user/:uuid", component: AdminUserComponent, canActivate: [adminAuthenticationGuard]},
     {path: "admin/users", component: AdminUsersComponent, canActivate: [adminAuthenticationGuard]},
     {path: "admin/registrations", redirectTo: "admin/queuedRegistrations"},
