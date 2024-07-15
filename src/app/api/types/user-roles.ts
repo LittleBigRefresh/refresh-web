@@ -1,5 +1,6 @@
 export class UserRoles {
     public static Admin: number = 127;
+    public static Curator: number = 64
     public static Trusted: number = 1;
     public static User: number = 0;
     public static Restricted: number = -126;
