@@ -91,6 +91,7 @@ export class EditLevelComponent implements OnInit {
                     this.iconHash = data.iconHash;
                     this.isReUpload = data.isReUpload;
                     this.originalPublisher = data.originalPublisher;
+                    this.teamPicked = data.teamPicked;
                 });
         });
 
@@ -127,7 +128,13 @@ export class EditLevelComponent implements OnInit {
 
     delete() {
         if (this.level == undefined) return;
-        this.apiClient.DeleteLevel(this.level)
+
+        if((this.ownUser?.role ?? UserRoles.User) >= UserRoles.Curator) {
+            this.adminService.AdminDeleteLevel(this.level);
+        }
+        else {
+            this.apiClient.DeleteLevel(this.level);
+        }
     }
 
     async iconChanged($event: any) {
