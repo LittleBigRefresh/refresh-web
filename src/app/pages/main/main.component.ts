@@ -7,9 +7,9 @@ import {
     faArrowRightToBracket,
     faBullhorn,
     faCalendar,
-    faCertificate, faEnvelope,
+    faFire,
     faFireAlt,
-    faPlayCircle, faQuestionCircle,
+    faPlayCircle,
     faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {ActivityPage} from "../../api/types/activity/activity-page";
@@ -25,7 +25,7 @@ export class MainComponent implements OnInit {
     instance: Instance | undefined;
 
     busyLevels: ApiListResponse<Level> | undefined;
-    newestLevels: ApiListResponse<Level> | undefined;
+    coolLevels: ApiListResponse<Level> | undefined;
     pickedLevels: ApiListResponse<Level> | undefined;
 
     activity: ActivityPage | undefined;
@@ -54,9 +54,9 @@ export class MainComponent implements OnInit {
                 this.busyLevels = data;
             });
 
-        this.apiClient.GetLevelListing("newest", 10, 0)
+        this.apiClient.GetLevelListing("coolLevels", 10, 0)
             .subscribe(data => {
-                this.newestLevels = data;
+                this.coolLevels = data;
             });
 
         this.apiClient.GetActivity(5, 0)
@@ -66,12 +66,10 @@ export class MainComponent implements OnInit {
     }
 
     protected readonly faFireAlt = faFireAlt;
-    protected readonly faCertificate = faCertificate;
     protected readonly faBullhorn = faBullhorn;
     protected readonly faPlayCircle = faPlayCircle;
     protected readonly faArrowRightToBracket = faArrowRightToBracket;
     protected readonly faUserPlus = faUserPlus;
     protected readonly faCalendar = faCalendar;
-    protected readonly faQuestionCircle = faQuestionCircle;
-    protected readonly faEnvelope = faEnvelope;
+    protected readonly faFire = faFire;
 }

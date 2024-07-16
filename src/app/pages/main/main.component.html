@@ -57,12 +57,12 @@
   <category-preview [levels]="busyLevels.items" [total]="busyLevels.listInfo.totalItems" category-title="Popular Now" [icon]="faPlayCircle" route="currentlyPlaying"></category-preview>
 </div>
 
-<div *ngIf="newestLevels && newestLevels.items.length > 0">
+<div *ngIf="coolLevels && coolLevels.items.length > 0">
   <divider></divider>
-  <category-preview [levels]="newestLevels.items" [total]="newestLevels.listInfo.totalItems" category-title="Newest Levels" [icon]="faCalendar" route="newest"></category-preview>
+  <category-preview [levels]="coolLevels.items" [total]="coolLevels.listInfo.totalItems" category-title="Cool Levels" [icon]="faCalendar" route="coolLevels"></category-preview>
 </div>
 
 <div *ngIf="pickedLevels && pickedLevels.items.length > 0">
   <divider></divider>
-  <category-preview [levels]="pickedLevels.items" [total]="pickedLevels.listInfo.totalItems" category-title="Team Picks" [icon]="faCertificate" route="teamPicks"></category-preview>
+  <category-preview [levels]="pickedLevels.items" [total]="pickedLevels.listInfo.totalItems" category-title="Team Picks" [icon]="faFire" route="teamPicks"></category-preview>
 </div>
