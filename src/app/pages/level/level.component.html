@@ -44,8 +44,6 @@
     <div class="flex gap-x-2.5 text-foreground">
         <primary-button text="Play Now!" [icon]="faPlay" (click)="setAsOverride()"
                         *ngIf="isOwnUserOnline"></primary-button>
-        <admin-link-button *ngIf="(ownUser?.role ?? 0) >= UserRoles.Curator"
-                           [routerLink]="'/admin/level/' + level?.levelId"></admin-link-button>
         <secondary-button
             *ngIf="ownUser && (ownUser?.userId == level?.publisher?.userId || (ownUser?.role ?? 0) >= UserRoles.Curator)"
             [routerLink]="'/level/' + level?.levelId + '/edit'"
