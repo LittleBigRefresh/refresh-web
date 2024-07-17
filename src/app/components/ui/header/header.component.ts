@@ -22,6 +22,9 @@ import {NavCategory} from "./navtypes";
 import {NavbarCategoryComponent} from "./navbar-category.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {SearchComponent} from "../../../overlays/search.component";
+import {AuthenticationService} from "../../../api/authentication.service";
+import {UserLinkComponent} from "../text/links/user-link.component";
+import {UserAvatarComponent} from "../photos/user-avatar.component";
 
 @Component({
   selector: 'header-vertical-divider',
@@ -47,7 +50,9 @@ class VerticalDividerComponent {}
     NgForOf,
     FaIconComponent,
     VerticalDividerComponent,
-    SearchComponent
+    SearchComponent,
+    UserLinkComponent,
+    UserAvatarComponent
   ],
   template: `
     <header
@@ -57,7 +62,7 @@ class VerticalDividerComponent {}
       </a>
 
       <header-vertical-divider></header-vertical-divider>
-      <nav class="flex gap-x-5 h-14 items-center">
+      <nav class="flex gap-x-5 h-[60px] items-center">
         <app-navbar-category *ngFor="let category of navTree" [category]="category"></app-navbar-category>
       </nav>
       <div class="grow"></div>
@@ -66,7 +71,12 @@ class VerticalDividerComponent {}
         <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
         
         <header-vertical-divider></header-vertical-divider>
-        <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
+        <ng-container *ngIf="(auth.user | async) as user else signIn">
+          <app-user-avatar [user]="user" [size]="35"></app-user-avatar>
+        </ng-container>
+        <ng-template #signIn>
+          <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
+        </ng-template>
       </nav>
     </header>
   `
@@ -153,5 +163,5 @@ export class HeaderComponent {
     }
   ]
 
-  constructor(private router: Router, protected layout: LayoutService) {}
+  constructor(private router: Router, protected layout: LayoutService, protected auth: AuthenticationService) {}
 }
