@@ -5,30 +5,50 @@ import {TokenStorageService} from "./token-storage.service";
 import {ExtendedUser} from "./types/users/extended-user";
 import {AuthRequest} from "./types/auth/auth-request";
 import {AuthResponse} from "./types/auth/auth-response";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService extends ApiImplementation {
-    private user: ExtendedUser | undefined = undefined;
+    public user: BehaviorSubject<ExtendedUser | undefined> = new BehaviorSubject<ExtendedUser | undefined>(undefined);
     
     constructor(http: HttpClient, private tokenStorage: TokenStorageService) {
         super(http);
 
         const storedToken: string | null = this.tokenStorage.GetStoredGameToken();
         console.debug("Has existing token:", storedToken !== null);
+        
+        const storedUser: ExtendedUser | null = this.tokenStorage.GetStoredUser();
+        if (storedToken && storedUser) {
+            console.debug("Has existing user:", storedUser);
+            this.user.next(storedUser);
+        }
+        
+        if (storedToken) {
+            this.http.get<ExtendedUser>("/users/me").subscribe((data) => {
+                this.user.next(data);
+                this.tokenStorage.SetStoredUser(data);
+
+                console.log(data);
+            });
+        }
     }
     
     private HandleAuthResponse(response: AuthResponse) {
         this.tokenStorage.SetStoredGameToken(response.tokenData);
         this.tokenStorage.SetStoredRefreshToken(response.refreshTokenData);
         
+        this.GetOwnUser();
+    }
+    
+    private GetOwnUser() {
         this.http.get<ExtendedUser>("/users/me").subscribe((data) => {
-            this.user = data;
+            this.user.next(data);
             this.tokenStorage.SetStoredUser(data);
-            
+
             console.log(data);
-        })
+        });
     }
     
     public LogIn(emailAddress: string, password: string) {
