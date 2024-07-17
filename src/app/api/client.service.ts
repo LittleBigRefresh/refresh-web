@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Instance} from "./types/instance";
 import {LazySubject} from "../helpers/lazy-subject";
 import {LevelCategory} from "./types/levels/level-category";
