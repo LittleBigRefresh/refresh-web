@@ -72,7 +72,7 @@ class VerticalDividerComponent {}
         
         <header-vertical-divider></header-vertical-divider>
         <ng-container *ngIf="(auth.user | async) as user else signIn">
-          <app-user-avatar [user]="user" [size]="35"></app-user-avatar>
+          <app-user-avatar [user]="user" [size]="44"></app-user-avatar>
         </ng-container>
         <ng-template #signIn>
           <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
