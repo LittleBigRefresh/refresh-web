@@ -34,7 +34,7 @@ export class TitleService {
       return;
     }
 
-    this.title.setTitle(`[rewrite] ${title} · ${this.instanceName}`)
+    this.title.setTitle(`[beta] ${title} · ${this.instanceName}`)
     this.currentTitle = title;
   }
 

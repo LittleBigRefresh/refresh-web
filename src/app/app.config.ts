@@ -8,6 +8,7 @@ import {ApiBaseInterceptor} from "./api/interceptors/api-base.interceptor";
 import {APIv3Interceptor} from "./api/interceptors/apiv3.interceptor";
 import {IMAGE_LOADER} from "@angular/common";
 import {loadImage} from "./helpers/data-fetching";
+import {ApiTokenInterceptor} from "./api/interceptors/api-token.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     useInterceptor(ApiBaseInterceptor),
     useInterceptor(APIv3Interceptor),
+    useInterceptor(ApiTokenInterceptor),
     {
       provide: IMAGE_LOADER,
       useValue: loadImage,

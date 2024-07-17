@@ -64,6 +64,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/user/user.component').then(x => x.UserComponent),
         data: {title: "User Page"},
     },
+    {
+        path: 'login',
+        loadComponent: () => import('./pages/auth/login/login.component').then(x => x.LoginComponent),
+        data: {title: "Sign in"},
+    },
     ...appendDebugRoutes(),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {

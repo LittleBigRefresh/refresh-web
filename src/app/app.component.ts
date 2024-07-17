@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from "./components/ui/header/header.component";
 import {TitleService} from "./services/title.service";
 import {EmbedService} from "./services/embed.service";
 import {FaIconLibrary} from "@fortawesome/angular-fontawesome";
 import {fas} from "@fortawesome/free-solid-svg-icons";
+import {AuthenticationService} from "./api/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import {fas} from "@fortawesome/free-solid-svg-icons";
 export class AppComponent {
   constructor(private title: TitleService,
               private embed: EmbedService,
+              private auth: AuthenticationService,
               library: FaIconLibrary) {
     library.addIconPacks(fas)
   }
