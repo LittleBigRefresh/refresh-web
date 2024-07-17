@@ -11,43 +11,23 @@ import {ActivityPage} from "./types/activity/activity-page";
 import {Photo} from "./types/photos/photo";
 import {Observable} from "rxjs";
 import {Params} from "@angular/router";
+import {ApiImplementation} from "./api-implementation";
 
 export const defaultPageSize: number = 40;
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
+export class ClientService extends ApiImplementation {
   private readonly instance: LazySubject<Instance>;
   private readonly categories: LazySubject<ListWithData<LevelCategory>>;
 
-  constructor(private http: HttpClient) {
+  constructor(http: HttpClient) {
+    super(http);
     this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
     this.instance.tryLoad();
 
     this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"))
-  }
-
-  private createPageQuery(skip: number, count: number) {
-    return this.setPageQuery(null, skip, count);
-  }
-
-  private convertParamsToHttpParams(params: Params | null): HttpParams | null {
-    if(params == null) return null;
-
-    let httpParams = new HttpParams();
-
-    for (let key of Object.keys(params)) {
-      httpParams = httpParams.set(key, params[key]);
-    }
-
-    return httpParams;
-  }
-
-  private setPageQuery(params: Params | null, skip: number, count: number) {
-    return (this.convertParamsToHttpParams(params) ?? new HttpParams())
-        .set('skip', skip)
-        .set('count', count);
   }
 
   getInstance() {
