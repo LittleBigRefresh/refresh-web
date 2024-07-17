@@ -31,9 +31,3 @@ export class TextboxComponent {
   @Input() required: boolean = true;
   @Input() type: string = "text";
 }
-
-export enum TextboxType {
-  Normal = 0,
-  Password = 1,
-  EmailAddress = 2,
-}

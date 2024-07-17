@@ -1,9 +1,8 @@
-import {Inject, Injectable, PLATFORM_ID} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {ApiImplementation} from "./api-implementation";
 import {HttpClient} from "@angular/common/http";
 import {TokenStorageService} from "./token-storage.service";
 import {ExtendedUser} from "./types/users/extended-user";
-import {isPlatformBrowser} from "@angular/common";
 import {AuthRequest} from "./types/auth/auth-request";
 import {AuthResponse} from "./types/auth/auth-response";
 
@@ -13,7 +12,7 @@ import {AuthResponse} from "./types/auth/auth-response";
 export class AuthenticationService extends ApiImplementation {
     private user: ExtendedUser | undefined = undefined;
     
-    constructor(@Inject(PLATFORM_ID) platformId: Object, http: HttpClient, private tokenStorage: TokenStorageService) {
+    constructor(http: HttpClient, private tokenStorage: TokenStorageService) {
         super(http);
 
         const storedToken: string | null = this.tokenStorage.GetStoredGameToken();
