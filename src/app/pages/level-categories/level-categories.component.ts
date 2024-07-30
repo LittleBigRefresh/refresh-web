@@ -36,7 +36,7 @@ export class LevelCategoriesComponent implements OnInit {
                     if (c.requiresUser) {
                         if (this.authService.user !== undefined)
                             this.categories.push(c);
-                    } else if (c.apiRoute == "search" || c.apiRoute == "developer") {
+                    } else if (c.hidden) {
                         // do nothing
                     } else {
                         this.categories.push(c);
