@@ -4,30 +4,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TransferHttpCacheModule} from '@nguniversal/common';
 
-import {
-    faBell,
-    faCalendar,
-    faCertificate,
-    faCheckCircle,
-    faCircleExclamation,
-    faFire,
-    faForward,
-    faHeart,
-    faKey,
-    faMagnifyingGlass,
-    faPlay,
-    faPoo,
-    faRightFromBracket,
-    faShuffle,
-    faThumbsDown,
-    faThumbsUp,
-    faTrash,
-    faUser,
-    faUsers,
-    faWarning,
-    faXmark,
-} from '@fortawesome/free-solid-svg-icons';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LevelCategoriesComponent} from './pages/level-categories/level-categories.component';
@@ -105,6 +81,7 @@ import {markedOptionsFactory} from "./markdown.config";
 import {ContestPreviewComponent} from "./components/contest-preview/contest-preview.component";
 import {ContestLabelComponent} from "./components/contest-label/contest-label.component";
 import { PlayHashComponent } from './pages/play-hash/play-hash.component';
+import {fas} from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
     declarations: [
@@ -202,26 +179,6 @@ import { PlayHashComponent } from './pages/play-hash/play-hash.component';
 })
 export class AppModule {
     constructor(library: FaIconLibrary) {
-        library.addIcons(faWarning)
-        library.addIcons(faCalendar)
-        library.addIcons(faMagnifyingGlass)
-        library.addIcons(faHeart)
-        library.addIcons(faBell)
-        library.addIcons(faUser)
-        library.addIcons(faKey)
-        library.addIcons(faPoo)
-        library.addIcons(faXmark)
-        library.addIcons(faCheckCircle)
-        library.addIcons(faRightFromBracket)
-        library.addIcons(faCircleExclamation)
-        library.addIcons(faShuffle)
-        library.addIcons(faThumbsUp)
-        library.addIcons(faThumbsDown)
-        library.addIcons(faPlay)
-        library.addIcons(faCertificate)
-        library.addIcons(faTrash)
-        library.addIcons(faUsers)
-        library.addIcons(faForward)
-        library.addIcons(faFire)
+        library.addIconPacks(fas)
     }
 }
