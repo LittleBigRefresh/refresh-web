@@ -10,6 +10,7 @@ export function getImageLink(hash: string): string {
 
 export function loadImage(config: ImageLoaderConfig) {
     if(config.src.startsWith("/")) return config.src;
+    if(config.src.startsWith("http")) return config.src;
 
     // Only consider SHA1 asset hashes
     // Naturally filters out GUIDs, and blank hashes.

@@ -1,3 +1,9 @@
+<div *ngIf="this.instance?.activeContest" class="mb-3">
+    <a [routerLink]="'/contests/' + this.instance!.activeContest!.contestId">
+        <app-contest-banner [contest]="this.instance!.activeContest!"></app-contest-banner>
+    </a>
+</div>
+
 <div class="bg-hero rounded-md py-16 sm:py-10 px-5 bg-cover">
     <div class="text-5xl sm:text-3xl mb-2.5 font-black">
         <h1>{{this.instance?.instanceName ?? 'Refresh'}}</h1>

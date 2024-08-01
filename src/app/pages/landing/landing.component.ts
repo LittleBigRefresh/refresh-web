@@ -30,6 +30,7 @@ import {EventComponent} from "../../components/items/event.component";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventPageComponent} from "../../components/items/event-page.component";
 import {defer, delay, interval, repeat, Subscription} from "rxjs";
+import {ContestBannerComponent} from "../../components/items/contest-banner.component";
 
 @Component({
   selector: 'app-landing',
@@ -52,7 +53,8 @@ import {defer, delay, interval, repeat, Subscription} from "rxjs";
         RouterLinkComponent,
         AsideLayoutComponent,
         EventComponent,
-        EventPageComponent
+        EventPageComponent,
+        ContestBannerComponent
     ],
   templateUrl: './landing.component.html',
 })
