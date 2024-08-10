@@ -4,6 +4,7 @@ import {User} from "../../api/types/user";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {Level} from "../../api/types/level";
 import {Score} from "../../api/types/score";
+import {Photo} from "../../api/types/photo";
 
 @Component({
     selector: 'activity-event',
@@ -65,6 +66,17 @@ export class ActivityEventComponent {
 
         for (let score of this._page.scores) {
             if (score.scoreId === this._event.storedObjectId && this._event.storedDataType == 2) return score;
+        }
+
+        return undefined!;
+    }
+
+    getPhotoFromEvent(): Photo {
+        if (this._page === undefined) return undefined!;
+        if (this._event === undefined) return undefined!;
+
+        for (let photo of this._page.photos) {
+            if (photo.photoId === this._event.storedSequentialId && this._event.storedDataType == 4) return photo;
         }
 
         return undefined!;
