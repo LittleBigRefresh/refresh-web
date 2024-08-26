@@ -12,7 +12,7 @@ import {NgClass, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
     NgStyle
   ],
   template: `
-    <img *ngIf="this.user" [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded" alt=""
+    <img *ngIf="this.user" [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded h-auto aspect-square object-cover" alt=""
          (error)="err($event.target)" [ngStyle]="{'min-height': size + 'px', 'min-width': size + 'px'}">
   `
 })
