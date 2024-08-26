@@ -9,12 +9,15 @@ import {APIv3Interceptor} from "./api/interceptors/apiv3.interceptor";
 import {IMAGE_LOADER} from "@angular/common";
 import {loadImage} from "./helpers/data-fetching";
 import {ApiTokenInterceptor} from "./api/interceptors/api-token.interceptor";
+import {provideAnimations} from "@angular/platform-browser/animations";
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()),
+    provideAnimationsAsync(),
     useInterceptor(ApiBaseInterceptor),
     useInterceptor(APIv3Interceptor),
     useInterceptor(ApiTokenInterceptor),

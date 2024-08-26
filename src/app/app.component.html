@@ -1,4 +1,7 @@
 <app-header class="z-40"></app-header>
+@defer (when bannerService.banners.length > 0) {
+    <app-popup-banner-container class="container"></app-popup-banner-container>
+}
 <div class="container mx-auto bg-backdrop p-5 border-divider">
     <router-outlet />
 </div>

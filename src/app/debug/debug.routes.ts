@@ -11,6 +11,11 @@ const debugRoutes: Routes = [
         path: 'form',
         loadComponent: () => import('./pages/form-debug/form-debug.component').then(x => x.FormDebugComponent),
         data: {title: "Example Form"},
+    },
+    {
+        path: 'notifications',
+        loadComponent: () => import('./pages/notifications/notifications.component').then(x => x.NotificationsComponent),
+        data: {title: "Notifications Debug"},
     }
 ]
 

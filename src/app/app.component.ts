@@ -6,17 +6,20 @@ import {EmbedService} from "./services/embed.service";
 import {FaIconLibrary} from "@fortawesome/angular-fontawesome";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {AuthenticationService} from "./api/authentication.service";
+import {PopupBannerContainerComponent} from "./banners/popup-banner-container.component";
+import {BannerService} from "./banners/banner.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+    imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
   constructor(private title: TitleService,
               private embed: EmbedService,
               private auth: AuthenticationService,
+              protected bannerService: BannerService,
               library: FaIconLibrary) {
     library.addIconPacks(fas)
   }
