@@ -69,6 +69,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/auth/login/login.component').then(x => x.LoginComponent),
         data: {title: "Sign in"},
     },
+    {
+        path: 'contests',
+        loadComponent: () => import('./pages/contest-listing/contest-listing.component').then(x => x.ContestListingComponent),
+        data: {title: "Contests"},
+    },
     ...appendDebugRoutes(),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {

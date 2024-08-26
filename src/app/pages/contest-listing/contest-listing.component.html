@@ -1,0 +1,19 @@
+<app-page-title></app-page-title>
+<p>
+    {{ instance?.instanceName ?? "Refresh" }} has hosted {{ 'contest' | plural: contests?.length ?? 0 }}.
+    You can use this page to see every single one!
+</p>
+
+<div class="flex flex-col gap-y-2.5">
+    <ng-container *ngFor="let contest of contests">
+        <app-container>
+            <a [routerLink]="'/contests/' + contest.contestId">
+                <app-container-title class="underline">{{ contest.contestTag }}</app-container-title>
+                <app-contest-banner [contest]="contest"></app-contest-banner>
+            </a>
+
+            <app-divider></app-divider>
+            <p>{{ contest.contestSummary }}</p>
+        </app-container>
+    </ng-container>
+</div>

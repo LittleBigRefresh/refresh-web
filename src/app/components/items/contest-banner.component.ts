@@ -9,9 +9,8 @@ import {NgOptimizedImage} from "@angular/common";
     NgOptimizedImage
   ],
   template: `
-    <img [ngSrc]="contest.bannerUrl" width="1920" height="450" class="w-full rounded-md" [alt]="contest.contestTitle">
+    <img [ngSrc]="contest.bannerUrl" width="1920" height="450" class="w-full rounded-md" [alt]="contest.contestTitle" [title]="contest.contestTitle">
   `,
-  styles: ``
 })
 export class ContestBannerComponent {
   @Input({required: true}) contest: Contest = null!;

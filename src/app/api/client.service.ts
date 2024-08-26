@@ -12,6 +12,7 @@ import {Photo} from "./types/photos/photo";
 import {Observable} from "rxjs";
 import {Params} from "@angular/router";
 import {ApiImplementation} from "./api-implementation";
+import {Contest} from "./types/contests/contest";
 
 export const defaultPageSize: number = 40;
 
@@ -73,6 +74,10 @@ export class ClientService extends ApiImplementation {
 
   getPhotos(skip: number = 0, count: number = defaultPageSize) {
     return this.http.get<ListWithData<Photo>>(`/photos`, {params: this.createPageQuery(skip, count)});
+  }
+
+  getContests() {
+    return this.http.get<ListWithData<Contest>>("/contests");
   }
 
   getPhotoById(id: number) {
