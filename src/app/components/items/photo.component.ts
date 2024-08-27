@@ -50,7 +50,7 @@ import {RouterLink} from "@angular/router";
     
     <!--  640x360 is the size of the typical LBP2 photo  -->
     <a [routerLink]="link ? '/photo/' + photo.photoId : null">
-      <img [ngSrc]="photo.largeHash" width="640" height="360" alt="" class="w-full h-auto">
+      <img [ngSrc]="photo.largeHash" width="640" height="360" alt="" class="w-full h-auto" loading="lazy">
     </a>
     
     <div class="text-sm flex" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
