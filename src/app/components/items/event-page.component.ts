@@ -14,7 +14,7 @@ import {Score} from "../../api/types/levels/score";
 ],
   template: `
     <div class="flex flex-col gap-y-2.5">
-      @for (event of page?.events; track event) {
+      @for (event of page.events; track event) {
         <app-event [event]="event" [submittingUser]="user(event.userId)!"
           [user]="user(event.storedObjectId)"
           [level]="level(event.storedSequentialId)"
