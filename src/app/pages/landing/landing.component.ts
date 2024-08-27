@@ -64,7 +64,6 @@ export class LandingComponent implements OnDestroy {
 
     constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef) {
       client.getInstance().subscribe(data => this.instance = data);
-      client.getRoomListing().subscribe(data => this.rooms = data.data);
 
       if(isPlatformBrowser(platformId)) {
           inject(NgZone).runOutsideAngular(() => {
@@ -85,6 +84,7 @@ export class LandingComponent implements OnDestroy {
       }
 
       this.fetchActivity().subscribe(data => this.activity = data);
+      this.fetchRooms().subscribe(data => this.rooms = data.data);
     }
 
     ngOnDestroy(): void {
