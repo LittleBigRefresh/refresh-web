@@ -9,7 +9,7 @@ import {ListWithData} from "./list-with-data";
 import {User} from "./types/users/user";
 import {ActivityPage} from "./types/activity/activity-page";
 import {Photo} from "./types/photos/photo";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 import {Params} from "@angular/router";
 import {ApiImplementation} from "./api-implementation";
 import {Contest} from "./types/contests/contest";
@@ -22,6 +22,8 @@ export const defaultPageSize: number = 40;
 export class ClientService extends ApiImplementation {
   private readonly instance: LazySubject<Instance>;
   private readonly categories: LazySubject<ListWithData<LevelCategory>>;
+  
+  private usersCache: User[] = [];
 
   constructor(http: HttpClient) {
     super(http);
@@ -50,13 +52,27 @@ export class ClientService extends ApiImplementation {
   getLevelById(id: number) {
     return this.http.get<Level>(`/levels/id/${id}`);
   }
+  
+  private getUser(route: string, cacheLookup: (value: User, index: number, obj: User[]) => boolean): Observable<User> {
+    const existingUser: User | undefined = this.usersCache.find(cacheLookup);
+    if (existingUser) {
+      // console.log("found in cache", existingUser);
+      return new BehaviorSubject(existingUser);
+    }
 
-  getUserByUuid(userId: string) {
-    return this.http.get<User>(`/users/uuid/${userId}`);
+    return this.http.get<User>("/users/" + route)
+        .pipe(tap(d => {
+          // console.log("adding to cache", d)
+          this.usersCache.push(d);
+        }));
+  }
+
+  getUserByUuid(userId: string): Observable<User> {
+    return this.getUser("uuid/" + userId, u => u.userId == userId)
   }
 
   getUserByUsername(username: string) {
-    return this.http.get<User>(`/users/name/${username}`);
+    return this.getUser("name/" + username, u => u.username == username)
   }
 
   getUserByEitherLookup(username: string | undefined, uuid: string | undefined): Observable<User> {
