@@ -1,13 +1,6 @@
-import {Component, Inject, Input, PLATFORM_ID} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TooltipComponent} from "./text/tooltip.component";
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import { isPlatformBrowser } from "@angular/common";
 
-dayjs.extend(relativeTime);
-
-// FIXME: this component can't be used from SSR due to hydration problems
-// best to just nuke dayJs entirely and write our own function
 @Component({
   selector: 'app-date',
   standalone: true,
@@ -15,24 +8,23 @@ dayjs.extend(relativeTime);
     TooltipComponent
 ],
   template: `
-    @if (isBrowserOnly) {
-      <app-tooltip [text]="getFormattedDate()">
+<!--
+    for some stupid fucking reason we need to defer this,
+    because otherwise this breaks the layout when SSR renders this component 
+-->
+    @defer {
+      <app-tooltip [text]="getFormattedDate()" class>
         {{ getMoment() }}
       </app-tooltip>
+    } @placeholder {
+      <span>{{ recentText }}</span>
     }
-    @else {
-      <span>...</span>
-    }
-    `
+  `
 })
 export class DateComponent {
   private _date: Date = new Date();
-
-  constructor(@Inject(PLATFORM_ID) private platformId: string) {}
-
-  get isBrowserOnly(): boolean {
-    return isPlatformBrowser(this.platformId);
-  }
+  
+  protected recentText = "just now";
 
   @Input({required: true, alias: "date"})
   set date(value: Date) {
@@ -40,7 +32,27 @@ export class DateComponent {
   }
 
   getMoment(): string {
-    return dayjs(this._date).fromNow();
+    const now = new Date();
+    const seconds = Math.floor((now.getTime() - this._date.getTime()) / 1000);
+
+    const intervals: { [key: string]: number } = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+      second: 1,
+    };
+
+    for (const interval in intervals) {
+      const time = Math.floor(seconds / intervals[interval]);
+      if (time >= 1) {
+        return `${time} ${interval}${time > 1 ? 's' : ''} ago`;
+      }
+    }
+
+    return this.recentText;
   }
 
   getFormattedDate(): string {
