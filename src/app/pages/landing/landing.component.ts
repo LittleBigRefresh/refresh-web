@@ -16,7 +16,7 @@ import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RouterLink} from "@angular/router";
-import {isPlatformBrowser, NgForOf, NgIf, NgOptimizedImage, SlicePipe} from "@angular/common";
+import { isPlatformBrowser, NgOptimizedImage, SlicePipe } from "@angular/common";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
 import {SectionTitleComponent} from "../../components/ui/text/section-title.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -36,26 +36,24 @@ import {ContestBannerComponent} from "../../components/items/contest-banner.comp
   selector: 'app-landing',
   standalone: true,
     imports: [
-        ContainerComponent,
-        ResponsiveGridComponent,
-        DividerComponent,
-        PageTitleComponent,
-        RouterLink,
-        NgOptimizedImage,
-        ContainerTitleComponent,
-        SectionTitleComponent,
-        FaIconComponent,
-        AnnouncementComponent,
-        NgForOf,
-        NgIf,
-        RoomComponent,
-        SlicePipe,
-        RouterLinkComponent,
-        AsideLayoutComponent,
-        EventComponent,
-        EventPageComponent,
-        ContestBannerComponent
-    ],
+    ContainerComponent,
+    ResponsiveGridComponent,
+    DividerComponent,
+    PageTitleComponent,
+    RouterLink,
+    NgOptimizedImage,
+    ContainerTitleComponent,
+    SectionTitleComponent,
+    FaIconComponent,
+    AnnouncementComponent,
+    RoomComponent,
+    SlicePipe,
+    RouterLinkComponent,
+    AsideLayoutComponent,
+    EventComponent,
+    EventPageComponent,
+    ContestBannerComponent
+],
   templateUrl: './landing.component.html',
 })
 export class LandingComponent implements OnDestroy {

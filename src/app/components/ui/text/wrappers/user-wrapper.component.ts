@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {NgIf} from "@angular/common";
+
 import {UserAvatarComponent} from "../../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "../links/user-router-link.component";
 import {User} from "../../../../api/types/users/user";
@@ -8,10 +8,9 @@ import {User} from "../../../../api/types/users/user";
   selector: 'app-user-wrapper',
   standalone: true,
   imports: [
-    NgIf,
     UserAvatarComponent,
     UserRouterLinkComponent
-  ],
+],
   template: `
     <div class="flex gap-x-1.5">
       <app-user-router-link [user]=user>

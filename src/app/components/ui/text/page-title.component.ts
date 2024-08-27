@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {TitleService} from "../../../services/title.service";
-import {NgIf} from "@angular/common";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
@@ -9,14 +8,18 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
   selector: 'app-page-title',
   standalone: true,
   imports: [
-    NgIf,
     FaIconComponent
   ],
   template: `
-    <h1 class="font-bold text-3xl mb-1.5 sm:text-2xl sm:leading-none sm:mb-0" *ngIf="title">
-      <fa-icon *ngIf=icon [icon]=icon></fa-icon>
-      {{title}}
-    </h1>
+    @if(title) {
+      <h1 class="font-bold text-3xl mb-1.5 sm:text-2xl sm:leading-none sm:mb-0">
+        @if(icon) {
+          <fa-icon [icon]=icon></fa-icon>
+        }
+
+        {{title}}
+      </h1>
+    }
   `
 })
 export class PageTitleComponent implements OnInit{

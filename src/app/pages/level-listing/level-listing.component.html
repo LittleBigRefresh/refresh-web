@@ -1,21 +1,25 @@
-<ng-container *ngIf="category">
-    <app-page-title [title]="category.name" [icon]="category.fontAwesomeIcon"></app-page-title>
-    <p>{{category.description}}</p>
-    <app-responsive-grid *ngIf="levels">
-        <app-container *ngFor="let level of this.levels">
-            <app-level-preview [level]="level"></app-level-preview>
+@if (category) {
+  <app-page-title [title]="category.name" [icon]="category.fontAwesomeIcon"></app-page-title>
+  <p>{{category.description}}</p>
+  @if (levels) {
+    <app-responsive-grid>
+      @for (level of this.levels; track level) {
+        <app-container>
+          <app-level-preview [level]="level"></app-level-preview>
         </app-container>
+      }
     </app-responsive-grid>
-    <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
-</ng-container>
+  }
+  <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
+}
 
-<ng-container *ngIf="category == null">
-    <app-page-title title="Category Not Found"></app-page-title>
-    <p>
-        We couldn't find that category.
-        Try checking the URL, or pick another category to get your bearings.
-    </p>
-    <p>
-        Otherwise, it may be missing or unavailable temporarily.
-    </p>
-</ng-container>
+@if (category == null) {
+  <app-page-title title="Category Not Found"></app-page-title>
+  <p>
+    We couldn't find that category.
+    Try checking the URL, or pick another category to get your bearings.
+  </p>
+  <p>
+    Otherwise, it may be missing or unavailable temporarily.
+  </p>
+}

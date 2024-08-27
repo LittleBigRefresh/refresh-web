@@ -1,1 +1,3 @@
-<app-photo *ngIf="photo" [photo]="photo" class="w-full" [padding]="false"></app-photo>
+@if (photo) {
+  <app-photo [photo]="photo" class="w-full" [padding]="false"></app-photo>
+}

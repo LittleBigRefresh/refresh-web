@@ -7,7 +7,7 @@ import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-in
 import {ContainerComponent} from "../../components/ui/container.component";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
 import {LevelPreviewComponent} from "../../components/items/level-preview.component";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {PhotoComponent} from "../../components/items/photo.component";
 
@@ -19,11 +19,9 @@ import {PhotoComponent} from "../../components/items/photo.component";
     ContainerComponent,
     InfiniteScrollerComponent,
     LevelPreviewComponent,
-    NgForOf,
-    NgIf,
     ResponsiveGridComponent,
     PhotoComponent
-  ],
+],
   templateUrl: './photo-listing.component.html',
   styles: ``
 })

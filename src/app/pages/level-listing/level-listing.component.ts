@@ -3,7 +3,7 @@ import {LevelCategory} from "../../api/types/levels/level-category";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {CategoriesComponent} from "../categories/categories.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {Level} from "../../api/types/levels/level";
@@ -19,14 +19,12 @@ import {EmbedService} from "../../services/embed.service";
   standalone: true,
   imports: [
     PageTitleComponent,
-    NgIf,
     CategoriesComponent,
     ResponsiveGridComponent,
     LevelPreviewComponent,
-    NgForOf,
     ContainerComponent,
     InfiniteScrollerComponent
-  ],
+],
   templateUrl: './level-listing.component.html'
 })
 export class LevelListingComponent implements OnInit, Scrollable {

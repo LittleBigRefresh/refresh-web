@@ -2,7 +2,7 @@
 <p>Discover and browse through new levels using categories!</p>
 
 <app-responsive-grid>
-    <ng-container *ngFor="let category of categories">
-        <app-level-category [category]="category"></app-level-category>
-    </ng-container>
+  @for (category of categories; track category) {
+    <app-level-category [category]="category"></app-level-category>
+  }
 </app-responsive-grid>

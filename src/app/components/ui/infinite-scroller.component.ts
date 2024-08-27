@@ -8,7 +8,7 @@ import {
   Output,
   PLATFORM_ID
 } from '@angular/core';
-import {isPlatformBrowser, NgIf} from "@angular/common";
+import { isPlatformBrowser } from "@angular/common";
 import {defaultPageSize} from "../../api/client.service";
 import {RefreshApiListInfo} from "../../api/refresh-api-list-info";
 
@@ -17,16 +17,16 @@ const debug: boolean = isDevMode() && false;
 @Component({
   selector: 'app-infinite-scroller',
   standalone: true,
-  imports: [
-    NgIf
-  ],
+  imports: [],
   template: `
-    <div *ngIf="debug">
-      <p>next page index: {{this.nextPageIndex}}</p>
-      <p>total: {{this.total}}</p>
-      <p>loading: {{this.isLoading}} (total loads: {{this.totalLoads}})</p>
-    </div>
-  `
+    @if (debug) {
+      <div>
+        <p>next page index: {{this.nextPageIndex}}</p>
+        <p>total: {{this.total}}</p>
+        <p>loading: {{this.isLoading}} (total loads: {{this.totalLoads}})</p>
+      </div>
+    }
+    `
 })
 export class InfiniteScrollerComponent implements AfterViewInit {
   protected readonly isBrowser: boolean;

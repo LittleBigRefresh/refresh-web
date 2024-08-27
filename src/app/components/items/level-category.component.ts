@@ -5,7 +5,7 @@ import {RouterLink} from "@angular/router";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faLink} from "@fortawesome/free-solid-svg-icons";
 import {ContainerTitleComponent} from "../ui/text/container-title.component";
-import {NgIf} from "@angular/common";
+
 import {DividerComponent} from "../ui/divider.component";
 import {LevelPreviewComponent} from "./level-preview.component";
 
@@ -17,10 +17,9 @@ import {LevelPreviewComponent} from "./level-preview.component";
     RouterLink,
     FaIconComponent,
     ContainerTitleComponent,
-    NgIf,
     DividerComponent,
     LevelPreviewComponent
-  ],
+],
   template: `
     <app-container>
       <app-container-title>
@@ -29,15 +28,15 @@ import {LevelPreviewComponent} from "./level-preview.component";
           <span>{{category.name}}</span>
         </a>
       </app-container-title>
-      
+    
       <p>{{category.description}}</p>
-      
-      <ng-container *ngIf=category.previewLevel>
+    
+      @if (category.previewLevel) {
         <app-divider></app-divider>
         <app-level-preview [level]=category.previewLevel></app-level-preview>
-      </ng-container>
+      }
     </app-container>
-  `
+    `
 })
 export class LevelCategoryComponent {
   @Input({required: true}) category!: LevelCategory;

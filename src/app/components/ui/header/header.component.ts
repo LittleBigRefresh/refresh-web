@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import { AsyncPipe, NgOptimizedImage } from "@angular/common";
 import {NavbarItemComponent} from "./navbar-item.component";
 import {Router, RouterLink} from "@angular/router";
 import {
@@ -44,42 +44,43 @@ class VerticalDividerComponent {}
     FormComponent,
     TextboxComponent,
     SearchBarComponent,
-    NgIf,
     AsyncPipe,
     NavbarCategoryComponent,
-    NgForOf,
     FaIconComponent,
     VerticalDividerComponent,
     SearchComponent,
     UserLinkComponent,
     UserAvatarComponent
-  ],
+],
   template: `
     <header
-        class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full">
+      class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full">
       <a routerLink="/" title="Home" class="py-1">
         <img ngSrc="/assets/logo.svg" alt="Refresh Logo" width="48" height="48" priority>
       </a>
-
+    
       <header-vertical-divider></header-vertical-divider>
       <nav class="flex gap-x-5 h-[60px] items-center">
-        <app-navbar-category *ngFor="let category of navTree" [category]="category"></app-navbar-category>
+        @for (category of navTree; track category) {
+          <app-navbar-category [category]="category"></app-navbar-category>
+        }
       </nav>
       <div class="grow"></div>
       <nav class="flex gap-x-4 items-center">
         <app-search></app-search>
-        <app-navbar-category *ngFor="let category of rightNavTree" [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
-        
+        @for (category of rightNavTree; track category) {
+          <app-navbar-category [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
+        }
+    
         <header-vertical-divider></header-vertical-divider>
-        <ng-container *ngIf="(auth.user | async) as user else signIn">
+        @if ((auth.user | async); as user) {
           <app-user-avatar [user]="user" [size]="44"></app-user-avatar>
-        </ng-container>
-        <ng-template #signIn>
+        } @else {
           <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
-        </ng-template>
+        }
       </nav>
     </header>
-  `
+    `
 })
 export class HeaderComponent {
   protected readonly faSignInAlt = faSignInAlt;

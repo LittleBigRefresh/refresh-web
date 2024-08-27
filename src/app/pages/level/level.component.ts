@@ -4,7 +4,7 @@ import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import {AsyncPipe, isPlatformBrowser, NgIf} from "@angular/common";
+import { AsyncPipe, isPlatformBrowser } from "@angular/common";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
@@ -18,15 +18,14 @@ import {LayoutService} from "../../services/layout.service";
   selector: 'app-level',
   standalone: true,
     imports: [
-        LevelStatisticsComponent,
-        NgIf,
-        DefaultPipe,
-        LevelAvatarComponent,
-        UserLinkComponent,
-        FancyHeaderComponent,
-        GamePipe,
-        AsyncPipe
-    ],
+    LevelStatisticsComponent,
+    DefaultPipe,
+    LevelAvatarComponent,
+    UserLinkComponent,
+    FancyHeaderComponent,
+    GamePipe,
+    AsyncPipe
+],
   providers: [
       SlugPipe
   ],

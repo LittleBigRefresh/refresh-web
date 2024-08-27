@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RoomComponent} from "../../components/items/room.component";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {Room} from "../../api/types/rooms/room";
 import {ClientService} from "../../api/client.service";
 import {GameVersion} from "../../api/types/game-version";
@@ -17,14 +17,12 @@ import {PluralPipe} from "../../pipes/plural.pipe";
   imports: [
     PageTitleComponent,
     RoomComponent,
-    NgForOf,
     ContainerComponent,
     ContainerTitleComponent,
     GamePipe,
     DarkContainerComponent,
-    PluralPipe,
-    NgIf,
-  ],
+    PluralPipe
+],
   templateUrl: './room-listing.component.html'
 })
 export class RoomListingComponent {

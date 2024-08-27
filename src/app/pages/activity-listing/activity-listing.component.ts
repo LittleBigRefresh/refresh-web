@@ -5,7 +5,7 @@ import {defaultListInfo, RefreshApiListInfo} from '../../api/refresh-api-list-in
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ClientService} from "../../api/client.service";
 import {EventPageComponent} from "../../components/items/event-page.component";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
@@ -17,14 +17,12 @@ import {DateComponent} from "../../components/ui/date.component";
   imports: [
     PageTitleComponent,
     EventPageComponent,
-    NgForOf,
     InfiniteScrollerComponent,
     DividerComponent,
-    NgIf,
     ContainerTitleComponent,
     DateComponent,
     DatePipe
-  ],
+],
   templateUrl: './activity-listing.component.html'
 })
 export class ActivityListingComponent implements Scrollable {

@@ -4,7 +4,7 @@ import {TitleService} from "../../services/title.service";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {DefaultPipe} from "../../pipes/default.pipe";
-import {AsyncPipe, NgIf} from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 import {UserAvatarComponent} from "../../components/ui/photos/user-avatar.component";
 import {DateComponent} from "../../components/ui/date.component";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
@@ -14,13 +14,12 @@ import {LayoutService} from "../../services/layout.service";
   selector: 'app-user',
   standalone: true,
     imports: [
-        DefaultPipe,
-        NgIf,
-        UserAvatarComponent,
-        DateComponent,
-        FancyHeaderComponent,
-        AsyncPipe
-    ],
+    DefaultPipe,
+    UserAvatarComponent,
+    DateComponent,
+    FancyHeaderComponent,
+    AsyncPipe
+],
   templateUrl: './user.component.html',
   styles: ``
 })

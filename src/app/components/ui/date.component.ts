@@ -2,7 +2,7 @@ import {Component, Inject, Input, PLATFORM_ID} from '@angular/core';
 import {TooltipComponent} from "./text/tooltip.component";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import {isPlatformBrowser, NgIf} from "@angular/common";
+import { isPlatformBrowser } from "@angular/common";
 
 dayjs.extend(relativeTime);
 
@@ -12,15 +12,18 @@ dayjs.extend(relativeTime);
   selector: 'app-date',
   standalone: true,
   imports: [
-    TooltipComponent,
-    NgIf
-  ],
+    TooltipComponent
+],
   template: `
-    <app-tooltip [text]="getFormattedDate()" *ngIf="isBrowserOnly">
-      {{ getMoment() }}
-    </app-tooltip>
-    <span *ngIf="!isBrowserOnly">...</span>
-  `
+    @if (isBrowserOnly) {
+      <app-tooltip [text]="getFormattedDate()">
+        {{ getMoment() }}
+      </app-tooltip>
+    }
+    @else {
+      <span>...</span>
+    }
+    `
 })
 export class DateComponent {
   private _date: Date = new Date();

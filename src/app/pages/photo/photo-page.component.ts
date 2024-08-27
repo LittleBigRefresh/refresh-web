@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Photo} from "../../api/types/photos/photo";
 import {PhotoComponent} from "../../components/items/photo.component";
-import {NgIf} from "@angular/common";
+
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {EmbedService} from "../../services/embed.service";
@@ -10,9 +10,8 @@ import {EmbedService} from "../../services/embed.service";
   selector: 'app-photo-page',
   standalone: true,
   imports: [
-    PhotoComponent,
-    NgIf,
-  ],
+    PhotoComponent
+],
   templateUrl: './photo-page.component.html'
 })
 export class PhotoPageComponent {

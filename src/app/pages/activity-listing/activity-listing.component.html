@@ -1,14 +1,16 @@
 <app-page-title></app-page-title>
 
 <div class="flex flex-col gap-y-2.5">
-    <ng-container *ngFor="let page of pages; let last = last">
-        <app-container-title>
-            <span class="list-item list-disc list-inside">
-                {{page.events[0].occurredAt | date: 'medium'}}
-            </span>
-        </app-container-title>
-        <app-event-page [page]="page"></app-event-page>
-        <app-divider *ngIf="!last"></app-divider>
-    </ng-container>
+  @for (page of pages; track page; let last = $last) {
+    <app-container-title>
+      <span class="list-item list-disc list-inside">
+        {{page.events[0].occurredAt | date: 'medium'}}
+      </span>
+    </app-container-title>
+    <app-event-page [page]="page"></app-event-page>
+    @if (!last) {
+      <app-divider></app-divider>
+    }
+  }
 </div>
 <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>

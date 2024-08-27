@@ -1,20 +1,21 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../api/types/users/user";
-import {NgClass, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
+import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
 
 @Component({
   selector: 'app-user-avatar',
   standalone: true,
   imports: [
     NgOptimizedImage,
-    NgIf,
     NgClass,
     NgStyle
-  ],
+],
   template: `
-    <img *ngIf="this.user" [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded h-auto aspect-square object-cover" alt=""
-         (error)="err($event.target)" [ngStyle]="{'min-height': size + 'px', 'min-width': size + 'px'}">
-  `
+    @if (this.user) {
+      <img [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded h-auto aspect-square object-cover" alt=""
+        (error)="err($event.target)" [ngStyle]="{'min-height': size + 'px', 'min-width': size + 'px'}">
+    }
+    `
 })
 export class UserAvatarComponent {
   @Input({required: true}) user: User = undefined!;

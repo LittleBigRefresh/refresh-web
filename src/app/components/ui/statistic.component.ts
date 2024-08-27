@@ -3,7 +3,7 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import {TooltipComponent} from "./text/tooltip.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {DecimalPipe, NgIf} from "@angular/common";
+import { DecimalPipe } from "@angular/common";
 
 @Component({
   selector: 'app-statistic',
@@ -11,16 +11,19 @@ import {DecimalPipe, NgIf} from "@angular/common";
   imports: [
     TooltipComponent,
     FaIconComponent,
-    DecimalPipe,
-    NgIf
-  ],
+    DecimalPipe
+],
   template: `
     <app-tooltip [text]="name">
       <fa-icon [icon]="icon" class="mr-1"></fa-icon>
-      <ng-container *ngIf="truncate">{{value | number:'1.0-1'}}</ng-container>
-      <ng-container *ngIf="!truncate">{{value}}</ng-container>
+      @if (truncate) {
+        {{value | number:'1.0-1'}}
+      }
+      @if (!truncate) {
+        {{value}}
+      }
     </app-tooltip>
-  `
+    `
 })
 export class StatisticComponent {
   @Input({required: true}) value: number = 0.0;

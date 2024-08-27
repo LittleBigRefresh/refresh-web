@@ -1,18 +1,19 @@
 import {Component, Input} from '@angular/core';
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import {Level} from "../../../api/types/levels/level";
 
 @Component({
   selector: 'app-level-avatar',
   standalone: true,
   imports: [
-    NgIf,
     NgOptimizedImage
-  ],
+],
   template: `
-    <img *ngIf="this.level" [ngSrc]=this.level.iconHash [width]=size [height]=size class="inline rounded-full h-auto aspect-square object-cover" alt=""
-         (error)="err($event.target)" style="min-width: {{size}}px;">
-  `
+    @if (this.level) {
+      <img [ngSrc]=this.level.iconHash [width]=size [height]=size class="inline rounded-full h-auto aspect-square object-cover" alt=""
+        (error)="err($event.target)" style="min-width: {{size}}px;">
+    }
+    `
 })
 export class LevelAvatarComponent {
   @Input({required: true}) level: Level = undefined!;

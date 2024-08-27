@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../../../api/types/users/user";
-import {NgIf} from "@angular/common";
 import {UserAvatarComponent} from "../../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "./user-router-link.component";
 import {ClientService} from "../../../../api/client.service";
@@ -9,16 +8,18 @@ import {ClientService} from "../../../../api/client.service";
     selector: 'app-user-link',
     standalone: true,
     imports: [
-        NgIf,
         UserAvatarComponent,
         UserRouterLinkComponent,
     ],
     template: `
-        <span *ngIf=!user class="ml-1">{{username}}</span>
-        <app-user-router-link class="ml-1 inline" [user]=user *ngIf=user>
-            <app-user-avatar [user]=user class="inline mr-1"></app-user-avatar>
-            <span>{{ user.username }}</span>
-        </app-user-router-link>
+        @if(user) {
+            <app-user-router-link class="ml-1 inline" [user]=user>
+                <app-user-avatar [user]=user class="inline mr-1"></app-user-avatar>
+                <span>{{ user.username }}</span>
+            </app-user-router-link>
+        } @else {
+            <span class="ml-1">{{username}}</span>
+        }
     `
 })
 export class UserLinkComponent implements OnInit {

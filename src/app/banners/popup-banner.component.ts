@@ -1,7 +1,7 @@
 import {Component, HostBinding, Input} from '@angular/core';
 import {BannerInfo} from "./banner-info.interface";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgIf} from "@angular/common";
+
 import {BannerService} from "./banner.service";
 import {animate, animateChild, query, style, transition, trigger} from "@angular/animations";
 
@@ -9,9 +9,8 @@ import {animate, animateChild, query, style, transition, trigger} from "@angular
   selector: 'app-popup-banner',
   standalone: true,
   imports: [
-    FaIconComponent,
-    NgIf
-  ],
+    FaIconComponent
+],
   animations: [
     trigger('expand', [
       transition(':leave', [
@@ -37,18 +36,20 @@ import {animate, animateChild, query, style, transition, trigger} from "@angular
   ],
   template: `
 <!--    defer to give the async animation system a reasonable amount of time to pull down js-->
-    @defer (on timer(50ms)) {
-      <div @expand class="mx-auto {{info.color}} p-5 py-3 border-b-2 text-lg overflow-hidden">
-        <fa-icon *ngIf="id != -1" class="float-right cursor-pointer transition-colors hover:text-dangerous"
-                 title="Dismiss" (click)="dismiss()" [icon]="'xmark'"></fa-icon>
+@defer (on timer(50ms)) {
+<div @expand class="mx-auto {{info.color}} p-5 py-3 border-b-2 text-lg overflow-hidden">
+  @if (id != -1) {
+    <fa-icon class="float-right cursor-pointer transition-colors hover:text-dangerous"
+    title="Dismiss" (click)="dismiss()" [icon]="'xmark'"></fa-icon>
+  }
 
-        <fa-icon [icon]="info.icon" class="pr-2"></fa-icon>
-        <span class="font-bold">{{ info.title }}</span>
+  <fa-icon [icon]="info.icon" class="pr-2"></fa-icon>
+  <span class="font-bold">{{ info.title }}</span>
 
-        <p class="text-sm">{{ info.text }}</p>
-      </div>
-    }
-  `,
+  <p class="text-sm">{{ info.text }}</p>
+</div>
+}
+`,
 })
 export class PopupBannerComponent {
   @HostBinding("@expand") parentAnimation = true;

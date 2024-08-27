@@ -1,47 +1,61 @@
-<div *ngIf="this.instance?.activeContest" class="mb-3">
+@if (this.instance?.activeContest) {
+  <div class="mb-3">
     <a [routerLink]="'/contests/' + this.instance!.activeContest!.contestId">
-        <app-contest-banner [contest]="this.instance!.activeContest!"></app-contest-banner>
+      <app-contest-banner [contest]="this.instance!.activeContest!"></app-contest-banner>
     </a>
-</div>
+  </div>
+}
 
 <div class="bg-hero rounded-md py-16 sm:py-10 px-5 bg-cover">
-    <div class="text-5xl sm:text-3xl mb-2.5 font-black">
-        <h1>{{this.instance?.instanceName ?? 'Refresh'}}</h1>
-    </div>
-    <p>{{this.instance?.instanceDescription ?? 'Loading...'}}</p>
+  <div class="text-5xl sm:text-3xl mb-2.5 font-black">
+    <h1>{{this.instance?.instanceName ?? 'Refresh'}}</h1>
+  </div>
+  <p>{{this.instance?.instanceDescription ?? 'Loading...'}}</p>
 </div>
 
-<div *ngIf="instance && instance.announcements.length > 0" class="my-5 flex flex-col gap-y-2.5">
-    <app-announcement *ngFor="let a of instance.announcements" [data]="a"></app-announcement>
-</div>
+@if (instance && instance.announcements.length > 0) {
+  <div class="my-5 flex flex-col gap-y-2.5">
+    @for (a of instance.announcements; track a) {
+      <app-announcement [data]="a"></app-announcement>
+    }
+  </div>
+}
 
 <app-divider></app-divider>
 
 <app-aside-layout>
-    <ng-container left>
-        <app-section-title>
-            <fa-icon [icon]="faFireAlt"></fa-icon>
-            What's new?
-        </app-section-title>
-        <app-event-page *ngIf="activity" [page]="activity"></app-event-page>
-    </ng-container>
-    <ng-container right>
-        <app-section-title>
-            <fa-icon [icon]="faGamepad"></fa-icon>
-            Who's playing?
-        </app-section-title>
-        <ng-container *ngIf="this.rooms">
-            <p *ngIf="this.rooms.length == 0">
-                Nobody's playing right now.
-            </p>
-            <div class="flex flex-col gap-y-2.5">
-                <app-container *ngFor="let room of this.rooms | slice:0:7">
-                    <app-room [room]="room"></app-room>
-                </app-container>
-            </div>
-            <div class="mt-1.5">
-                <app-router-link *ngIf="this.rooms.length > 3" routerLink="/rooms">See all {{rooms.length}} rooms and {{playerCount()}} players</app-router-link>
-            </div>
-        </ng-container>
-    </ng-container>
+  <ng-container left>
+    <app-section-title>
+      <fa-icon [icon]="faFireAlt"></fa-icon>
+      What's new?
+    </app-section-title>
+    @if (activity) {
+      <app-event-page [page]="activity"></app-event-page>
+    }
+  </ng-container>
+  <ng-container right>
+    <app-section-title>
+      <fa-icon [icon]="faGamepad"></fa-icon>
+      Who's playing?
+    </app-section-title>
+    @if (this.rooms) {
+      @if (this.rooms.length == 0) {
+        <p>
+          Nobody's playing right now.
+        </p>
+      }
+      <div class="flex flex-col gap-y-2.5">
+        @for (room of this.rooms | slice:0:7; track room) {
+          <app-container>
+            <app-room [room]="room"></app-room>
+          </app-container>
+        }
+      </div>
+      <div class="mt-1.5">
+        @if (this.rooms.length > 3) {
+          <app-router-link routerLink="/rooms">See all {{rooms.length}} rooms and {{playerCount()}} players</app-router-link>
+        }
+      </div>
+    }
+  </ng-container>
 </app-aside-layout>

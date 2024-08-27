@@ -5,7 +5,7 @@ import {DateComponent} from "../date.component";
 import {DefaultPipe} from "../../../pipes/default.pipe";
 import {PageTitleComponent} from "../text/page-title.component";
 import {LevelStatisticsComponent} from "../../items/level-statistics.component";
-import {AsyncPipe, NgIf, NgTemplateOutlet} from "@angular/common";
+import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import {LayoutService} from "../../../services/layout.service";
 import {Subscription} from "rxjs";
 
@@ -20,16 +20,15 @@ import {Subscription} from "rxjs";
     PageTitleComponent,
     LevelStatisticsComponent,
     NgTemplateOutlet,
-    NgIf,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
   template: `
     <ng-template #descriptionTemplate>
       <app-dark-container>
         <p>{{ description }}</p>
       </app-dark-container>
     </ng-template>
-
+    
     <app-container-header>
       <div class="flex gap-x-5 sm:gap-x-2.5">
         <ng-content select="[avatar]"></ng-content>
@@ -37,20 +36,22 @@ import {Subscription} from "rxjs";
           <div class="flex flex-row sm:flex-col gap-x-1.5">
             <app-page-title [title]="title" class="text-nowrap"></app-page-title>
             <span class="align-bottom text-gentle self-center sm:self-auto text-nowrap">
-                <ng-content select="[titleSubtext]"></ng-content>
+              <ng-content select="[titleSubtext]"></ng-content>
             </span>
           </div>
           <ng-content select="[statistics]"></ng-content>
-          <ng-container *ngIf="!(layout.isMobile | async)">
+          @if (!(layout.isMobile | async)) {
             <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
-          </ng-container>
+          }
         </div>
       </div>
-      <div *ngIf="layout.isMobile | async" class="mt-2.5">
-        <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
-      </div>
+      @if (layout.isMobile | async) {
+        <div class="mt-2.5">
+          <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
+        </div>
+      }
     </app-container-header>
-  `
+    `
 })
 export class FancyHeaderComponent {
   @Input({required: true}) title: string = "";

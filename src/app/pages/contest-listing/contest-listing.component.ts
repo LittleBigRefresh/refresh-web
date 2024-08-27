@@ -3,7 +3,7 @@ import {ClientService} from "../../api/client.service";
 import {Contest} from "../../api/types/contests/contest";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ContestBannerComponent} from "../../components/items/contest-banner.component";
-import {NgForOf} from "@angular/common";
+
 import {RouterLink} from "@angular/router";
 import {Instance} from "../../api/types/instance";
 import {PluralPipe} from "../../pipes/plural.pipe";
@@ -17,13 +17,12 @@ import {DividerComponent} from "../../components/ui/divider.component";
   imports: [
     PageTitleComponent,
     ContestBannerComponent,
-    NgForOf,
     RouterLink,
     PluralPipe,
     ContainerComponent,
     ContainerTitleComponent,
     DividerComponent
-  ],
+],
   templateUrl: './contest-listing.component.html'
 })
 export class ContestListingComponent {

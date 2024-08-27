@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventComponent} from "./event.component";
-import {NgForOf} from "@angular/common";
+
 import {User} from "../../api/types/users/user";
 import {Level} from "../../api/types/levels/level";
 import {Score} from "../../api/types/levels/score";
@@ -10,18 +10,19 @@ import {Score} from "../../api/types/levels/score";
   selector: 'app-event-page',
   standalone: true,
   imports: [
-    EventComponent,
-    NgForOf
-  ],
+    EventComponent
+],
   template: `
     <div class="flex flex-col gap-y-2.5">
-      <app-event *ngFor="let event of page?.events" [event]="event" [submittingUser]="user(event.userId)!"
-                 [user]="user(event.storedObjectId)"
-                 [level]="level(event.storedSequentialId)"
-                 [score]="score(event.storedObjectId)">
-      </app-event>
+      @for (event of page?.events; track event) {
+        <app-event [event]="event" [submittingUser]="user(event.userId)!"
+          [user]="user(event.storedObjectId)"
+          [level]="level(event.storedSequentialId)"
+          [score]="score(event.storedObjectId)">
+        </app-event>
+      }
     </div>
-  `
+    `
 })
 export class EventPageComponent {
   @Input({required: true}) page: ActivityPage = undefined!;
