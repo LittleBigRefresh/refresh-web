@@ -14,7 +14,8 @@ export function loadImage(config: ImageLoaderConfig) {
 
     // Only consider SHA1 asset hashes
     // Naturally filters out GUIDs, and blank hashes.
-    if(config.src.length != 40) return "/assets/missingLevel.svg";
+    let expectedLen = config.src.startsWith("psp/") ? 44 : 40;
+    if(config.src.length != expectedLen) return "/assets/missingLevel.svg";
 
     return getImageLink(config.src);
 }
