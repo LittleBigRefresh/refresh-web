@@ -1,12 +1,10 @@
 import {
-    AfterViewInit,
     ChangeDetectorRef,
     Component,
     inject,
     Inject,
     NgZone,
     OnDestroy,
-    OnInit,
     PLATFORM_ID
 } from '@angular/core';
 import {ContainerComponent} from "../../components/ui/container.component";
@@ -20,7 +18,7 @@ import { isPlatformBrowser, NgOptimizedImage, SlicePipe } from "@angular/common"
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
 import {SectionTitleComponent} from "../../components/ui/text/section-title.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faFireAlt, faGamepad, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {faFireAlt, faGamepad} from "@fortawesome/free-solid-svg-icons";
 import {AnnouncementComponent} from "../../components/items/announcement.component";
 import {Room} from "../../api/types/rooms/room";
 import {RoomComponent} from "../../components/items/room.component";
@@ -29,7 +27,7 @@ import {AsideLayoutComponent} from "../../components/ui/layouts/aside-layout.com
 import {EventComponent} from "../../components/items/event.component";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventPageComponent} from "../../components/items/event-page.component";
-import {defer, delay, interval, repeat, Subscription} from "rxjs";
+import {repeat, Subscription} from "rxjs";
 import {ContestBannerComponent} from "../../components/items/contest-banner.component";
 
 @Component({
@@ -62,6 +60,7 @@ export class LandingComponent implements OnDestroy {
     protected activity: ActivityPage | undefined;
 
     private activitySubscription: Subscription | undefined;
+    private roomsSubscription: Subscription | undefined;
 
     constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef) {
       client.getInstance().subscribe(data => this.instance = data);
@@ -75,6 +74,13 @@ export class LandingComponent implements OnDestroy {
                       this.activity = data;
                       changeDetector.detectChanges();
                   });
+
+              this.roomsSubscription = this.fetchRooms()
+                  .pipe(repeat({delay: 15000}))
+                  .subscribe(data => {
+                      this.rooms = data.data;
+                      changeDetector.detectChanges();
+                  });
           })
       }
 
@@ -83,6 +89,7 @@ export class LandingComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this.activitySubscription?.unsubscribe();
+        this.roomsSubscription?.unsubscribe();
     }
 
     playerCount(): number {
@@ -98,6 +105,10 @@ export class LandingComponent implements OnDestroy {
 
     fetchActivity() {
         return this.client.getActivityPage(0, 5);
+    }
+
+    fetchRooms() {
+        return this.client.getRoomListing();
     }
 
     protected readonly faFireAlt = faFireAlt;
