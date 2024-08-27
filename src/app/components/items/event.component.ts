@@ -11,6 +11,8 @@ import {LevelPreviewComponent} from "./level-preview.component";
 import {DarkContainerComponent} from "../ui/dark-container.component";
 import {DateComponent} from "../ui/date.component";
 import {DecimalPipe} from "@angular/common";
+import {PhotoComponent} from "./photo.component";
+import {Photo} from "../../api/types/photos/photo";
 
 @Component({
   selector: 'app-event',
@@ -21,7 +23,8 @@ import {DecimalPipe} from "@angular/common";
     LevelPreviewComponent,
     DarkContainerComponent,
     DateComponent,
-    DecimalPipe
+    DecimalPipe,
+    PhotoComponent
   ],
   template: `
     <app-container>
@@ -123,6 +126,9 @@ import {DecimalPipe} from "@angular/common";
             @case (EventDataType.rateLevelRelation) {
               rateLevelRelation is UNIMPLEMENTED
             }
+            @case (EventDataType.photo) {
+              <app-photo [photo]="photo!" [link]="true" [padding]="false" [header]="false" class="grow"></app-photo>
+            }
           }
         </div>
       </app-dark-container>
@@ -136,11 +142,16 @@ export class EventComponent implements OnInit {
   @Input({required: true}) user: User | undefined;
   @Input({required: true}) level: Level | undefined;
   @Input({required: true}) score: Score | undefined;
+  @Input({required: true}) photo: Photo | undefined;
+
   protected readonly EventType = EventType;
 
   ngOnInit(): void {
     if(!this.level && this.score) {
       this.level = this.score.level;
+    }
+    else if(!this.level && this.photo) {
+      this.level = this.photo.level;
     }
   }
 

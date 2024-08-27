@@ -32,21 +32,21 @@ import {RouterLink} from "@angular/router";
     NgClass
 ],
   template: `
-    <div class="overflow-hidden whitespace-nowrap" [ngClass]="padding ? 'p-1.5' : 'pb-1.5'">
-      <app-user-wrapper [user]="photo.publisher">
-        <div class="text-gentle text-sm">
-          Posted
-          <app-date [date]="photo.publishedAt"></app-date>
-    
-          @if (photo.level) {
-            <span>in</span>
-          }
-          @if (photo.level) {
-            <app-level-link [level]="photo.level"></app-level-link>
-          }
-        </div>
-      </app-user-wrapper>
-    </div>
+    @if(header) {
+      <div class="overflow-hidden whitespace-nowrap" [ngClass]="padding ? 'p-1.5' : 'pb-1.5'">
+        <app-user-wrapper [user]="photo.publisher">
+          <div class="text-gentle text-sm">
+            Posted
+            <app-date [date]="photo.publishedAt"></app-date>
+
+            @if (photo.level) {
+              <span>in</span>
+              <app-level-link [level]="photo.level"></app-level-link>
+            }
+          </div>
+        </app-user-wrapper>
+      </div>
+    }
     
     <!--  640x360 is the size of the typical LBP2 photo  -->
     <a [routerLink]="link ? '/photo/' + photo.photoId : null">
@@ -71,6 +71,11 @@ import {RouterLink} from "@angular/router";
       <div class="text-gentle italic whitespace-nowrap">
         <span>Taken</span>
         <app-date [date]="photo.takenAt"></app-date>
+
+        @if (!header && photo.level) {
+          <span>in</span>
+          <app-level-link [level]="photo.level"></app-level-link>
+        }
       </div>
     </div>
     
@@ -91,6 +96,7 @@ export class PhotoComponent implements OnInit {
   @Input({required:true}) photo: Photo = null!;
   @Input() link: boolean = false;
   @Input() padding: boolean = true;
+  @Input() header: boolean = true;
   subjectsWithoutAuthor: PhotoSubject[] = [];
 
   ngOnInit(): void {

@@ -3,4 +3,5 @@ export enum EventDataType {
     level = 1,
     score = 2,
     rateLevelRelation = 3,
+    photo = 4,
 }
