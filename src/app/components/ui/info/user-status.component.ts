@@ -1,12 +1,14 @@
 import {Component, Input} from '@angular/core';
 import {Room} from "../../../api/types/rooms/room";
 import {LevelLinkComponent} from "../text/links/level-link.component";
+import {DateComponent} from "./date.component";
 
 @Component({
   selector: 'app-user-status',
   standalone: true,
   imports: [
-    LevelLinkComponent
+    LevelLinkComponent,
+    DateComponent
   ],
   template: `
     @if(activeRoom) {
@@ -32,10 +34,11 @@ import {LevelLinkComponent} from "../text/links/level-link.component";
       </span>
     } @else {
       <div class="bg-secondary w-2 h-2 rounded-full inline-block align-middle mr-1"></div>
-      <span class="text-secondary">Offline</span>
+      <span class="text-secondary">Offline, last seen <app-date [date]="lastSeen"></app-date></span>
     }
   `
 })
 export class UserStatusComponent {
-  @Input() activeRoom: Room | undefined;
+  @Input({required: true}) activeRoom: Room | undefined;
+  @Input({required: true}) lastSeen: Date = null!;
 }
