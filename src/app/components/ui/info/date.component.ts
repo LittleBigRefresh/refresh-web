@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TooltipComponent} from "./text/tooltip.component";
+import {TooltipComponent} from "../text/tooltip.component";
 
 @Component({
   selector: 'app-date',

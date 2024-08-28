@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
-import {DateComponent} from "../date.component";
+import {DateComponent} from "../info/date.component";
 import {DefaultPipe} from "../../../pipes/default.pipe";
 import {PageTitleComponent} from "../text/page-title.component";
 import {LevelStatisticsComponent} from "../../items/level-statistics.component";

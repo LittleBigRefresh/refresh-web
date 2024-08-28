@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {faHeart, faPlay, faStar, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
-import {StatisticComponent} from "../ui/statistic.component";
+import {StatisticComponent} from "../ui/info/statistic.component";
 
 @Component({
   selector: 'app-level-statistics',

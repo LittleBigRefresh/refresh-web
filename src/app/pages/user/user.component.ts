@@ -6,7 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import { AsyncPipe } from "@angular/common";
 import {UserAvatarComponent} from "../../components/ui/photos/user-avatar.component";
-import {DateComponent} from "../../components/ui/date.component";
+import {DateComponent} from "../../components/ui/info/date.component";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
 import {LayoutService} from "../../services/layout.service";
 

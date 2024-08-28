@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
-import {TooltipComponent} from "./text/tooltip.component";
+import {TooltipComponent} from "../text/tooltip.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import { DecimalPipe } from "@angular/common";
 

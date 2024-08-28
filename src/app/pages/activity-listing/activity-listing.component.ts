@@ -9,7 +9,7 @@ import { DatePipe } from "@angular/common";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
-import {DateComponent} from "../../components/ui/date.component";
+import {DateComponent} from "../../components/ui/info/date.component";
 
 @Component({
   selector: 'app-activity-listing',

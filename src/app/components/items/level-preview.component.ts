@@ -5,7 +5,7 @@ import {LevelAvatarComponent} from "../ui/photos/level-avatar.component";
 import {LevelStatisticsComponent} from "./level-statistics.component";
 import {LevelRouterLinkComponent} from "../ui/text/links/level-router-link.component";
 import {GamePipe} from "../../pipes/game.pipe";
-import {DateComponent} from "../ui/date.component";
+import {DateComponent} from "../ui/info/date.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 
 @Component({

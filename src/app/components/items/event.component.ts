@@ -9,7 +9,7 @@ import {EventType} from "../../api/types/activity/event-type";
 import {EventDataType} from "../../api/types/activity/event-data-type";
 import {LevelPreviewComponent} from "./level-preview.component";
 import {DarkContainerComponent} from "../ui/dark-container.component";
-import {DateComponent} from "../ui/date.component";
+import {DateComponent} from "../ui/info/date.component";
 import {DecimalPipe} from "@angular/common";
 import {PhotoComponent} from "./photo.component";
 import {Photo} from "../../api/types/photos/photo";
