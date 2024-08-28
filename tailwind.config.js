@@ -19,19 +19,16 @@ const defaultColors = {
 
   "secondary-bright": "#E2CFE5",
 
-  "success": "#52BC24",
-  "dangerous": "#E52E2E",
-  "warning": "#F2AA00",
-  "heart": "#ff68f4",
+  "red": "#E52E2E",
+  "green": "#52BC24",
+  "blue": "#2D43E5",
+  "yellow": "#F2AA00",
+  "pink": "#ff68f4",
 
   "rank-gold": "#FFD234",
   "rank-silver": "#F2F2F2",
   "rank-bronze": "#FF8845",
   "rank-other": "#ABABAB",
-
-  "api-retrieve": "#52BC24",
-  "api-remove": "#E52E2E",
-  "api-push": "#2D43E5"
 }
 
 /** @type {import('tailwindcss').Config} */

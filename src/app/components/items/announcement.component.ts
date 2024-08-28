@@ -12,7 +12,7 @@ import {faBullhorn} from "@fortawesome/free-solid-svg-icons";
     FaIconComponent
   ],
   template: `
-    <div class="bg-warning rounded px-5 py-2.5">
+    <div class="bg-yellow rounded px-5 py-2.5">
       <fa-icon [icon]="faBullhorn" class="pr-1.5"></fa-icon>
       <span class="text-xl font-bold">{{data.title}}</span>
       <p>{{data.text}}</p>

@@ -1,3 +1,5 @@
+import {Room} from "../rooms/room";
+
 export interface User {
     userId: string;
     username: string;
@@ -7,4 +9,6 @@ export interface User {
     description: string;
     joinDate: Date;
     lastLoginDate: Date;
+
+    activeRoom: Room | undefined;
 }

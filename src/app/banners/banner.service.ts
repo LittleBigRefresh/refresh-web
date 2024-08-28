@@ -15,7 +15,7 @@ export class BannerService {
 
     success(title: string, text: string) {
         this.add({
-            color: 'bg-success',
+            color: 'bg-green',
             icon: 'check-circle',
             text: text,
             title: title,
@@ -24,7 +24,7 @@ export class BannerService {
 
     warn(title: string, text: string) {
         this.add({
-            color: 'bg-warning',
+            color: 'bg-yellow',
             icon: 'warning',
             text: text,
             title: title,

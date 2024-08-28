@@ -83,7 +83,7 @@ import {RouterLink} from "@angular/router";
     @if (interactionsSupported && isDevMode()) {
       <div class="flex" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
         <app-button-group class="grow">
-          <app-button [icon]="faHeart" text="Heart" color="bg-heart"></app-button>
+          <app-button [icon]="faHeart" text="Heart" color="bg-pink"></app-button>
           <app-button [icon]="faComment" text="Comment"></app-button>
         </app-button-group>
         <div class="self-center">
