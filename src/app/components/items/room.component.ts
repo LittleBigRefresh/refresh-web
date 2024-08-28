@@ -5,6 +5,7 @@ import { AsyncPipe } from "@angular/common";
 import {GamePipe} from "../../pipes/game.pipe";
 import {PluralPipe} from "../../pipes/plural.pipe";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
+import {PlatformPipe} from "../../pipes/platform.pipe";
 
 @Component({
   selector: 'app-room',
@@ -14,8 +15,9 @@ import {UserLinkComponent} from "../ui/text/links/user-link.component";
     GamePipe,
     PluralPipe,
     UserLinkComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+    PlatformPipe
+  ],
   template: `
     <b>
       {{'player' | plural: room.playerIds.length}}
@@ -24,6 +26,9 @@ import {UserLinkComponent} from "../ui/text/links/user-link.component";
           on {{room.game | game}}
         </span>
       }
+      <span>
+        via {{room.platform | platform}}
+      </span>
     </b>
     <ul class="list-disc list-inside">
       @for (player of room.playerIds; track player) {
