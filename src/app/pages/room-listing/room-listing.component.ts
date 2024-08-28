@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, inject, Inject, NgZone, OnDestroy, PLATFORM_ID} from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RoomComponent} from "../../components/items/room.component";
 
@@ -10,6 +10,8 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {GamePipe} from "../../pipes/game.pipe";
 import {DarkContainerComponent} from "../../components/ui/dark-container.component";
 import {PluralPipe} from "../../pipes/plural.pipe";
+import {repeat, Subscription} from "rxjs";
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
   selector: 'app-room-listing',
@@ -25,13 +27,34 @@ import {PluralPipe} from "../../pipes/plural.pipe";
 ],
   templateUrl: './room-listing.component.html'
 })
-export class RoomListingComponent {
-  rooms: Room[] = [];
+export class RoomListingComponent implements OnDestroy {
+  protected rooms: Room[] = [];
 
-  constructor(client: ClientService) {
+  private roomsSubscription: Subscription | undefined;
+
+  constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef) {
     client.getRoomListing().subscribe(rooms => {
       this.rooms = rooms.data;
     })
+
+    if(isPlatformBrowser(platformId)) {
+      inject(NgZone).runOutsideAngular(() => {
+        this.roomsSubscription = this.fetchRooms()
+            .pipe(repeat({delay: 5000}))
+            .subscribe(data => {
+              this.rooms = data.data;
+              changeDetector.detectChanges();
+            });
+      })
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.roomsSubscription?.unsubscribe();
+  }
+
+  fetchRooms() {
+    return this.client.getRoomListing();
   }
 
   playerCount(): number {
