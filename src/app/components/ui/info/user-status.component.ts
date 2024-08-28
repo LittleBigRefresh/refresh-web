@@ -11,8 +11,7 @@ import {LevelLinkComponent} from "../text/links/level-link.component";
   template: `
     @if(activeRoom) {
       <div class="bg-green w-2 h-2 rounded-full inline-block align-middle mr-1"></div>
-      <span class="text-secondary-bright">
-        Online,
+      <span class="text-secondary-bright">Online,
         @switch (activeRoom.levelType) {
           @case (0) {
             <span>playing a story level</span>
