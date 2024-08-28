@@ -9,17 +9,19 @@ import {UserAvatarComponent} from "../../components/ui/photos/user-avatar.compon
 import {DateComponent} from "../../components/ui/info/date.component";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
 import {LayoutService} from "../../services/layout.service";
+import {UserStatusComponent} from "../../components/ui/info/user-status.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-    imports: [
+  imports: [
     DefaultPipe,
     UserAvatarComponent,
     DateComponent,
     FancyHeaderComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+    UserStatusComponent
+  ],
   templateUrl: './user.component.html',
   styles: ``
 })

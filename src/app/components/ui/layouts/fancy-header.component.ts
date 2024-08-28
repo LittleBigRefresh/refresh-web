@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
 import {DateComponent} from "../info/date.component";
@@ -7,7 +7,6 @@ import {PageTitleComponent} from "../text/page-title.component";
 import {LevelStatisticsComponent} from "../../items/level-statistics.component";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import {LayoutService} from "../../../services/layout.service";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-fancy-header',
@@ -39,6 +38,7 @@ import {Subscription} from "rxjs";
               <ng-content select="[titleSubtext]"></ng-content>
             </span>
           </div>
+          <ng-content select="[belowTitle]"></ng-content>
           <ng-content select="[statistics]"></ng-content>
           @if (!(layout.isMobile | async)) {
             <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>

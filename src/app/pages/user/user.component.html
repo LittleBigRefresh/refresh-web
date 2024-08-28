@@ -1,8 +1,14 @@
 @if (user) {
-  <app-fancy-header [title]="user.username" [description]="user.description | default: user.username + ' hasn\'t introduced themselves yet.'">
-    <app-user-avatar [user]="user" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-user-avatar>
-    <ng-container titleSubtext>
-      Joined <app-date [date]="user.joinDate"></app-date>
-    </ng-container>
-  </app-fancy-header>
+    <app-fancy-header [title]="user.username"
+                      [description]="user.description | default: user.username + ' hasn\'t introduced themselves yet.'">
+        <app-user-avatar [user]="user" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-user-avatar>
+        <ng-container titleSubtext>
+            Joined
+            <app-date [date]="user.joinDate"></app-date>
+            <br>
+        </ng-container>
+        <ng-container belowTitle>
+            <app-user-status [activeRoom]="user.activeRoom"></app-user-status>
+        </ng-container>
+    </app-fancy-header>
 }

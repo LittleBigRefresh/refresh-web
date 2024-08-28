@@ -41,6 +41,7 @@ export class TokenStorageService {
             return JSON.parse(str);
         } catch (e) {
             console.error("Failed to retrieve stored user", e, str);
+            this.ClearStoredUser()
             return null;
         }
     }
