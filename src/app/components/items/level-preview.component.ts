@@ -7,6 +7,7 @@ import {LevelRouterLinkComponent} from "../ui/text/links/level-router-link.compo
 import {GamePipe} from "../../pipes/game.pipe";
 import {DateComponent} from "../ui/info/date.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
+import {LabelComponent} from "../ui/info/label.component";
 
 @Component({
   selector: 'app-level-preview',
@@ -18,7 +19,8 @@ import {DefaultPipe} from "../../pipes/default.pipe";
     LevelRouterLinkComponent,
     GamePipe,
     DateComponent,
-    DefaultPipe
+    DefaultPipe,
+    LabelComponent
   ],
   template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
@@ -31,16 +33,18 @@ import {DefaultPipe} from "../../pipes/default.pipe";
              [title]=level.title>{{ level.title | default: "Unnamed Level" }}</p>
         </app-level-router-link>
         
-        <app-level-statistics [level]="level" class="text-md"></app-level-statistics>
+        <app-level-statistics [level]="level" class="text-sm"></app-level-statistics>
         
         <div class="text-gentle text-sm mt-0.5">
-          <p>
-            by <app-user-link [user]="level.publisher"></app-user-link>
-            for {{level.gameVersion | game: true}}
-          </p>
-          <p>
-            Published <app-date [date]="level.publishDate"></app-date>
-          </p>
+          by <app-user-link [user]="level.publisher"></app-user-link>
+          <app-date [date]="level.publishDate"></app-date>
+        </div>
+        
+        <div class="flex gap-x-1 mt-1">
+          <app-label [primary]="true">{{level.gameVersion | game: true}}</app-label>
+          <app-label>Platformer</app-label>
+          <app-label>Short</app-label>
+          <app-label>Insane</app-label>
         </div>
       </div>
     </div>

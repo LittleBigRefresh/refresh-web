@@ -14,13 +14,13 @@ import { DecimalPipe } from "@angular/common";
     DecimalPipe
 ],
   template: `
-    <app-tooltip [text]="name">
-      <fa-icon [icon]="icon" class="mr-1"></fa-icon>
+    <app-tooltip [text]="name" class="text-secondary-bright">
+      <fa-icon [icon]="icon" class="mr-0.5"></fa-icon>
       @if (truncate) {
-        {{value | number:'1.0-1'}}
+        <span>{{value | number:'1.0-1'}}</span>
       }
-      @if (!truncate) {
-        {{value}}
+      @else {
+        <span>{{value}}</span>
       }
     </app-tooltip>
     `

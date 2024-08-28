@@ -53,7 +53,7 @@ import {ContainerComponent} from "../components/ui/container.component";
         <div class="flex flex-col gap-y-2">
           @for (level of results; track level) {
             <app-container>
-              <app-level-preview  [level]="level"></app-level-preview>
+              <app-level-preview [level]="level"></app-level-preview>
             </app-container>
           }
         </div>

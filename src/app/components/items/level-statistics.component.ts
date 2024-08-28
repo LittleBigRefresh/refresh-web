@@ -10,7 +10,7 @@ import {StatisticComponent} from "../ui/info/statistic.component";
     StatisticComponent
   ],
   template: `
-    <div class="flex gap-x-2.5">
+    <div class="flex gap-x-1.5">
       <app-statistic [value]=level.yayRatings name="Yays" [icon]=faThumbsUp></app-statistic>
       <app-statistic [value]=level.booRatings name="Boos" [icon]=faThumbsDown></app-statistic>
       <app-statistic [value]=level.hearts name="Hearts" [icon]=faHeart></app-statistic>

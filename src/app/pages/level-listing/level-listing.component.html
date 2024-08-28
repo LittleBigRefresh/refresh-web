@@ -4,7 +4,7 @@
   @if (levels) {
     <app-responsive-grid>
       @for (level of this.levels; track level) {
-        <app-container>
+        <app-container [tight]="true">
           <app-level-preview [level]="level"></app-level-preview>
         </app-container>
       }
