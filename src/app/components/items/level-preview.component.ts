@@ -42,9 +42,9 @@ import {LabelComponent} from "../ui/info/label.component";
         
         <div class="flex gap-x-1 mt-1">
           <app-label [primary]="true">{{level.gameVersion | game: true}}</app-label>
-          <app-label>Platformer</app-label>
-          <app-label>Short</app-label>
-          <app-label>Insane</app-label>
+<!--          <app-label>Platformer</app-label>-->
+<!--          <app-label>Short</app-label>-->
+<!--          <app-label>Insane</app-label>-->
         </div>
       </div>
     </div>
