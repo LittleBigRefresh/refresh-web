@@ -54,19 +54,20 @@ import {RouterLink} from "@angular/router";
     </a>
     
     <div class="text-sm flex" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
-      @if (subjectsWithoutAuthor.length > 0) {
-        <div class="flex grow overflow-hidden whitespace-nowrap overflow-ellipsis">
+      <div class="flex grow overflow-hidden whitespace-nowrap overflow-ellipsis">
+        @if (subjectsWithoutAuthor.length > 0) {
           <span>with</span>
           @for (subject of subjectsWithoutAuthor; track subject; let last = $last) {
-            <div>
               <app-user-link [user]="subject.user ?? null" [username]="subject.displayName"></app-user-link>
               @if (!last) {
                 <span>, </span>
               }
-            </div>
           }
-        </div>
-      }
+        }
+        @else if(photo.subjects.length == 1) {
+          <span>with themselves</span>
+        }
+      </div>
     
       <div class="text-gentle italic whitespace-nowrap">
         <span>Taken</span>
