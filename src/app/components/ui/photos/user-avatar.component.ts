@@ -12,8 +12,10 @@ import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
 ],
   template: `
     @if (this.user) {
-      <img [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline rounded-md h-auto aspect-square object-cover" alt=""
-        (error)="err($event.target)" [ngStyle]="{'min-height': size + 'px', 'min-width': size + 'px'}" loading="lazy">
+      <img [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline h-auto aspect-square object-cover" alt=""
+        (error)="err($event.target)" loading="lazy"
+           [ngStyle]="{'min-height': size + 'px', 'min-width': size + 'px'}"
+           [ngClass]="borderRule">
     }
     `
 })
@@ -22,6 +24,7 @@ export class UserAvatarComponent {
   error: boolean = false;
 
   @Input() size: number = 19;
+  @Input() borderRule: string = "rounded";
 
   err(img: EventTarget | null): void {
     if(this.error) return;
