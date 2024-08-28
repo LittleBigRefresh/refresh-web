@@ -6,6 +6,7 @@ import {LevelStatisticsComponent} from "./level-statistics.component";
 import {LevelRouterLinkComponent} from "../ui/text/links/level-router-link.component";
 import {GamePipe} from "../../pipes/game.pipe";
 import {DateComponent} from "../ui/date.component";
+import {DefaultPipe} from "../../pipes/default.pipe";
 
 @Component({
   selector: 'app-level-preview',
@@ -16,7 +17,8 @@ import {DateComponent} from "../ui/date.component";
     LevelStatisticsComponent,
     LevelRouterLinkComponent,
     GamePipe,
-    DateComponent
+    DateComponent,
+    DefaultPipe
   ],
   template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
@@ -26,7 +28,7 @@ import {DateComponent} from "../ui/date.component";
       <div class="truncate grow">
         <app-level-router-link [level]=level>
           <p class="font-medium text-lg truncate"
-             [title]=level.title>{{ level.title }}</p>
+             [title]=level.title>{{ level.title | default: "Unnamed Level" }}</p>
         </app-level-router-link>
         
         <app-level-statistics [level]="level" class="text-md"></app-level-statistics>
