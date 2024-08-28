@@ -10,6 +10,7 @@ import {DateComponent} from "../../components/ui/info/date.component";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
 import {LayoutService} from "../../services/layout.service";
 import {UserStatusComponent} from "../../components/ui/info/user-status.component";
+import {UserStatisticsComponent} from "../../components/items/user-statistics.component";
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,8 @@ import {UserStatusComponent} from "../../components/ui/info/user-status.componen
     DateComponent,
     FancyHeaderComponent,
     AsyncPipe,
-    UserStatusComponent
+    UserStatusComponent,
+    UserStatisticsComponent
   ],
   templateUrl: './user.component.html',
   styles: ``

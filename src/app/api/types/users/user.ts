@@ -1,4 +1,5 @@
 import {Room} from "../rooms/room";
+import {UserStatistics} from "./user-statistics";
 
 export interface User {
     userId: string;
@@ -10,5 +11,6 @@ export interface User {
     joinDate: Date;
     lastLoginDate: Date;
 
+    statistics: UserStatistics;
     activeRoom: Room | undefined;
 }
