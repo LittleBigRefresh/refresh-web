@@ -28,8 +28,8 @@ import {UserStatusComponent} from "../ui/info/user-status.component";
           <p class="font-medium text-lg truncate" [title]=user.username>{{ user.username }}</p>
         </app-user-router-link>
 
-        <app-user-statistics [stats]="user.statistics"></app-user-statistics>
-        <app-user-status [activeRoom]="user.activeRoom" [lastSeen]="user.lastLoginDate" class="block mt-2"></app-user-status>
+        <app-user-statistics [stats]="user.statistics" class="text-sm"></app-user-statistics>
+        <app-user-status [activeRoom]="user.activeRoom" [lastSeen]="user.lastLoginDate" class="block mt-1.5"></app-user-status>
       </div>
     </div>
   `
