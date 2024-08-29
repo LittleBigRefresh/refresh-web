@@ -13,6 +13,7 @@ import {DateComponent} from "../ui/info/date.component";
 import {DecimalPipe} from "@angular/common";
 import {PhotoComponent} from "./photo.component";
 import {Photo} from "../../api/types/photos/photo";
+import {UserPreviewComponent} from "./user-preview.component";
 
 @Component({
   selector: 'app-event',
@@ -24,7 +25,8 @@ import {Photo} from "../../api/types/photos/photo";
     DarkContainerComponent,
     DateComponent,
     DecimalPipe,
-    PhotoComponent
+    PhotoComponent,
+    UserPreviewComponent
   ],
   template: `
     <app-container>
@@ -106,7 +108,7 @@ import {Photo} from "../../api/types/photos/photo";
         <div class="flex gap-x-5">
           @switch (event.storedDataType) {
             @case (EventDataType.user) {
-              <app-user-link [user]="user"></app-user-link>
+              <app-user-preview [user]="user!"></app-user-preview>
             }
             @case (EventDataType.level) {
               <app-level-preview [level]="level!"></app-level-preview>

@@ -8,7 +8,7 @@
             <br>
         </ng-container>
         <ng-container belowTitle>
-            <app-user-status [activeRoom]="user.activeRoom"></app-user-status>
+            <app-user-status [activeRoom]="user.activeRoom" [lastSeen]="user.lastLoginDate"></app-user-status>
         </ng-container>
         <app-user-statistics [stats]="user.statistics" statistics></app-user-statistics>
     </app-fancy-header>
