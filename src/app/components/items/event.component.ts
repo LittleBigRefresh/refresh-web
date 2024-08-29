@@ -101,7 +101,7 @@ import {UserPreviewComponent} from "./user-preview.component";
       }
       
       <span class="text-gentle italic">
-        <app-date [date]="event.occurredAt"></app-date>
+        <app-date [date]="event.occurredAt" [ticking]="true"></app-date>
       </span>
 
       <app-dark-container class="block mt-1.5">

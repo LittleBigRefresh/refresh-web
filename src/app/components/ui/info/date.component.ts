@@ -1,4 +1,14 @@
-import {ChangeDetectorRef, Component, inject, Inject, Input, NgZone, OnDestroy, PLATFORM_ID} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    inject,
+    Inject,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    PLATFORM_ID
+} from '@angular/core';
 import {TooltipComponent} from "../text/tooltip.component";
 import {isPlatformBrowser} from "@angular/common";
 
@@ -12,20 +22,24 @@ import {isPlatformBrowser} from "@angular/common";
         <app-tooltip [text]="formattedDate">{{ moment }}</app-tooltip>
     `
 })
-export class DateComponent implements OnDestroy {
+export class DateComponent implements OnInit, OnDestroy {
     private _date: Date = new Date();
     private intervalId: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: string, private changeDetector: ChangeDetectorRef) {
-        if (!this.isBrowser) return;
+    constructor(@Inject(PLATFORM_ID) private platformId: string, private changeDetector: ChangeDetectorRef, private zone: NgZone)
+    {}
 
-        inject(NgZone).runOutsideAngular(() => {
+    ngOnInit(): void {
+        if (!this.ticking || !this.isBrowser) return;
+        this.zone.runOutsideAngular(() => {
             this.intervalId = setInterval(() => {
                 // console.log("tick", this.intervalId)
                 this.changeDetector.detectChanges();
             }, 1000);
         })
     }
+
+    @Input() ticking: boolean = false;
 
     get isBrowser(): boolean {
         return isPlatformBrowser(this.platformId);
@@ -78,6 +92,7 @@ export class DateComponent implements OnDestroy {
         if (this.intervalId) {
             // console.log("unsubscribe", this.intervalId)
             clearInterval(this.intervalId);
+            this.intervalId = null;
         }
     }
 }
