@@ -31,7 +31,7 @@ import {PlatformPipe} from "../../pipes/platform.pipe";
       </span>
     </b>
     <ul class="list-disc list-inside">
-      @for (player of room.playerIds; track player) {
+      @for (player of room.playerIds; track player.username) {
         <div>
           @if (!player.userId) {
             <li>

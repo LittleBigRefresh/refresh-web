@@ -15,7 +15,7 @@ import {Photo} from "../../api/types/photos/photo";
 ],
   template: `
     <div class="flex flex-col gap-y-2.5">
-      @for (event of page.events; track event) {
+      @for (event of page.events; track event.eventId) {
         <app-event [event]="event" [submittingUser]="user(event.userId)!"
           [user]="user(event.storedObjectId)"
           [level]="level(event.storedSequentialId)"

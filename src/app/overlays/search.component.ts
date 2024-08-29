@@ -51,7 +51,7 @@ import {ContainerComponent} from "../components/ui/container.component";
           <app-divider></app-divider>
         }
         <div class="flex flex-col gap-y-2">
-          @for (level of results; track level) {
+          @for (level of results; track level.levelId) {
             <app-container>
               <app-level-preview [level]="level"></app-level-preview>
             </app-container>

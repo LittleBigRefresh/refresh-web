@@ -16,7 +16,7 @@
     <app-container>
       <app-container-title>Rooms for {{version | game}}</app-container-title>
       <div class="flex flex-col gap-y-1.5">
-        @for (room of getRoomsForGame(version); track room) {
+        @for (room of getRoomsForGame(version); track room.roomId) {
           <app-dark-container>
             <app-room [room]="room" [showGame]="false"></app-room>
           </app-dark-container>

@@ -61,14 +61,14 @@ class VerticalDividerComponent {}
     
       <header-vertical-divider></header-vertical-divider>
       <nav class="flex gap-x-5 h-[60px] items-center">
-        @for (category of navTree; track category) {
+        @for (category of navTree; track category.name) {
           <app-navbar-category [category]="category"></app-navbar-category>
         }
       </nav>
       <div class="grow"></div>
       <nav class="flex gap-x-4 items-center">
         <app-search></app-search>
-        @for (category of rightNavTree; track category) {
+        @for (category of rightNavTree; track category.name) {
           <app-navbar-category [category]="category" [showNames]="false" [right]="true"></app-navbar-category>
         }
     

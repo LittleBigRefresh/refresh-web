@@ -2,7 +2,7 @@
 <p>Discover and browse through new levels using categories!</p>
 
 <app-responsive-grid>
-  @for (category of categories; track category) {
+  @for (category of categories; track category.apiRoute) {
     <app-level-category [category]="category"></app-level-category>
   }
 </app-responsive-grid>

@@ -5,7 +5,7 @@
 </p>
 
 <div class="flex flex-col gap-y-2.5">
-  @for (contest of contests; track contest) {
+  @for (contest of contests; track contest.contestId) {
     <app-container>
       <a [routerLink]="'/contests/' + contest.contestId">
         <app-container-title class="underline">{{ contest.contestTag }}</app-container-title>

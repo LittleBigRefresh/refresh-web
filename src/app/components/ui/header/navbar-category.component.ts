@@ -25,7 +25,7 @@ import {NavbarItemComponent} from "./navbar-item.component";
       </a>
       <div class="absolute z-[1] w-64 px-5 py-2.5 hidden group-hover:flex flex-col rounded-b bg-header-background gap-y-2"
         [ngClass]="!right ? 'left-0' : 'right-0'">
-        @for (link of category.items; track link) {
+        @for (link of category.items; track link.name) {
           <app-navbar-item [href]="link.route" [icon]="link.icon!" [title]="link.name" [iconClass]="'w-4 text-[1.1rem]'" labelClass="text-lg"></app-navbar-item>
         }
       </div>

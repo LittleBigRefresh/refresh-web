@@ -2,7 +2,7 @@
 
 @if (photos) {
   <app-responsive-grid>
-    @for (photo of this.photos; track photo) {
+    @for (photo of this.photos; track photo.photoId) {
       <app-container [padding]=false>
         <app-photo [photo]="photo" [link]="true"></app-photo>
       </app-container>

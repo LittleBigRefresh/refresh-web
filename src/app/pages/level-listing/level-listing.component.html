@@ -3,7 +3,7 @@
   <p>{{category.description}}</p>
   @if (levels) {
     <app-responsive-grid>
-      @for (level of this.levels; track level) {
+      @for (level of this.levels; track level.levelId) {
         <app-container [tight]="true">
           <app-level-preview [level]="level"></app-level-preview>
         </app-container>
