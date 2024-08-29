@@ -35,7 +35,7 @@ import {LabelComponent} from "../ui/info/label.component";
         
         <app-level-statistics [level]="level" class="text-sm"></app-level-statistics>
         
-        <div class="text-gentle text-sm mt-0.5">
+        <div class="text-gentle text-sm mt-0.5 flex gap-x-1">
           by <app-user-link [user]="level.publisher"></app-user-link>
           <app-date [date]="level.publishDate"></app-date>
         </div>
