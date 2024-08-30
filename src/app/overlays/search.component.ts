@@ -38,7 +38,7 @@ import {ContainerComponent} from "../components/ui/container.component";
       <fa-icon [icon]=faSearch class="w-5 text-center"></fa-icon>
     </a>
     
-    @if (show) {
+    @defer (when show) { @if (show) {
       <app-dialog>
         <div class="w-[640px] h-full m-5 flex flex-col">
           @if (!(layout.isMobile | async)) {
@@ -61,7 +61,7 @@ import {ContainerComponent} from "../components/ui/container.component";
           <app-button text="Show More..."></app-button>
         }
       </app-dialog>
-    }
+    }}
     `,
   styles: ``
 })
