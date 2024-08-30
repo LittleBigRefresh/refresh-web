@@ -40,7 +40,7 @@ import {RouterLink} from "@angular/router";
             <app-date [date]="photo.publishedAt"></app-date>
 
             @if (photo.level) {
-              <span>in</span>
+              <span> in</span>
               <app-level-link [level]="photo.level"></app-level-link>
             }
           </div>
@@ -56,13 +56,15 @@ import {RouterLink} from "@angular/router";
     <div class="text-sm flex" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
       <div class="flex grow overflow-hidden whitespace-nowrap overflow-ellipsis">
         @if (subjectsWithoutAuthor.length > 0) {
-          <span>with</span>
-          @for (subject of subjectsWithoutAuthor; track subject; let last = $last) {
+          <div>
+            <span>with </span>
+            @for (subject of subjectsWithoutAuthor; track subject; let last = $last) {
               <app-user-link [user]="subject.user ?? null" [username]="subject.displayName"></app-user-link>
               @if (!last) {
                 <span>, </span>
               }
-          }
+            }
+          </div>
         }
         @else if(photo.subjects.length == 1) {
           <span>with themselves</span>
@@ -70,7 +72,7 @@ import {RouterLink} from "@angular/router";
       </div>
     
       <div class="text-gentle italic whitespace-nowrap">
-        <span>Taken</span>
+        <span>Taken </span>
         <app-date [date]="photo.takenAt"></app-date>
 
         @if (!header && photo.level) {

@@ -18,7 +18,7 @@ import {ClientService} from "../../../../api/client.service";
                 <span>{{ user.username }}</span>
             </app-user-router-link>
         } @else {
-            <span class="ml-1">{{username}}</span>
+            <span>{{username}}</span>
         }
     `
 })
