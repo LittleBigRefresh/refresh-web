@@ -34,7 +34,7 @@ import {DividerComponent} from "../../divider.component";
   `
 })
 export class HeaderNavbarMobileComponent {
-  protected show: boolean = true;
+  protected show: boolean = false;
 
   toggleModal(): void {
     this.show = !this.show;
