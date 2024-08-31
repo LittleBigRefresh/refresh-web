@@ -9,6 +9,6 @@ export interface NavCategory {
 
 export interface NavItem {
     name: string
-    icon: IconProp | undefined
+    icon: IconProp
     route: string
 }

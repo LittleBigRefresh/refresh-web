@@ -25,6 +25,7 @@ import {SearchComponent} from "../../../overlays/search.component";
 import {AuthenticationService} from "../../../api/authentication.service";
 import {UserLinkComponent} from "../text/links/user-link.component";
 import {UserAvatarComponent} from "../photos/user-avatar.component";
+import {HeaderMeComponent} from "./header-me.component";
 
 @Component({
   selector: 'header-vertical-divider',
@@ -50,8 +51,9 @@ class VerticalDividerComponent {}
     VerticalDividerComponent,
     SearchComponent,
     UserLinkComponent,
-    UserAvatarComponent
-],
+    UserAvatarComponent,
+    HeaderMeComponent
+  ],
   template: `
     <header
       class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full">
@@ -73,9 +75,9 @@ class VerticalDividerComponent {}
         }
     
         <header-vertical-divider></header-vertical-divider>
-        @if ((auth.user | async); as user) {
-          <app-user-avatar [user]="user" [size]="44"></app-user-avatar>
-        } @else {
+        @defer {
+          <app-header-me></app-header-me>
+        } @placeholder {
           <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
         }
       </nav>
@@ -164,5 +166,5 @@ export class HeaderComponent {
     }
   ]
 
-  constructor(private router: Router, protected layout: LayoutService, protected auth: AuthenticationService) {}
+  constructor(private router: Router, protected layout: LayoutService) {}
 }
