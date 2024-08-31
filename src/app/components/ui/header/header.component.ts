@@ -56,7 +56,7 @@ class VerticalDividerComponent {}
   ],
   template: `
     <header
-      class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full">
+      class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full z-[1000]">
       <a routerLink="/" title="Home" class="py-1">
         <img ngSrc="/assets/logo.svg" alt="Refresh Logo" width="48" height="48" priority>
       </a>
