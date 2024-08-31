@@ -1,4 +1,8 @@
-<app-header class="z-40"></app-header>
+@if(!(layout.isMobile | async)) {
+    <app-header></app-header>
+} @else {
+    <app-header-mobile></app-header-mobile>
+}
 @defer (when bannerService.banners.length > 0) {
     <app-popup-banner-container></app-popup-banner-container>
 }

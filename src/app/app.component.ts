@@ -9,13 +9,16 @@ import {AuthenticationService} from "./api/authentication.service";
 import {PopupBannerContainerComponent} from "./banners/popup-banner-container.component";
 import {BannerService} from "./banners/banner.service";
 import {animate, group, query, style, transition, trigger} from "@angular/animations";
+import {LayoutService} from "./services/layout.service";
+import {AsyncPipe} from "@angular/common";
+import {HeaderMobileComponent} from "./components/ui/header/mobile/header-mobile.component";
 
 const fadeLength: string = "100ms";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent],
+  imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent, AsyncPipe, HeaderMobileComponent],
   templateUrl: './app.component.html',
   animations: [
     trigger('routeAnimations', [
@@ -38,6 +41,7 @@ export class AppComponent {
   constructor(private title: TitleService,
               private embed: EmbedService,
               private auth: AuthenticationService,
+              protected layout: LayoutService,
               protected bannerService: BannerService,
               library: FaIconLibrary) {
     library.addIconPacks(fas)
