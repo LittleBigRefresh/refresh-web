@@ -14,4 +14,19 @@
     </div>
     <app-level-statistics [level]="level" class="mb-1.5 block" statistics></app-level-statistics>
   </app-fancy-header>
+    
+  <app-two-pane-layout>
+      <app-container class="w-full">
+          <app-level-leaderboard [level]="level"></app-level-leaderboard>
+      </app-container>
+      <app-container class="w-full">
+          <app-container-title>Test</app-container-title>
+      </app-container>
+      <app-container class="w-full">
+          <app-container-title>Test</app-container-title>
+      </app-container>
+      <app-container class="w-full">
+          <app-container-title>Test</app-container-title>
+      </app-container>
+  </app-two-pane-layout>
 }

@@ -14,4 +14,7 @@ export interface Score {
 
     game: GameVersion;
     platform: Platform;
+    
+    // This isn't part of the API spec. This is internal to refresh-web.
+    rank: number | undefined;
 }

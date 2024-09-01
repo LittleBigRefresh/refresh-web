@@ -14,6 +14,10 @@ import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.com
 import {GamePipe} from "../../pipes/game.pipe";
 import {LayoutService} from "../../services/layout.service";
 import {DateComponent} from "../../components/ui/info/date.component";
+import {TwoPaneLayoutComponent} from "../../components/ui/layouts/two-pane-layout.component";
+import {ContainerComponent} from "../../components/ui/container.component";
+import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
+import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
 
 @Component({
   selector: 'app-level',
@@ -26,7 +30,11 @@ import {DateComponent} from "../../components/ui/info/date.component";
         FancyHeaderComponent,
         GamePipe,
         AsyncPipe,
-        DateComponent
+        DateComponent,
+        TwoPaneLayoutComponent,
+        ContainerComponent,
+        ContainerTitleComponent,
+        LevelLeaderboardComponent
     ],
   providers: [
       SlugPipe

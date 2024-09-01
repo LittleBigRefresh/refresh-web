@@ -13,6 +13,7 @@ import {BehaviorSubject, Observable, tap} from "rxjs";
 import {Params} from "@angular/router";
 import {ApiImplementation} from "./api-implementation";
 import {Contest} from "./types/contests/contest";
+import {Score} from "./types/levels/score";
 
 export const defaultPageSize: number = 40;
 
@@ -51,6 +52,10 @@ export class ClientService extends ApiImplementation {
 
   getLevelById(id: number) {
     return this.http.get<Level>(`/levels/id/${id}`);
+  }
+  
+  getScoresForLevel(id: number, scoreType: number, skip: number, count: number = defaultPageSize, params: Params | null = null) {
+    return this.http.get<ListWithData<Score>>(`/scores/${id}/${scoreType}`, {params: this.setPageQuery(params, skip, count)});
   }
   
   private getUser(route: string, cacheLookup: (value: User, index: number, obj: User[]) => boolean): Observable<User> {
