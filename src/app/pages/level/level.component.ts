@@ -13,19 +13,21 @@ import {EmbedService} from "../../services/embed.service";
 import {FancyHeaderComponent} from "../../components/ui/layouts/fancy-header.component";
 import {GamePipe} from "../../pipes/game.pipe";
 import {LayoutService} from "../../services/layout.service";
+import {DateComponent} from "../../components/ui/info/date.component";
 
 @Component({
   selector: 'app-level',
   standalone: true,
     imports: [
-    LevelStatisticsComponent,
-    DefaultPipe,
-    LevelAvatarComponent,
-    UserLinkComponent,
-    FancyHeaderComponent,
-    GamePipe,
-    AsyncPipe
-],
+        LevelStatisticsComponent,
+        DefaultPipe,
+        LevelAvatarComponent,
+        UserLinkComponent,
+        FancyHeaderComponent,
+        GamePipe,
+        AsyncPipe,
+        DateComponent
+    ],
   providers: [
       SlugPipe
   ],
@@ -35,6 +37,7 @@ import {LayoutService} from "../../services/layout.service";
 export class LevelComponent {
   level: Level | undefined | null;
   protected readonly isBrowser: boolean;
+  protected isMobile: boolean = false;
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, protected layout: LayoutService, @Inject(PLATFORM_ID) platformId: Object)
@@ -44,6 +47,10 @@ export class LevelComponent {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
     });
+    
+    this.layout.isMobile.subscribe(v => {
+        this.isMobile = v;
+    })
   }
 
   setDataFromLevel(data: Level) {
