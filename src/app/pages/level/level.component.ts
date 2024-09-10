@@ -18,6 +18,8 @@ import {TwoPaneLayoutComponent} from "../../components/ui/layouts/two-pane-layou
 import {ContainerComponent} from "../../components/ui/container.component";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
 import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
+import {DividerComponent} from "../../components/ui/divider.component";
+import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
 
 @Component({
   selector: 'app-level',
@@ -34,7 +36,9 @@ import {LevelLeaderboardComponent} from "../../components/items/level-leaderboar
         TwoPaneLayoutComponent,
         ContainerComponent,
         ContainerTitleComponent,
-        LevelLeaderboardComponent
+        LevelLeaderboardComponent,
+        DividerComponent,
+        PaneTitleComponent
     ],
   providers: [
       SlugPipe

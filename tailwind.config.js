@@ -26,9 +26,10 @@ const defaultColors = {
   "pink": "#ff68f4",
 
   "rank-gold": "#FFD234",
-  "rank-silver": "#F2F2F2",
+  "rank-silver": "#f9f4f9",
   "rank-bronze": "#FF8845",
-  "rank-other": "#ABABAB",
+  "rank-other": "#87748A",
+  "rank-own": "#b88fbf",
 }
 
 /** @type {import('tailwindcss').Config} */

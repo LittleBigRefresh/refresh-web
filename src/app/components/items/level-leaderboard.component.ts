@@ -5,6 +5,7 @@ import {DividerComponent} from "../ui/divider.component";
 import {Score} from "../../api/types/levels/score";
 import {ClientService} from "../../api/client.service";
 import {ScorePreviewComponent} from "./score-preview.component";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-level-leaderboard',
@@ -12,12 +13,11 @@ import {ScorePreviewComponent} from "./score-preview.component";
     imports: [
         ContainerTitleComponent,
         DividerComponent,
-        ScorePreviewComponent
+        ScorePreviewComponent,
+        NgClass
     ],
   template: `
-    <app-container-title>Leaderboard</app-container-title>
-    <app-divider></app-divider>
-    @for(score of scores; track score.scoreId) {
+    @for(score of scores; track score.scoreId; let i = $index) {
         <app-score-preview [score]="score"></app-score-preview>
     }
   `,
@@ -37,7 +37,7 @@ export class LevelLeaderboardComponent implements OnInit {
   }
 
   getScores(clear: boolean = true, skip: number = 0) {
-    this.client.getScoresForLevel(this.level.levelId, Number(this.scoreType), skip)
+    this.client.getScoresForLevel(this.level.levelId, Number(this.scoreType), skip, 10)
         .subscribe((data) => {
           if (data === undefined) return;
 
