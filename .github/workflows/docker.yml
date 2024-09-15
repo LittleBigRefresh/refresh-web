@@ -2,7 +2,7 @@ name: Create Docker image
 
 on:
   push:
-    branches: ['rewrite']
+    branches: ['main']
 
 jobs:
   build-and-push-image:
