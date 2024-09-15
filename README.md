@@ -1,6 +1,11 @@
-# This is the WIP Rewrite!
+# `main` is a WIP non-production-ready rewrite!
 
-This branch hosts progress for the major rewrite for refresh-web. It is not the stable branch.
+This branch hosts progress for the complete rewrite of refresh-web.
+
+For a feature-complete version that comes at the cost of being in feature-lock, use the `legacy` branch instead.
+This is the same version as the one deployed on https://lbp.littlebigrefresh.com and the one included with Refresh itself.
+
+Eventually, this rewrite will replace `legacy` entirely.
 
 # Refresh Web
 
