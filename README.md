@@ -1,7 +1,7 @@
-# Important: This branch is on feature lock
-This project is soon to be entirely replaced by a rewrite of `refresh-web`. This branch will stay maintained for the time being as the rewrite matures, but will not receive new features or major upgrades (such as a migration to Angular 17).
+# Important: This branch is on feature lock!
+This legacy version is to be entirely replaced by a rewrite of `refresh-web`. This branch will stay maintained for the time being as the rewrite matures on the `main` branch, but the legacy version will not receive new features or major upgrades (such as a migration to Angular 17).
 
-You may track progress [here](https://github.com/LittleBigRefresh/refresh-web/tree/rewrite).
+You may track progress [here](https://github.com/LittleBigRefresh/refresh-web/tree/main).
 
 # Refresh Website
 
