@@ -28,7 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@nguniversal/express-engine": "^16.2.0",
     "dayjs": "^1.11.7",
-    "express": "^4.15.2",
+    "express": "^4.21.0",
     "masonry-layout": "github:cliqqz/masonry#ffd2b614237176fd184b70b90a4559f9716dd29c",
     "ngx-markdown": "^16.0.0",
     "ngx-masonry": "^14.0.1",
