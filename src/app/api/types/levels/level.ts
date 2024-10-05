@@ -16,4 +16,7 @@ export interface Level {
     teamPicked: boolean;
     gameVersion: number;
     score: number;
+    // Relation info
+    isHeartedByUser: boolean;
+    isQueuedByUser: boolean;
 }

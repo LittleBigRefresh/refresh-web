@@ -20,6 +20,11 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
+import { ButtonGroupComponent } from "../../components/ui/form/button-group.component";
+import { ButtonTwoStateComponent } from "../../components/ui/form/button-two-state.component"
+import {faHeart, faBell} from "@fortawesome/free-solid-svg-icons";
+import {AuthenticationService} from "../../api/authentication.service";
+
 
 @Component({
   selector: 'app-level',
@@ -38,7 +43,9 @@ import {PaneTitleComponent} from "../../components/ui/text/pane-title.component"
         ContainerTitleComponent,
         LevelLeaderboardComponent,
         DividerComponent,
-        PaneTitleComponent
+        PaneTitleComponent,
+        ButtonGroupComponent,
+        ButtonTwoStateComponent
     ],
   providers: [
       SlugPipe
@@ -51,8 +58,13 @@ export class LevelComponent {
   protected readonly isBrowser: boolean;
   protected isMobile: boolean = false;
 
+  protected ownUserId: string | undefined;
+  protected heartButtonState: boolean = false;
+  protected queueButtonState: boolean = false;
+
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
-              route: ActivatedRoute, protected layout: LayoutService, @Inject(PLATFORM_ID) platformId: Object)
+              route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
+              @Inject(PLATFORM_ID) platformId: Object)
   {
     this.isBrowser = isPlatformBrowser(platformId);
     route.params.subscribe(params => {
@@ -62,6 +74,10 @@ export class LevelComponent {
     
     this.layout.isMobile.subscribe(v => {
         this.isMobile = v;
+    })
+
+    auth.user.subscribe(user => {
+      this.ownUserId = user?.userId;
     })
   }
 
@@ -73,5 +89,43 @@ export class LevelComponent {
     }
 
     this.embed.embedLevel(data);
+
+    if (this.level?.isHeartedByUser !== undefined) {
+      this.heartButtonState = this.level?.isHeartedByUser; 
+    }
+    if (this.level?.isQueuedByUser !== undefined) {
+      this.queueButtonState = this.level?.isQueuedByUser;
+    }
   }
+
+  heart() {
+    if (this.level === undefined || this.level === null) return;
+    this.client.setLevelAsHearted(this.level).subscribe(_ => { 
+      this.heartButtonState = true;
+    });
+  }
+
+  unheart() {
+    if (this.level === undefined || this.level === null) return;
+    this.client.setLevelAsUnhearted(this.level).subscribe(_ => {
+      this.heartButtonState = false;
+    });
+  }
+
+  queue() {
+    if (this.level === undefined || this.level === null) return;
+    this.client.setLevelAsQueued(this.level).subscribe(_ => {
+      this.queueButtonState = true;
+    });
+  }
+
+  dequeue() {
+    if (this.level === undefined || this.level === null) return;
+    this.client.setLevelAsDequeued(this.level).subscribe(_ => {
+      this.queueButtonState = false;
+    });
+  }
+
+  protected readonly faHeart = faHeart;
+  protected readonly faBell = faBell; 
 }

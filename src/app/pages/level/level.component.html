@@ -13,8 +13,29 @@
       }
     </div>
     <app-level-statistics [level]="level" class="mb-1.5 block" statistics></app-level-statistics>
-  </app-fancy-header>
     
+    <div class="flex gap-x-4.0" statistics>
+      @if(ownUserId !== undefined) {
+        <app-button-group class="grow">
+          <app-button-two-state 
+            [state]="heartButtonState" colorActive="bg-pink"
+            [iconActive]="faHeart" [iconInactive]="faHeart" 
+            textActive="Heart" textInactive="Unheart"  
+            (actionActive)="heart()" (actionInactive)="unheart()">
+          </app-button-two-state>
+          <app-button-two-state 
+            [state]="queueButtonState" colorActive="bg-yellow" 
+            [iconActive]="faBell" [iconInactive]="faBell"  
+            textActive="Queue" textInactive="Dequeue"  
+            (actionActive)="queue()" (actionInactive)="dequeue()">
+          </app-button-two-state>
+        </app-button-group>
+      }
+    </div>
+  </app-fancy-header>
+
+  
+  
   <app-two-pane-layout>
       <app-container class="w-full">
           <app-pane-title>Leaderboard</app-pane-title>

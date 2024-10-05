@@ -104,4 +104,20 @@ export class ClientService extends ApiImplementation {
   getPhotoById(id: number) {
     return this.http.get<Photo>(`/photos/id/${id}`);
   }
+
+  setLevelAsHearted(level: Level) {
+    return this.http.post<Response>(`/levels/id/${level.levelId}/favourite`, null);
+  }
+
+  setLevelAsUnhearted(level: Level) {
+    return this.http.post<Response>(`/levels/id/${level.levelId}/unfavourite`, null);
+  }
+
+  setLevelAsQueued(level: Level) {
+    return this.http.post<Response>(`/levels/id/${level.levelId}/queue`, null);
+  }
+
+  setLevelAsDequeued(level: Level) {
+    return this.http.post<Response>(`/levels/id/${level.levelId}/dequeue`, null);
+  }
 }
