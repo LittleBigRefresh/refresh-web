@@ -9,8 +9,6 @@ export interface ExtendedUser extends User {
     rpcnAuthenticationAllowed: boolean;
     psnAuthenticationAllowed: boolean;
 
-    redirectGriefReportsToPhotos: boolean;
-
     emailAddress: string | undefined;
     emailAddressVerified: boolean;
 }

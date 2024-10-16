@@ -33,7 +33,6 @@ export class SettingsComponent implements OnInit {
     allowIpAuth: boolean = false;
     allowPsnAuth: boolean = false;
     allowRpcnAuth: boolean = false;
-    redirectGriefReportsToPhotos: boolean = false;
 
     themingSupported: boolean;
 
@@ -96,7 +95,6 @@ export class SettingsComponent implements OnInit {
         this.allowIpAuth = data?.allowIpAuthentication ?? false;
         this.allowPsnAuth = data?.psnAuthenticationAllowed ?? false;
         this.allowRpcnAuth = data?.rpcnAuthenticationAllowed ?? false;
-        this.redirectGriefReportsToPhotos = data?.redirectGriefReportsToPhotos ?? false;
     }
 
     saveChanges() {
@@ -107,7 +105,6 @@ export class SettingsComponent implements OnInit {
             allowIpAuthentication: this.allowIpAuth,
             psnAuthenticationAllowed: this.allowPsnAuth,
             rpcnAuthenticationAllowed: this.allowRpcnAuth,
-            redirectGriefReportsToPhotos: this.redirectGriefReportsToPhotos,
         };
 
         this.authService.UpdateUser(request);
@@ -136,7 +133,6 @@ export class SettingsComponent implements OnInit {
     protected readonly faGamepad = faGamepad;
     protected readonly faEnvelope = faEnvelope;
     protected readonly faTrash = faTrash;
-    protected readonly faCamera = faCamera;
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faCancel = faCancel;
     protected readonly faLeftRight = faLeftRight;
