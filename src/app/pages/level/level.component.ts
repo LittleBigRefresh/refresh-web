@@ -66,7 +66,7 @@ export class LevelComponent {
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
-      this.client.getActivityPageForLevel(id, 0, 5).subscribe(page => this.activityPage = page);
+      this.client.getActivityPageForLevel(id, 0, 20).subscribe(page => this.activityPage = page);
     });
     
     this.layout.isMobile.subscribe(v => {
