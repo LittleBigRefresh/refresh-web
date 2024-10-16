@@ -23,7 +23,7 @@
       <span *ngSwitchCase="1">gave <b><level-link [level]="getLevelFromEvent()"></level-link></b> a heart</span>
       <span *ngSwitchCase="3">gave <b><user-link [user]="getOtherUserFromEvent()"></user-link></b> a heart</span>
       <span *ngSwitchCase="5">played <b><level-link [level]="getLevelFromEvent()"></level-link></b></span>
-      <span *ngSwitchCase="10">took a <b><a [routerLink]="'/photo/' + getPhotoFromEvent().photoId"></a></b></span>
+      <span *ngSwitchCase="10">took a <b><a [routerLink]="'/photo/' + getPhotoFromEvent().photoId">photo</a></b></span>
       <span *ngSwitchCase="13">team picked <b><level-link [level]="getLevelFromEvent()"></level-link></b></span>
       <div *ngSwitchCase="20" class="inline">
         <span *ngIf="getScoreFromEvent() as score">got a score of
