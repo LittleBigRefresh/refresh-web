@@ -6,28 +6,42 @@ import {User} from "../../api/types/users/user";
 import {Level} from "../../api/types/levels/level";
 import {Score} from "../../api/types/levels/score";
 import {Photo} from "../../api/types/photos/photo";
+import {ContainerComponent} from "../ui/container.component";
 
 @Component({
   selector: 'app-event-page',
   standalone: true,
   imports: [
-    EventComponent
-],
+    EventComponent,
+    ContainerComponent
+  ],
   template: `
     <div class="flex flex-col gap-y-2.5">
       @for (event of page.events; track event.eventId) {
-        <app-event [event]="event" [submittingUser]="user(event.userId)!"
-          [user]="user(event.storedObjectId)"
-          [level]="level(event.storedSequentialId)"
-          [score]="score(event.storedObjectId)"
-          [photo]="photo(event.storedSequentialId)">
-        </app-event>
+        @if(container) {
+          <app-container>
+            <app-event [event]="event" [submittingUser]="user(event.userId)!"
+                       [user]="user(event.storedObjectId)"
+                       [level]="level(event.storedSequentialId)"
+                       [score]="score(event.storedObjectId)"
+                       [photo]="photo(event.storedSequentialId)">
+            </app-event>
+          </app-container>
+        } @else {
+          <app-event [event]="event" [submittingUser]="user(event.userId)!"
+                     [user]="user(event.storedObjectId)"
+                     [level]="level(event.storedSequentialId)"
+                     [score]="score(event.storedObjectId)"
+                     [photo]="photo(event.storedSequentialId)">
+          </app-event>
+        }
       }
     </div>
     `
 })
 export class EventPageComponent {
   @Input({required: true}) page: ActivityPage = undefined!;
+  @Input() container: boolean = true;
 
   user(id: string | undefined): User | undefined {
     if(!id) return undefined;

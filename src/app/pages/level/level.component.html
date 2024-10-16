@@ -17,18 +17,24 @@
     
   <app-two-pane-layout>
       <app-container class="w-full">
-          <app-pane-title>Leaderboard</app-pane-title>
+          <app-pane-title>
+              <a [routerLink]="'/level/' + level.levelId + '/' + (level.title | slug) + '/leaderboard'">
+                  Leaderboard
+              </a>
+          </app-pane-title>
           <app-divider></app-divider>
           <app-level-leaderboard [level]="level"></app-level-leaderboard>
       </app-container>
       <app-container class="w-full">
-          <app-pane-title>Test</app-pane-title>
-      </app-container>
-      <app-container class="w-full">
-          <app-pane-title>Test</app-pane-title>
-      </app-container>
-      <app-container class="w-full">
-          <app-pane-title>Test</app-pane-title>
+          <app-pane-title>
+              <a [routerLink]="'/level/' + level.levelId + '/' + (level.title | slug) + '/activity'">
+                  Recent Activity
+              </a>
+          </app-pane-title>
+          <app-divider></app-divider>
+          @if(activityPage) {
+              <app-event-page [page]="activityPage" [container]="false"></app-event-page>
+          }
       </app-container>
   </app-two-pane-layout>
 }

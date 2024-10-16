@@ -1,7 +1,7 @@
 import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import { AsyncPipe, isPlatformBrowser } from "@angular/common";
@@ -20,6 +20,9 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
+import {EventPageComponent} from "../../components/items/event-page.component";
+import {ActivityPage} from "../../api/types/activity/activity-page";
+import {ButtonComponent} from "../../components/ui/form/button.component";
 
 @Component({
   selector: 'app-level',
@@ -38,16 +41,21 @@ import {PaneTitleComponent} from "../../components/ui/text/pane-title.component"
         ContainerTitleComponent,
         LevelLeaderboardComponent,
         DividerComponent,
-        PaneTitleComponent
+        PaneTitleComponent,
+        EventPageComponent,
+        ButtonComponent,
+        RouterLink,
+        SlugPipe
     ],
   providers: [
       SlugPipe
   ],
-  templateUrl: './level.component.html',
-  styles: ``
+  templateUrl: './level.component.html'
 })
 export class LevelComponent {
   level: Level | undefined | null;
+  activityPage: ActivityPage | undefined;
+  
   protected readonly isBrowser: boolean;
   protected isMobile: boolean = false;
 
@@ -58,6 +66,7 @@ export class LevelComponent {
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
+      this.client.getActivityPageForLevel(id, 0, 5).subscribe(page => this.activityPage = page);
     });
     
     this.layout.isMobile.subscribe(v => {
