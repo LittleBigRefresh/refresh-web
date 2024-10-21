@@ -18,6 +18,7 @@ import {ClientService, defaultPageSize} from "../api/client.service";
 import {ButtonComponent} from "../components/ui/form/button.component";
 import {ContainerComponent} from "../components/ui/container.component";
 import {HttpParams} from "@angular/common/http";
+import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-search',
@@ -43,7 +44,7 @@ import {HttpParams} from "@angular/common/http";
       <app-dialog>
         <div class="w-[640px] h-full m-5 flex flex-col">
           @if (!(layout.isMobile | async)) {
-            <app-form [form]="searchForm" [compact]="true" (submit)="search()" class="">
+            <app-form [form]="searchForm" [compact]="true" (submit)="search()">
               <app-search-bar [form]="searchForm" appClass="min-w-full"></app-search-bar>
             </app-form>
           }
@@ -63,8 +64,7 @@ import {HttpParams} from "@angular/common/http";
         }
       </app-dialog>
     }}
-    `,
-  styles: ``
+    `
 })
 export class SearchComponent {
   protected show: boolean = false;
@@ -80,7 +80,11 @@ export class SearchComponent {
       if(event instanceof NavigationEnd) {
         this.close();
       }
-    })
+    });
+
+    this.searchForm.valueChanges
+        .pipe(debounceTime(500))
+        .subscribe(() => this.search())
   }
 
   get query(): string {
