@@ -3,8 +3,7 @@ import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
-import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import { AsyncPipe, isPlatformBrowser } from "@angular/common";
+import { AsyncPipe, isPlatformBrowser, } from "@angular/common";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
@@ -20,33 +19,31 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
-import { ButtonGroupComponent } from "../../components/ui/form/button-group.component";
-import { ButtonTwoStateComponent } from "../../components/ui/form/button-two-state.component"
-import {faHeart, faBell} from "@fortawesome/free-solid-svg-icons";
 import {AuthenticationService} from "../../api/authentication.service";
+import { ExtendedUser } from '../../api/types/users/extended-user';
+import { FancyHeaderLevelButtonAreaComponent } from '../../components/ui/layouts/fancy-header-level-button-area';
 
 
 @Component({
   selector: 'app-level',
   standalone: true,
-    imports: [
-        LevelStatisticsComponent,
-        DefaultPipe,
-        LevelAvatarComponent,
-        UserLinkComponent,
-        FancyHeaderComponent,
-        GamePipe,
-        AsyncPipe,
-        DateComponent,
-        TwoPaneLayoutComponent,
-        ContainerComponent,
-        ContainerTitleComponent,
-        LevelLeaderboardComponent,
-        DividerComponent,
-        PaneTitleComponent,
-        ButtonGroupComponent,
-        ButtonTwoStateComponent
-    ],
+  imports: [
+      LevelStatisticsComponent,
+      DefaultPipe,
+      LevelAvatarComponent,
+      UserLinkComponent,
+      FancyHeaderComponent,
+      GamePipe,
+      AsyncPipe,
+      DateComponent,
+      TwoPaneLayoutComponent,
+      ContainerComponent,
+      ContainerTitleComponent,
+      LevelLeaderboardComponent,
+      DividerComponent,
+      PaneTitleComponent,
+      FancyHeaderLevelButtonAreaComponent
+  ],
   providers: [
       SlugPipe
   ],
@@ -57,10 +54,7 @@ export class LevelComponent {
   level: Level | undefined | null;
   protected readonly isBrowser: boolean;
   protected isMobile: boolean = false;
-
-  protected ownUserId: string | undefined;
-  protected heartButtonState: boolean = false;
-  protected queueButtonState: boolean = false;
+  protected ownUser: ExtendedUser | undefined;
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
@@ -77,55 +71,16 @@ export class LevelComponent {
     })
 
     auth.user.subscribe(user => {
-      this.ownUserId = user?.userId;
+      this.ownUser = user;
     })
   }
 
   setDataFromLevel(data: Level) {
     this.level = data;
-
     if(this.isBrowser) {
       window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}`);
     }
 
     this.embed.embedLevel(data);
-
-    if (this.level?.isHeartedByUser !== undefined) {
-      this.heartButtonState = this.level?.isHeartedByUser; 
-    }
-    if (this.level?.isQueuedByUser !== undefined) {
-      this.queueButtonState = this.level?.isQueuedByUser;
-    }
   }
-
-  heart() {
-    if (this.level === undefined || this.level === null) return;
-    this.client.setLevelAsHearted(this.level).subscribe(_ => { 
-      this.heartButtonState = true;
-    });
-  }
-
-  unheart() {
-    if (this.level === undefined || this.level === null) return;
-    this.client.setLevelAsUnhearted(this.level).subscribe(_ => {
-      this.heartButtonState = false;
-    });
-  }
-
-  queue() {
-    if (this.level === undefined || this.level === null) return;
-    this.client.setLevelAsQueued(this.level).subscribe(_ => {
-      this.queueButtonState = true;
-    });
-  }
-
-  dequeue() {
-    if (this.level === undefined || this.level === null) return;
-    this.client.setLevelAsDequeued(this.level).subscribe(_ => {
-      this.queueButtonState = false;
-    });
-  }
-
-  protected readonly faHeart = faHeart;
-  protected readonly faBell = faBell; 
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ButtonComponent} from "./button.component";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
@@ -10,10 +10,10 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
     ],
     template: `
         @if (state) {
-            <app-button [text]="textInactive" [icon]="iconInactive" [color]="colorInactive" [enabled]="enabled" type="submit" (click)="actionInactiveMethod()"></app-button>
+            <app-button [text]="textAlternative!" [icon]="iconAlternative" [color]="colorAlternative" [enabled]="enabled"></app-button>
         }
         @else {
-            <app-button [text]="textActive" [icon]="iconActive" [color]="colorActive" [enabled]="enabled" type="submit" (click)="actionActiveMethod()"></app-button>
+            <app-button [text]="text" [icon]="icon" [color]="color" [enabled]="enabled"></app-button>
         }
     `,
     styles: ``
@@ -21,27 +21,14 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 export class ButtonTwoStateComponent {
     @Input({required: true}) state: boolean = false;
 
-    @Input({required: true}) textActive: string = "Activate";
-    @Input({required: true}) textInactive: string = "Deactivate";
+    @Input({required: true}) text: string = "Activate";
+    @Input() textAlternative: string = "Deactivate";
 
-    @Input() iconActive: IconProp | undefined;
-    @Input() iconInactive: IconProp | undefined;
+    @Input() icon: IconProp | undefined;
+    @Input() iconAlternative: IconProp | undefined;
 
-    @Input() colorActive: string = "bg-primary";
-    @Input() colorInactive: string = "bg-secondary";
+    @Input() color: string = "bg-primary";
+    @Input() colorAlternative: string = "bg-secondary";
 
     @Input() enabled: boolean = true;
-    
-    // actions
-    @Output() actionActive: EventEmitter<null> = new EventEmitter();
-    @Output() actionInactive: EventEmitter<null> = new EventEmitter();
-
-
-    actionActiveMethod(): void {
-        this.actionActive.emit();
-    }
-
-    actionInactiveMethod(): void {
-        this.actionInactive.emit();
-    }
 }

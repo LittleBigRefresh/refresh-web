@@ -105,19 +105,23 @@ export class ClientService extends ApiImplementation {
     return this.http.get<Photo>(`/photos/id/${id}`);
   }
 
-  setLevelAsHearted(level: Level) {
-    return this.http.post<Response>(`/levels/id/${level.levelId}/favourite`, null);
+  setLevelAsHearted(id: number) {
+    return this.http.post<Response>(`/levels/id/${id}/heart`, null);
   }
 
-  setLevelAsUnhearted(level: Level) {
-    return this.http.post<Response>(`/levels/id/${level.levelId}/unfavourite`, null);
+  setLevelAsUnhearted(id: number) {
+    return this.http.post<Response>(`/levels/id/${id}/unheart`, null);
   }
 
-  setLevelAsQueued(level: Level) {
-    return this.http.post<Response>(`/levels/id/${level.levelId}/queue`, null);
+  setLevelAsQueued(id: number) {
+    return this.http.post<Response>(`/levels/id/${id}/queue`, null);
   }
 
-  setLevelAsDequeued(level: Level) {
-    return this.http.post<Response>(`/levels/id/${level.levelId}/dequeue`, null);
+  setLevelAsDequeued(id: number) {
+    return this.http.post<Response>(`/levels/id/${id}/dequeue`, null);
+  }
+
+  setLevelAsOverride(id: number) {
+    return this.http.post<Response>(`/levels/id/${id}/setAsOverride`, null);
   }
 }
