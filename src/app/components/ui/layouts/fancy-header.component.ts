@@ -33,7 +33,7 @@ import { LayoutService } from '../../../services/layout.service';
         <ng-content select="[avatar]"></ng-content>
         <div class="grow content-evenly">
           <div class="flex flex-row-reverse justify-between sm:flex-col gap-x-1.5 relative">
-            <div class="min-w-52 content-center">
+            <div class="content-center">
               <ng-content select="[buttonArea]"></ng-content>
             </div>
             <app-page-title [title]="title" class="text-wrap [word-break:break-word] " ></app-page-title>

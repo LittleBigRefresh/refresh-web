@@ -79,8 +79,7 @@ export class ButtonOrNavItem {
     @Input() colorAlt: string = ""
 
     @Input() state: boolean | undefined;
-    @Input() route: string = ""
-
+    @Input() route: string | undefined;
     @Input() hasText: boolean = true;
     @Input() isNavItem: boolean = false;
 
