@@ -1,7 +1,7 @@
 import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
 import { AsyncPipe, isPlatformBrowser, } from "@angular/common";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
@@ -19,6 +19,9 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
+import {EventPageComponent} from "../../components/items/event-page.component";
+import {ActivityPage} from "../../api/types/activity/activity-page";
+import {ButtonComponent} from "../../components/ui/form/button.component";
 import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { FancyHeaderLevelButtonAreaComponent } from '../../components/ui/layouts/fancy-header-level-button-area';
@@ -33,6 +36,7 @@ import { FancyHeaderLevelButtonAreaComponent } from '../../components/ui/layouts
       LevelAvatarComponent,
       UserLinkComponent,
       FancyHeaderComponent,
+      FancyHeaderLevelButtonAreaComponent,
       GamePipe,
       AsyncPipe,
       DateComponent,
@@ -42,16 +46,20 @@ import { FancyHeaderLevelButtonAreaComponent } from '../../components/ui/layouts
       LevelLeaderboardComponent,
       DividerComponent,
       PaneTitleComponent,
-      FancyHeaderLevelButtonAreaComponent
+      EventPageComponent,
+      ButtonComponent,
+      RouterLink,
+      SlugPipe
   ],
   providers: [
       SlugPipe
   ],
-  templateUrl: './level.component.html',
-  styles: ``
+  templateUrl: './level.component.html'
 })
 export class LevelComponent {
   level: Level | undefined | null;
+  activityPage: ActivityPage | undefined;
+  
   protected readonly isBrowser: boolean;
   protected isMobile: boolean = false;
   protected ownUser: ExtendedUser | undefined;
@@ -64,6 +72,7 @@ export class LevelComponent {
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
+      this.client.getActivityPageForLevel(id, 0, 20).subscribe(page => this.activityPage = page);
     });
     
     this.layout.isMobile.subscribe(v => {

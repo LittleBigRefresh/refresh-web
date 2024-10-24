@@ -93,6 +93,10 @@ export class ClientService extends ApiImplementation {
     return this.http.get<ActivityPage>(`/activity`, {params: this.createPageQuery(skip, count)});
   }
 
+  getActivityPageForLevel(levelId: number,  skip: number = 0, count: number = defaultPageSize) {
+    return this.http.get<ActivityPage>(`/levels/id/${levelId}/activity`, {params: this.createPageQuery(skip, count)});
+  }
+
   getPhotos(skip: number = 0, count: number = defaultPageSize) {
     return this.http.get<ListWithData<Photo>>(`/photos`, {params: this.createPageQuery(skip, count)});
   }
