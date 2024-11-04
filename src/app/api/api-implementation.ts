@@ -6,8 +6,8 @@ export class ApiImplementation {
         
     }
 
-    protected createPageQuery(skip: number, count: number) {
-        return this.setPageQuery(null, skip, count);
+    protected createPageQuery(skip: number, count: number, username?: string) {
+        return this.setPageQuery(null, skip, count, username);
     }
 
     protected convertParamsToHttpParams(params: Params | null): HttpParams | null {
@@ -22,9 +22,11 @@ export class ApiImplementation {
         return httpParams;
     }
 
-    protected setPageQuery(params: Params | null, skip: number, count: number) {
-        return (this.convertParamsToHttpParams(params) ?? new HttpParams())
+    protected setPageQuery(params: Params | null, skip: number, count: number, username?: string) {
+        let httpParams = (this.convertParamsToHttpParams(params) ?? new HttpParams())
             .set('skip', skip)
             .set('count', count);
+        if(username) httpParams = httpParams.append('username', username);
+        return httpParams;
     }
 }

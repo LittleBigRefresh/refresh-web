@@ -14,6 +14,7 @@ import {Params} from "@angular/router";
 import {ApiImplementation} from "./api-implementation";
 import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
+import { LevelRelations } from './types/levels/level-relations';
 
 export const defaultPageSize: number = 40;
 
@@ -46,8 +47,8 @@ export class ClientService extends ApiImplementation {
     return this.http.get<ListWithData<Room>>("/rooms");
   }
 
-  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null) {
-    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.setPageQuery(params, skip, count)});
+  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null, username?: string) {
+    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.setPageQuery(params, skip, count, username)});
   }
 
   getLevelById(id: number) {
@@ -107,6 +108,10 @@ export class ClientService extends ApiImplementation {
 
   getPhotoById(id: number) {
     return this.http.get<Photo>(`/photos/id/${id}`);
+  }
+
+  getLevelRelations(id: number) {
+    return this.http.get<LevelRelations>(`/levels/id/${id}/relations`);
   }
 
   setLevelAsHearted(id: number) {

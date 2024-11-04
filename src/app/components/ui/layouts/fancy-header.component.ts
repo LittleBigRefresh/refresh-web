@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
 import {DateComponent} from "../info/date.component";
@@ -27,7 +27,7 @@ import { LayoutService } from '../../../services/layout.service';
         <p>{{ description }}</p>
       </app-dark-container>
     </ng-template>
-    
+
     <app-container-header>
       <div class="flex gap-x-2 sm:gap-x-2.5">
         <ng-content select="[avatar]"></ng-content>
@@ -49,7 +49,7 @@ import { LayoutService } from '../../../services/layout.service';
           </div>
         </div>
       </div>
-      <div class="my-2 py-2 px-2">
+      <div class="content-center">
         <ng-content select="[buttonAreaMobile]"></ng-content>
       </div>
       <div class="mt-2.5">
@@ -61,6 +61,4 @@ import { LayoutService } from '../../../services/layout.service';
 export class FancyHeaderComponent {
   @Input({required: true}) title: string = "";
   @Input({required: true}) description: string = "";
-
-  constructor(protected layout: LayoutService) {}
 }

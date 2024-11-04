@@ -25,6 +25,7 @@ import {ButtonComponent} from "../../components/ui/form/button.component";
 import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { FancyHeaderLevelButtonAreaComponent } from '../../components/ui/layouts/fancy-header-level-button-area';
+import { LevelRelations } from '../../api/types/levels/level-relations';
 
 
 @Component({
@@ -63,6 +64,7 @@ export class LevelComponent {
   protected readonly isBrowser: boolean;
   protected isMobile: boolean = false;
   protected ownUser: ExtendedUser | undefined;
+  protected relations: LevelRelations | undefined;
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
@@ -73,15 +75,15 @@ export class LevelComponent {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
       this.client.getActivityPageForLevel(id, 0, 20).subscribe(page => this.activityPage = page);
+      this.auth.user.subscribe(user => {
+        if(user) {
+          this.ownUser = user;
+          this.client.getLevelRelations(id).subscribe(relations => this.relations = relations);
+        }
+      });
     });
-    
-    this.layout.isMobile.subscribe(v => {
-        this.isMobile = v;
-    })
 
-    auth.user.subscribe(user => {
-      this.ownUser = user;
-    })
+    this.layout.isMobile.subscribe(v => this.isMobile = v);
   }
 
   setDataFromLevel(data: Level) {

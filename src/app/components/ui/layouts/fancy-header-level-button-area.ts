@@ -17,6 +17,7 @@ import {
     faPlay 
 } from "@fortawesome/free-solid-svg-icons";
 import { LayoutService } from "../../../services/layout.service";
+import { LevelRelations } from "../../../api/types/levels/level-relations";
 
 
 @Component({
@@ -77,18 +78,6 @@ import { LayoutService } from "../../../services/layout.service";
             </app-button-or-navitem>
         </ng-template>
 
-        <ng-template #decoyButtonTemplate let-templateHasText="hasText" let-templateIsNavItem="isNavItem">
-            <app-button-or-navitem
-                text="Decoy"
-                [icon]="faPlay"
-                color="bg-secondary"
-                (click)="decoyButtonClick()"
-            
-                [hasText]="templateHasText"
-                [isNavItem]="templateIsNavItem">
-            </app-button-or-navitem>
-        </ng-template>
-
         <ng-template #moreButtonTemplate>
             <app-button
                 class="peer"
@@ -98,10 +87,9 @@ import { LayoutService } from "../../../services/layout.service";
             </app-button>
         </ng-template>
         
-        <div class="flex {{isMobile ? 'flex-row-reverse' : 'flex-row'}} justify-end content-center space-x-1 min-w-56 group relative">
+        <div class="flex flex-row justify-end content-center space-x-1 min-w-56 group relative">
             <div #firstButtonContainer></div>
             <div #secondButtonContainer></div>
-            <div #thirdButtonContainer></div>
             <div class="absolute z-[1] w-48 px-5 py-2.5 rounded bg-header-background border-4 border-backdrop border-solid 
                 drop-shadow-xl invisible peer-has-[:focus]:visible active:visible top-10">
                 <div class="cursor-pointer flex flex-col gap-y-1.5">
@@ -116,65 +104,74 @@ import { LayoutService } from "../../../services/layout.service";
 export class FancyHeaderLevelButtonAreaComponent {
     @Input({required: true}) public level: Level = undefined!;
     @Input({required: true}) public ownUser: ExtendedUser = undefined!;
-    @Input() public isMobile: boolean = false;
+    @Input({required: true}) public levelRelations: LevelRelations = undefined!;
 
     @ViewChild('firstButtonContainer', { read: ViewContainerRef }) firstButtonContainerRef!: ViewContainerRef;
     @ViewChild('secondButtonContainer', { read: ViewContainerRef }) secondButtonContainerRef!: ViewContainerRef;
-    @ViewChild('thirdButtonContainer', { read: ViewContainerRef }) thirdButtonContainerRef!: ViewContainerRef;
     @ViewChild('remainingButtonContainer', { read: ViewContainerRef }) remainingButtonContainerRef!: ViewContainerRef;
 
     @ViewChild('playNowButtonTemplate') playNowButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('queueButtonTemplate') queueButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('heartButtonTemplate') heartButtonTemplateRef!: TemplateRef<any>;
-    //@ViewChild('decoyButtonTemplate') decoyButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('moreButtonTemplate') moreButtonTemplateRef!: TemplateRef<any>;
     buttonTemplateRefs: TemplateRef<any>[] = [];
 
     heartButtonState: boolean = false;
     queueButtonState: boolean = false;
+
     ownUserRoom: Room | undefined;
 
 
-    constructor(private bannerService: BannerService, private client: ClientService, protected layout: LayoutService) {}
+    constructor(private bannerService: BannerService, private client: ClientService) {}
+
+    ngOnInit() {
+        this.determineButtonStates();
+    }
 
     ngAfterViewInit() {
+        this.determineButtonsToShow();
+        this.embedButtons();
+    }
+
+
+    determineButtonStates() {
+        //this.levelRelations = relations;
+        this.queueButtonState = this.levelRelations.isQueued;
+        this.heartButtonState = this.levelRelations.isHearted;
+    }
+
+    determineButtonsToShow() {
         // Play Now button, if level is compatible with the game currently played by the player
         this.ownUserRoom = this.ownUser.activeRoom;
         if(this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
+        //this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
 
         // Queue button, if level is user generated and not from LBP PSP
         if(this.level.slotType == 0 && this.level.gameVersion != 4) { 
             this.buttonTemplateRefs.push(this.queueButtonTemplateRef);
-            this.queueButtonState = this.level.isQueued;
         } 
-        
+
         // Heart Button
         this.buttonTemplateRefs.push(this.heartButtonTemplateRef);
-        this.heartButtonState = this.level.isHearted;
+    }
 
-        // Decoy button
-        //this.buttonTemplateRefs.push(this.decoyButtonTemplateRef);
-        
-
+    embedButtons() {
         // place buttons (or navitems) depending on how many there are in the array
         if(this.buttonTemplateRefs.length > 0) {
             this.firstButtonContainerRef.createEmbeddedView(this.buttonTemplateRefs[0], {hasText: true, isNavItem: false});
 
-            if(this.buttonTemplateRefs.length > 1) {
+            if(this.buttonTemplateRefs.length == 2) {
                 this.secondButtonContainerRef.createEmbeddedView(this.buttonTemplateRefs[1], {hasText: false, isNavItem: false});
             }
 
-            if(this.buttonTemplateRefs.length == 3) {
-                this.thirdButtonContainerRef.createEmbeddedView(this.buttonTemplateRefs[2], {hasText: false, isNavItem: false});
-            }
-            else if(this.buttonTemplateRefs.length > 3) {
-                this.thirdButtonContainerRef.createEmbeddedView(this.moreButtonTemplateRef);
+            else if(this.buttonTemplateRefs.length > 2) {
+                this.secondButtonContainerRef.createEmbeddedView(this.moreButtonTemplateRef);
 
                 let index: number = 0;
                 for(let containerRef of this.buttonTemplateRefs) {
-                    if(index > 1) {
+                    if(index > 0) {
                         this.remainingButtonContainerRef.createEmbeddedView(containerRef, {hasText: true, isNavItem: true});
                     }
                     index++;
@@ -207,11 +204,13 @@ export class FancyHeaderLevelButtonAreaComponent {
     async queueButtonClick() {
         if (this.queueButtonState) {
             this.client.setLevelAsDequeued(this.level.levelId).subscribe(_ => {
+                this.levelRelations.isQueued = false;
                 this.queueButtonState = false;
             });
         }
         else {
             this.client.setLevelAsQueued(this.level.levelId).subscribe(_ => {
+                this.levelRelations.isQueued = true;
                 this.queueButtonState = true;
             });
         }
@@ -220,18 +219,16 @@ export class FancyHeaderLevelButtonAreaComponent {
     async heartButtonClick() {
         if (this.heartButtonState) {
             this.client.setLevelAsUnhearted(this.level.levelId).subscribe(_ => {
+                this.levelRelations.isHearted = false;
                 this.heartButtonState = false;
             });
         }
         else {
             this.client.setLevelAsHearted(this.level.levelId).subscribe(_ => {
+                this.levelRelations.isHearted = true;
                 this.heartButtonState = true;
             });
         }
-    }
-
-    async decoyButtonClick() {
-        this.bannerService.success("Congarts!", "You have achieved absolutely nothing! ... probably");
     }
 
     protected readonly faEllipsisV = faEllipsisV;
