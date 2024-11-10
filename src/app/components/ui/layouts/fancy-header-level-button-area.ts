@@ -25,14 +25,12 @@ import { LevelRelations } from "../../../api/types/levels/level-relations";
     standalone: true,
     imports: [
         ButtonComponent,
-        NavbarItemComponent,
-        NgClass,
         ButtonOrNavItem
     ],
     template: `
         <ng-template #playNowButtonTemplate let-templateHasText="hasText" let-templateIsNavItem="isNavItem">
             <app-button-or-navitem
-                text="Play Now"
+                text="Play Now!"
                 [icon]="faPlay"
                 color="bg-primary"
                 (click)="playNowButtonClick()"
@@ -52,7 +50,7 @@ import { LevelRelations } from "../../../api/types/levels/level-relations";
                 [iconAlt]="faBellSlash"
                 colorAlt="bg-secondary"
 
-                [state]="queueButtonState"
+                [state]="relations.isQueued"
                 (click)="queueButtonClick()"
 
                 [hasText]="templateHasText"
@@ -70,7 +68,7 @@ import { LevelRelations } from "../../../api/types/levels/level-relations";
                 [iconAlt]="faHeartCrack"
                 colorAlt="bg-secondary"
 
-                [state]="heartButtonState"
+                [state]="relations.isHearted"
                 (click)="heartButtonClick()"
 
                 [hasText]="templateHasText"
@@ -104,7 +102,7 @@ import { LevelRelations } from "../../../api/types/levels/level-relations";
 export class FancyHeaderLevelButtonAreaComponent {
     @Input({required: true}) public level: Level = undefined!;
     @Input({required: true}) public ownUser: ExtendedUser = undefined!;
-    @Input({required: true}) public levelRelations: LevelRelations = undefined!;
+    @Input({required: true}) public relations: LevelRelations = undefined!;
 
     @ViewChild('firstButtonContainer', { read: ViewContainerRef }) firstButtonContainerRef!: ViewContainerRef;
     @ViewChild('secondButtonContainer', { read: ViewContainerRef }) secondButtonContainerRef!: ViewContainerRef;
@@ -116,37 +114,17 @@ export class FancyHeaderLevelButtonAreaComponent {
     @ViewChild('moreButtonTemplate') moreButtonTemplateRef!: TemplateRef<any>;
     buttonTemplateRefs: TemplateRef<any>[] = [];
 
-    heartButtonState: boolean = false;
-    queueButtonState: boolean = false;
-
     ownUserRoom: Room | undefined;
 
 
-    constructor(private bannerService: BannerService, private client: ClientService) {}
-
-    ngOnInit() {
-        this.determineButtonStates();
-    }
+    constructor(private client: ClientService, private bannerService: BannerService) {}
 
     ngAfterViewInit() {
-        this.determineButtonsToShow();
-        this.embedButtons();
-    }
-
-
-    determineButtonStates() {
-        //this.levelRelations = relations;
-        this.queueButtonState = this.levelRelations.isQueued;
-        this.heartButtonState = this.levelRelations.isHearted;
-    }
-
-    determineButtonsToShow() {
         // Play Now button, if level is compatible with the game currently played by the player
         this.ownUserRoom = this.ownUser.activeRoom;
         if(this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
-        //this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
 
         // Queue button, if level is user generated and not from LBP PSP
         if(this.level.slotType == 0 && this.level.gameVersion != 4) { 
@@ -155,9 +133,7 @@ export class FancyHeaderLevelButtonAreaComponent {
 
         // Heart Button
         this.buttonTemplateRefs.push(this.heartButtonTemplateRef);
-    }
 
-    embedButtons() {
         // place buttons (or navitems) depending on how many there are in the array
         if(this.buttonTemplateRefs.length > 0) {
             this.firstButtonContainerRef.createEmbeddedView(this.buttonTemplateRefs[0], {hasText: true, isNavItem: false});
@@ -194,39 +170,39 @@ export class FancyHeaderLevelButtonAreaComponent {
         return false;
     }
 
-
     async playNowButtonClick() {
         this.client.setLevelAsOverride(this.level.levelId).subscribe(_ => {
-            this.bannerService.success("Check your game!", "In LBP, head to 'Lucky Dip' (or any category) and '" + this.level.title + "' should show up!");
+            if(this.ownUserRoom && this.ownUserRoom.game == 2) {
+                this.bannerService.success("Check your game!", "In LBP3, head to a user's planet you haven't loaded before and '" + this.level.title + "' will show up!");
+            }
+            else {
+                this.bannerService.success("Check your game!", "In LBP, head to 'Lucky Dip' (or any category) and '" + this.level.title + "' will show up!");
+            }           
         });
     }
     
     async queueButtonClick() {
-        if (this.queueButtonState) {
+        if (this.relations.isQueued) {
             this.client.setLevelAsDequeued(this.level.levelId).subscribe(_ => {
-                this.levelRelations.isQueued = false;
-                this.queueButtonState = false;
+                this.relations.isQueued = false;
             });
         }
         else {
             this.client.setLevelAsQueued(this.level.levelId).subscribe(_ => {
-                this.levelRelations.isQueued = true;
-                this.queueButtonState = true;
+                this.relations.isQueued = true;
             });
         }
     }
 
     async heartButtonClick() {
-        if (this.heartButtonState) {
+        if (this.relations.isHearted) {
             this.client.setLevelAsUnhearted(this.level.levelId).subscribe(_ => {
-                this.levelRelations.isHearted = false;
-                this.heartButtonState = false;
+                this.relations.isHearted = false;
             });
         }
         else {
             this.client.setLevelAsHearted(this.level.levelId).subscribe(_ => {
-                this.levelRelations.isHearted = true;
-                this.heartButtonState = true;
+                this.relations.isHearted = true;
             });
         }
     }

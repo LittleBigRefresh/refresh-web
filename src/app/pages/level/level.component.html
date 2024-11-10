@@ -14,10 +14,10 @@
     </div>
     <app-level-statistics [level]="level" class="mb-1.5 block" statistics></app-level-statistics>
     @if(relations && !isMobile) {
-      <app-level-header-button-area [level]="level" [ownUser]="ownUser!" [levelRelations]="relations" buttonArea></app-level-header-button-area>
+      <app-level-header-button-area [level]="level" [ownUser]="ownUser!" [relations]="relations" buttonArea></app-level-header-button-area>
     }
     @if(relations && isMobile) {
-      <app-level-header-button-area [level]="level" [ownUser]="ownUser!" [levelRelations]="relations" buttonAreaMobile></app-level-header-button-area>
+      <app-level-header-button-area [level]="level" [ownUser]="ownUser!" [relations]="relations" buttonAreaMobile></app-level-header-button-area>
     }
   </app-fancy-header>
 
