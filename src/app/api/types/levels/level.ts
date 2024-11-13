@@ -17,7 +17,4 @@ export interface Level {
     gameVersion: number;
     score: number;
     slotType: number;
-    // Relation info
-    isHearted: boolean;
-    isQueued: boolean;
 }

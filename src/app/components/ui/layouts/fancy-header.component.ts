@@ -1,12 +1,8 @@
 import {Component, Input, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
-import {DateComponent} from "../info/date.component";
-import {DefaultPipe} from "../../../pipes/default.pipe";
 import {PageTitleComponent} from "../text/page-title.component";
-import {LevelStatisticsComponent} from "../../items/level-statistics.component";
-import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
-import { LayoutService } from '../../../services/layout.service';
+import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
   selector: 'app-fancy-header',
@@ -14,12 +10,8 @@ import { LayoutService } from '../../../services/layout.service';
   imports: [
     ContainerHeaderComponent,
     DarkContainerComponent,
-    DateComponent,
-    DefaultPipe,
     PageTitleComponent,
-    LevelStatisticsComponent,
-    NgTemplateOutlet,
-    AsyncPipe
+    NgTemplateOutlet
   ],
   template: `
     <ng-template #descriptionTemplate>

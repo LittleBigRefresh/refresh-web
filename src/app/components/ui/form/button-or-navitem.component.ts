@@ -68,7 +68,7 @@ import { ButtonTwoStateComponent } from "./button-two-state.component";
     styles: ``
 })
 
-export class ButtonOrNavItem {
+export class ButtonOrNavItemComponent {
     @Input() text: string = ""
     @Input() textAlt: string = ""
 

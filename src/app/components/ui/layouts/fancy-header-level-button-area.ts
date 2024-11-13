@@ -4,10 +4,9 @@ import { Level } from "../../../api/types/levels/level";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
 import { ClientService } from "../../../api/client.service";
 import { Room } from "../../../api/types/rooms/room";
+import { LevelRelations } from "../../../api/types/levels/level-relations";
 import { ButtonComponent } from "../form/button.component";
-import { NavbarItemComponent } from "../header/navbar-item.component";
-import { NgClass, NgTemplateOutlet } from "@angular/common";
-import { ButtonOrNavItem } from "../form/button-or-navitem.component";
+import { ButtonOrNavItemComponent } from "../form/button-or-navitem.component";
 import {
     faEllipsisV,
     faBell, 
@@ -16,16 +15,13 @@ import {
     faHeartCrack, 
     faPlay 
 } from "@fortawesome/free-solid-svg-icons";
-import { LayoutService } from "../../../services/layout.service";
-import { LevelRelations } from "../../../api/types/levels/level-relations";
-
 
 @Component({
     selector: 'app-level-header-button-area',
     standalone: true,
     imports: [
         ButtonComponent,
-        ButtonOrNavItem
+        ButtonOrNavItemComponent
     ],
     template: `
         <ng-template #playNowButtonTemplate let-templateHasText="hasText" let-templateIsNavItem="isNavItem">
@@ -116,7 +112,6 @@ export class FancyHeaderLevelButtonAreaComponent {
 
     ownUserRoom: Room | undefined;
 
-
     constructor(private client: ClientService, private bannerService: BannerService) {}
 
     ngAfterViewInit() {
@@ -125,7 +120,7 @@ export class FancyHeaderLevelButtonAreaComponent {
         if(this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
-
+        
         // Queue button, if level is user generated and not from LBP PSP
         if(this.level.slotType == 0 && this.level.gameVersion != 4) { 
             this.buttonTemplateRefs.push(this.queueButtonTemplateRef);
@@ -172,12 +167,7 @@ export class FancyHeaderLevelButtonAreaComponent {
 
     async playNowButtonClick() {
         this.client.setLevelAsOverride(this.level.levelId).subscribe(_ => {
-            if(this.ownUserRoom && this.ownUserRoom.game == 2) {
-                this.bannerService.success("Check your game!", "In LBP3, head to a user's planet you haven't loaded before and '" + this.level.title + "' will show up!");
-            }
-            else {
-                this.bannerService.success("Check your game!", "In LBP, head to 'Lucky Dip' (or any category) and '" + this.level.title + "' will show up!");
-            }           
+            this.bannerService.success("Check your game!", "In LBP, head to 'Lucky Dip' (or any category) and '" + this.level.title + "' will show up!");
         });
     }
     

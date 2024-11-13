@@ -22,7 +22,7 @@ export class ButtonTwoStateComponent {
     @Input({required: true}) state: boolean = false;
 
     @Input({required: true}) text: string = "Activate";
-    @Input() textAlternative: string = "Deactivate";
+    @Input({required: true}) textAlternative: string = "Deactivate";
 
     @Input() icon: IconProp | undefined;
     @Input() iconAlternative: IconProp | undefined;
