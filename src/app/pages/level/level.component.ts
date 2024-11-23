@@ -24,7 +24,7 @@ import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ButtonComponent} from "../../components/ui/form/button.component";
 import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
-import { FancyHeaderLevelButtonAreaComponent } from '../../components/ui/layouts/fancy-header-level-button-area';
+import { FancyHeaderLevelButtonsComponent } from '../../components/ui/layouts/fancy-header-level-buttons.component';
 import { LevelRelations } from '../../api/types/levels/level-relations';
 
 
@@ -37,7 +37,7 @@ import { LevelRelations } from '../../api/types/levels/level-relations';
       LevelAvatarComponent,
       UserLinkComponent,
       FancyHeaderComponent,
-      FancyHeaderLevelButtonAreaComponent,
+      FancyHeaderLevelButtonsComponent,
       GamePipe,
       AsyncPipe,
       DateComponent,

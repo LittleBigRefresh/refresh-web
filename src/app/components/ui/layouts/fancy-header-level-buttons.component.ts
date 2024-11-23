@@ -1,27 +1,26 @@
-import { Component, Input, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, Input, TemplateRef, ViewChild } from "@angular/core";
 import { BannerService } from "../../../banners/banner.service";
 import { Level } from "../../../api/types/levels/level";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
 import { ClientService } from "../../../api/client.service";
 import { Room } from "../../../api/types/rooms/room";
 import { LevelRelations } from "../../../api/types/levels/level-relations";
-import { ButtonComponent } from "../form/button.component";
 import { ButtonOrNavItemComponent } from "../form/button-or-navitem.component";
 import {
-    faEllipsisV,
     faBell, 
     faBellSlash, 
     faHeart, 
     faHeartCrack, 
-    faPlay 
+    faPlay
 } from "@fortawesome/free-solid-svg-icons";
+import { FancyHeaderButtonsComponent } from "./fancy-header-buttons.component";
 
 @Component({
-    selector: 'app-level-header-button-area',
+    selector: 'app-fancy-header-level-buttons',
     standalone: true,
     imports: [
-        ButtonComponent,
-        ButtonOrNavItemComponent
+        ButtonOrNavItemComponent,
+        FancyHeaderButtonsComponent
     ],
     template: `
         <ng-template #playNowButtonTemplate let-templateHasText="hasText" let-templateIsNavItem="isNavItem">
@@ -72,94 +71,58 @@ import {
             </app-button-or-navitem>
         </ng-template>
 
-        <ng-template #moreButtonTemplate>
-            <app-button
-                class="peer"
-                text=""
-                [icon]="faEllipsisV"
-                color="bg-secondary"> 
-            </app-button>
-        </ng-template>
-        
-        <div class="flex flex-row justify-end content-center space-x-1 min-w-56 group relative">
-            <div #firstButtonContainer></div>
-            <div #secondButtonContainer></div>
-            <div class="absolute z-[1] w-48 px-5 py-2.5 rounded bg-header-background border-4 border-backdrop border-solid 
-                drop-shadow-xl invisible peer-has-[:focus]:visible active:visible top-10">
-                <div class="cursor-pointer flex flex-col gap-y-1.5">
-                    <div #remainingButtonContainer>
-                </div>
-            </div> 
-        </div>
+        <div>
+            @if (buttonsInitialized) {
+                <app-fancy-header-buttons [buttonTemplateRefs]="buttonTemplateRefs"></app-fancy-header-buttons>
+            }
+        </div>    
     `,
     styles: ``
 })
 
-export class FancyHeaderLevelButtonAreaComponent {
+export class FancyHeaderLevelButtonsComponent {
     @Input({required: true}) public level: Level = undefined!;
     @Input({required: true}) public ownUser: ExtendedUser = undefined!;
     @Input({required: true}) public relations: LevelRelations = undefined!;
 
-    @ViewChild('firstButtonContainer', { read: ViewContainerRef }) firstButtonContainerRef!: ViewContainerRef;
-    @ViewChild('secondButtonContainer', { read: ViewContainerRef }) secondButtonContainerRef!: ViewContainerRef;
-    @ViewChild('remainingButtonContainer', { read: ViewContainerRef }) remainingButtonContainerRef!: ViewContainerRef;
-
     @ViewChild('playNowButtonTemplate') playNowButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('queueButtonTemplate') queueButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('heartButtonTemplate') heartButtonTemplateRef!: TemplateRef<any>;
-    @ViewChild('moreButtonTemplate') moreButtonTemplateRef!: TemplateRef<any>;
+    
     buttonTemplateRefs: TemplateRef<any>[] = [];
-
     ownUserRoom: Room | undefined;
+    buttonsInitialized: boolean = false;
 
     constructor(private client: ClientService, private bannerService: BannerService) {}
 
     ngAfterViewInit() {
         // Play Now button, if level is compatible with the game currently played by the player
         this.ownUserRoom = this.ownUser.activeRoom;
-        if(this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
+        if (this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
+        //this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         
         // Queue button, if level is user generated and not from LBP PSP
-        if(this.level.slotType == 0 && this.level.gameVersion != 4) { 
+        if (this.level.slotType == 0 && this.level.gameVersion != 4) { 
             this.buttonTemplateRefs.push(this.queueButtonTemplateRef);
         } 
 
         // Heart Button
         this.buttonTemplateRefs.push(this.heartButtonTemplateRef);
 
-        // place buttons (or navitems) depending on how many there are in the array
-        if(this.buttonTemplateRefs.length > 0) {
-            this.firstButtonContainerRef.createEmbeddedView(this.buttonTemplateRefs[0], {hasText: true, isNavItem: false});
-
-            if(this.buttonTemplateRefs.length == 2) {
-                this.secondButtonContainerRef.createEmbeddedView(this.buttonTemplateRefs[1], {hasText: false, isNavItem: false});
-            }
-
-            else if(this.buttonTemplateRefs.length > 2) {
-                this.secondButtonContainerRef.createEmbeddedView(this.moreButtonTemplateRef);
-
-                let index: number = 0;
-                for(let containerRef of this.buttonTemplateRefs) {
-                    if(index > 0) {
-                        this.remainingButtonContainerRef.createEmbeddedView(containerRef, {hasText: true, isNavItem: true});
-                    }
-                    index++;
-                }
-            }
-        }
+        this.buttonsInitialized = true;
     }
 
     areGameVersionsCompatible(levelGameVersion: number, userGameVersion: number) {
         // if level is from lbp1 and user is on lbp2 or 3
-        if(levelGameVersion == 0 && userGameVersion == (1 || 2)) return true;
+        if (levelGameVersion == 0 && userGameVersion == (1 || 2)) return true;
 
         // if level is from lbp2 and user is on lbp3
-        if(levelGameVersion == 1 && userGameVersion == 2) return true;
+        if (levelGameVersion == 1 && userGameVersion == 2) return true;
 
         // if level game version is the same as users game version
-        if(levelGameVersion == userGameVersion) return true;
+        if (levelGameVersion == userGameVersion) return true;
 
         // else
         return false;
@@ -197,7 +160,6 @@ export class FancyHeaderLevelButtonAreaComponent {
         }
     }
 
-    protected readonly faEllipsisV = faEllipsisV;
     protected readonly faPlay = faPlay;
     protected readonly faBell = faBell; 
     protected readonly faBellSlash = faBellSlash; 
