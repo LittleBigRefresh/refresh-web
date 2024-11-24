@@ -10,7 +10,7 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
     ],
     template: `
         @if (state) {
-            <app-button [text]="textAlternative!" [icon]="iconAlternative" [color]="colorAlternative" [enabled]="enabled"></app-button>
+            <app-button [text]="textAlternative" [icon]="iconAlternative" [color]="colorAlternative" [enabled]="enabled"></app-button>
         }
         @else {
             <app-button [text]="text" [icon]="icon" [color]="color" [enabled]="enabled"></app-button>

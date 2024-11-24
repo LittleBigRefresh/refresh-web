@@ -73,7 +73,9 @@ import { FancyHeaderButtonsComponent } from "./fancy-header-buttons.component";
 
         <div>
             @if (buttonsInitialized) {
-                <app-fancy-header-buttons [buttonTemplateRefs]="buttonTemplateRefs"></app-fancy-header-buttons>
+                <app-fancy-header-buttons 
+                    [buttonTemplateRefs]="buttonTemplateRefs">
+                </app-fancy-header-buttons>
             }
         </div>    
     `,
