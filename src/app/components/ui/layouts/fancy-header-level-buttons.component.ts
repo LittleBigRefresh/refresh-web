@@ -101,7 +101,6 @@ export class FancyHeaderLevelButtonsComponent {
         if (this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
-        //this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         
         // Queue button, if level is user generated and not from LBP PSP
         if (this.level.slotType == 0 && this.level.gameVersion != 4) { 
