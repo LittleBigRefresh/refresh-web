@@ -47,8 +47,8 @@ export class ClientService extends ApiImplementation {
     return this.http.get<ListWithData<Room>>("/rooms");
   }
 
-  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null, username?: string) {
-    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.setPageQuery(params, skip, count, username)});
+  getLevelsInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null) {
+    return this.http.get<ListWithData<Level>>(`/levels/${category}`, {params: this.setPageQuery(params, skip, count)});
   }
 
   getLevelById(id: number) {
