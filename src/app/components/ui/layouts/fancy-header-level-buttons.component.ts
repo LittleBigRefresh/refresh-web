@@ -71,13 +71,11 @@ import { FancyHeaderButtonsComponent } from "./fancy-header-buttons.component";
             </app-button-or-navitem>
         </ng-template>
 
-        <div>
-            @if (buttonsInitialized) {
-                <app-fancy-header-buttons 
-                    [buttonTemplateRefs]="buttonTemplateRefs">
-                </app-fancy-header-buttons>
-            }
-        </div>    
+        @if (buttonsInitialized) {
+            <app-fancy-header-buttons 
+                [buttonTemplateRefs]="buttonTemplateRefs">
+            </app-fancy-header-buttons>
+        }
     `,
     styles: ``
 })
@@ -103,7 +101,7 @@ export class FancyHeaderLevelButtonsComponent {
         if (this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
-        
+
         // Queue button, if level is user generated and not from LBP PSP
         if (this.level.slotType == 0 && this.level.gameVersion != 4) { 
             this.buttonTemplateRefs.push(this.queueButtonTemplateRef);

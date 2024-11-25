@@ -34,11 +34,9 @@ import { NgTemplateOutlet } from "@angular/common";
             </app-page-title>
             <ng-content select="[buttonArea]"></ng-content>
           </div>
-          <div class="flex flex-wrap gap-x-4 place-content-between">
-            <div class="">
-              <ng-content select="[belowTitle]"></ng-content>
-              <ng-content select="[statistics]"></ng-content>
-            </div>
+          <div>
+            <ng-content select="[belowTitle]"></ng-content>
+            <ng-content select="[statistics]"></ng-content>
           </div>
         </div>
       </div>
