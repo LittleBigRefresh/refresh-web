@@ -1,6 +1,6 @@
 <app-page-title></app-page-title>
 
-<app-form [form]="form" (submit)="submit()">
+<app-form [form]="form" (submitEvent)="submit()">
     <app-textbox [icon]="faEnvelope" [form]="form" placeholder="sackboy@lbp.me" ctrlName="emailAddress" label="Email Address" type="email"></app-textbox>
     <app-textbox [icon]="faKey" [form]="form" placeholder="•••••••••" ctrlName="password" label="Password" type="password"></app-textbox>
 
