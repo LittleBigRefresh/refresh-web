@@ -9,6 +9,7 @@ import {BehaviorSubject} from "rxjs";
 import { BannerService } from "../banners/banner.service";
 import { RefreshApiError } from "./refresh-api-error";
 import { AuthRefreshRequest } from "./types/auth/auth-refresh-request";
+import { RefreshApiResponse } from "./refresh-api-response";
 
 @Injectable({
     providedIn: 'root'
@@ -43,8 +44,13 @@ export class AuthenticationService extends ApiImplementation {
     private GetOwnUser(refreshTokenIfFail: boolean = false) {
         this.http.get<ExtendedUser>("/users/me").subscribe({
             error: error => {
-                if (refreshTokenIfFail) 
+                if (refreshTokenIfFail) {
                     this.RefreshToken();
+                }
+                else {
+                    const apiError: RefreshApiError | undefined = error.error?.error;
+                    this.bannerService.error("Failed to get your user info", apiError == null ? error.message : apiError.message);
+                }
             },
             next: response => {
                 this.user.next(response);
@@ -80,7 +86,7 @@ export class AuthenticationService extends ApiImplementation {
         });
     }
     
-    public LogIn(emailAddress: string, password: string) {
+    public LogIn(emailAddress: string, password: string): boolean {
         const body: AuthRequest = {
             emailAddress,
             passwordSha512: password,
@@ -90,16 +96,39 @@ export class AuthenticationService extends ApiImplementation {
             error: error => {
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.bannerService.error("Login failed", apiError == null ? error.message : apiError.message);
+                return false;
             },
             next: response => {
                 if (response === undefined) {
                     console.warn("response was null?", response)
-                    return;
+                    return false;
                 }
                     
                 this.HandleAuthResponse(response);
                 this.bannerService.success("Login successful", "Successfully logged in, have fun!");
+                return true;
             },
         });
+
+        return false;
+    }
+
+    public LogOut(): boolean {
+        this.http.put<RefreshApiResponse<undefined>>("/logout", null).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.bannerService.error("Logout failed", apiError == null ? error.message : apiError.message);
+                return false;
+            },
+            next: response => {
+                this.tokenStorage.ClearStoredGameToken();
+                this.tokenStorage.ClearStoredRefreshToken();
+                this.tokenStorage.ClearStoredUser();
+                this.bannerService.success("Logged out", "You have been logged out.");
+                return true;
+            },
+        })
+
+        return false;
     }
 }

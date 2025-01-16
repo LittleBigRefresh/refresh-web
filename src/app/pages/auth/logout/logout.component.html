@@ -1,0 +1,12 @@
+<app-page-title></app-page-title>
+
+<div>
+    <p>
+        Are you sure you want to log out?
+    </p>
+    <app-divider></app-divider>
+    <app-button-group>
+        <app-button text="Log out" (click)="auth.LogOut()"></app-button>
+        <app-button text="Go back" onClick="window.history.back()"></app-button>
+    </app-button-group>
+</div>
