@@ -4,9 +4,11 @@
     <p>
         Are you sure you want to log out?
     </p>
+
     <app-divider></app-divider>
+
     <app-button-group>
-        <app-button text="Log out" (click)="auth.LogOut()"></app-button>
-        <app-button text="Go back" onClick="window.history.back()"></app-button>
+        <app-button text="Log out" color="bg-red" (click)="this.auth.LogOut(true)"></app-button>
+        <app-button text="Go back" color="bg-secondary" onClick="window.history.back()"></app-button>
     </app-button-group>
 </div>

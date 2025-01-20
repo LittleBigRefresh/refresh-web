@@ -10,6 +10,7 @@ import { BannerService } from "../banners/banner.service";
 import { RefreshApiError } from "./refresh-api-error";
 import { AuthRefreshRequest } from "./types/auth/auth-refresh-request";
 import { RefreshApiResponse } from "./refresh-api-response";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ import { RefreshApiResponse } from "./refresh-api-response";
 export class AuthenticationService extends ApiImplementation {
     public user: BehaviorSubject<ExtendedUser | undefined> = new BehaviorSubject<ExtendedUser | undefined>(undefined);
     
-    constructor(http: HttpClient, private tokenStorage: TokenStorageService, private bannerService: BannerService) {
+    constructor(http: HttpClient, private tokenStorage: TokenStorageService, private bannerService: BannerService, private router: Router) {
         super(http);
 
         const storedToken: string | null = this.tokenStorage.GetStoredGameToken();
@@ -71,9 +72,7 @@ export class AuthenticationService extends ApiImplementation {
 
         this.http.post<AuthResponse>("/refreshToken", request).subscribe({
             error: error => {
-                this.tokenStorage.ClearStoredGameToken();
-                this.tokenStorage.ClearStoredRefreshToken();
-                this.tokenStorage.ClearStoredUser();
+                this.ResetStoredInformation();
 
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.bannerService.error("Failed to extend session", apiError == null ? error.message : apiError.message);
@@ -86,7 +85,7 @@ export class AuthenticationService extends ApiImplementation {
         });
     }
     
-    public LogIn(emailAddress: string, password: string): boolean {
+    public LogIn(emailAddress: string, password: string, redirectAfterSuccess: boolean = false) {
         const body: AuthRequest = {
             emailAddress,
             passwordSha512: password,
@@ -96,39 +95,46 @@ export class AuthenticationService extends ApiImplementation {
             error: error => {
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.bannerService.error("Login failed", apiError == null ? error.message : apiError.message);
-                return false;
+                return;
             },
             next: response => {
                 if (response === undefined) {
                     console.warn("response was null?", response)
-                    return false;
+                    return;
                 }
                     
                 this.HandleAuthResponse(response);
                 this.bannerService.success("Login successful", "Successfully logged in, have fun!");
-                return true;
+
+                if (redirectAfterSuccess)
+                    this.user.subscribe((user) => {
+                        if (user) 
+                            this.router.navigate(['/user/', user.username]);
+                    });
             },
         });
 
         return false;
     }
 
-    public LogOut(): boolean {
+    public LogOut(redirectAfterSuccess: boolean = false) {
         this.http.put<RefreshApiResponse<undefined>>("/logout", null).subscribe({
             error: error => {
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.bannerService.error("Logout failed", apiError == null ? error.message : apiError.message);
-                return false;
             },
             next: response => {
-                this.tokenStorage.ClearStoredGameToken();
-                this.tokenStorage.ClearStoredRefreshToken();
-                this.tokenStorage.ClearStoredUser();
+                this.ResetStoredInformation();
                 this.bannerService.success("Logged out", "You have been logged out.");
-                return true;
+                if (redirectAfterSuccess) this.router.navigate(['/']);
             },
         })
+    }
 
-        return false;
+    private ResetStoredInformation() {
+        this.tokenStorage.ClearStoredGameToken();
+        this.tokenStorage.ClearStoredRefreshToken();
+        this.tokenStorage.ClearStoredUser();
+        this.user.next(undefined);
     }
 }
