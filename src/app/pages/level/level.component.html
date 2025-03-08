@@ -2,7 +2,9 @@
   <app-fancy-header [title]="level.title | default: 'Unnamed Level'" [description]="level.description | default: 'This level doesn\'t have a description.'">
     <app-level-avatar [level]="level" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-level-avatar>
     <ng-container titleSubtext>
-      by <app-user-link [user]="level.publisher"></app-user-link>
+      <span class="text-nowrap">
+        by <app-user-link [user]="level.publisher"></app-user-link>
+      </span>
     </ng-container>
     <div class="text-gentle sm:text-sm md:text-sm text-md" belowTitle>
       Published for {{level.gameVersion | game: isMobile}}
@@ -13,8 +15,14 @@
       }
     </div>
     <app-level-statistics [level]="level" class="mb-1.5 block" statistics></app-level-statistics>
+    @if(relations && !isMobile) {
+      <app-fancy-header-level-buttons [level]="level" [ownUser]="ownUser!" [relations]="relations" buttonArea></app-fancy-header-level-buttons>
+    }
+    @else if(relations && isMobile) {
+      <app-fancy-header-level-buttons [level]="level" [ownUser]="ownUser!" [relations]="relations" buttonAreaMobile></app-fancy-header-level-buttons>
+    }
   </app-fancy-header>
-    
+
   <app-two-pane-layout>
       <app-container class="w-full">
           <app-pane-title>

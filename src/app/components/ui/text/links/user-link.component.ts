@@ -13,7 +13,7 @@ import {ClientService} from "../../../../api/client.service";
     ],
     template: `
         @if(user) {
-            <app-user-router-link class="ml-1 inline" [user]=user>
+            <app-user-router-link class="ml-1 inline text-nowrap" [user]=user>
                 <app-user-avatar [user]=user class="inline mr-1" borderRule="rounded-[3px]"></app-user-avatar>
                 <span>{{ user.username }}</span>
             </app-user-router-link>

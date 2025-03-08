@@ -3,8 +3,7 @@ import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
-import {PageTitleComponent} from "../../components/ui/text/page-title.component";
-import { AsyncPipe, isPlatformBrowser } from "@angular/common";
+import { AsyncPipe, isPlatformBrowser, } from "@angular/common";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
@@ -23,30 +22,36 @@ import {PaneTitleComponent} from "../../components/ui/text/pane-title.component"
 import {EventPageComponent} from "../../components/items/event-page.component";
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {ButtonComponent} from "../../components/ui/form/button.component";
+import {AuthenticationService} from "../../api/authentication.service";
+import { ExtendedUser } from '../../api/types/users/extended-user';
+import { FancyHeaderLevelButtonsComponent } from '../../components/ui/layouts/fancy-header-level-buttons.component';
+import { LevelRelations } from '../../api/types/levels/level-relations';
+
 
 @Component({
   selector: 'app-level',
   standalone: true,
-    imports: [
-        LevelStatisticsComponent,
-        DefaultPipe,
-        LevelAvatarComponent,
-        UserLinkComponent,
-        FancyHeaderComponent,
-        GamePipe,
-        AsyncPipe,
-        DateComponent,
-        TwoPaneLayoutComponent,
-        ContainerComponent,
-        ContainerTitleComponent,
-        LevelLeaderboardComponent,
-        DividerComponent,
-        PaneTitleComponent,
-        EventPageComponent,
-        ButtonComponent,
-        RouterLink,
-        SlugPipe
-    ],
+  imports: [
+      LevelStatisticsComponent,
+      DefaultPipe,
+      LevelAvatarComponent,
+      UserLinkComponent,
+      FancyHeaderComponent,
+      FancyHeaderLevelButtonsComponent,
+      GamePipe,
+      AsyncPipe,
+      DateComponent,
+      TwoPaneLayoutComponent,
+      ContainerComponent,
+      ContainerTitleComponent,
+      LevelLeaderboardComponent,
+      DividerComponent,
+      PaneTitleComponent,
+      EventPageComponent,
+      ButtonComponent,
+      RouterLink,
+      SlugPipe
+  ],
   providers: [
       SlugPipe
   ],
@@ -58,25 +63,31 @@ export class LevelComponent {
   
   protected readonly isBrowser: boolean;
   protected isMobile: boolean = false;
+  protected ownUser: ExtendedUser | undefined;
+  protected relations: LevelRelations | undefined;
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
-              route: ActivatedRoute, protected layout: LayoutService, @Inject(PLATFORM_ID) platformId: Object)
+              route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
+              @Inject(PLATFORM_ID) platformId: Object)
   {
     this.isBrowser = isPlatformBrowser(platformId);
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
       this.client.getActivityPageForLevel(id, 0, 20).subscribe(page => this.activityPage = page);
+      this.auth.user.subscribe(user => {
+        if(user) {
+          this.ownUser = user;
+          this.client.getLevelRelations(id).subscribe(relations => this.relations = relations);
+        }
+      });
     });
-    
-    this.layout.isMobile.subscribe(v => {
-        this.isMobile = v;
-    })
+
+    this.layout.isMobile.subscribe(v => this.isMobile = v);
   }
 
   setDataFromLevel(data: Level) {
     this.level = data;
-
     if(this.isBrowser) {
       window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}`);
     }
