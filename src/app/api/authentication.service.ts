@@ -95,7 +95,7 @@ export class AuthenticationService extends ApiImplementation {
         this.http.post<AuthResponse>("/login", body).subscribe({
             error: error => {
                 const apiError: RefreshApiError | undefined = error.error?.error;
-                this.bannerService.error("Sign in failed", apiError == null ? error.message : apiError.message);
+                this.bannerService.error("Failed to sign in", apiError == null ? error.message : apiError.message);
             },
             next: response => {
                 if (response === undefined) {
@@ -131,7 +131,7 @@ export class AuthenticationService extends ApiImplementation {
             next: response => {
                 this.ResetStoredInformation();
 
-                this.bannerService.success("Signed out", "You have been signed out.");
+                this.bannerService.success("Until next time!", "You have been successfully signed out.");
 
                 if (redirectAfterResponse) this.router.navigate(['/']);
             },
