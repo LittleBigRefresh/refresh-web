@@ -73,9 +73,10 @@ export class AuthenticationService extends ApiImplementation {
         this.http.post<AuthResponse>("/refreshToken", request).subscribe({
             error: error => {
                 this.ResetStoredInformation();
-
                 const apiError: RefreshApiError | undefined = error.error?.error;
-                this.bannerService.error("Failed to extend session", apiError == null ? error.message : apiError.message);
+
+                console.warn("API error during token refresh:", apiError);
+                this.bannerService.warn("Session Expired", "Your session has expired, please sign in again.");
             },
             next: response => {
                 this.tokenStorage.SetStoredGameToken(response.tokenData);
@@ -85,17 +86,16 @@ export class AuthenticationService extends ApiImplementation {
         });
     }
     
-    public LogIn(emailAddress: string, password: string, redirectAfterSuccess: boolean = false) {
+    public LogIn(emailAddress: string, passwordSha512: string, redirectAfterSuccess: boolean = false) {
         const body: AuthRequest = {
             emailAddress,
-            passwordSha512: password,
+            passwordSha512,
         }
         
         this.http.post<AuthResponse>("/login", body).subscribe({
             error: error => {
                 const apiError: RefreshApiError | undefined = error.error?.error;
-                this.bannerService.error("Login failed", apiError == null ? error.message : apiError.message);
-                return;
+                this.bannerService.error("Sign in failed", apiError == null ? error.message : apiError.message);
             },
             next: response => {
                 if (response === undefined) {
@@ -104,29 +104,36 @@ export class AuthenticationService extends ApiImplementation {
                 }
                     
                 this.HandleAuthResponse(response);
-                this.bannerService.success("Login successful", "Successfully logged in, have fun!");
+                
+                let greeted: boolean = false;
+                this.user.subscribe((user) => {
+                    if (user && !greeted) {
+                        this.bannerService.success(`Hi, ${user.username}!`, "You have been successfully signed in. Have fun!");
+                        if (redirectAfterSuccess) this.router.navigate(['/user/', user.username]);
 
-                if (redirectAfterSuccess)
-                    this.user.subscribe((user) => {
-                        if (user) 
-                            this.router.navigate(['/user/', user.username]);
-                    });
+                        greeted = true;
+                    }
+                });
             },
         });
-
-        return false;
     }
 
-    public LogOut(redirectAfterSuccess: boolean = false) {
+    public LogOut(redirectAfterResponse: boolean = false) {
         this.http.put<RefreshApiResponse<undefined>>("/logout", null).subscribe({
             error: error => {
+                this.ResetStoredInformation();
+
                 const apiError: RefreshApiError | undefined = error.error?.error;
-                this.bannerService.error("Logout failed", apiError == null ? error.message : apiError.message);
+                this.bannerService.warn("Failed to properly sign out", apiError == null ? error.message : apiError.message);
+
+                if (redirectAfterResponse) this.router.navigate(['/']);
             },
             next: response => {
                 this.ResetStoredInformation();
-                this.bannerService.success("Logged out", "You have been logged out.");
-                if (redirectAfterSuccess) this.router.navigate(['/']);
+
+                this.bannerService.success("Signed out", "You have been signed out.");
+
+                if (redirectAfterResponse) this.router.navigate(['/']);
             },
         })
     }

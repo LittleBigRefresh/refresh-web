@@ -10,12 +10,12 @@ import { faCancel, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
     selector: 'app-logout',
     standalone: true,
     imports: [
-    PageTitleComponent,
-    ButtonComponent,
-    DividerComponent,
-    ButtonGroupComponent,
-    DividerComponent
-],
+        PageTitleComponent,
+        ButtonComponent,
+        DividerComponent,
+        ButtonGroupComponent,
+        DividerComponent
+    ],
     templateUrl: './logout.component.html'
 })
 
