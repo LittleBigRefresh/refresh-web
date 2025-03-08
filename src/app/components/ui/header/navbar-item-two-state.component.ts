@@ -11,7 +11,7 @@ import { NavbarItemComponent } from "./navbar-item.component";
 ],
   template: `
     @if (state) {
-      <app-navbar-item [title]="titleAlternative" [icon]="iconAlternative" [labelClass]="labelClass" [iconClass]="iconClass"></app-navbar-item>
+      <app-navbar-item [title]="titleAlt" [icon]="iconAlt" [labelClass]="labelClass" [iconClass]="iconClass"></app-navbar-item>
     }
     @else {
       <app-navbar-item [title]="title" [icon]="icon" [labelClass]="labelClass" [iconClass]="iconClass"></app-navbar-item>
@@ -21,11 +21,11 @@ import { NavbarItemComponent } from "./navbar-item.component";
 export class NavbarItemTwoStateComponent {
   @Input({required: true}) state: boolean = false;
 
-  @Input() public title: string = "Activate";
-  @Input() public titleAlternative: string = "Deactivate";
+  @Input({required: true}) public title: string = "Activate";
+  @Input({required: true}) public titleAlt: string = "Deactivate";
 
-  @Input() public icon: IconProp | undefined = faExclamationTriangle;
-  @Input() public iconAlternative: IconProp | undefined = faExclamationTriangle;
+  @Input({required: true}) public icon: IconProp = faExclamationTriangle;
+  @Input({required: true}) public iconAlt: IconProp = faExclamationTriangle;
 
   @Input() public labelClass: string = "text-xl";
   @Input() public iconClass: string = "w-5 text-xl";

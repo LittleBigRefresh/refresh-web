@@ -4,6 +4,7 @@ import { NavbarItemComponent } from "../header/navbar-item.component";
 import { NavbarItemTwoStateComponent } from "../header/navbar-item-two-state.component";
 import { ButtonComponent } from "./button.component";
 import { ButtonTwoStateComponent } from "./button-two-state.component";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-button-or-navitem',
@@ -23,8 +24,8 @@ import { ButtonTwoStateComponent } from "./button-two-state.component";
                     [title]="finalText"
                     [icon]="icon"
 
-                    [titleAlternative]="finalTextAlt"
-                    [iconAlternative]="iconAlt"
+                    [titleAlt]="finalTextAlt"
+                    [iconAlt]="iconAlt"
                     
                     [labelClass]="labelClass"
                     [iconClass]="iconClass"> 
@@ -50,9 +51,9 @@ import { ButtonTwoStateComponent } from "./button-two-state.component";
                     [icon]="icon"
                     [color]="color"
 
-                    [textAlternative]="finalTextAlt"
-                    [iconAlternative]="iconAlt"
-                    [colorAlternative]="colorAlt">
+                    [textAlt]="finalTextAlt"
+                    [iconAlt]="iconAlt"
+                    [colorAlt]="colorAlt">
                 </app-button-two-state>
             }
             @else {
@@ -69,11 +70,11 @@ import { ButtonTwoStateComponent } from "./button-two-state.component";
 })
 
 export class ButtonOrNavItemComponent {
-    @Input() text: string = ""
+    @Input({required: true}) text: string = ""
     @Input() textAlt: string = ""
 
-    @Input() icon: IconProp | undefined;
-    @Input() iconAlt: IconProp | undefined;
+    @Input({required: true}) icon: IconProp = faExclamationTriangle;
+    @Input() iconAlt: IconProp = faExclamationTriangle;
 
     @Input() color: string = ""
     @Input() colorAlt: string = ""

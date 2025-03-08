@@ -14,6 +14,7 @@ import {
     faPlay
 } from "@fortawesome/free-solid-svg-icons";
 import { FancyHeaderButtonsComponent } from "./fancy-header-buttons.component";
+import { areGameVersionsCompatible } from "../../../helpers/game-versioning";
 
 @Component({
     selector: 'app-fancy-header-level-buttons',
@@ -98,7 +99,7 @@ export class FancyHeaderLevelButtonsComponent {
     ngAfterViewInit() {
         // Play Now button, if level is compatible with the game currently played by the player
         this.ownUserRoom = this.ownUser.activeRoom;
-        if (this.ownUserRoom != undefined && this.areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
+        if (this.ownUserRoom != undefined && areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
             this.buttonTemplateRefs.push(this.playNowButtonTemplateRef);
         }
 
@@ -111,20 +112,6 @@ export class FancyHeaderLevelButtonsComponent {
         this.buttonTemplateRefs.push(this.heartButtonTemplateRef);
 
         this.buttonsInitialized = true;
-    }
-
-    areGameVersionsCompatible(levelGameVersion: number, userGameVersion: number) {
-        // if level is from lbp1 and user is on lbp2 or 3
-        if (levelGameVersion == 0 && userGameVersion == (1 || 2)) return true;
-
-        // if level is from lbp2 and user is on lbp3
-        if (levelGameVersion == 1 && userGameVersion == 2) return true;
-
-        // if level game version is the same as users game version
-        if (levelGameVersion == userGameVersion) return true;
-
-        // else
-        return false;
     }
 
     async playNowButtonClick() {
