@@ -24,7 +24,7 @@ import { NgClass } from "@angular/common";
 })
 export class NavbarItemComponent {
   @Input() public title: string = "";
-  @Input() public icon: IconProp | undefined = faExclamationTriangle;
+  @Input({required: true}) public icon: IconProp = faExclamationTriangle;
   @Input() public href: string | undefined;
 
   @Input() public labelClass: string = "text-xl";
