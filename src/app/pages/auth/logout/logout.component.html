@@ -1,0 +1,14 @@
+<app-page-title></app-page-title>
+
+<div>
+    <p>
+        Are you sure you want to sign out?
+    </p>
+
+    <app-divider></app-divider>
+
+    <app-button-group>
+        <app-button [icon]="faSignOutAlt" text="Sign out" color="bg-red" (click)="this.auth.LogOut(true)"></app-button>
+        <app-button [icon]="faCancel" text="Cancel" color="bg-secondary" onClick="window.history.back()"></app-button>
+    </app-button-group>
+</div>

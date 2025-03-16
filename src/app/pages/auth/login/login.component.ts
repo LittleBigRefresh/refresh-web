@@ -32,7 +32,7 @@ export class LoginComponent {
     const password: string = this.form.controls.password.getRawValue();
     
     sha512Async(password).then(passwordSha512 => {
-      this.auth.LogIn(emailAddress, passwordSha512);
+      this.auth.LogIn(emailAddress, passwordSha512, true);
     })
   }
 
