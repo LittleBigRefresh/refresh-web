@@ -14,7 +14,7 @@ import { NgClass } from "@angular/common";
     <button class="rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
       [ngClass]="color" [type]=type [disabled]="!enabled">
       @if (icon) {
-        <fa-icon [icon]="icon" class="mr-1"></fa-icon>
+        <fa-icon [icon]="icon" [ngClass]="text && text.length > 0 ? 'mr-1' : ''"></fa-icon>
       }
       {{ text }}
     </button>
