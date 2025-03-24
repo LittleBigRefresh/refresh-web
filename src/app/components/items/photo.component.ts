@@ -51,7 +51,7 @@ import {RouterLink} from "@angular/router";
     </a>
     
     <div class="text-sm flex" [ngClass]="padding ? 'p-2.5' : 'pt-2.5'">
-      <div class="flex grow overflow-hidden whitespace-nowrap overflow-ellipsis">
+      <div class="flex grow overflow-hidden whitespace-nowrap text-ellipsis">
         @if (subjectsWithoutAuthor.length > 0) {
           <div>
             <span>with </span>

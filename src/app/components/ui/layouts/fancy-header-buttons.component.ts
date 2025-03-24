@@ -22,7 +22,7 @@ import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
         <div class="flex flex-row justify-end content-center space-x-1 min-w-56 group relative">
             <div #firstButtonContainer></div>
             <div #secondButtonContainer></div>
-            <div class="absolute z-[1] flex flex-col gap-y-1.5 w-48 px-5 py-2.5 rounded bg-header-background
+            <div class="absolute z-1 flex flex-col gap-y-1.5 w-48 px-5 py-2.5 rounded bg-header-background
                 border-4 border-backdrop border-solid top-10 cursor-pointer"
                 [ngClass]="showMenu ? '' : 'hidden'">
                 <div #navItemsContainer>

@@ -17,7 +17,7 @@ import {DividerComponent} from "../../divider.component";
     <fa-icon [icon]="show ? faXmark : faBars" class="text-3xl" (click)="toggleModal()"></fa-icon>
     
     @defer (when show) { @if (show) {
-      <div class="backdrop-brightness-50 absolute left-0 top-[60px] z-[1001] w-full">
+      <div class="backdrop-brightness-50 absolute left-0 top-[60px] z-1001 w-full">
         <div class="bg-header-background h-[100vh] w-64 font-normal px-5 py-2.5 flex flex-col gap-y-4">
           @for(category of navTree; track category.name) {
             <app-header-navbar-section-mobile [category]="category"></app-header-navbar-section-mobile>

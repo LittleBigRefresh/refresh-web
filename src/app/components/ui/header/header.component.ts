@@ -35,7 +35,7 @@ class VerticalDividerComponent {}
 ],
     template: `
     <header
-      class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full z-[1000]">
+      class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full z-1000">
       <app-header-logo></app-header-logo>
     
       <header-vertical-divider></header-vertical-divider>

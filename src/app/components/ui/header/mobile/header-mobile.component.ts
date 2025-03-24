@@ -15,7 +15,7 @@ import {HeaderNavbarMobileComponent} from "./header-navbar-mobile.component";
     HeaderNavbarMobileComponent
 ],
     template: `
-    <header class="flex items-center bg-header-background gap-x-1 px-5 sticky top-0 left-0 w-full z-[1000] text-xl h-[60px] justify-between">
+    <header class="flex items-center bg-header-background gap-x-1 px-5 sticky top-0 left-0 w-full z-1000 text-xl h-[60px] justify-between">
       <app-header-navbar-mobile></app-header-navbar-mobile>
 
       <app-header-logo class="absolute left-1/2 -translate-x-1/2"></app-header-logo>
