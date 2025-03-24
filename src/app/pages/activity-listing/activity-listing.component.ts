@@ -12,18 +12,17 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {DateComponent} from "../../components/ui/info/date.component";
 
 @Component({
-  selector: 'app-activity-listing',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    EventPageComponent,
-    InfiniteScrollerComponent,
-    DividerComponent,
-    ContainerTitleComponent,
-    DateComponent,
-    DatePipe
-],
-  templateUrl: './activity-listing.component.html'
+    selector: 'app-activity-listing',
+    imports: [
+        PageTitleComponent,
+        EventPageComponent,
+        InfiniteScrollerComponent,
+        DividerComponent,
+        ContainerTitleComponent,
+        DateComponent,
+        DatePipe
+    ],
+    templateUrl: './activity-listing.component.html'
 })
 export class ActivityListingComponent implements Scrollable {
     pages: ActivityPage[] = [];

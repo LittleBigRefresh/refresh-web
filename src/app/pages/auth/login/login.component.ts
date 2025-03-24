@@ -9,15 +9,14 @@ import {AuthenticationService} from "../../../api/authentication.service";
 import {sha512Async} from "../../../helpers/crypto";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    FormComponent,
-    TextboxComponent,
-    ButtonSubmitFormComponent
-  ],
-  templateUrl: './login.component.html'
+    selector: 'app-login',
+    imports: [
+        PageTitleComponent,
+        FormComponent,
+        TextboxComponent,
+        ButtonSubmitFormComponent
+    ],
+    templateUrl: './login.component.html'
 })
 export class LoginComponent {
   form = new FormGroup({

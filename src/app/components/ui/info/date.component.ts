@@ -14,7 +14,6 @@ import {isPlatformBrowser} from "@angular/common";
 
 @Component({
     selector: 'app-date',
-    standalone: true,
     imports: [
         TooltipComponent
     ],

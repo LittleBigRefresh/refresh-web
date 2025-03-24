@@ -5,13 +5,12 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faBullhorn} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-announcement',
-  standalone: true,
-  imports: [
-    ContainerComponent,
-    FaIconComponent
-  ],
-  template: `
+    selector: 'app-announcement',
+    imports: [
+        ContainerComponent,
+        FaIconComponent
+    ],
+    template: `
     <div class="bg-yellow rounded px-5 py-2.5">
       <fa-icon [icon]="faBullhorn" class="pr-1.5"></fa-icon>
       <span class="text-xl font-bold">{{data.title}}</span>

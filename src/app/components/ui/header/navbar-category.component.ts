@@ -6,15 +6,14 @@ import {RouterLink} from "@angular/router";
 import {NavbarItemComponent} from "./navbar-item.component";
 
 @Component({
-  selector: 'app-navbar-category',
-  standalone: true,
-  imports: [
-    FaIconComponent,
-    RouterLink,
-    NavbarItemComponent,
-    NgClass
-],
-  template: `
+    selector: 'app-navbar-category',
+    imports: [
+        FaIconComponent,
+        RouterLink,
+        NavbarItemComponent,
+        NgClass
+    ],
+    template: `
     <div class="group relative">
       <a [routerLink]=category.defaultRoute class="flex items-center gap-x-2 text-xl hover:underline h-14"
         [title]="category.name">

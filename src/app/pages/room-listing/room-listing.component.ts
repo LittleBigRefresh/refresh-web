@@ -14,18 +14,17 @@ import {repeat, Subscription} from "rxjs";
 import {isPlatformBrowser} from "@angular/common";
 
 @Component({
-  selector: 'app-room-listing',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    RoomComponent,
-    ContainerComponent,
-    ContainerTitleComponent,
-    GamePipe,
-    DarkContainerComponent,
-    PluralPipe
-],
-  templateUrl: './room-listing.component.html'
+    selector: 'app-room-listing',
+    imports: [
+        PageTitleComponent,
+        RoomComponent,
+        ContainerComponent,
+        ContainerTitleComponent,
+        GamePipe,
+        DarkContainerComponent,
+        PluralPipe
+    ],
+    templateUrl: './room-listing.component.html'
 })
 export class RoomListingComponent implements OnDestroy {
   protected rooms: Room[] = [];

@@ -4,13 +4,12 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import { NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-button',
-  standalone: true,
-  imports: [
-    FaIconComponent,
-    NgClass
-],
-  template: `
+    selector: 'app-button',
+    imports: [
+        FaIconComponent,
+        NgClass
+    ],
+    template: `
     <button class="rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
       [ngClass]="color" [type]=type [disabled]="!enabled">
       @if (icon) {

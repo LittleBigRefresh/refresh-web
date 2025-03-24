@@ -10,19 +10,18 @@ import {DefaultPipe} from "../../pipes/default.pipe";
 import {LabelComponent} from "../ui/info/label.component";
 
 @Component({
-  selector: 'app-level-preview',
-  standalone: true,
-  imports: [
-    UserLinkComponent,
-    LevelAvatarComponent,
-    LevelStatisticsComponent,
-    LevelRouterLinkComponent,
-    GamePipe,
-    DateComponent,
-    DefaultPipe,
-    LabelComponent
-  ],
-  template: `
+    selector: 'app-level-preview',
+    imports: [
+        UserLinkComponent,
+        LevelAvatarComponent,
+        LevelStatisticsComponent,
+        LevelRouterLinkComponent,
+        GamePipe,
+        DateComponent,
+        DefaultPipe,
+        LabelComponent
+    ],
+    template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
       <app-level-router-link [level]="level" class="min-w-[72px] self-center">
         <app-level-avatar [level]="level" [size]=72 class="align-middle"></app-level-avatar>
@@ -49,7 +48,7 @@ import {LabelComponent} from "../ui/info/label.component";
       </div>
     </div>
   `,
-  styles: ``
+    styles: ``
 })
 export class LevelPreviewComponent {
   @Input({required: true}) level!: Level;

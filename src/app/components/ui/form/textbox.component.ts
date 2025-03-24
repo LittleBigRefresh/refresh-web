@@ -5,13 +5,12 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 
 @Component({
-  selector: 'app-textbox',
-  standalone: true,
-  imports: [
-    FaIconComponent,
-    ReactiveFormsModule
-],
-  template: `
+    selector: 'app-textbox',
+    imports: [
+        FaIconComponent,
+        ReactiveFormsModule
+    ],
+    template: `
     @if (label.length > 0) {
       <label [for]=ctrlName class="text-sm">{{label}}</label>
     }

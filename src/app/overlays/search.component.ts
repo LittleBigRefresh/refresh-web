@@ -21,21 +21,20 @@ import {HttpParams} from "@angular/common/http";
 import {debounceTime} from "rxjs";
 
 @Component({
-  selector: 'app-search',
-  standalone: true,
-  imports: [
-    NavbarItemComponent,
-    DialogComponent,
-    FaIconComponent,
-    SearchBarComponent,
-    AsyncPipe,
-    FormComponent,
-    DividerComponent,
-    LevelPreviewComponent,
-    ButtonComponent,
-    ContainerComponent
-],
-  template: `
+    selector: 'app-search',
+    imports: [
+        NavbarItemComponent,
+        DialogComponent,
+        FaIconComponent,
+        SearchBarComponent,
+        AsyncPipe,
+        FormComponent,
+        DividerComponent,
+        LevelPreviewComponent,
+        ButtonComponent,
+        ContainerComponent
+    ],
+    template: `
     <a class="flex gap-x-2 text-[17px] font-normal cursor-pointer" title="Search" (click)="toggleModal()">
       <fa-icon [icon]=faSearch class="w-5 text-center"></fa-icon>
     </a>

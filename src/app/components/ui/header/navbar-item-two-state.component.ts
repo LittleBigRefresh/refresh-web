@@ -4,12 +4,11 @@ import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import { NavbarItemComponent } from "./navbar-item.component";
 
 @Component({
-  selector: 'app-navbar-item-two-state',
-  standalone: true,
-  imports: [
-    NavbarItemComponent
-],
-  template: `
+    selector: 'app-navbar-item-two-state',
+    imports: [
+        NavbarItemComponent
+    ],
+    template: `
     @if (state) {
       <app-navbar-item [title]="titleAlt" [icon]="iconAlt" [labelClass]="labelClass" [iconClass]="iconClass"></app-navbar-item>
     }

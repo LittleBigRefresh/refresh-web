@@ -8,20 +8,19 @@ import {ScorePreviewComponent} from "./score-preview.component";
 import {NgClass} from "@angular/common";
 
 @Component({
-  selector: 'app-level-leaderboard',
-  standalone: true,
+    selector: 'app-level-leaderboard',
     imports: [
         ContainerTitleComponent,
         DividerComponent,
         ScorePreviewComponent,
         NgClass
     ],
-  template: `
+    template: `
     @for(score of scores; track score.scoreId; let i = $index) {
         <app-score-preview [score]="score"></app-score-preview>
     }
   `,
-  styles: ``
+    styles: ``
 })
 export class LevelLeaderboardComponent implements OnInit {
   @Input({required: true}) public level: Level = null!;

@@ -5,12 +5,11 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 @Component({
-  selector: 'app-page-title',
-  standalone: true,
-  imports: [
-    FaIconComponent
-  ],
-  template: `
+    selector: 'app-page-title',
+    imports: [
+        FaIconComponent
+    ],
+    template: `
     @if(title) {
       <h1 class="font-bold text-3xl mb-1.5 sm:text-2xl sm:leading-none sm:mb-0">
         @if(icon) {

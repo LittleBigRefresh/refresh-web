@@ -10,18 +10,17 @@ import {DividerComponent} from "../divider.component";
 import {NavItem} from "./navtypes";
 
 @Component({
-  selector: 'app-header-me-menu',
-  standalone: true,
-  imports: [
-    UserPreviewComponent,
-    NavbarItemComponent,
-    UserAvatarComponent,
-    UserRouterLinkComponent,
-    UserStatisticsComponent,
-    UserStatusComponent,
-    DividerComponent
-  ],
-  template: `
+    selector: 'app-header-me-menu',
+    imports: [
+        UserPreviewComponent,
+        NavbarItemComponent,
+        UserAvatarComponent,
+        UserRouterLinkComponent,
+        UserStatisticsComponent,
+        UserStatusComponent,
+        DividerComponent
+    ],
+    template: `
     <div class="absolute z-[1] w-64 px-5 py-2.5 flex flex-col rounded-b bg-header-background gap-y-2 right-0 drop-shadow-md">
       <div class="flex flex-row gap-x-1.5">
         <app-user-router-link [user]="user" class="self-center">

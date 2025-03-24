@@ -6,7 +6,6 @@ import {ClientService} from "../../../../api/client.service";
 
 @Component({
     selector: 'app-user-link',
-    standalone: true,
     imports: [
         UserAvatarComponent,
         UserRouterLinkComponent,

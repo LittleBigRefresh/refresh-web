@@ -18,7 +18,6 @@ import { areGameVersionsCompatible } from "../../../helpers/game-versioning";
 
 @Component({
     selector: 'app-fancy-header-level-buttons',
-    standalone: true,
     imports: [
         ButtonOrNavItemComponent,
         FancyHeaderButtonsComponent

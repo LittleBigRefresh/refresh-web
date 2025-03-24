@@ -3,14 +3,13 @@ import {User} from "../../../api/types/users/user";
 import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
 
 @Component({
-  selector: 'app-user-avatar',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    NgClass,
-    NgStyle
-],
-  template: `
+    selector: 'app-user-avatar',
+    imports: [
+        NgOptimizedImage,
+        NgClass,
+        NgStyle
+    ],
+    template: `
     @if (this.user) {
       <img [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline h-auto aspect-square object-cover" alt=""
         (error)="err($event.target)" loading="lazy"

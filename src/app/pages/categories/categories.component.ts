@@ -8,15 +8,14 @@ import {ContainerComponent} from "../../components/ui/container.component";
 import {LevelCategoryComponent} from "../../components/items/level-category.component";
 
 @Component({
-  selector: 'app-categories',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    ResponsiveGridComponent,
-    ContainerComponent,
-    LevelCategoryComponent
-],
-  templateUrl: './categories.component.html'
+    selector: 'app-categories',
+    imports: [
+        PageTitleComponent,
+        ResponsiveGridComponent,
+        ContainerComponent,
+        LevelCategoryComponent
+    ],
+    templateUrl: './categories.component.html'
 })
 export class CategoriesComponent {
   categories: LevelCategory[] | undefined;

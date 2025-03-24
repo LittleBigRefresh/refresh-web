@@ -8,17 +8,16 @@ import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {PlatformPipe} from "../../pipes/platform.pipe";
 
 @Component({
-  selector: 'app-room',
-  standalone: true,
-  imports: [
-    ContainerComponent,
-    GamePipe,
-    PluralPipe,
-    UserLinkComponent,
-    AsyncPipe,
-    PlatformPipe
-  ],
-  template: `
+    selector: 'app-room',
+    imports: [
+        ContainerComponent,
+        GamePipe,
+        PluralPipe,
+        UserLinkComponent,
+        AsyncPipe,
+        PlatformPipe
+    ],
+    template: `
     <b>
       {{'player' | plural: room.playerIds.length}}
       @if (showGame) {

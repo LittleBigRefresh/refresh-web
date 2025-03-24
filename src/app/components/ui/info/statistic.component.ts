@@ -6,14 +6,13 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import { DecimalPipe } from "@angular/common";
 
 @Component({
-  selector: 'app-statistic',
-  standalone: true,
-  imports: [
-    TooltipComponent,
-    FaIconComponent,
-    DecimalPipe
-],
-  template: `
+    selector: 'app-statistic',
+    imports: [
+        TooltipComponent,
+        FaIconComponent,
+        DecimalPipe
+    ],
+    template: `
     <app-tooltip [text]="name" class="text-secondary-bright">
       <fa-icon [icon]="icon" class="mr-0.5"></fa-icon>
       @if (truncate) {

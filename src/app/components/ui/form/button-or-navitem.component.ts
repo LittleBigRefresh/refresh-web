@@ -8,7 +8,6 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-button-or-navitem',
-    standalone: true,
     imports: [
         NavbarItemComponent,
         NavbarItemTwoStateComponent,

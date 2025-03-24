@@ -2,12 +2,11 @@ import {Component, ContentChildren, ElementRef, QueryList, TemplateRef, ViewChil
 import {NgTemplateOutlet} from "@angular/common";
 
 @Component({
-  selector: 'app-two-pane-layout',
-  standalone: true,
-  imports: [
-    NgTemplateOutlet
-  ],
-  template: `
+    selector: 'app-two-pane-layout',
+    imports: [
+        NgTemplateOutlet
+    ],
+    template: `
     <div class="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-2.5">
       <ng-content></ng-content>
     </div>

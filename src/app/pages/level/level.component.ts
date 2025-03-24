@@ -29,33 +29,32 @@ import { LevelRelations } from '../../api/types/levels/level-relations';
 
 
 @Component({
-  selector: 'app-level',
-  standalone: true,
-  imports: [
-      LevelStatisticsComponent,
-      DefaultPipe,
-      LevelAvatarComponent,
-      UserLinkComponent,
-      FancyHeaderComponent,
-      FancyHeaderLevelButtonsComponent,
-      GamePipe,
-      AsyncPipe,
-      DateComponent,
-      TwoPaneLayoutComponent,
-      ContainerComponent,
-      ContainerTitleComponent,
-      LevelLeaderboardComponent,
-      DividerComponent,
-      PaneTitleComponent,
-      EventPageComponent,
-      ButtonComponent,
-      RouterLink,
-      SlugPipe
-  ],
-  providers: [
-      SlugPipe
-  ],
-  templateUrl: './level.component.html'
+    selector: 'app-level',
+    imports: [
+        LevelStatisticsComponent,
+        DefaultPipe,
+        LevelAvatarComponent,
+        UserLinkComponent,
+        FancyHeaderComponent,
+        FancyHeaderLevelButtonsComponent,
+        GamePipe,
+        AsyncPipe,
+        DateComponent,
+        TwoPaneLayoutComponent,
+        ContainerComponent,
+        ContainerTitleComponent,
+        LevelLeaderboardComponent,
+        DividerComponent,
+        PaneTitleComponent,
+        EventPageComponent,
+        ButtonComponent,
+        RouterLink,
+        SlugPipe
+    ],
+    providers: [
+        SlugPipe
+    ],
+    templateUrl: './level.component.html'
 })
 export class LevelComponent {
   level: Level | undefined | null;

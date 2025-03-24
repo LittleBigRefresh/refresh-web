@@ -8,18 +8,17 @@ import {ContainerTitleComponent} from "../../../components/ui/text/container-tit
 import {SectionTitleComponent} from "../../../components/ui/text/section-title.component";
 
 @Component({
-  selector: 'app-text-playground',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    DividerComponent,
-    ContainerComponent,
-    DarkContainerComponent,
-    CodeBlockComponent,
-    ContainerTitleComponent,
-    SectionTitleComponent
-  ],
-  templateUrl: './text-playground.component.html'
+    selector: 'app-text-playground',
+    imports: [
+        PageTitleComponent,
+        DividerComponent,
+        ContainerComponent,
+        DarkContainerComponent,
+        CodeBlockComponent,
+        ContainerTitleComponent,
+        SectionTitleComponent
+    ],
+    templateUrl: './text-playground.component.html'
 })
 export class TextPlaygroundComponent {
 

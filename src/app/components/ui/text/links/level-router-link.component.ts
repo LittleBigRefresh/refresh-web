@@ -5,13 +5,12 @@ import {SlugPipe} from "../../../../pipes/slug.pipe";
 
 // A simple link to a level.
 @Component({
-  selector: 'app-level-router-link',
-  standalone: true,
-  imports: [
-    RouterLink,
-    SlugPipe
-  ],
-  template: `
+    selector: 'app-level-router-link',
+    imports: [
+        RouterLink,
+        SlugPipe
+    ],
+    template: `
     <a routerLink="/level/{{level.levelId}}/{{level.title | slug}}" class="hover:underline">
       <ng-content></ng-content>
     </a>

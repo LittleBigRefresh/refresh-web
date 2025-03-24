@@ -4,7 +4,6 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 @Component({
     selector: 'app-button-two-state',
-    standalone: true,
     imports: [
         ButtonComponent
     ],

@@ -12,18 +12,17 @@ import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.compo
 import {PhotoComponent} from "../../components/items/photo.component";
 
 @Component({
-  selector: 'app-photo-listing',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    ContainerComponent,
-    InfiniteScrollerComponent,
-    LevelPreviewComponent,
-    ResponsiveGridComponent,
-    PhotoComponent
-],
-  templateUrl: './photo-listing.component.html',
-  styles: ``
+    selector: 'app-photo-listing',
+    imports: [
+        PageTitleComponent,
+        ContainerComponent,
+        InfiniteScrollerComponent,
+        LevelPreviewComponent,
+        ResponsiveGridComponent,
+        PhotoComponent
+    ],
+    templateUrl: './photo-listing.component.html',
+    styles: ``
 })
 export class PhotoListingComponent implements Scrollable {
   protected photos: Photo[] = [];

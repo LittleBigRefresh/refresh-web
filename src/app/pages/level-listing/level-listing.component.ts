@@ -15,17 +15,16 @@ import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.c
 import {EmbedService} from "../../services/embed.service";
 
 @Component({
-  selector: 'app-level-listing',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    CategoriesComponent,
-    ResponsiveGridComponent,
-    LevelPreviewComponent,
-    ContainerComponent,
-    InfiniteScrollerComponent
-],
-  templateUrl: './level-listing.component.html'
+    selector: 'app-level-listing',
+    imports: [
+        PageTitleComponent,
+        CategoriesComponent,
+        ResponsiveGridComponent,
+        LevelPreviewComponent,
+        ContainerComponent,
+        InfiniteScrollerComponent
+    ],
+    templateUrl: './level-listing.component.html'
 })
 export class LevelListingComponent implements OnInit, Scrollable {
   category: LevelCategory | null | undefined = undefined;

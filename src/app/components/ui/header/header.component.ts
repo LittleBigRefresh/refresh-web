@@ -17,34 +17,32 @@ import {HeaderLogoComponent} from "./header-logo.component";
 import {navTree, rightNavTree} from './navtypes';
 
 @Component({
-  selector: 'header-vertical-divider',
-  standalone: true,
-  imports: [],
-  template: `<div class="mx-1.5 w-[3px] rounded-full h-11 bg-divider"></div>`
+    selector: 'header-vertical-divider',
+    imports: [],
+    template: `<div class="mx-1.5 w-[3px] rounded-full h-11 bg-divider"></div>`
 })
 class VerticalDividerComponent {}
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    NavbarItemComponent,
-    RouterLink,
-    FormComponent,
-    TextboxComponent,
-    SearchBarComponent,
-    AsyncPipe,
-    NavbarCategoryComponent,
-    FaIconComponent,
-    VerticalDividerComponent,
-    SearchComponent,
-    UserLinkComponent,
-    UserAvatarComponent,
-    HeaderMeComponent,
-    HeaderLogoComponent
-  ],
-  template: `
+    selector: 'app-header',
+    imports: [
+        NgOptimizedImage,
+        NavbarItemComponent,
+        RouterLink,
+        FormComponent,
+        TextboxComponent,
+        SearchBarComponent,
+        AsyncPipe,
+        NavbarCategoryComponent,
+        FaIconComponent,
+        VerticalDividerComponent,
+        SearchComponent,
+        UserLinkComponent,
+        UserAvatarComponent,
+        HeaderMeComponent,
+        HeaderLogoComponent
+    ],
+    template: `
     <header
       class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full z-[1000]">
       <app-header-logo></app-header-logo>

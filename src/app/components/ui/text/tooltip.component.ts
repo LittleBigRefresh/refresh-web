@@ -2,10 +2,9 @@ import {Component, Input} from '@angular/core';
 
 // TODO: implement properly
 @Component({
-  selector: 'app-tooltip',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'app-tooltip',
+    imports: [],
+    template: `
     <div [title]=text class="inline">
       <ng-content></ng-content>
     </div>

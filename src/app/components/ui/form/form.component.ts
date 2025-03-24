@@ -5,15 +5,14 @@ import {DividerComponent} from "../divider.component";
 
 
 @Component({
-  selector: 'app-form',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ButtonGroupComponent,
-    DividerComponent,
-    ReactiveFormsModule
-],
-  template: `
+    selector: 'app-form',
+    imports: [
+        FormsModule,
+        ButtonGroupComponent,
+        DividerComponent,
+        ReactiveFormsModule
+    ],
+    template: `
     <form (ngSubmit)="submitEvent.emit(null);" [formGroup]="form">
       <ng-content></ng-content>
     

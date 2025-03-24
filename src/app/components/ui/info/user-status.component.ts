@@ -4,13 +4,12 @@ import {LevelLinkComponent} from "../text/links/level-link.component";
 import {DateComponent} from "./date.component";
 
 @Component({
-  selector: 'app-user-status',
-  standalone: true,
-  imports: [
-    LevelLinkComponent,
-    DateComponent
-  ],
-  template: `
+    selector: 'app-user-status',
+    imports: [
+        LevelLinkComponent,
+        DateComponent
+    ],
+    template: `
     @if(activeRoom) {
       <div class="bg-green w-2 h-2 rounded-full inline-block align-middle mr-1"></div>
       <span class="text-secondary-bright">Online,

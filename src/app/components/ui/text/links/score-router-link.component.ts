@@ -3,12 +3,11 @@ import {Score} from "../../../../api/types/levels/score";
 import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'app-score-router-link',
-  standalone: true,
-  imports: [
-    RouterLink
-  ],
-  template: `
+    selector: 'app-score-router-link',
+    imports: [
+        RouterLink
+    ],
+    template: `
     <a [routerLink]="'/score/' + score.scoreId" class="hover:underline">
       <ng-content></ng-content>
     </a>

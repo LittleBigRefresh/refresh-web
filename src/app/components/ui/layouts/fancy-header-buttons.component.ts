@@ -5,7 +5,6 @@ import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-fancy-header-buttons',
-    standalone: true,
     imports: [
         ButtonComponent,
         NgClass

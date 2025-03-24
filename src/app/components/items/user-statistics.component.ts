@@ -9,12 +9,11 @@ import {StatisticComponent} from "../ui/info/statistic.component";
 import {UserStatistics} from "../../api/types/users/user-statistics";
 
 @Component({
-  selector: 'app-user-statistics',
-  standalone: true,
-  imports: [
-    StatisticComponent
-  ],
-  template: `
+    selector: 'app-user-statistics',
+    imports: [
+        StatisticComponent
+    ],
+    template: `
     <div class="flex gap-x-1.5">
       <app-statistic [value]=stats.favourites name="Hearts" [icon]=faHeart></app-statistic>
       <app-statistic [value]=stats.profileComments name="Comments" [icon]=faComment></app-statistic>

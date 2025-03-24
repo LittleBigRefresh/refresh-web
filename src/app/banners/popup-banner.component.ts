@@ -6,35 +6,34 @@ import {BannerService} from "./banner.service";
 import {animate, animateChild, query, style, transition, trigger} from "@angular/animations";
 
 @Component({
-  selector: 'app-popup-banner',
-  standalone: true,
-  imports: [
-    FaIconComponent
-],
-  animations: [
-    trigger('expand', [
-      transition(':leave', [
-        query('@*', animateChild(), {optional: true}),
-        animate('300ms ease-in-out', style({
-          opacity: 0,
-          height: 0,
-          'padding-top': 0,
-          'padding-bottom': 0,
-          'border-bottom': 0
-        })),
-      ]),
-      transition(':enter', [
-        style({opacity: 0, height: 0, 'padding-top': 0, 'padding-bottom': 0}),
-        animate('500ms ease-in-out', style({
-          opacity: 1,
-          height: '*',
-          'padding-top': '*',
-          'padding-bottom': '*'
-        })),
-      ]),
-    ]),
-  ],
-  template: `
+    selector: 'app-popup-banner',
+    imports: [
+        FaIconComponent
+    ],
+    animations: [
+        trigger('expand', [
+            transition(':leave', [
+                query('@*', animateChild(), { optional: true }),
+                animate('300ms ease-in-out', style({
+                    opacity: 0,
+                    height: 0,
+                    'padding-top': 0,
+                    'padding-bottom': 0,
+                    'border-bottom': 0
+                })),
+            ]),
+            transition(':enter', [
+                style({ opacity: 0, height: 0, 'padding-top': 0, 'padding-bottom': 0 }),
+                animate('500ms ease-in-out', style({
+                    opacity: 1,
+                    height: '*',
+                    'padding-top': '*',
+                    'padding-bottom': '*'
+                })),
+            ]),
+        ]),
+    ],
+    template: `
 <!--    defer to give the async animation system a reasonable amount of time to pull down js-->
 @defer (on timer(50ms)) {
 <div @expand class="mx-auto {{info.color}} p-5 py-3 border-b-2 text-lg overflow-hidden">
@@ -49,7 +48,7 @@ import {animate, animateChild, query, style, transition, trigger} from "@angular
   <p class="text-sm">{{ info.text }}</p>
 </div>
 }
-`,
+`
 })
 export class PopupBannerComponent {
   @HostBinding("@expand") parentAnimation = true;

@@ -7,15 +7,14 @@ import {HeaderNavbarSectionMobileComponent} from "./header-navbar-section-mobile
 import {DividerComponent} from "../../divider.component";
 
 @Component({
-  selector: 'app-header-navbar-mobile',
-  standalone: true,
-  imports: [
-    DialogComponent,
-    FaIconComponent,
-    HeaderNavbarSectionMobileComponent,
-    DividerComponent
-  ],
-  template: `
+    selector: 'app-header-navbar-mobile',
+    imports: [
+        DialogComponent,
+        FaIconComponent,
+        HeaderNavbarSectionMobileComponent,
+        DividerComponent
+    ],
+    template: `
     <fa-icon [icon]="show ? faXmark : faBars" class="text-3xl" (click)="toggleModal()"></fa-icon>
     
     @defer (when show) { @if (show) {

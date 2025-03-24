@@ -8,7 +8,6 @@ import { faCancel, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-logout',
-    standalone: true,
     imports: [
         PageTitleComponent,
         ButtonComponent,

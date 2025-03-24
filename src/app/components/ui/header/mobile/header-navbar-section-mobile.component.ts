@@ -6,15 +6,14 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NavbarItemComponent} from "../navbar-item.component";
 
 @Component({
-  selector: 'app-header-navbar-section-mobile',
-  standalone: true,
-  imports: [
-    DarkContainerComponent,
-    ContainerTitleComponent,
-    FaIconComponent,
-    NavbarItemComponent
-  ],
-  template: `
+    selector: 'app-header-navbar-section-mobile',
+    imports: [
+        DarkContainerComponent,
+        ContainerTitleComponent,
+        FaIconComponent,
+        NavbarItemComponent
+    ],
+    template: `
     <div class="bg-backdrop rounded-md px-2.5 py-1 flex flex-row gap-x-1.5 text-lg">
       <fa-icon [icon]="category.icon"></fa-icon>
       <span>{{category.name}}</span>

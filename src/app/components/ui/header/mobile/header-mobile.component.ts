@@ -7,16 +7,15 @@ import {NavbarItemComponent} from "../navbar-item.component";
 import {HeaderNavbarMobileComponent} from "./header-navbar-mobile.component";
 
 @Component({
-  selector: 'app-header-mobile',
-  standalone: true,
-  imports: [
-    HeaderLogoComponent,
-    FaIconComponent,
-    HeaderMeComponent,
-    NavbarItemComponent,
-    HeaderNavbarMobileComponent
-  ],
-  template: `
+    selector: 'app-header-mobile',
+    imports: [
+        HeaderLogoComponent,
+        FaIconComponent,
+        HeaderMeComponent,
+        NavbarItemComponent,
+        HeaderNavbarMobileComponent
+    ],
+    template: `
     <header class="flex items-center bg-header-background gap-x-1 px-5 sticky top-0 left-0 w-full z-[1000] text-xl h-[60px] justify-between">
       <app-header-navbar-mobile></app-header-navbar-mobile>
 

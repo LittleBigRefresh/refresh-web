@@ -8,17 +8,16 @@ import {DecimalPipe, NgClass} from "@angular/common";
 import {AuthenticationService} from "../../api/authentication.service";
 
 @Component({
-  selector: 'app-score-preview',
-  standalone: true,
-  imports: [
-    RouterLink,
-    UserLinkComponent,
-    DateComponent,
-    ScoreRouterLinkComponent,
-    DecimalPipe,
-    NgClass
-  ],
-  template: `
+    selector: 'app-score-preview',
+    imports: [
+        RouterLink,
+        UserLinkComponent,
+        DateComponent,
+        ScoreRouterLinkComponent,
+        DecimalPipe,
+        NgClass
+    ],
+    template: `
     <div class="my-5 px-2.5 flex items-center">
       <app-score-router-link [score]="score" class="text-2xl mr-2 min-w-8">
         <span [ngClass]="rankStyle" class="transition-colors">#{{ score.rank }}</span>

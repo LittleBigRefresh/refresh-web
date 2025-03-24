@@ -12,18 +12,17 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 import {DividerComponent} from "../../components/ui/divider.component";
 
 @Component({
-  selector: 'app-contest-listing',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    ContestBannerComponent,
-    RouterLink,
-    PluralPipe,
-    ContainerComponent,
-    ContainerTitleComponent,
-    DividerComponent
-],
-  templateUrl: './contest-listing.component.html'
+    selector: 'app-contest-listing',
+    imports: [
+        PageTitleComponent,
+        ContestBannerComponent,
+        RouterLink,
+        PluralPipe,
+        ContainerComponent,
+        ContainerTitleComponent,
+        DividerComponent
+    ],
+    templateUrl: './contest-listing.component.html'
 })
 export class ContestListingComponent {
   contests: Contest[] | undefined;

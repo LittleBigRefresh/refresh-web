@@ -6,14 +6,13 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import { NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-navbar-item',
-  standalone: true,
-  imports: [
-    RouterLink,
-    FaIconComponent,
-    NgClass
-],
-  template: `
+    selector: 'app-navbar-item',
+    imports: [
+        RouterLink,
+        FaIconComponent,
+        NgClass
+    ],
+    template: `
     <a [routerLink]=href class="flex gap-x-2 font-normal hover:underline" [ngClass]="labelClass" [title]="title">
       <fa-icon [icon]=icon! class="text-center" [ngClass]="iconClass"></fa-icon>
       @if (title.length > 0) {

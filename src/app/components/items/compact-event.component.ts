@@ -16,14 +16,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-compact-event',
-  standalone: true,
-  imports: [
-    DateComponent,
-    UserLinkComponent,
-    FaIconComponent
-  ],
-  template: `
+    selector: 'app-compact-event',
+    imports: [
+        DateComponent,
+        UserLinkComponent,
+        FaIconComponent
+    ],
+    template: `
     <app-user-link [user]="submittingUser" class="font-bold"></app-user-link>
     <span class="ml-1">
     @switch (event.eventType) {

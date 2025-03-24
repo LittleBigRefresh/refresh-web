@@ -6,14 +6,13 @@ import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import {BannerService} from "../../../banners/banner.service";
 
 @Component({
-  selector: 'app-notifications',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    ButtonGroupComponent,
-    ButtonComponent
-  ],
-  templateUrl: './notifications.component.html'
+    selector: 'app-notifications',
+    imports: [
+        PageTitleComponent,
+        ButtonGroupComponent,
+        ButtonComponent
+    ],
+    templateUrl: './notifications.component.html'
 })
 export class NotificationsComponent {
   protected readonly faCheckCircle = faCheckCircle;

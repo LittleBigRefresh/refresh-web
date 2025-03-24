@@ -13,19 +13,18 @@ import {UserStatusComponent} from "../../components/ui/info/user-status.componen
 import {UserStatisticsComponent} from "../../components/items/user-statistics.component";
 
 @Component({
-  selector: 'app-user',
-  standalone: true,
-  imports: [
-    DefaultPipe,
-    UserAvatarComponent,
-    DateComponent,
-    FancyHeaderComponent,
-    AsyncPipe,
-    UserStatusComponent,
-    UserStatisticsComponent
-  ],
-  templateUrl: './user.component.html',
-  styles: ``
+    selector: 'app-user',
+    imports: [
+        DefaultPipe,
+        UserAvatarComponent,
+        DateComponent,
+        FancyHeaderComponent,
+        AsyncPipe,
+        UserStatusComponent,
+        UserStatisticsComponent
+    ],
+    templateUrl: './user.component.html',
+    styles: ``
 })
 export class UserComponent {
   user: User | undefined | null;

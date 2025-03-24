@@ -5,13 +5,12 @@ import {UserRouterLinkComponent} from "../links/user-router-link.component";
 import {User} from "../../../../api/types/users/user";
 
 @Component({
-  selector: 'app-user-wrapper',
-  standalone: true,
-  imports: [
-    UserAvatarComponent,
-    UserRouterLinkComponent
-],
-  template: `
+    selector: 'app-user-wrapper',
+    imports: [
+        UserAvatarComponent,
+        UserRouterLinkComponent
+    ],
+    template: `
     <div class="flex gap-x-1.5">
       <app-user-router-link [user]=user>
         <app-user-avatar class="ml-1" [user]=user [size]=48></app-user-avatar>

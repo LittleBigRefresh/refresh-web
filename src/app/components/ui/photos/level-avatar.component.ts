@@ -3,12 +3,11 @@ import { NgOptimizedImage } from "@angular/common";
 import {Level} from "../../../api/types/levels/level";
 
 @Component({
-  selector: 'app-level-avatar',
-  standalone: true,
-  imports: [
-    NgOptimizedImage
-],
-  template: `
+    selector: 'app-level-avatar',
+    imports: [
+        NgOptimizedImage
+    ],
+    template: `
     @if (this.level) {
       <img [ngSrc]=this.level.iconHash [width]=size [height]=size class="inline rounded-full h-auto aspect-square object-cover" alt=""
         (error)="err($event.target)" style="min-width: {{size}}px;" loading="lazy">

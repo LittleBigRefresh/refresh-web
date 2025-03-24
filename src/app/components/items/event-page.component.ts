@@ -10,14 +10,13 @@ import {ContainerComponent} from "../ui/container.component";
 import {CompactEventComponent} from "./compact-event.component";
 
 @Component({
-  selector: 'app-event-page',
-  standalone: true,
-  imports: [
-    EventComponent,
-    ContainerComponent,
-    CompactEventComponent
-  ],
-  template: `
+    selector: 'app-event-page',
+    imports: [
+        EventComponent,
+        ContainerComponent,
+        CompactEventComponent
+    ],
+    template: `
     <div class="flex flex-col gap-y-2.5">
       @for (event of page.events; track event.eventId) {
         @if(compact) {

@@ -16,19 +16,18 @@ import {Photo} from "../../api/types/photos/photo";
 import {UserPreviewComponent} from "./user-preview.component";
 
 @Component({
-  selector: 'app-event',
-  standalone: true,
-  imports: [
-    ContainerComponent,
-    UserLinkComponent,
-    LevelPreviewComponent,
-    DarkContainerComponent,
-    DateComponent,
-    DecimalPipe,
-    PhotoComponent,
-    UserPreviewComponent
-  ],
-  template: `
+    selector: 'app-event',
+    imports: [
+        ContainerComponent,
+        UserLinkComponent,
+        LevelPreviewComponent,
+        DarkContainerComponent,
+        DateComponent,
+        DecimalPipe,
+        PhotoComponent,
+        UserPreviewComponent
+    ],
+    template: `
     <app-user-link [user]="submittingUser" class="font-bold"></app-user-link>
     @switch (event.eventType) {
       @case (EventType.Level_Upload) {

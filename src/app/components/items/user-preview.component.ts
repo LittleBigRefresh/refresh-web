@@ -8,17 +8,16 @@ import {UserStatisticsComponent} from "./user-statistics.component";
 import {UserStatusComponent} from "../ui/info/user-status.component";
 
 @Component({
-  selector: 'app-user-preview',
-  standalone: true,
-  imports: [
-    UserRouterLinkComponent,
-    LevelAvatarComponent,
-    UserAvatarComponent,
-    DefaultPipe,
-    UserStatisticsComponent,
-    UserStatusComponent
-  ],
-  template: `
+    selector: 'app-user-preview',
+    imports: [
+        UserRouterLinkComponent,
+        LevelAvatarComponent,
+        UserAvatarComponent,
+        DefaultPipe,
+        UserStatisticsComponent,
+        UserStatusComponent
+    ],
+    template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
       <app-user-router-link [user]="user">
         <app-user-avatar [user]="user" [size]=72 class="align-middle"></app-user-avatar>

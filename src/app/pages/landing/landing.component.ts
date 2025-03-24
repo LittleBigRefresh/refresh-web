@@ -31,28 +31,27 @@ import {repeat, Subscription} from "rxjs";
 import {ContestBannerComponent} from "../../components/items/contest-banner.component";
 
 @Component({
-  selector: 'app-landing',
-  standalone: true,
+    selector: 'app-landing',
     imports: [
-    ContainerComponent,
-    ResponsiveGridComponent,
-    DividerComponent,
-    PageTitleComponent,
-    RouterLink,
-    NgOptimizedImage,
-    ContainerTitleComponent,
-    SectionTitleComponent,
-    FaIconComponent,
-    AnnouncementComponent,
-    RoomComponent,
-    SlicePipe,
-    RouterLinkComponent,
-    AsideLayoutComponent,
-    EventComponent,
-    EventPageComponent,
-    ContestBannerComponent
-],
-  templateUrl: './landing.component.html',
+        ContainerComponent,
+        ResponsiveGridComponent,
+        DividerComponent,
+        PageTitleComponent,
+        RouterLink,
+        NgOptimizedImage,
+        ContainerTitleComponent,
+        SectionTitleComponent,
+        FaIconComponent,
+        AnnouncementComponent,
+        RoomComponent,
+        SlicePipe,
+        RouterLinkComponent,
+        AsideLayoutComponent,
+        EventComponent,
+        EventPageComponent,
+        ContestBannerComponent
+    ],
+    templateUrl: './landing.component.html'
 })
 export class LandingComponent implements OnDestroy {
     protected instance: Instance | undefined;

@@ -10,17 +10,16 @@ import {DividerComponent} from "../ui/divider.component";
 import {LevelPreviewComponent} from "./level-preview.component";
 
 @Component({
-  selector: 'app-level-category',
-  standalone: true,
-  imports: [
-    ContainerComponent,
-    RouterLink,
-    FaIconComponent,
-    ContainerTitleComponent,
-    DividerComponent,
-    LevelPreviewComponent
-],
-  template: `
+    selector: 'app-level-category',
+    imports: [
+        ContainerComponent,
+        RouterLink,
+        FaIconComponent,
+        ContainerTitleComponent,
+        DividerComponent,
+        LevelPreviewComponent
+    ],
+    template: `
     <app-container>
       <app-container-title>
         <a [routerLink]="'/levels/' + category.apiRoute" class="underline">

@@ -15,10 +15,9 @@ import {RefreshApiListInfo} from "../../api/refresh-api-list-info";
 const debug: boolean = isDevMode() && false;
 
 @Component({
-  selector: 'app-infinite-scroller',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'app-infinite-scroller',
+    imports: [],
+    template: `
     @if (debug) {
       <div>
         <p>next page index: {{this.nextPageIndex}}</p>

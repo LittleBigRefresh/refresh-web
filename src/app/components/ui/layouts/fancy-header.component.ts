@@ -5,15 +5,14 @@ import {PageTitleComponent} from "../text/page-title.component";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
-  selector: 'app-fancy-header',
-  standalone: true,
-  imports: [
-    ContainerHeaderComponent,
-    DarkContainerComponent,
-    PageTitleComponent,
-    NgTemplateOutlet
-  ],
-  template: `
+    selector: 'app-fancy-header',
+    imports: [
+        ContainerHeaderComponent,
+        DarkContainerComponent,
+        PageTitleComponent,
+        NgTemplateOutlet
+    ],
+    template: `
     <ng-template #descriptionTemplate>
       <app-dark-container>
         <p>{{ description }}</p>

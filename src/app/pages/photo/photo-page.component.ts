@@ -7,12 +7,11 @@ import {ActivatedRoute} from "@angular/router";
 import {EmbedService} from "../../services/embed.service";
 
 @Component({
-  selector: 'app-photo-page',
-  standalone: true,
-  imports: [
-    PhotoComponent
-],
-  templateUrl: './photo-page.component.html'
+    selector: 'app-photo-page',
+    imports: [
+        PhotoComponent
+    ],
+    templateUrl: './photo-page.component.html'
 })
 export class PhotoPageComponent {
   protected photo: Photo | undefined | null = undefined;

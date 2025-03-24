@@ -15,23 +15,22 @@ import {PhotoSubject} from "../../api/types/photos/photo-subject";
 import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'app-photo',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    UserLinkComponent,
-    DateComponent,
-    UserWrapperComponent,
-    UserRouterLinkComponent,
-    LevelLinkComponent,
-    FaIconComponent,
-    StatisticComponent,
-    ButtonComponent,
-    ButtonGroupComponent,
-    RouterLink,
-    NgClass
-],
-  template: `
+    selector: 'app-photo',
+    imports: [
+        NgOptimizedImage,
+        UserLinkComponent,
+        DateComponent,
+        UserWrapperComponent,
+        UserRouterLinkComponent,
+        LevelLinkComponent,
+        FaIconComponent,
+        StatisticComponent,
+        ButtonComponent,
+        ButtonGroupComponent,
+        RouterLink,
+        NgClass
+    ],
+    template: `
     @if(header) {
       <div class="overflow-hidden whitespace-nowrap" [ngClass]="padding ? 'p-1.5' : 'pb-1.5'">
         <app-user-wrapper [user]="photo.publisher">

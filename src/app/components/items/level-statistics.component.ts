@@ -4,12 +4,11 @@ import {faHeart, faPlay, faStar, faThumbsDown, faThumbsUp} from "@fortawesome/fr
 import {StatisticComponent} from "../ui/info/statistic.component";
 
 @Component({
-  selector: 'app-level-statistics',
-  standalone: true,
-  imports: [
-    StatisticComponent
-  ],
-  template: `
+    selector: 'app-level-statistics',
+    imports: [
+        StatisticComponent
+    ],
+    template: `
     <div class="flex gap-x-1.5">
       <app-statistic [value]=level.yayRatings name="Yays" [icon]=faThumbsUp></app-statistic>
       <app-statistic [value]=level.booRatings name="Boos" [icon]=faThumbsDown></app-statistic>

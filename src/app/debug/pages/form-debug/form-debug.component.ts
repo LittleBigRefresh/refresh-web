@@ -7,16 +7,15 @@ import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-form-debug',
-  standalone: true,
-  imports: [
-    PageTitleComponent,
-    FormComponent,
-    ButtonSubmitFormComponent,
-    TextboxComponent,
-    ReactiveFormsModule
-  ],
-  templateUrl: './form-debug.component.html'
+    selector: 'app-form-debug',
+    imports: [
+        PageTitleComponent,
+        FormComponent,
+        ButtonSubmitFormComponent,
+        TextboxComponent,
+        ReactiveFormsModule
+    ],
+    templateUrl: './form-debug.component.html'
 })
 export class FormDebugComponent {
   form = new FormGroup({

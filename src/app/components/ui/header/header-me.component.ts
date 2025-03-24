@@ -9,17 +9,16 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {HeaderMeMenuComponent} from "./header-me-menu.component";
 
 @Component({
-  selector: 'app-header-me',
-  standalone: true,
-  imports: [
-    UserAvatarComponent,
-    AsyncPipe,
-    NavbarItemComponent,
-    UserRouterLinkComponent,
-    FaIconComponent,
-    HeaderMeMenuComponent
-  ],
-  template: `
+    selector: 'app-header-me',
+    imports: [
+        UserAvatarComponent,
+        AsyncPipe,
+        NavbarItemComponent,
+        UserRouterLinkComponent,
+        FaIconComponent,
+        HeaderMeMenuComponent
+    ],
+    template: `
     @if ((auth.user | async); as user) {
       <div class="relative">
         <div (click)="toggleMenu()">
@@ -37,7 +36,7 @@ import {HeaderMeMenuComponent} from "./header-me-menu.component";
       <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
     }
   `,
-  styles: ``
+    styles: ``
 })
 export class HeaderMeComponent {
   protected showMenu: boolean = false;

@@ -16,26 +16,25 @@ import {HeaderMobileComponent} from "./components/ui/header/mobile/header-mobile
 const fadeLength: string = "100ms";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent, AsyncPipe, HeaderMobileComponent],
-  templateUrl: './app.component.html',
-  animations: [
-    trigger('routeAnimations', [
-      transition('* => *', [
-        group([
-          query(':leave', [
-            style({opacity: 1, 'grid-column': 1, 'grid-row': 1}),
-            animate(fadeLength, style({opacity: 0}))
-          ], {optional: true}),
-          query(':enter', [
-            style({opacity: 0, 'grid-column': 1, 'grid-row': 1}),
-            animate(fadeLength, style({opacity: 1}))
-          ], {optional: true}),
+    selector: 'app-root',
+    imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent, AsyncPipe, HeaderMobileComponent],
+    templateUrl: './app.component.html',
+    animations: [
+        trigger('routeAnimations', [
+            transition('* => *', [
+                group([
+                    query(':leave', [
+                        style({ opacity: 1, 'grid-column': 1, 'grid-row': 1 }),
+                        animate(fadeLength, style({ opacity: 0 }))
+                    ], { optional: true }),
+                    query(':enter', [
+                        style({ opacity: 0, 'grid-column': 1, 'grid-row': 1 }),
+                        animate(fadeLength, style({ opacity: 1 }))
+                    ], { optional: true }),
+                ])
+            ])
         ])
-      ])
-    ])
-  ],
+    ]
 })
 export class AppComponent {
   constructor(private title: TitleService,
