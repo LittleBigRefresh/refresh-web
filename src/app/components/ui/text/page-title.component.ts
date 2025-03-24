@@ -18,6 +18,8 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
         }
 
         {{title}}
+        
+        <ng-content select="[titleSubtext]"></ng-content>
       </h1>
     }
   `

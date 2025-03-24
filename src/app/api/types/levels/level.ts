@@ -16,4 +16,5 @@ export interface Level {
     teamPicked: boolean;
     gameVersion: number;
     score: number;
+    slotType: number;
 }

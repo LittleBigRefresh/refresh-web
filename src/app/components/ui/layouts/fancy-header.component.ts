@@ -1,12 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
-import {DateComponent} from "../info/date.component";
-import {DefaultPipe} from "../../../pipes/default.pipe";
 import {PageTitleComponent} from "../text/page-title.component";
-import {LevelStatisticsComponent} from "../../items/level-statistics.component";
-import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
-import {LayoutService} from "../../../services/layout.service";
+import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
   selector: 'app-fancy-header',
@@ -14,48 +10,44 @@ import {LayoutService} from "../../../services/layout.service";
   imports: [
     ContainerHeaderComponent,
     DarkContainerComponent,
-    DateComponent,
-    DefaultPipe,
     PageTitleComponent,
-    LevelStatisticsComponent,
-    NgTemplateOutlet,
-    AsyncPipe
-],
+    NgTemplateOutlet
+  ],
   template: `
     <ng-template #descriptionTemplate>
       <app-dark-container>
         <p>{{ description }}</p>
       </app-dark-container>
     </ng-template>
-    
+
     <app-container-header>
-      <div class="flex gap-x-5 sm:gap-x-2.5">
+      <div class="flex gap-x-2 sm:gap-x-2.5">
         <ng-content select="[avatar]"></ng-content>
-        <div class="grow">
-          <div class="flex flex-row sm:flex-col gap-x-1.5">
-            <app-page-title [title]="title" class="text-nowrap"></app-page-title>
-            <span class="align-bottom text-gentle self-center sm:self-auto text-nowrap">
-              <ng-content select="[titleSubtext]"></ng-content>
-            </span>
+        <div class="grow content-evenly">
+          <div class="flex flex-row place-content-between sm:flex-col gap-x-1.5 relative">
+            <app-page-title [title]="title" class="text-wrap [word-break:break-word]">
+              <ng-container titleSubtext>
+                <span class="align-bottom text-gentle text-base text-wrap font-normal self-center sm:self-auto">
+                  <ng-content select="[titleSubtext]"></ng-content>
+                </span>
+              </ng-container>
+            </app-page-title>
+            <ng-content select="[buttonArea]"></ng-content>
           </div>
-          <ng-content select="[belowTitle]"></ng-content>
-          <ng-content select="[statistics]"></ng-content>
-          @if (!(layout.isMobile | async)) {
-            <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
-          }
+          <div>
+            <ng-content select="[belowTitle]"></ng-content>
+            <ng-content select="[statistics]"></ng-content>
+          </div>
         </div>
       </div>
-      @if (layout.isMobile | async) {
-        <div class="mt-2.5">
-          <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
-        </div>
-      }
+      <ng-content select="[buttonAreaMobile]"></ng-content>
+      <div class="mt-2.5">
+        <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
+      </div>
     </app-container-header>
     `
 })
 export class FancyHeaderComponent {
   @Input({required: true}) title: string = "";
   @Input({required: true}) description: string = "";
-
-  constructor(protected layout: LayoutService) {}
 }
