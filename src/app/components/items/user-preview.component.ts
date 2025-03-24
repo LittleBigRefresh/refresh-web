@@ -1,22 +1,20 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../api/types/users/user";
 import {UserRouterLinkComponent} from "../ui/text/links/user-router-link.component";
-import {LevelAvatarComponent} from "../ui/photos/level-avatar.component";
+
 import {UserAvatarComponent} from "../ui/photos/user-avatar.component";
-import {DefaultPipe} from "../../pipes/default.pipe";
+
 import {UserStatisticsComponent} from "./user-statistics.component";
 import {UserStatusComponent} from "../ui/info/user-status.component";
 
 @Component({
     selector: 'app-user-preview',
     imports: [
-        UserRouterLinkComponent,
-        LevelAvatarComponent,
-        UserAvatarComponent,
-        DefaultPipe,
-        UserStatisticsComponent,
-        UserStatusComponent
-    ],
+    UserRouterLinkComponent,
+    UserAvatarComponent,
+    UserStatisticsComponent,
+    UserStatusComponent
+],
     template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
       <app-user-router-link [user]="user">

@@ -8,14 +8,14 @@ import {
     PLATFORM_ID
 } from '@angular/core';
 import {ContainerComponent} from "../../components/ui/container.component";
-import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
+
 import {DividerComponent} from "../../components/ui/divider.component";
 import {Instance} from "../../api/types/instance";
 import {ClientService} from "../../api/client.service";
-import {PageTitleComponent} from "../../components/ui/text/page-title.component";
+
 import {RouterLink} from "@angular/router";
-import { isPlatformBrowser, NgOptimizedImage, SlicePipe } from "@angular/common";
-import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
+import { isPlatformBrowser, SlicePipe } from "@angular/common";
+
 import {SectionTitleComponent} from "../../components/ui/text/section-title.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faFireAlt, faGamepad} from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +24,7 @@ import {Room} from "../../api/types/rooms/room";
 import {RoomComponent} from "../../components/items/room.component";
 import {RouterLinkComponent} from "../../components/ui/text/links/router-link.component";
 import {AsideLayoutComponent} from "../../components/ui/layouts/aside-layout.component";
-import {EventComponent} from "../../components/items/event.component";
+
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventPageComponent} from "../../components/items/event-page.component";
 import {repeat, Subscription} from "rxjs";
@@ -33,24 +33,19 @@ import {ContestBannerComponent} from "../../components/items/contest-banner.comp
 @Component({
     selector: 'app-landing',
     imports: [
-        ContainerComponent,
-        ResponsiveGridComponent,
-        DividerComponent,
-        PageTitleComponent,
-        RouterLink,
-        NgOptimizedImage,
-        ContainerTitleComponent,
-        SectionTitleComponent,
-        FaIconComponent,
-        AnnouncementComponent,
-        RoomComponent,
-        SlicePipe,
-        RouterLinkComponent,
-        AsideLayoutComponent,
-        EventComponent,
-        EventPageComponent,
-        ContestBannerComponent
-    ],
+    ContainerComponent,
+    DividerComponent,
+    RouterLink,
+    SectionTitleComponent,
+    FaIconComponent,
+    AnnouncementComponent,
+    RoomComponent,
+    SlicePipe,
+    RouterLinkComponent,
+    AsideLayoutComponent,
+    EventPageComponent,
+    ContestBannerComponent
+],
     templateUrl: './landing.component.html'
 })
 export class LandingComponent implements OnDestroy {

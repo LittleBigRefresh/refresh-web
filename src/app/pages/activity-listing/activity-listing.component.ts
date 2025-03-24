@@ -9,19 +9,18 @@ import { DatePipe } from "@angular/common";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
-import {DateComponent} from "../../components/ui/info/date.component";
+
 
 @Component({
     selector: 'app-activity-listing',
     imports: [
-        PageTitleComponent,
-        EventPageComponent,
-        InfiniteScrollerComponent,
-        DividerComponent,
-        ContainerTitleComponent,
-        DateComponent,
-        DatePipe
-    ],
+    PageTitleComponent,
+    EventPageComponent,
+    InfiniteScrollerComponent,
+    DividerComponent,
+    ContainerTitleComponent,
+    DatePipe
+],
     templateUrl: './activity-listing.component.html'
 })
 export class ActivityListingComponent implements Scrollable {

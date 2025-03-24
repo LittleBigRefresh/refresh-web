@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {RouterLink} from "@angular/router";
+
 import { Score } from '../../api/types/levels/score';
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {DateComponent} from "../ui/info/date.component";
@@ -10,13 +10,12 @@ import {AuthenticationService} from "../../api/authentication.service";
 @Component({
     selector: 'app-score-preview',
     imports: [
-        RouterLink,
-        UserLinkComponent,
-        DateComponent,
-        ScoreRouterLinkComponent,
-        DecimalPipe,
-        NgClass
-    ],
+    UserLinkComponent,
+    DateComponent,
+    ScoreRouterLinkComponent,
+    DecimalPipe,
+    NgClass
+],
     template: `
     <div class="my-5 px-2.5 flex items-center">
       <app-score-router-link [score]="score" class="text-2xl mr-2 min-w-8">

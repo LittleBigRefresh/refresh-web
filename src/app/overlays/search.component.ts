@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {NavbarItemComponent} from "../components/ui/header/navbar-item.component";
+
 import {DialogComponent} from "../components/ui/dialog.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import { AsyncPipe } from "@angular/common";
@@ -23,17 +23,16 @@ import {debounceTime} from "rxjs";
 @Component({
     selector: 'app-search',
     imports: [
-        NavbarItemComponent,
-        DialogComponent,
-        FaIconComponent,
-        SearchBarComponent,
-        AsyncPipe,
-        FormComponent,
-        DividerComponent,
-        LevelPreviewComponent,
-        ButtonComponent,
-        ContainerComponent
-    ],
+    DialogComponent,
+    FaIconComponent,
+    SearchBarComponent,
+    AsyncPipe,
+    FormComponent,
+    DividerComponent,
+    LevelPreviewComponent,
+    ButtonComponent,
+    ContainerComponent
+],
     template: `
     <a class="flex gap-x-2 text-[17px] font-normal cursor-pointer" title="Search" (click)="toggleModal()">
       <fa-icon [icon]=faSearch class="w-5 text-center"></fa-icon>

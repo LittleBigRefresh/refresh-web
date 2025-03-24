@@ -15,13 +15,13 @@ import {LayoutService} from "../../services/layout.service";
 import {DateComponent} from "../../components/ui/info/date.component";
 import {TwoPaneLayoutComponent} from "../../components/ui/layouts/two-pane-layout.component";
 import {ContainerComponent} from "../../components/ui/container.component";
-import {ContainerTitleComponent} from "../../components/ui/text/container-title.component";
+
 import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
 import {EventPageComponent} from "../../components/items/event-page.component";
 import {ActivityPage} from "../../api/types/activity/activity-page";
-import {ButtonComponent} from "../../components/ui/form/button.component";
+
 import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { FancyHeaderLevelButtonsComponent } from '../../components/ui/layouts/fancy-header-level-buttons.component';
@@ -31,26 +31,24 @@ import { LevelRelations } from '../../api/types/levels/level-relations';
 @Component({
     selector: 'app-level',
     imports: [
-        LevelStatisticsComponent,
-        DefaultPipe,
-        LevelAvatarComponent,
-        UserLinkComponent,
-        FancyHeaderComponent,
-        FancyHeaderLevelButtonsComponent,
-        GamePipe,
-        AsyncPipe,
-        DateComponent,
-        TwoPaneLayoutComponent,
-        ContainerComponent,
-        ContainerTitleComponent,
-        LevelLeaderboardComponent,
-        DividerComponent,
-        PaneTitleComponent,
-        EventPageComponent,
-        ButtonComponent,
-        RouterLink,
-        SlugPipe
-    ],
+    LevelStatisticsComponent,
+    DefaultPipe,
+    LevelAvatarComponent,
+    UserLinkComponent,
+    FancyHeaderComponent,
+    FancyHeaderLevelButtonsComponent,
+    GamePipe,
+    AsyncPipe,
+    DateComponent,
+    TwoPaneLayoutComponent,
+    ContainerComponent,
+    LevelLeaderboardComponent,
+    DividerComponent,
+    PaneTitleComponent,
+    EventPageComponent,
+    RouterLink,
+    SlugPipe
+],
     providers: [
         SlugPipe
     ],

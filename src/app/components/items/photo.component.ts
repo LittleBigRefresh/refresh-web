@@ -4,9 +4,9 @@ import { NgClass, NgOptimizedImage } from "@angular/common";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {DateComponent} from "../ui/info/date.component";
 import {UserWrapperComponent} from "../ui/text/wrappers/user-wrapper.component";
-import {UserRouterLinkComponent} from "../ui/text/links/user-router-link.component";
+
 import {LevelLinkComponent} from "../ui/text/links/level-link.component";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+
 import {faComment, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {StatisticComponent} from "../ui/info/statistic.component";
 import {ButtonComponent} from "../ui/form/button.component";
@@ -17,19 +17,17 @@ import {RouterLink} from "@angular/router";
 @Component({
     selector: 'app-photo',
     imports: [
-        NgOptimizedImage,
-        UserLinkComponent,
-        DateComponent,
-        UserWrapperComponent,
-        UserRouterLinkComponent,
-        LevelLinkComponent,
-        FaIconComponent,
-        StatisticComponent,
-        ButtonComponent,
-        ButtonGroupComponent,
-        RouterLink,
-        NgClass
-    ],
+    NgOptimizedImage,
+    UserLinkComponent,
+    DateComponent,
+    UserWrapperComponent,
+    LevelLinkComponent,
+    StatisticComponent,
+    ButtonComponent,
+    ButtonGroupComponent,
+    RouterLink,
+    NgClass
+],
     template: `
     @if(header) {
       <div class="overflow-hidden whitespace-nowrap" [ngClass]="padding ? 'p-1.5' : 'pb-1.5'">

@@ -4,7 +4,7 @@ import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 
-import {CategoriesComponent} from "../categories/categories.component";
+
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {Level} from "../../api/types/levels/level";
 import {LevelPreviewComponent} from "../../components/items/level-preview.component";
@@ -17,13 +17,12 @@ import {EmbedService} from "../../services/embed.service";
 @Component({
     selector: 'app-level-listing',
     imports: [
-        PageTitleComponent,
-        CategoriesComponent,
-        ResponsiveGridComponent,
-        LevelPreviewComponent,
-        ContainerComponent,
-        InfiniteScrollerComponent
-    ],
+    PageTitleComponent,
+    ResponsiveGridComponent,
+    LevelPreviewComponent,
+    ContainerComponent,
+    InfiniteScrollerComponent
+],
     templateUrl: './level-listing.component.html'
 })
 export class LevelListingComponent implements OnInit, Scrollable {

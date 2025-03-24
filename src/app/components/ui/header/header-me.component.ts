@@ -4,20 +4,19 @@ import {AuthenticationService} from "../../../api/authentication.service";
 import {AsyncPipe} from "@angular/common";
 import {faCaretDown, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {NavbarItemComponent} from "./navbar-item.component";
-import {UserRouterLinkComponent} from "../text/links/user-router-link.component";
+
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {HeaderMeMenuComponent} from "./header-me-menu.component";
 
 @Component({
     selector: 'app-header-me',
     imports: [
-        UserAvatarComponent,
-        AsyncPipe,
-        NavbarItemComponent,
-        UserRouterLinkComponent,
-        FaIconComponent,
-        HeaderMeMenuComponent
-    ],
+    UserAvatarComponent,
+    AsyncPipe,
+    NavbarItemComponent,
+    FaIconComponent,
+    HeaderMeMenuComponent
+],
     template: `
     @if ((auth.user | async); as user) {
       <div class="relative">

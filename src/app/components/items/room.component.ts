@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Room} from "../../api/types/rooms/room";
-import {ContainerComponent} from "../ui/container.component";
-import { AsyncPipe } from "@angular/common";
+
+
 import {GamePipe} from "../../pipes/game.pipe";
 import {PluralPipe} from "../../pipes/plural.pipe";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
@@ -10,13 +10,11 @@ import {PlatformPipe} from "../../pipes/platform.pipe";
 @Component({
     selector: 'app-room',
     imports: [
-        ContainerComponent,
-        GamePipe,
-        PluralPipe,
-        UserLinkComponent,
-        AsyncPipe,
-        PlatformPipe
-    ],
+    GamePipe,
+    PluralPipe,
+    UserLinkComponent,
+    PlatformPipe
+],
     template: `
     <b>
       {{'player' | plural: room.playerIds.length}}

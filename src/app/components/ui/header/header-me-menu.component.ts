@@ -1,25 +1,23 @@
 import {Component, Input} from '@angular/core';
-import {UserPreviewComponent} from "../../items/user-preview.component";
+
 import {User} from "../../../api/types/users/user";
 import {NavbarItemComponent} from "./navbar-item.component";
 import {UserAvatarComponent} from "../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "../text/links/user-router-link.component";
 import {UserStatisticsComponent} from "../../items/user-statistics.component";
-import {UserStatusComponent} from "../info/user-status.component";
+
 import {DividerComponent} from "../divider.component";
 import {NavItem} from "./navtypes";
 
 @Component({
     selector: 'app-header-me-menu',
     imports: [
-        UserPreviewComponent,
-        NavbarItemComponent,
-        UserAvatarComponent,
-        UserRouterLinkComponent,
-        UserStatisticsComponent,
-        UserStatusComponent,
-        DividerComponent
-    ],
+    NavbarItemComponent,
+    UserAvatarComponent,
+    UserRouterLinkComponent,
+    UserStatisticsComponent,
+    DividerComponent
+],
     template: `
     <div class="absolute z-[1] w-64 px-5 py-2.5 flex flex-col rounded-b bg-header-background gap-y-2 right-0 drop-shadow-md">
       <div class="flex flex-row gap-x-1.5">

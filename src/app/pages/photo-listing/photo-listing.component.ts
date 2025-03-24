@@ -6,7 +6,7 @@ import {Scrollable} from "../../helpers/scrollable";
 import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-info";
 import {ContainerComponent} from "../../components/ui/container.component";
 import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.component";
-import {LevelPreviewComponent} from "../../components/items/level-preview.component";
+
 
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {PhotoComponent} from "../../components/items/photo.component";
@@ -14,13 +14,12 @@ import {PhotoComponent} from "../../components/items/photo.component";
 @Component({
     selector: 'app-photo-listing',
     imports: [
-        PageTitleComponent,
-        ContainerComponent,
-        InfiniteScrollerComponent,
-        LevelPreviewComponent,
-        ResponsiveGridComponent,
-        PhotoComponent
-    ],
+    PageTitleComponent,
+    ContainerComponent,
+    InfiniteScrollerComponent,
+    ResponsiveGridComponent,
+    PhotoComponent
+],
     templateUrl: './photo-listing.component.html',
     styles: ``
 })

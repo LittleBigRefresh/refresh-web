@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {DialogComponent} from "../../dialog.component";
+
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {navTree, rightNavTree} from '../navtypes';
@@ -9,11 +9,10 @@ import {DividerComponent} from "../../divider.component";
 @Component({
     selector: 'app-header-navbar-mobile',
     imports: [
-        DialogComponent,
-        FaIconComponent,
-        HeaderNavbarSectionMobileComponent,
-        DividerComponent
-    ],
+    FaIconComponent,
+    HeaderNavbarSectionMobileComponent,
+    DividerComponent
+],
     template: `
     <fa-icon [icon]="show ? faXmark : faBars" class="text-3xl" (click)="toggleModal()"></fa-icon>
     

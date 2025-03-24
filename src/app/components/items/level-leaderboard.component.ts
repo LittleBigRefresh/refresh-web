@@ -1,20 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
-import {ContainerTitleComponent} from "../ui/text/container-title.component";
-import {DividerComponent} from "../ui/divider.component";
+
+
 import {Score} from "../../api/types/levels/score";
 import {ClientService} from "../../api/client.service";
 import {ScorePreviewComponent} from "./score-preview.component";
-import {NgClass} from "@angular/common";
+
 
 @Component({
     selector: 'app-level-leaderboard',
     imports: [
-        ContainerTitleComponent,
-        DividerComponent,
-        ScorePreviewComponent,
-        NgClass
-    ],
+    ScorePreviewComponent
+],
     template: `
     @for(score of scores; track score.scoreId; let i = $index) {
         <app-score-preview [score]="score"></app-score-preview>

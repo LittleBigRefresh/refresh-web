@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ContainerComponent} from "../ui/container.component";
+
 import {ActivityEvent} from "../../api/types/activity/activity-event";
 import {User} from "../../api/types/users/user";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
@@ -18,15 +18,14 @@ import {UserPreviewComponent} from "./user-preview.component";
 @Component({
     selector: 'app-event',
     imports: [
-        ContainerComponent,
-        UserLinkComponent,
-        LevelPreviewComponent,
-        DarkContainerComponent,
-        DateComponent,
-        DecimalPipe,
-        PhotoComponent,
-        UserPreviewComponent
-    ],
+    UserLinkComponent,
+    LevelPreviewComponent,
+    DarkContainerComponent,
+    DateComponent,
+    DecimalPipe,
+    PhotoComponent,
+    UserPreviewComponent
+],
     template: `
     <app-user-link [user]="submittingUser" class="font-bold"></app-user-link>
     @switch (event.eventType) {
