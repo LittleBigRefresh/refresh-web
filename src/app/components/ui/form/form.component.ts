@@ -14,7 +14,7 @@ import {DividerComponent} from "../divider.component";
     ReactiveFormsModule
 ],
   template: `
-    <form (ngSubmit)="submit.emit(null);" [formGroup]="form">
+    <form (ngSubmit)="submitEvent.emit(null);" [formGroup]="form">
       <ng-content></ng-content>
     
       @if (!compact) {
@@ -29,6 +29,6 @@ import {DividerComponent} from "../divider.component";
 })
 export class FormComponent {
   @Input({required: true}) form: FormGroup = null!;
-  @Output() submit: EventEmitter<null> = new EventEmitter();
+  @Output() submitEvent: EventEmitter<null> = new EventEmitter();
   @Input() compact: boolean = false;
 }
