@@ -12,7 +12,7 @@ import {NgClass} from "@angular/common";
     NgClass
   ],
   template: `
-    <app-textbox [form]="form" ctrlName="query" [icon]="faSearch" placeholder="Search..." [ngClass]="appClass"></app-textbox>
+    <app-textbox [form]="form" ctrlName="query" [icon]="faSearch" placeholder="Search for levels..." [ngClass]="appClass"></app-textbox>
   `
 })
 export class SearchBarComponent {
