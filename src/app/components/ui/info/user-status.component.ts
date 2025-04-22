@@ -17,14 +17,26 @@ import {DateComponent} from "./date.component";
           @case (0) {
             <span>playing a story level</span>
           }
-          @case(1) {
-            <span>playing <app-level-link [level]="null" [levelId]="activeRoom.levelId"></app-level-link></span>
+          @case (1) {
+            <span>playing level <app-level-link [level]="null" [levelId]="activeRoom.levelId"></app-level-link></span>
           }
           @case (2) {
-            <span>on the moon</span>
+            <span>on the moon, creating a level</span>
           }
           @case (5) {
             <span>in the pod</span>
+          }
+          @case (8) {
+            <span>playing a DLC level</span>
+          }
+          @case (11) {
+            <span>playing a story adventure</span>
+          }
+          @case (14) {
+            <span>playing adventure <app-level-link [level]="null" [levelId]="activeRoom.levelId"></app-level-link></span>
+          }
+          @case (15) {
+            <span>on the moon, creating an adventure</span>
           }
           @default {
             <span>unhandled level type {{activeRoom.levelType}}</span>
