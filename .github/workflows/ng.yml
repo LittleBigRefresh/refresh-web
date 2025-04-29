@@ -11,7 +11,7 @@ jobs:
     name: Build, and Upload Builds
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install packages
       run: npm install
 
@@ -19,7 +19,7 @@ jobs:
       run: npx ng build
 
     - name: Upload production build of website
-      uses: actions/upload-artifact@v3.1.1
+      uses: actions/upload-artifact@v4
       with:
           name: "Refresh Website"
           path: "dist/refresh-web/browser"
