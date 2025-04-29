@@ -69,6 +69,8 @@ export class AppComponent implements AfterViewInit {
 
     instance: Instance | undefined = undefined;
 
+    logoUrl: string = "https://raw.githubusercontent.com/LittleBigRefresh/Branding/refs/heads/main/icons/refresh_transparent.svg";
+
     @ViewChild("login") login!: ElementRef;
     @ViewChild("menu") menu!: ElementRef;
     @ViewChild("notifications") notifications!: ElementRef;
@@ -100,6 +102,9 @@ export class AppComponent implements AfterViewInit {
                     this.themeService.SetTheme("default");
                 }
             }
+
+            if(data.websiteLogoUrl)
+                this.logoUrl = data.websiteLogoUrl;
         });
 
         authService.userWatcher.subscribe((data) => this.handleUserUpdate(data));

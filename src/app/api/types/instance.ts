@@ -19,4 +19,6 @@ export interface Instance {
 
     contactInfo: ContactInfo;
     activeContest: Contest | null;
+
+    websiteLogoUrl: string | null;
 }

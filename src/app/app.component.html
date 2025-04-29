@@ -14,7 +14,8 @@
     [ngClass]="themeService.GetUseFullPageWidth() ? '' : 'flex'">
   <div class="items-center flex h-[59px]" [ngClass]="themeService.GetUseFullPageWidth() ? 'px-5' : 'container'">
     <div class="flex mr-2.5">
-      <a class="bg-logo bg-cover cursor-pointer w-12 h-12 drop-shadow-lg" *ngIf="getTheme() != 'hotdogStand'" routerLink="/" title="Home"></a>
+      <a class="bg-no-repeat bg-contain bg-center cursor-pointer w-12 h-12 drop-shadow-lg" *ngIf="getTheme() != 'hotdogStand'" routerLink="/" title="Home"
+         [style]="'background-image: url(\'' + logoUrl + '\')'"></a>
       <a class="bg-cover cursor-pointer w-12 h-12 drop-shadow-lg text-5xl leading-[3rem]" *ngIf="getTheme() == 'hotdogStand'" routerLink="/" title="Home">🌭</a>
       <div class="ml-3 w-[3px] rounded-sm bg-divider"></div>
     </div>
