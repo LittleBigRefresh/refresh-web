@@ -65,6 +65,16 @@ export const routes: Routes = [
         data: {title: "User Page"},
     },
     {
+        path: 'settings/profile',
+        loadComponent: () => import('./pages/user-settings/profile/user-profile-settings.component').then(x => x.UserProfileSettingsComponent),
+        data: {title: "Profile Settings"},
+    },
+    {
+        path: 'settings/account',
+        loadComponent: () => import('./pages/user-settings/account/user-account-settings.component').then(x => x.UserAccountSettingsComponent),
+        data: {title: "Account Settings"},
+    },
+    {
         path: 'login',
         loadComponent: () => import('./pages/auth/login/login.component').then(x => x.LoginComponent),
         data: {title: "Sign in"},

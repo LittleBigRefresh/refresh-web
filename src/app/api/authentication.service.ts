@@ -11,6 +11,8 @@ import { RefreshApiError } from "./refresh-api-error";
 import { AuthRefreshRequest } from "./types/auth/auth-refresh-request";
 import { RefreshApiResponse } from "./refresh-api-response";
 import { Router } from "@angular/router";
+import { ProfileUpdateRequest } from "./types/users/profile-update-request";
+import { AccountUpdateRequest } from "./types/users/account-update-request";
 
 @Injectable({
     providedIn: 'root'
@@ -143,5 +145,53 @@ export class AuthenticationService extends ApiImplementation {
         this.tokenStorage.ClearStoredRefreshToken();
         this.tokenStorage.ClearStoredUser();
         this.user.next(undefined);
+    }
+
+    public UpdateProfile(data: ProfileUpdateRequest): void {
+        this.http.patch<ExtendedUser>("/users/me", data).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.bannerService.warn("Failed to update your profile", apiError == null ? error.message : apiError.message);
+            },
+            next: response => {
+                this.bannerService.success("User updated!", "Your profile data was successfully updated.");
+
+                // Update local user data
+                this.user.next(response);
+                this.tokenStorage.SetStoredUser(response);
+            }
+        })
+    }
+
+    public UpdateAccount(data: AccountUpdateRequest): void {
+        this.http.patch<ExtendedUser>("/users/me", data).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.bannerService.warn("Failed to update your account", apiError == null ? error.message : apiError.message);
+            },
+            next: response => {
+                this.bannerService.success("User updated!", "Your account's authentication settings were successfully updated.");
+
+                // Update local user data
+                this.user.next(response);
+                this.tokenStorage.SetStoredUser(response);
+            }
+        })
+    }
+
+    public UpdateUserAvatar(hash: string): void {
+        this.http.patch<ExtendedUser>("/users/me", {iconHash: hash}).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.bannerService.warn("Failed to update your avatar", apiError == null ? error.message : apiError.message);
+            },
+            next: response => {
+                this.bannerService.success("User updated!", "Your avatar was successfully updated.");
+
+                // Update local user data
+                this.user.next(response);
+                this.tokenStorage.SetStoredUser(response);
+            }
+        })
     }
 }

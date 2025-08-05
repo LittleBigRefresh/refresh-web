@@ -1,0 +1,43 @@
+@if (ownUser) {
+    <div class="mb-4">
+        <div class="flex flex-row gap-x-2">
+            <div class="group flex justify-center items-center aspect-square my-2.5" >
+                <app-user-avatar [user]="ownUser" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
+                <input type="file" (change)="avatarChanged($event).then()" class="hidden" id="pfpInput">
+                @if(isMobile) {
+                    <label for="pfpInput" class="flex rounded bg-[#000000aa] size-26 absolute justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <fa-icon [icon]="faPencil" class="text-2xl"></fa-icon>
+                    </label>
+                }
+                @else {
+                    <label for="pfpInput" class="flex rounded bg-[#000000aa] size-44 absolute justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
+                    </label>
+                }
+            </div>
+            <div class="mx-4 my-4">
+                <app-page-title></app-page-title>
+            </div>
+        </div>
+        <app-textarea class="w-full" [icon]="faPencil" [form]="form" placeholder="Introduce yourself..." ctrlName="description" type="description"></app-textarea>
+    </div>
+    
+    <app-two-pane-layout>
+        <app-container class="w-full">
+            <app-pane-title>
+                <a [routerLink]="'/'">
+                    Manage Planets
+                </a>
+            </app-pane-title>
+            <app-divider></app-divider>
+        </app-container>
+        <app-container class="w-full">
+            <app-pane-title>
+                <a [routerLink]="'/'">
+                    Profile Pins
+                </a>
+            </app-pane-title>
+            <app-divider></app-divider>
+        </app-container>
+    </app-two-pane-layout>
+}
