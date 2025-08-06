@@ -5,24 +5,22 @@
                 <app-user-avatar [user]="ownUser" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
                 <input type="file" (change)="avatarChanged($event).then()" class="hidden" id="pfpInput">
                 @if(isMobile) {
-                    <label for="pfpInput" class="flex rounded bg-[#000000aa] size-26 absolute justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <label for="pfpInput" class="flex rounded bg-[#000000aa] size-26 absolute justify-center items-center opacity-0 group-hover:opacity-90 transition-opacity">
                         <fa-icon [icon]="faPencil" class="text-2xl"></fa-icon>
                     </label>
                 }
                 @else {
-                    <label for="pfpInput" class="flex rounded bg-[#000000aa] size-44 absolute justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <label for="pfpInput" class="flex rounded bg-[#000000aa] size-44 absolute justify-center items-center opacity-0 group-hover:opacity-90 transition-opacity">
                         <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
                     </label>
                 }
             </div>
-            <div class="mx-4 my-4 gap-x-2">
-                <app-page-title></app-page-title>
-                @if (hasPendingChanges || !hasPendingChanges) {
-                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
-                }
+            <div class="mx-4 my-4">
+                <app-page-title class=""></app-page-title>
+                <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
             </div>
         </div>
-        <app-textarea class="w-full" [icon]="faPencil" [form]="form" placeholder="Introduce yourself..." ctrlName="description" type="description" (change)="doesPageHavePendingChanges()"></app-textarea>
+        <app-textarea class="w-full" [icon]="faPencil" [form]="settingsForm" placeholder="Introduce yourself..." ctrlName="description" type="description" (change)="checkDescriptionChanges()"></app-textarea>
     </div>
     
     <app-two-pane-layout>
@@ -34,10 +32,10 @@
             </app-pane-title>
             <app-divider></app-divider>
             <div>
-                <app-checkbox label="Redirect Grief Report Screen&shy;shots to Public Photos" [form]="form" ctrlName="griefToPhotos" (change)="doesPageHavePendingChanges()"></app-checkbox>
-                <app-checkbox label="Show modded levels" [form]="form" ctrlName="showModded" (change)="doesPageHavePendingChanges()"></app-checkbox>
-                <app-checkbox label="Show reuploaded levels" [form]="form" ctrlName="showReuploaded" (change)="doesPageHavePendingChanges()"></app-checkbox>
-                <app-checkbox label="Unescape XML sequences" [form]="form" ctrlName="unescapeXml" (change)="doesPageHavePendingChanges()"></app-checkbox>
+                <app-checkbox label="Redirect Grief Report Screen&shy;shots to Public Photos" [form]="settingsForm" ctrlName="griefToPhotos" (change)="checkGriefToPhotosChanges()"></app-checkbox>
+                <app-checkbox label="Show modded levels" [form]="settingsForm" ctrlName="showModded" (change)="checkShowModdedChanges()"></app-checkbox>
+                <app-checkbox label="Show reuploaded levels" [form]="settingsForm" ctrlName="showReuploaded" (change)="checkShowReuploadedChanges()"></app-checkbox>
+                <app-checkbox label="Unescape XML sequences" [form]="settingsForm" ctrlName="unescapeXml" (change)="checkUnescapeXmlChanges()"></app-checkbox>
             </div>
         </app-container>
         <app-container class="w-full">
@@ -47,9 +45,29 @@
                 </p>
             </app-pane-title>
             <p class="italic font-sm text-yellow">
-                This setting is not enforced by the server yet, your content will stay visible to everyone
+                This setting is currently not enforced, your content will stay visible to everyone
             </p>
             <app-divider></app-divider>
+            
+            <div class="flex justify-evenly">
+                <div>
+                    <p>
+                        Your levels are visible to...
+                    </p>
+                    <app-radio-button label="Everyone" [form]="settingsForm" ctrlName="levelVisibility" id="l0" [value]='0' (click)="setLevelVisibility(0)"></app-radio-button>
+                    <app-radio-button label="Signed in users only" [form]="settingsForm" ctrlName="levelVisibility" id="l1" [value]='1' (click)="setLevelVisibility(1)"></app-radio-button>
+                    <app-radio-button label="Just you and staff" [form]="settingsForm" ctrlName="levelVisibility" id="l2" [value]='2' (click)="setLevelVisibility(2)"></app-radio-button>
+                </div>
+                <div>
+                    <p>
+                        Your profile is visible to...
+                    </p>
+                    <app-radio-button label="Everyone" [form]="settingsForm" ctrlName="profileVisibility" id="p0" [value]='0' (click)="setProfileVisibility(0)"></app-radio-button>
+                    <app-radio-button label="Signed in users only" [form]="settingsForm" ctrlName="profileVisibility" id="p1" [value]='1' (click)="setProfileVisibility(1)"></app-radio-button>
+                    <app-radio-button label="Just you and staff" [form]="settingsForm" ctrlName="profileVisibility" id="p2" [value]='2' (click)="setProfileVisibility(2)"></app-radio-button>
+                </div>
+            </div>
+            
         </app-container>
     </app-two-pane-layout>
 }

@@ -1,3 +1,4 @@
+import { ContentVisibility } from "../content-visibility";
 import {User} from "./user";
 
 export interface ExtendedUser extends User {
@@ -15,4 +16,7 @@ export interface ExtendedUser extends User {
 
     emailAddress: string | undefined;
     emailAddressVerified: boolean;
+
+    levelVisibility: ContentVisibility;
+    profileVisibility: ContentVisibility;
 }

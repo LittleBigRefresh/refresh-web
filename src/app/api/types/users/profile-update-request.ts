@@ -1,3 +1,5 @@
+import { ContentVisibility } from "../content-visibility";
+
 export interface ProfileUpdateRequest {
     description: string | undefined;
 
@@ -5,4 +7,7 @@ export interface ProfileUpdateRequest {
     showModdedContent: boolean | undefined;
     showReuploadedContent: boolean | undefined;
     redirectGriefReportsToPhotos: boolean | undefined;
+
+    levelVisibility: ContentVisibility | undefined;
+    profileVisibility: ContentVisibility | undefined;
 }
