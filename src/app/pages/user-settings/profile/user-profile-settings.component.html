@@ -2,19 +2,12 @@
     <div class="flex flex-col">
         <div class="mb-4">
             <div class="flex flex-row gap-x-2">
-                <div class="group flex justify-center items-center aspect-square my-2.5" >
+                <div class="group relative flex justify-center items-center aspect-square my-2.5" >
                     <app-user-avatar [user]="ownUser" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
                     <input type="file" (change)="avatarChanged($event).then()" class="hidden" id="pfpInput">
-                    @if(isMobile) {
-                        <label for="pfpInput" class="flex rounded bg-[#000000aa] size-26 absolute justify-center items-center opacity-0 group-hover:opacity-80 transition-opacity">
-                            <fa-icon [icon]="faPencil" class="text-2xl"></fa-icon>
-                        </label>
-                    }
-                    @else {
-                        <label for="pfpInput" class="flex rounded bg-[#000000aa] size-44 absolute justify-center items-center opacity-0 group-hover:opacity-80 transition-opacity">
-                            <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
-                        </label>
-                    }
+                    <label for="pfpInput" class="flex rounded bg-[#000000aa] h-full w-full absolute justify-center items-center opacity-0 group-hover:opacity-69 transition-opacity">
+                        <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
+                    </label>
                 </div>
                 <div class="mx-4 my-4 flex flex-col gap-y-2">
                     <app-page-title class=""></app-page-title>
