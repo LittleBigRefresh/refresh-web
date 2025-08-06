@@ -9,15 +9,17 @@ import { PageTitleComponent } from "../../../components/ui/text/page-title.compo
 import { TwoPaneLayoutComponent } from "../../../components/ui/layouts/two-pane-layout.component";
 import { ContainerComponent } from "../../../components/ui/container.component";
 import { FormControl, FormGroup } from "@angular/forms";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { RouterLink } from "@angular/router";
+import { faFloppyDisk, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { PaneTitleComponent } from "../../../components/ui/text/pane-title.component";
 import { DividerComponent } from "../../../components/ui/divider.component";
 import { sha1Async } from "../../../helpers/crypto";
 import { UserAvatarComponent } from "../../../components/ui/photos/user-avatar.component";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { AsyncPipe, NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 import { TextAreaComponent } from "../../../components/ui/form/textarea.component";
+import { ButtonComponent } from "../../../components/ui/form/button.component";
+import { BannerService } from "../../../banners/banner.service";
+import { RefreshApiError } from "../../../api/refresh-api-error";
 
 @Component({
     selector: 'app-user-profile-settings',
@@ -26,12 +28,12 @@ import { TextAreaComponent } from "../../../components/ui/form/textarea.componen
         TwoPaneLayoutComponent,
         ContainerComponent,
         TextAreaComponent,
-        RouterLink,
         PaneTitleComponent,
         DividerComponent,
         FaIconComponent,
         AsyncPipe,
         UserAvatarComponent,
+        ButtonComponent
     ],
     templateUrl: './user-profile-settings.component.html',
     styles: ``
@@ -44,21 +46,22 @@ export class UserProfileSettingsComponent {
     });
 
     iconHash: string = "0";
-    description: string = "";
 
     unescapeXml: boolean = false;
     showModded: boolean = true;
     showReuploaded: boolean = true;
+    griefToPhotos: boolean = false;
 
+    hasPendingChanges: boolean = false;
     protected isMobile: boolean = false;
 
     constructor(private title: TitleService, private client: ClientService, private auth: AuthenticationService, 
-                protected layout: LayoutService) 
+                protected layout: LayoutService, private bannerService: BannerService) 
     {
         this.auth.user.subscribe(user => {
             if (user) {
-                this.ownUser = user;
                 this.updateInputs(user);
+                this.ownUser = user;
             }
         });
 
@@ -66,21 +69,46 @@ export class UserProfileSettingsComponent {
     }
 
     updateInputs(user: ExtendedUser) {
+        this.hasPendingChanges = false;
+
         this.iconHash = user.iconHash;
-        this.description = user.description;
+        this.form.controls.description.setValue(user.description);
 
         this.unescapeXml = user.unescapeXmlSequences;
         this.showModded = user.showModdedContent;
         this.showReuploaded = user.showReuploadedContent;
+        this.griefToPhotos = user.redirectGriefReportsToPhotos;
+    }
+
+    doesPageHavePendingChanges() {
+        if (this.ownUser == null) {
+            this.hasPendingChanges = false;
+            return false;
+        } 
+
+        if (this.form.controls.description.getRawValue() != this.ownUser.description
+        || this.unescapeXml != this.ownUser.unescapeXmlSequences
+        || this.showModded != this.ownUser.showModdedContent
+        || this.showReuploaded != this.ownUser.showReuploadedContent
+        || this.griefToPhotos != this.ownUser.redirectGriefReportsToPhotos) {
+            this.hasPendingChanges = true;
+            return true
+        }
+        
+        this.hasPendingChanges = false;
+        return false;
     }
 
     uploadChanges() {
+        if (!this.hasPendingChanges) return;
+
         let request: ProfileUpdateRequest = {
-            description: this.description,
+            description: this.form.controls.description.getRawValue(),
 
             unescapeXmlSequences: this.unescapeXml,
             showModdedContent: this.showModded,
             showReuploadedContent: this.showReuploaded,
+            redirectGriefReportsToPhotos: this.griefToPhotos,
         };
 
         this.auth.UpdateProfile(request);
@@ -93,8 +121,14 @@ export class UserProfileSettingsComponent {
         const data: ArrayBuffer = await file.arrayBuffer();
         const hash: string = await sha1Async(data);
 
-        this.client.uploadAsset(hash, data).subscribe(_ => {
-            this.auth.UpdateUserAvatar(hash);
+        this.client.uploadAsset(hash, data).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.bannerService.warn("Failed to upload your new avatar", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.auth.UpdateUserAvatar(hash);
+            }
         });
     }
 
@@ -104,4 +138,5 @@ export class UserProfileSettingsComponent {
     }
 
     protected readonly faPencil = faPencil;
+    protected readonly faFloppyDisk = faFloppyDisk;
 }

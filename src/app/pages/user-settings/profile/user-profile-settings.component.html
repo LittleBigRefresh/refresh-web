@@ -15,27 +15,31 @@
                     </label>
                 }
             </div>
-            <div class="mx-4 my-4">
+            <div class="mx-4 my-4 gap-x-2 flex flex-column">
                 <app-page-title></app-page-title>
+                @if (hasPendingChanges || !hasPendingChanges) {
+                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
+                }
+                
             </div>
         </div>
-        <app-textarea class="w-full" [icon]="faPencil" [form]="form" placeholder="Introduce yourself..." ctrlName="description" type="description"></app-textarea>
+        <app-textarea class="w-full" [icon]="faPencil" [form]="form" placeholder="Introduce yourself..." ctrlName="description" type="description" (change)="doesPageHavePendingChanges()"></app-textarea>
     </div>
     
     <app-two-pane-layout>
         <app-container class="w-full">
             <app-pane-title>
-                <a [routerLink]="'/'">
-                    Manage Planets
-                </a>
+                <p>
+                    Game Settings
+                </p>
             </app-pane-title>
             <app-divider></app-divider>
         </app-container>
         <app-container class="w-full">
             <app-pane-title>
-                <a [routerLink]="'/'">
-                    Profile Pins
-                </a>
+                <p>
+                    Privacy
+                </p>
             </app-pane-title>
             <app-divider></app-divider>
         </app-container>
