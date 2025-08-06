@@ -28,5 +28,4 @@ export class TextAreaComponent {
   @Input({required: true}) ctrlName: string = "";
 
   @Input() required: boolean = true;
-  @Input() type: string = "text";
 }

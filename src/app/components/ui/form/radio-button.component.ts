@@ -1,12 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {IconProp} from "@fortawesome/fontawesome-svg-core";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-radio-button',
     imports: [
-        FaIconComponent,
         ReactiveFormsModule
     ],
     template: `
@@ -16,15 +13,11 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
             @if (label.length > 0) {
                 <label [for]=id class="text-base hyphens-manual ml-3">{{label}}</label>
             }
-            @if (icon != null) {
-                <fa-icon [icon]="icon" class="text-gentle ml-2 group-focus-within:text-secondary-bright transition-colors"></fa-icon>
-            }
         </div>
     `
 })
 export class RadioButtonComponent {
   @Input({required: true}) label: string = "";
-  @Input() icon: IconProp | undefined;
 
   @Input({required: true}) form: FormGroup = null!;
   @Input({required: true}) ctrlName: string = "";
