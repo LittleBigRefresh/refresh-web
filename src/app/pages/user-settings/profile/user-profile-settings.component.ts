@@ -54,9 +54,6 @@ export class UserProfileSettingsComponent {
         showModded: new FormControl(),
         showReuploaded: new FormControl(),
         griefToPhotos: new FormControl(),
-        // profileVisibility's values have to be offset by 3, else for some reason clicking a profile
-        // visibility button will also switch a level visibility button, but not the other way around,
-        // even if profileVisibility and levelVisibility are in different FormGroups
         levelVisibility: new FormControl(0),
         profileVisibility: new FormControl(0),
     });
@@ -74,8 +71,8 @@ export class UserProfileSettingsComponent {
 
     protected isMobile: boolean = false;
 
-    constructor(private title: TitleService, private client: ClientService, private auth: AuthenticationService, 
-                protected layout: LayoutService, private bannerService: BannerService) 
+    constructor(private client: ClientService, private auth: AuthenticationService, protected layout: LayoutService, 
+        private bannerService: BannerService) 
     {
         this.auth.user.subscribe(user => {
             if (user) {
@@ -98,17 +95,17 @@ export class UserProfileSettingsComponent {
     }
 
     checkShowModdedChanges() {
-        this.hasGriefToPhotoChanged = this.settingsForm.controls.showModded.getRawValue() != this.ownUser?.showModdedContent;
+        this.hasShowModdedChanged = this.settingsForm.controls.showModded.getRawValue() != this.ownUser?.showModdedContent;
         this.doesPageHavePendingChanges();
     }
 
     checkShowReuploadedChanges() {
-        this.hasGriefToPhotoChanged = this.settingsForm.controls.showReuploaded.getRawValue() != this.ownUser?.showReuploadedContent;
+        this.hasShowReuploadedChanged = this.settingsForm.controls.showReuploaded.getRawValue() != this.ownUser?.showReuploadedContent;
         this.doesPageHavePendingChanges();
     }
 
     checkUnescapeXmlChanges() {
-        this.hasGriefToPhotoChanged = this.settingsForm.controls.unescapeXml.getRawValue() != this.ownUser?.unescapeXmlSequences;
+        this.hasUnescapeXmlChanged = this.settingsForm.controls.unescapeXml.getRawValue() != this.ownUser?.unescapeXmlSequences;
         this.doesPageHavePendingChanges();
     }
 
@@ -150,8 +147,6 @@ export class UserProfileSettingsComponent {
         this.settingsForm.controls.levelVisibility.setValue(user.levelVisibility);
         this.settingsForm.controls.profileVisibility.setValue(user.profileVisibility);
     }
-
-    
 
     uploadChanges() {
         if (!this.hasPendingChanges) return;

@@ -70,11 +70,6 @@ export const routes: Routes = [
         data: {title: "Profile Settings"},
     },
     {
-        path: 'settings/account',
-        loadComponent: () => import('./pages/user-settings/account/user-account-settings.component').then(x => x.UserAccountSettingsComponent),
-        data: {title: "Account Settings"},
-    },
-    {
         path: 'login',
         loadComponent: () => import('./pages/auth/login/login.component').then(x => x.LoginComponent),
         data: {title: "Sign in"},
