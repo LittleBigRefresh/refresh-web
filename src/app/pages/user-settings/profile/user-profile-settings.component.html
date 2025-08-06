@@ -15,12 +15,11 @@
                     </label>
                 }
             </div>
-            <div class="mx-4 my-4 gap-x-2 flex flex-column">
+            <div class="mx-4 my-4 gap-x-2">
                 <app-page-title></app-page-title>
                 @if (hasPendingChanges || !hasPendingChanges) {
                     <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
                 }
-                
             </div>
         </div>
         <app-textarea class="w-full" [icon]="faPencil" [form]="form" placeholder="Introduce yourself..." ctrlName="description" type="description" (change)="doesPageHavePendingChanges()"></app-textarea>
@@ -34,13 +33,22 @@
                 </p>
             </app-pane-title>
             <app-divider></app-divider>
+            <div>
+                <app-checkbox label="Redirect Grief Report Screen&shy;shots to Public Photos" [form]="form" ctrlName="griefToPhotos" (change)="doesPageHavePendingChanges()"></app-checkbox>
+                <app-checkbox label="Show modded levels" [form]="form" ctrlName="showModded" (change)="doesPageHavePendingChanges()"></app-checkbox>
+                <app-checkbox label="Show reuploaded levels" [form]="form" ctrlName="showReuploaded" (change)="doesPageHavePendingChanges()"></app-checkbox>
+                <app-checkbox label="Unescape XML sequences" [form]="form" ctrlName="unescapeXml" (change)="doesPageHavePendingChanges()"></app-checkbox>
+            </div>
         </app-container>
         <app-container class="w-full">
             <app-pane-title>
                 <p>
-                    Privacy
+                    Content Visibility (outside the game)
                 </p>
             </app-pane-title>
+            <p class="italic font-sm text-yellow">
+                This setting is not enforced by the server yet, your content will stay visible to everyone
+            </p>
             <app-divider></app-divider>
         </app-container>
     </app-two-pane-layout>

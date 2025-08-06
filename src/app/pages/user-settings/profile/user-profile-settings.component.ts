@@ -20,6 +20,7 @@ import { TextAreaComponent } from "../../../components/ui/form/textarea.componen
 import { ButtonComponent } from "../../../components/ui/form/button.component";
 import { BannerService } from "../../../banners/banner.service";
 import { RefreshApiError } from "../../../api/refresh-api-error";
+import { CheckboxComponent } from "../../../components/ui/form/checkbox.component";
 
 @Component({
     selector: 'app-user-profile-settings',
@@ -33,7 +34,8 @@ import { RefreshApiError } from "../../../api/refresh-api-error";
         FaIconComponent,
         AsyncPipe,
         UserAvatarComponent,
-        ButtonComponent
+        ButtonComponent,
+        CheckboxComponent
     ],
     templateUrl: './user-profile-settings.component.html',
     styles: ``
@@ -43,14 +45,13 @@ export class UserProfileSettingsComponent {
     ownUser: ExtendedUser | undefined | null;
     form = new FormGroup({
         description: new FormControl(),
+        unescapeXml: new FormControl(),
+        showModded: new FormControl(),
+        showReuploaded: new FormControl(),
+        griefToPhotos: new FormControl(),
     });
 
     iconHash: string = "0";
-
-    unescapeXml: boolean = false;
-    showModded: boolean = true;
-    showReuploaded: boolean = true;
-    griefToPhotos: boolean = false;
 
     hasPendingChanges: boolean = false;
     protected isMobile: boolean = false;
@@ -74,10 +75,10 @@ export class UserProfileSettingsComponent {
         this.iconHash = user.iconHash;
         this.form.controls.description.setValue(user.description);
 
-        this.unescapeXml = user.unescapeXmlSequences;
-        this.showModded = user.showModdedContent;
-        this.showReuploaded = user.showReuploadedContent;
-        this.griefToPhotos = user.redirectGriefReportsToPhotos;
+        this.form.controls.unescapeXml.setValue(user.unescapeXmlSequences);
+        this.form.controls.showModded.setValue(user.showModdedContent);
+        this.form.controls.showReuploaded.setValue(user.showReuploadedContent);
+        this.form.controls.griefToPhotos.setValue(user.redirectGriefReportsToPhotos);
     }
 
     doesPageHavePendingChanges() {
@@ -87,10 +88,10 @@ export class UserProfileSettingsComponent {
         } 
 
         if (this.form.controls.description.getRawValue() != this.ownUser.description
-        || this.unescapeXml != this.ownUser.unescapeXmlSequences
-        || this.showModded != this.ownUser.showModdedContent
-        || this.showReuploaded != this.ownUser.showReuploadedContent
-        || this.griefToPhotos != this.ownUser.redirectGriefReportsToPhotos) {
+        || this.form.controls.unescapeXml.getRawValue() != this.ownUser.unescapeXmlSequences
+        || this.form.controls.showModded.getRawValue() != this.ownUser.showModdedContent
+        || this.form.controls.showReuploaded.getRawValue() != this.ownUser.showReuploadedContent
+        || this.form.controls.griefToPhotos.getRawValue() != this.ownUser.redirectGriefReportsToPhotos) {
             this.hasPendingChanges = true;
             return true
         }
@@ -105,10 +106,10 @@ export class UserProfileSettingsComponent {
         let request: ProfileUpdateRequest = {
             description: this.form.controls.description.getRawValue(),
 
-            unescapeXmlSequences: this.unescapeXml,
-            showModdedContent: this.showModded,
-            showReuploadedContent: this.showReuploaded,
-            redirectGriefReportsToPhotos: this.griefToPhotos,
+            unescapeXmlSequences: this.form.controls.unescapeXml.getRawValue(),
+            showModdedContent: this.form.controls.showModded.getRawValue(),
+            showReuploadedContent: this.form.controls.showReuploaded.getRawValue(),
+            redirectGriefReportsToPhotos: this.form.controls.griefToPhotos.getRawValue(),
         };
 
         this.auth.UpdateProfile(request);
