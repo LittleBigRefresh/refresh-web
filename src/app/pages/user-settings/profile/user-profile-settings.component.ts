@@ -23,6 +23,7 @@ import { RefreshApiError } from "../../../api/refresh-api-error";
 import { CheckboxComponent } from "../../../components/ui/form/checkbox.component";
 import { RadioButtonComponent } from "../../../components/ui/form/radio-button.component";
 import { ContentVisibility } from "../../../api/types/content-visibility";
+import { RouterLinkComponent } from "../../../components/ui/text/links/router-link.component";
 
 @Component({
     selector: 'app-user-profile-settings',
@@ -39,6 +40,7 @@ import { ContentVisibility } from "../../../api/types/content-visibility";
     ButtonComponent,
     CheckboxComponent,
     RadioButtonComponent,
+    RouterLinkComponent
 ],
     templateUrl: './user-profile-settings.component.html',
     styles: ``
@@ -163,7 +165,7 @@ export class UserProfileSettingsComponent {
             redirectGriefReportsToPhotos: this.settingsForm.controls.griefToPhotos.getRawValue(),
 
             levelVisibility: this.settingsForm.controls.levelVisibility.getRawValue()!,
-            profileVisibility: this.settingsForm.controls.levelVisibility.getRawValue()!,
+            profileVisibility: this.settingsForm.controls.profileVisibility.getRawValue()!,
         };
 
         this.auth.UpdateProfile(request);
