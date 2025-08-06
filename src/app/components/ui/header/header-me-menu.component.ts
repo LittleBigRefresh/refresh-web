@@ -49,20 +49,20 @@ export class HeaderMeMenuComponent {
 
   protected topItems: NavItem[] = [
     {
-      name: 'Game Authentication',
-      icon: 'key',
-      route: '/settings/auth'
-    },
-    {
       name: 'Notifications',
       icon: 'bell',
       route: '/notifications'
     },
     {
-      name: 'Settings',
+      name: 'Account Settings',
+      icon: 'key',
+      route: '/settings/account'
+    },
+    {
+      name: 'Profile Settings',
       icon: 'cog',
-      route: '/settings'
-    }
+      route: '/settings/profile'
+    },
   ];
   protected bottomItems: NavItem[] = [
     {

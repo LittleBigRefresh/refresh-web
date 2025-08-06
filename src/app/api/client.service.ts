@@ -15,6 +15,7 @@ import {ApiImplementation} from "./api-implementation";
 import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
 import { LevelRelations } from './types/levels/level-relations';
+import { Asset } from './types/asset';
 
 export const defaultPageSize: number = 40;
 
@@ -132,5 +133,9 @@ export class ClientService extends ApiImplementation {
 
   setLevelAsOverride(id: number) {
     return this.http.post<Response>(`/levels/id/${id}/setAsOverride`, null);
+  }
+
+  uploadAsset(hash: string, data: ArrayBuffer) {
+    return this.http.post<Asset>(`/assets/${hash}`, data);
   }
 }
