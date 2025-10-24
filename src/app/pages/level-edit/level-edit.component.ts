@@ -127,23 +127,12 @@ export class LevelEditComponent {
   }
 
   checkIsReuploadChanges() {
-    let isReupload: boolean | undefined = this.curatorForm.controls.isReupload.getRawValue();
-    this.hasReuploadChanged = isReupload != this.level?.isReUpload;
-
-    if (isReupload != true) {
-      this.curatorForm.controls.originalPublisher.setValue("");
-      this.curatorForm.controls.originalPublisher.disable();
-    }
-    else
-    {
-      this.curatorForm.controls.originalPublisher.enable();
-    }
-
-    this.checkOriginalPublisherChanges()
+    this.hasReuploadChanged = this.curatorForm.controls.isReupload.getRawValue() != this.level?.isReUpload;
+    this.doesPageHavePendingChanges();
   }
 
   checkOriginalPublisherChanges() {
-    this.hasOriginalPublisherChanged = this.curatorForm.controls.originalPublisher.getRawValue() != this.level?.originalPublisher;
+    this.hasOriginalPublisherChanged = this.curatorForm.controls.originalPublisher.getRawValue() != (this.level?.originalPublisher ?? "");
     this.doesPageHavePendingChanges();
   }
 
