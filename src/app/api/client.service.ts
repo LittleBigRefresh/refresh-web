@@ -148,6 +148,14 @@ export class ClientService extends ApiImplementation {
     return this.http.post<Response>(`/levels/id/${id}/setAsOverride`, null);
   }
 
+  teamPickLevel(id: number) {
+    return this.http.post<Response>(`/admin/levels/id/${id}/teamPick`, null);
+  }
+
+  unTeamPickLevel(id: number) {
+    return this.http.post<Response>(`/admin/levels/id/${id}/removeTeamPick`, null);
+  }
+
   uploadAsset(hash: string, data: ArrayBuffer) {
     return this.http.post<Asset>(`/assets/${hash}`, data);
   }

@@ -12,7 +12,7 @@ import { ExtendedUser } from '../../api/types/users/extended-user';
 import { UserRoles } from '../../api/types/users/user-roles';
 import { PageTitleComponent } from "../../components/ui/text/page-title.component";
 import { ButtonComponent } from "../../components/ui/form/button.component";
-import { faCertificate, faClone, faFloppyDisk, faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCertificate, faChevronDown, faClone, faFloppyDisk, faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { TextboxComponent } from '../../components/ui/form/textbox.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LevelUpdateRequest } from '../../api/types/levels/level-update-request';
@@ -23,7 +23,8 @@ import { CheckboxComponent } from "../../components/ui/form/checkbox.component";
 import { GameVersion } from '../../api/types/game-version';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { RadioButtonComponent } from "../../components/ui/form/radio-button.component";
-import { DarkContainerComponent } from "../../components/ui/dark-container.component";
+import { TextAreaComponent } from "../../components/ui/form/textarea.component";
+import { DateComponent } from "../../components/ui/info/date.component";
 
 
 @Component({
@@ -40,8 +41,9 @@ import { DarkContainerComponent } from "../../components/ui/dark-container.compo
     CheckboxComponent,
     FaIconComponent,
     RadioButtonComponent,
-    DarkContainerComponent,
     GamePipe,
+    TextAreaComponent,
+    DateComponent
 ],
     templateUrl: './level-edit.component.html'
 })
@@ -63,9 +65,8 @@ export class LevelEditComponent {
     isTeamPicked: new FormControl(),
     gameVersion: new FormControl(0),
   });
-
+  
   iconHash: string = "0";
-
   hasTitleChanged: boolean = false;
   hasDescriptionChanged: boolean = false;
 
@@ -74,7 +75,9 @@ export class LevelEditComponent {
   hasTeamPickedChanged: boolean = false;
   hasGameChanged: boolean = false;
 
-  hasPendingChanges: boolean = false;
+  hasPendingChangesTotal: boolean = false;
+  hasPendingChangesLevel: boolean = false;
+
   showGameMenu: boolean = false;
   displayTitle: string = "Unnamed Level";
   displayDescription: string = "No desk";
@@ -93,6 +96,7 @@ export class LevelEditComponent {
       this.client.getLevelById(id).subscribe(data => {
         if(data) {
           this.level = data;
+          this.updateInputs(data);
         }
       });
 
@@ -123,10 +127,9 @@ export class LevelEditComponent {
   }
 
   checkIsReuploadChanges() {
-    this.hasReuploadChanged = this.curatorForm.controls.isReupload.getRawValue() != this.level?.isReUpload;
-    this.doesPageHavePendingChanges();
+    let isReupload: boolean | undefined = this.curatorForm.controls.isReupload.getRawValue();
+    this.hasReuploadChanged = isReupload != this.level?.isReUpload;
 
-    let isReupload: boolean | undefined = this.curatorForm.controls.originalPublisher.getRawValue();
     if (isReupload != true) {
       this.curatorForm.controls.originalPublisher.setValue("");
       this.curatorForm.controls.originalPublisher.disable();
@@ -135,6 +138,8 @@ export class LevelEditComponent {
     {
       this.curatorForm.controls.originalPublisher.enable();
     }
+
+    this.checkOriginalPublisherChanges()
   }
 
   checkOriginalPublisherChanges() {
@@ -148,19 +153,24 @@ export class LevelEditComponent {
   }
 
   doesPageHavePendingChanges() {
-    this.hasPendingChanges =
+    this.hasPendingChangesTotal =
+      this.doesLevelHavePendingChanges()
+      || this.hasTeamPickedChanged;
+  }
+
+  doesLevelHavePendingChanges(): boolean {
+    return this.hasPendingChangesLevel =
       this.hasTitleChanged
       || this.hasDescriptionChanged
-      || this.hasTeamPickedChanged
       || this.hasGameChanged
       || this.hasReuploadChanged
       || this.hasOriginalPublisherChanged;
   }
 
   updateInputs(level: Level) {
-    this.hasPendingChanges = false;
+    this.hasPendingChangesTotal = false;
+    this.hasPendingChangesLevel = false;
 
-    this.iconHash = level.iconHash;
     this.settingsForm.controls.title.setValue(level.title);
     this.settingsForm.controls.description.setValue(level.description);
 
@@ -173,9 +183,43 @@ export class LevelEditComponent {
     this.displayDescription = level.description;
   }
 
-  uploadChanges() {
-    if (!this.hasPendingChanges) return;
+  async gameButtonClick() {
+    this.showGameMenu = !this.showGameMenu;
+  }
 
+  uploadChanges() {
+    if (!this.hasPendingChangesTotal) return;
+
+    if (this.hasTeamPickedChanged) this.updateTeamPick();
+    if (this.hasPendingChangesLevel) this.updateLevel();
+  }
+
+  updateTeamPick() {
+    if (this.curatorForm.controls.isTeamPicked.getRawValue()) {
+      this.client.teamPickLevel(this.level!.levelId).subscribe({
+        error: error => {
+          const apiError: RefreshApiError | undefined = error.error?.error;
+          this.banner.error("Failed to team pick level", apiError == null ? error.message : apiError.message);
+        },
+        next: response => {
+          this.banner.success("Level team picked!", "The level was successfully team picked.");
+        }
+      });
+    }
+    else {
+      this.client.unTeamPickLevel(this.level!.levelId).subscribe({
+        error: error => {
+          const apiError: RefreshApiError | undefined = error.error?.error;
+          this.banner.error("Failed to remove team pick", apiError == null ? error.message : apiError.message);
+        },
+        next: response => {
+          this.banner.success("Team pick removed!", "The level is no longer team picked.");
+        }
+      });
+    }
+  }
+
+  updateLevel() {
     let request: LevelUpdateRequest = {
       title: this.settingsForm.controls.title.getRawValue(),
       description: this.settingsForm.controls.description.getRawValue(),
@@ -185,7 +229,7 @@ export class LevelEditComponent {
       originalPublisher: this.curatorForm.controls.originalPublisher.getRawValue(),
     };
 
-    this.client.updateLevelById(this.level!.levelId, request, this.ownUser!.userId != this.level!.publisher?.userId).subscribe({
+    this.client.updateLevelById(this.level!.levelId, request, this.isUserPublisher()).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to update the level", apiError == null ? error.message : apiError.message);
@@ -199,8 +243,8 @@ export class LevelEditComponent {
     });
   }
 
-  async iconChanged($event: any) {
-    const file: File = $event.target.files[0]
+  async uploadIcon($event: any) {
+    const file: File = $event.target.files[0];
     console.log(file);
 
     const data: ArrayBuffer = await file.arrayBuffer();
@@ -209,7 +253,7 @@ export class LevelEditComponent {
     this.client.uploadAsset(hash, data).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
-        this.banner.error("Failed to upload new level icon", apiError == null ? error.message : apiError.message);
+        this.banner.warn("Failed to upload level icon", apiError == null ? error.message : apiError.message);
       },
       next: _ => {
         this.updateLevelIcon(hash);
@@ -217,9 +261,8 @@ export class LevelEditComponent {
     });
   }
 
-  updateLevelIcon(hash: string)
-  {
-    this.client.updateLevelIconById(this.level!.levelId, hash, this.ownUser!.userId != this.level!.publisher?.userId).subscribe({
+  updateLevelIcon(hash: string) {
+    this.client.updateLevelIconById(this.level!.levelId, hash, this.isUserPublisher()).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to update the level icon", apiError == null ? error.message : apiError.message);
@@ -234,8 +277,12 @@ export class LevelEditComponent {
   }
 
   avatarErr(img: EventTarget | null): void {
-      if(!(img instanceof HTMLImageElement)) return;
-      img.srcset = "/assets/missingLevel.svg";
+    if(!(img instanceof HTMLImageElement)) return;
+    img.srcset = "/assets/missingLevel.svg";
+  }
+
+  isUserPublisher(): boolean {
+    return this.ownUser!.userId != this.level!.publisher?.userId;
   }
 
   delete() {
@@ -247,7 +294,7 @@ export class LevelEditComponent {
     /*
     if (this.level == undefined) return;
 
-    this.client.deleteLevelById(this.level.levelId, this.ownUser!.userId != this.level!.publisher?.userId).subscribe({
+    this.client.deleteLevelById(this.level.levelId, this.isUserPublisher()).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to delete the level", apiError == null ? error.message : apiError.message);
@@ -273,4 +320,5 @@ export class LevelEditComponent {
   protected readonly faUser = faUser;
   protected readonly faCertificate = faCertificate;
   protected readonly faClone = faClone;
+  protected readonly faChevronDown = faChevronDown;
 }
