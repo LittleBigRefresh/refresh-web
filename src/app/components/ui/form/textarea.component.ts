@@ -14,8 +14,13 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
       <label [for]=ctrlName class="text-sm">{{label}}</label>
     }
     <div [formGroup]="form" class="min-w-full flex group rounded-md px-4 py-1.5 bg-teritary focus-within:outline-2 focus-within:outline focus-within:outline-secondary-bright max-w-fit text-nowrap transition-[outline]">
-      <fa-icon [icon]="icon" class="text-gentle mr-2 group-focus-within:text-secondary-bright transition-colors"></fa-icon>
-      <textarea [id]=ctrlName [formControlName]="ctrlName" [placeholder]="placeholder" class="grow min-h-20 outline-hidden wrap-break-word bg-teritary placeholder:text-gentle placeholder:italic" [required]="required"></textarea>
+      <div class="flex flex-col content-center mr-2">
+        <fa-icon [icon]="icon" class="text-gentle mr-2 group-focus-within:text-secondary-bright transition-colors"></fa-icon>
+        @if (showMaxLength == true) {
+          <p>{{maxLength - (form.get(ctrlName)?.value?.length ?? 0)}}</p>
+        }
+      </div>
+      <textarea [id]=ctrlName [formControlName]="ctrlName" [maxLength]="maxLength" [placeholder]="placeholder" class="grow min-w-10 min-h-20 outline-hidden wrap-break-word bg-teritary placeholder:text-gentle placeholder:italic" [required]="required"></textarea>
     </div>
     `
 })
@@ -28,4 +33,7 @@ export class TextAreaComponent {
   @Input({required: true}) ctrlName: string = "";
 
   @Input() required: boolean = true;
+
+  @Input() maxLength: number = 4096;
+  @Input() showMaxLength: boolean = false;
 }

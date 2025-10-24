@@ -2,7 +2,6 @@ import {Component, Input} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
-import { NgClass } from "@angular/common";
 
 
 @Component({
@@ -10,7 +9,6 @@ import { NgClass } from "@angular/common";
     imports: [
     FaIconComponent,
     ReactiveFormsModule,
-    NgClass
 ],
     template: `
     @if (label.length > 0) {
@@ -18,7 +16,10 @@ import { NgClass } from "@angular/common";
     }
     <div [formGroup]="form" class="min-w-full flex group rounded-full px-4 py-1.5 bg-teritary focus-within:outline-2 focus-within:outline focus-within:outline-secondary-bright max-w-fit text-nowrap transition-[outline]">
       <fa-icon [icon]="icon" class="text-gentle mr-2 group-focus-within:text-secondary-bright transition-colors"></fa-icon>
-      <input [type]="type" [id]=ctrlName [formControlName]="ctrlName" [placeholder]="placeholder" [ngClass]="wrapInput ? 'text-wrap' : ''" class="grow outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">
+      <input [type]="type" [maxlength]="maxLength" [id]=ctrlName [formControlName]="ctrlName" [placeholder]="placeholder" class="grow outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">
+      @if (showMaxLength == true) {
+        <p>{{maxLength - (form.get(ctrlName)?.value?.length ?? 0)}}</p>
+      }
     </div>
     `
 })
@@ -33,5 +34,6 @@ export class TextboxComponent {
   @Input() required: boolean = true;
   @Input() type: string = "text";
 
-  @Input() wrapInput: boolean = false;
+  @Input() maxLength: number = 256;
+  @Input() showMaxLength: boolean = false;
 }
