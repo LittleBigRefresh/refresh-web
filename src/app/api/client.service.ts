@@ -16,6 +16,7 @@ import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
 import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
+import { LevelUpdateRequest } from './types/levels/level-update-request';
 
 export const defaultPageSize: number = 40;
 
@@ -54,6 +55,18 @@ export class ClientService extends ApiImplementation {
 
   getLevelById(id: number) {
     return this.http.get<Level>(`/levels/id/${id}`);
+  }
+
+  updateLevelById(id: number, data: LevelUpdateRequest, isCurator: boolean) {
+    return this.http.patch<Level>(`${isCurator ? '/admin' : ''}/levels/id/${id}`, data);
+  }
+
+  updateLevelIconById(id: number, hash: string, isCurator: boolean) {
+    return this.http.patch<Level>(`${isCurator ? '/admin' : ''}/levels/id/${id}`, {iconHash: hash});
+  }
+
+  deleteLevelById(id: number, isModerator: boolean) {
+    return this.http.delete<Level>(`${isModerator ? '/admin' : ''}/levels/id/${id}`);
   }
   
   getScoresForLevel(id: number, scoreType: number, skip: number, count: number = defaultPageSize, params: Params | null = null) {
