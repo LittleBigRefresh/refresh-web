@@ -3,18 +3,20 @@
   <p>You may not edit this level. Go away.</p>
 }
 @if (level && ownUser) {
-  <app-page-title></app-page-title>
-  <p>(id: <code>{{ level.levelId }}</code>)</p>
+  <div class="flex flex-row gap-x-2">
+    <app-page-title></app-page-title>
+    <p class="italic text-gentle content-center">(Level ID: <code>{{ level.levelId }}</code>)</p>
+  </div>
 
   <div class="flex flex-col gap-x-10 gap-y-2.5">
-    <div *ngIf="level" class="bg-header-background text-header-foreground p-5 rounded flex-grow">
-      <h1 class="text-2xl">Metadata</h1>
-      <div class="flex gap-3.5">
+    <div *ngIf="level" class="bg-header-background text-header-foreground p-5 rounded-md flex-grow">
+      
+      <div class="flex flex-row flex-grow flex-wrap gap-3.5">
         <div class="flex flex-col justify-start">
           <div class="group relative flex justify-center items-center aspect-rounded my-2.5" >
             <app-level-avatar [level]="level" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-level-avatar>
             <input type="file" (change)="uploadIcon($event).then()" class="hidden" id="pfpInput">
-            <label for="pfpInput" class="flex rounded bg-[#000000aa] h-full w-full absolute justify-center items-center opacity-0 group-hover:opacity-80 transition-opacity">
+            <label for="pfpInput" class="flex rounded-full bg-[#000000aa] h-full w-full absolute justify-center items-center opacity-0 group-hover:opacity-80 transition-opacity">
               <fa-icon [icon]="faPencil" class="text-4xl"></fa-icon>
             </label>
           </div>
@@ -25,61 +27,58 @@
         </div>
       </div>
 
-      <app-divider></app-divider>
-      <app-textarea label="Description" [form]="settingsForm" placeholder="No description, yet..." ctrlName="description" [icon]="faPencil" (change)="checkDescriptionChanges()"></app-textarea>
+      <app-textarea class="pt-2" label="Description" [form]="settingsForm" placeholder="No description, yet..." ctrlName="description" [icon]="faPencil" (change)="checkDescriptionChanges()"></app-textarea>
     </div>
     
+    <div class="flex flex-row justify-between gap-x-2">
+      <app-button *ngIf="ownUser.userId == level.publisher?.userId || (ownUser?.role ?? 0) >= moderatorRoleValue" 
+      [icon]="faFloppyDisk" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
+      <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
+    </div>
   </div>
 
   <app-divider></app-divider>
 
   <div *ngIf="(ownUser?.role ?? 0) >= curatorRoleValue">
-    <h1 class="text-2xl">Admin/Curator Settings</h1>
-    <div class="flex flex-col w-96 max-lg:w-auto gap-y-2.5">
-        <div>
-          <p>Game version</p>
-          <app-button
-            [text]="curatorForm.controls.gameVersion.getRawValue()! | game"
-            [icon]="faChevronDown"
-            color="bg-secondary"
-            (click)="gameButtonClick()">
-          </app-button>
-          <div class="flex flex-row justify-end content-center space-x-1 min-w-56 group relative">
-            <div class="absolute z-1 flex flex-col gap-y-1.5 w-64 px-5 py-2.5 rounded bg-header-background
-              border-4 border-backdrop border-solid top-10 cursor-pointer"
-              [ngClass]="showGameMenu ? '' : 'hidden'">
-              <div>
-                <app-radio-button [label]="0 | game" [form]="curatorForm" ctrlName="gameVersion" id="g0" [value]='0' (click)="setGame(0)"></app-radio-button>
-                <app-radio-button [label]="1 | game" [form]="curatorForm" ctrlName="gameVersion" id="g1" [value]='1' (click)="setGame(1)"></app-radio-button>
-                <app-radio-button [label]="2 | game" [form]="curatorForm" ctrlName="gameVersion" id="g2" [value]='2' (click)="setGame(2)"></app-radio-button>
-                <app-radio-button [label]="3 | game" [form]="curatorForm" ctrlName="gameVersion" id="g3" [value]='3' (click)="setGame(3)"></app-radio-button>
-                <app-radio-button [label]="4 | game" [form]="curatorForm" ctrlName="gameVersion" id="g4" [value]='4' (click)="setGame(4)"></app-radio-button>
-                <!-- 5 = Website, which is invalid -->
-                <app-radio-button [label]="6 | game" [form]="curatorForm" ctrlName="gameVersion" id="g6" [value]='6' (click)="setGame(6)"></app-radio-button>
-              </div>
-            </div>
+    <app-page-title title="Admin/Curator Settings"></app-page-title>
+    <div class="flex flex-row justify-start">
+      <p class="text-2xl mr-3 content-center">Game version:</p>
+      <div class="flex flex-row justify-start content-center space-x-1 min-w-24 group relative">
+        <app-button
+          [text]="curatorForm.controls.gameVersion.getRawValue()! | game"
+          [icon]="faChevronDown"
+          [color]="gameButtonColor"
+          (click)="gameButtonClick()">
+        </app-button>
+        <div class="absolute z-1 flex flex-col gap-y-1.5 w-64 px-5 py-2.5 rounded bg-header-background
+          border-4 border-backdrop border-solid top-10 cursor-pointer"
+          [ngClass]="showGameMenu ? '' : 'hidden'">
+          <div>
+            <app-radio-button [label]="0 | game" [form]="curatorForm" ctrlName="gameVersion" id="g0" [value]='0' (click)="setGame(0)"></app-radio-button>
+            <app-radio-button [label]="1 | game" [form]="curatorForm" ctrlName="gameVersion" id="g1" [value]='1' (click)="setGame(1)"></app-radio-button>
+            <app-radio-button [label]="2 | game" [form]="curatorForm" ctrlName="gameVersion" id="g2" [value]='2' (click)="setGame(2)"></app-radio-button>
+            <app-radio-button [label]="3 | game" [form]="curatorForm" ctrlName="gameVersion" id="g3" [value]='3' (click)="setGame(3)"></app-radio-button>
+            <app-radio-button [label]="4 | game" [form]="curatorForm" ctrlName="gameVersion" id="g4" [value]='4' (click)="setGame(4)"></app-radio-button>
+            <!-- 5 = Website, which is invalid -->
+            <app-radio-button [label]="6 | game" [form]="curatorForm" ctrlName="gameVersion" id="g6" [value]='6' (click)="setGame(6)"></app-radio-button>
           </div>
         </div>
-
-        <div>
-          <div class="flex flex-row content-center gap-x-4">
-            <app-checkbox label="Team Picked" [form]="curatorForm"  ctrlName="isTeamPicked" [icon]="faCertificate" (change)="checkTeamPickChanges()"></app-checkbox>
-            <p *ngIf="level.teamPicked" class="italic text-gentle text-sm font-sm text-grey">
-              since <app-date [date]="level.dateTeamPicked"></app-date>
-            </p>
-          </div>
-          <app-checkbox label="Mark as re-upload" [form]="curatorForm" ctrlName="isReupload" [icon]="faClone" (change)="checkIsReuploadChanges()"></app-checkbox>
-        </div>
-
-        <app-textbox label="Original Publisher" [form]="curatorForm" placeholder="greek-player_50" ctrlName="originalPublisher" [icon]="faUser" (change)="checkOriginalPublisherChanges()"></app-textbox>
+      </div>
     </div>
-  </div>
+    <div class="flex flex-col py-4 w-96 max-lg:w-auto gap-y-2.5">
+      <div>
+        <div class="flex flex-row content-center gap-x-4">
+          <app-checkbox label="Team Picked" [form]="curatorForm"  ctrlName="isTeamPicked" [icon]="faCertificate" (change)="checkTeamPickChanges()"></app-checkbox>
+          <p *ngIf="level.teamPicked" class="italic text-gentle text-sm font-sm text-grey content-center">
+            since <app-date [date]="level.dateTeamPicked"></app-date>
+          </p>
+        </div>
+        <app-checkbox label="Mark as re-upload" [form]="curatorForm" ctrlName="isReupload" [icon]="faClone" (change)="checkIsReuploadChanges()"></app-checkbox>
+      </div>
 
-  <app-divider></app-divider>
-
-  <div class="flex flex-row  gap-x-2">
-    <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
-    <app-button *ngIf="ownUser.userId == level.publisher?.userId || (ownUser?.role ?? 0) >= moderatorRoleValue" 
-      [icon]="faFloppyDisk" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
+      <app-textbox label="Original Publisher" [form]="curatorForm" placeholder="greek-player_50" ctrlName="originalPublisher" [icon]="faUser" (change)="checkOriginalPublisherChanges()"></app-textbox>
+    
+      
+    </div>
   </div>
 }

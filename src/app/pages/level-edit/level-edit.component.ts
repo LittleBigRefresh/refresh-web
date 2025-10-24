@@ -81,6 +81,7 @@ export class LevelEditComponent {
   showGameMenu: boolean = false;
   displayTitle: string = "Unnamed Level";
   displayDescription: string = "No desk";
+  gameButtonColor: string = "bg-secondary";
 
   protected readonly curatorRoleValue: UserRoles = UserRoles.Curator;
   protected readonly moderatorRoleValue: UserRoles = UserRoles.Moderator;
@@ -124,6 +125,19 @@ export class LevelEditComponent {
     this.curatorForm.controls.gameVersion.setValue(input);
     this.hasGameChanged = input != this.level!.gameVersion;
     this.doesPageHavePendingChanges();
+    this.setGameButtonColor(input);
+  }
+
+  setGameButtonColor(game: GameVersion) {
+    switch (game) {
+      case 0: this.gameButtonColor = "bg-dark-pink"; break;
+      case 1: this.gameButtonColor = "bg-dark-green"; break;
+      case 2: this.gameButtonColor = "bg-orange"; break;
+      case 3: this.gameButtonColor = "bg-purple"; break;
+      case 4: this.gameButtonColor = "bg-light-blue"; break;
+      case 6: this.gameButtonColor = "bg-blue"; break;
+      default: this.gameButtonColor = "bg-tertiary"; break;
+    }
   }
 
   checkIsReuploadChanges() {
@@ -170,6 +184,7 @@ export class LevelEditComponent {
 
     this.displayTitle = level.title;
     this.displayDescription = level.description;
+    this.setGameButtonColor(level.gameVersion);
   }
 
   async gameButtonClick() {
