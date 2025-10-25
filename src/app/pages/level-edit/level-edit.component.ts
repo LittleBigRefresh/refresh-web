@@ -224,6 +224,7 @@ export class LevelEditComponent {
         next: response => {
           this.hasTeamPickedChanged = false;
           this.level!.teamPicked = true;
+          this.level!.dateTeamPicked = new Date();
           this.banner.success("Level team picked!", "The level was successfully team picked.");
         }
       });
@@ -278,7 +279,7 @@ export class LevelEditComponent {
     this.client.uploadAsset(hash, data).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
-        this.banner.warn("Failed to upload level icon", apiError == null ? error.message : apiError.message);
+        this.banner.warn("Failed to upload new icon", apiError == null ? error.message : apiError.message);
       },
       next: _ => {
         this.updateLevelIcon(hash);

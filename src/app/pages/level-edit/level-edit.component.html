@@ -34,7 +34,9 @@
       <div class="flex flex-row justify-between pt-3 gap-x-2">
         <app-button *ngIf="isUserPublisher || isUserModerator" 
         [icon]="faTrash" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
-        <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
+        <div class="flex flex-row flex-grow justify-end">
+          <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
+        </div>
       </div>
     </div>
     

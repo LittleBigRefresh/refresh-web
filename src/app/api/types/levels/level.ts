@@ -9,7 +9,7 @@ export interface Level {
     originalPublisher: string | undefined;
     isReUpload: boolean;
     teamPicked: boolean;
-    dateTeamPicked : Date;
+    dateTeamPicked: Date;
     gameVersion: number;
     score: number;
     slotType: number;
