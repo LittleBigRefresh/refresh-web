@@ -1,8 +1,8 @@
-@if (level && ownUser && level.publisher?.userId != ownUser.userId && ownUser.role < 64)
+@if (level && ownUser && !isUserPublisher && !isUserCurator)
 {
   <p>You may not edit this level. Go away.</p>
 }
-@if (level && ownUser) {
+@else if (level && ownUser) {
   <div class="flex flex-col gap-y-3">
     <div class="flex flex-row gap-x-2">
       <app-page-title></app-page-title>
@@ -32,52 +32,54 @@
       </div>
       
       <div class="flex flex-row justify-between pt-3 gap-x-2">
-        <app-button *ngIf="ownUser.userId == level.publisher?.userId || (ownUser?.role ?? 0) >= moderatorRoleValue" 
+        <app-button *ngIf="isUserPublisher || isUserModerator" 
         [icon]="faTrash" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
         <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
       </div>
     </div>
+    
+    @if (isUserCurator) {
+      <app-divider></app-divider>
 
-    <app-divider></app-divider>
+      <div class="flex flex-col gap-y-4">
+        <app-page-title title="Admin/Curator Settings"></app-page-title>
 
-    <div class="flex flex-col gap-y-4" *ngIf="(ownUser?.role ?? 0) >= curatorRoleValue">
-      <app-page-title title="Admin/Curator Settings"></app-page-title>
-
-      <div class="flex flex-row flex-wrap gap-x-2 gap-y-1 justify-start">
-        <p class="w-42 text-2xl content-center">Game version:</p>
-        <app-dropdown-menu [showMenu]="showGameMenu" offsets="top-9 -left-5" [width]="64">
-          <app-button trigger
-            width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
-            [text]="curatorForm.controls.gameVersion.getRawValue()! | game"
-            [icon]="showGameMenu ? faChevronUp : faChevronDown"
-            [color]="gameButtonColor"
-            (click)="gameButtonClick()">
-          </app-button>
-          <div class="" content>
-            <app-radio-button [label]="0 | game" [form]="curatorForm" ctrlName="gameVersion" id="g0" [value]='0' (click)="setGame(0)"></app-radio-button>
-            <app-radio-button [label]="1 | game" [form]="curatorForm" ctrlName="gameVersion" id="g1" [value]='1' (click)="setGame(1)"></app-radio-button>
-            <app-radio-button [label]="2 | game" [form]="curatorForm" ctrlName="gameVersion" id="g2" [value]='2' (click)="setGame(2)"></app-radio-button>
-            <app-radio-button [label]="3 | game" [form]="curatorForm" ctrlName="gameVersion" id="g3" [value]='3' (click)="setGame(3)"></app-radio-button>
-            <app-radio-button [label]="4 | game" [form]="curatorForm" ctrlName="gameVersion" id="g4" [value]='4' (click)="setGame(4)"></app-radio-button>
-            <!-- 5 = Website, which is invalid -->
-            <app-radio-button [label]="6 | game" [form]="curatorForm" ctrlName="gameVersion" id="g6" [value]='6' (click)="setGame(6)"></app-radio-button>
-          </div>
-        </app-dropdown-menu>
-      </div>
-
-      <div class="flex flex-col flex-grow max-w-96 max-lg:w-auto gap-y-2.5">
-        <div>
-          <div class="flex flex-row content-center gap-x-4">
-            <app-checkbox label="Team Picked" [form]="curatorForm"  ctrlName="isTeamPicked" [icon]="faCertificate" (change)="checkTeamPickChanges()"></app-checkbox>
-            <p *ngIf="level.teamPicked" class="italic text-gentle text-sm font-sm text-grey content-center">
-              since <app-date [date]="level.dateTeamPicked"></app-date>
-            </p>
-          </div>
-          <app-checkbox label="Mark as re-upload" [form]="curatorForm" ctrlName="isReupload" [icon]="faClone" (change)="checkIsReuploadChanges()"></app-checkbox>
+        <div class="flex flex-row flex-wrap gap-x-2 gap-y-1 justify-start">
+          <p class="w-42 text-2xl content-center">Game version:</p>
+          <app-dropdown-menu [showMenu]="showGameMenu" offsets="top-9 -left-5" [width]="64">
+            <app-button trigger
+              width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+              [text]="curatorForm.controls.gameVersion.getRawValue()! | game"
+              [icon]="showGameMenu ? faChevronUp : faChevronDown"
+              [color]="gameButtonColor"
+              (click)="gameButtonClick()">
+            </app-button>
+            <div class="" content>
+              <app-radio-button [label]="0 | game" [form]="curatorForm" ctrlName="gameVersion" id="g0" [value]='0' (click)="setGame(0)"></app-radio-button>
+              <app-radio-button [label]="1 | game" [form]="curatorForm" ctrlName="gameVersion" id="g1" [value]='1' (click)="setGame(1)"></app-radio-button>
+              <app-radio-button [label]="2 | game" [form]="curatorForm" ctrlName="gameVersion" id="g2" [value]='2' (click)="setGame(2)"></app-radio-button>
+              <app-radio-button [label]="3 | game" [form]="curatorForm" ctrlName="gameVersion" id="g3" [value]='3' (click)="setGame(3)"></app-radio-button>
+              <app-radio-button [label]="4 | game" [form]="curatorForm" ctrlName="gameVersion" id="g4" [value]='4' (click)="setGame(4)"></app-radio-button>
+              <!-- 5 = Website, which is invalid -->
+              <app-radio-button [label]="6 | game" [form]="curatorForm" ctrlName="gameVersion" id="g6" [value]='6' (click)="setGame(6)"></app-radio-button>
+            </div>
+          </app-dropdown-menu>
         </div>
 
-        <app-textbox label="Original Publisher" [showMaxLength]="true" [maxLength]="16" [form]="curatorForm" placeholder="greek-player_50" ctrlName="originalPublisher" [icon]="faUser" (change)="checkOriginalPublisherChanges()"></app-textbox>
+        <div class="flex flex-col flex-grow max-w-96 max-lg:w-auto gap-y-2.5">
+          <div>
+            <div class="flex flex-row content-center gap-x-4">
+              <app-checkbox label="Team Picked" [form]="curatorForm"  ctrlName="isTeamPicked" [icon]="faCertificate" (change)="checkTeamPickChanges()"></app-checkbox>
+              <p *ngIf="level.teamPicked" class="italic text-gentle text-sm font-sm text-grey content-center">
+                since <app-date [date]="level.dateTeamPicked"></app-date>
+              </p>
+            </div>
+            <app-checkbox label="Mark as re-upload" [form]="curatorForm" ctrlName="isReupload" [icon]="faClone" (change)="checkIsReuploadChanges()"></app-checkbox>
+          </div>
+
+          <app-textbox label="Original Publisher" [showMaxLength]="true" [maxLength]="16" [form]="curatorForm" placeholder="greek-player_50" ctrlName="originalPublisher" [icon]="faUser" (change)="checkOriginalPublisherChanges()"></app-textbox>
+        </div>
       </div>
-    </div>
+    }
   </div>
 }

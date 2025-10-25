@@ -78,14 +78,14 @@ export class LevelEditComponent {
 
   hasPendingChangesTotal: boolean = false;
   hasPendingChangesLevel: boolean = false;
+  hasPendingCuratorChanges: boolean = false;
 
   showGameMenu: boolean = false;
-  displayTitle: string = "Unnamed Level";
-  displayDescription: string = "No desk";
   gameButtonColor: string = "bg-secondary";
 
-  protected readonly curatorRoleValue: UserRoles = UserRoles.Curator;
-  protected readonly moderatorRoleValue: UserRoles = UserRoles.Moderator;
+  isUserCurator: boolean = false;
+  isUserModerator: boolean = false;
+  isUserPublisher: boolean = false;
 
   constructor(private client: ClientService, protected banner: BannerService, route: ActivatedRoute, 
               protected layout: LayoutService, private auth: AuthenticationService,
@@ -96,15 +96,18 @@ export class LevelEditComponent {
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe(data => {
-        if(data) {
+        if(!this.level && data) {
           this.level = data;
           this.updateInputs(data);
-        }
-      });
 
-      this.auth.user.subscribe(user => {
-        if(user) {
-          this.ownUser = user;
+          this.auth.user.subscribe(user => {
+            if(user) {
+              this.ownUser = user;
+              this.isUserPublisher = data.publisher != null && user.userId == data.publisher?.userId;
+              this.isUserCurator = user.role >= UserRoles.Curator;
+              this.isUserModerator = user.role >= UserRoles.Moderator;
+            }
+          });
         }
       });
     });
@@ -166,7 +169,12 @@ export class LevelEditComponent {
     return this.hasPendingChangesLevel =
       this.hasTitleChanged
       || this.hasDescriptionChanged
-      || this.hasGameChanged
+      || this.doesLevelHavePendingCuratorSettingChanges();
+  }
+
+  doesLevelHavePendingCuratorSettingChanges(): boolean {
+    return this.hasPendingCuratorChanges =
+      this.hasGameChanged
       || this.hasReuploadChanged
       || this.hasOriginalPublisherChanged;
   }
@@ -174,6 +182,7 @@ export class LevelEditComponent {
   updateInputs(level: Level) {
     this.hasPendingChangesTotal = false;
     this.hasPendingChangesLevel = false;
+    this.hasPendingCuratorChanges = false;
 
     this.settingsForm.controls.title.setValue(level.title);
     this.settingsForm.controls.description.setValue(level.description);
@@ -183,9 +192,14 @@ export class LevelEditComponent {
     this.curatorForm.controls.isReupload.setValue(level.isReUpload);
     this.curatorForm.controls.originalPublisher.setValue(level.originalPublisher);
 
-    this.displayTitle = level.title;
-    this.displayDescription = level.description;
     this.setGameButtonColor(level.gameVersion);
+
+    this.hasTitleChanged = false;
+    this.hasDescriptionChanged = false;
+    this.hasTeamPickedChanged = false;
+    this.hasReuploadChanged = false;
+    this.hasOriginalPublisherChanged = false;
+    this.hasGameChanged = false;
   }
 
   async gameButtonClick() {
@@ -197,6 +211,7 @@ export class LevelEditComponent {
 
     if (this.hasTeamPickedChanged) this.updateTeamPick();
     if (this.hasPendingChangesLevel) this.updateLevel();
+    this.hasPendingChangesTotal = false;
   }
 
   updateTeamPick() {
@@ -207,6 +222,8 @@ export class LevelEditComponent {
           this.banner.error("Failed to team pick level", apiError == null ? error.message : apiError.message);
         },
         next: response => {
+          this.hasTeamPickedChanged = false;
+          this.level!.teamPicked = true;
           this.banner.success("Level team picked!", "The level was successfully team picked.");
         }
       });
@@ -218,6 +235,8 @@ export class LevelEditComponent {
           this.banner.error("Failed to remove team pick", apiError == null ? error.message : apiError.message);
         },
         next: response => {
+          this.hasTeamPickedChanged = false;
+          this.level!.teamPicked = false;
           this.banner.success("Team pick removed!", "The level is no longer team picked.");
         }
       });
@@ -234,7 +253,7 @@ export class LevelEditComponent {
       originalPublisher: this.curatorForm.controls.originalPublisher.getRawValue(),
     };
 
-    this.client.updateLevelById(this.level!.levelId, request, this.isUserPublisher()).subscribe({
+    this.client.updateLevelById(this.level!.levelId, request, this.hasPendingCuratorChanges).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to update the level", apiError == null ? error.message : apiError.message);
@@ -244,6 +263,7 @@ export class LevelEditComponent {
 
         // Update level data
         this.level = response;
+        this.updateInputs(response);
       }
     });
   }
@@ -267,7 +287,7 @@ export class LevelEditComponent {
   }
 
   updateLevelIcon(hash: string) {
-    this.client.updateLevelIconById(this.level!.levelId, hash, this.isUserPublisher()).subscribe({
+    this.client.updateLevelIconById(this.level!.levelId, hash, !this.isUserPublisher).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to update the level icon", apiError == null ? error.message : apiError.message);
@@ -284,10 +304,6 @@ export class LevelEditComponent {
   avatarErr(img: EventTarget | null): void {
     if(!(img instanceof HTMLImageElement)) return;
     img.srcset = "/assets/missingLevel.svg";
-  }
-
-  isUserPublisher(): boolean {
-    return this.ownUser!.userId != this.level!.publisher?.userId;
   }
 
   delete() {
