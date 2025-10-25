@@ -11,17 +11,21 @@ import {
     faBellSlash, 
     faHeart, 
     faHeartCrack, 
+    faPencil, 
     faPlay
 } from "@fortawesome/free-solid-svg-icons";
 import { FancyHeaderButtonsComponent } from "./fancy-header-buttons.component";
 import { areGameVersionsCompatible } from "../../../helpers/game-versioning";
+import { UserRoles } from "../../../api/types/users/user-roles";
+import { Router } from "@angular/router";
+import { SlugPipe } from "../../../pipes/slug.pipe";
 
 @Component({
     selector: 'app-fancy-header-level-buttons',
     imports: [
-        ButtonOrNavItemComponent,
-        FancyHeaderButtonsComponent
-    ],
+    ButtonOrNavItemComponent,
+    FancyHeaderButtonsComponent,
+],
     template: `
         <ng-template #playNowButtonTemplate let-templateHasText="hasText" let-templateIsNavItem="isNavItem">
             <app-button-or-navitem
@@ -71,6 +75,19 @@ import { areGameVersionsCompatible } from "../../../helpers/game-versioning";
             </app-button-or-navitem>
         </ng-template>
 
+        <ng-template #editButtonTemplate let-templateHasText="hasText" let-templateIsNavItem="isNavItem">
+            <app-button-or-navitem
+                text="Edit"
+                [icon]="faPencil"
+                color="bg-blue"
+
+                (click)="this.router.navigate(['/level/', level.levelId, levelTitleSlug, 'edit'])"
+
+                [hasText]="templateHasText"
+                [isNavItem]="templateIsNavItem"> 
+            </app-button-or-navitem>
+        </ng-template>
+
         @if (buttonsInitialized) {
             <app-fancy-header-buttons 
                 [buttonTemplateRefs]="buttonTemplateRefs">
@@ -88,14 +105,24 @@ export class FancyHeaderLevelButtonsComponent {
     @ViewChild('playNowButtonTemplate') playNowButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('queueButtonTemplate') queueButtonTemplateRef!: TemplateRef<any>;
     @ViewChild('heartButtonTemplate') heartButtonTemplateRef!: TemplateRef<any>;
+    @ViewChild('editButtonTemplate') editButtonTemplateRef!: TemplateRef<any>;
     
     buttonTemplateRefs: TemplateRef<any>[] = [];
     ownUserRoom: Room | undefined;
     buttonsInitialized: boolean = false;
+    levelTitleSlug: string = "title";
 
-    constructor(private client: ClientService, private bannerService: BannerService) {}
+    constructor(private client: ClientService, private bannerService: BannerService, 
+                protected router: Router, private slug: SlugPipe) {}
 
     ngAfterViewInit() {
+        const isPublisher: boolean = this.level.publisher != null && this.level.publisher.userId == this.ownUser.userId;
+
+        // Edit button at the top, if level is published by the user
+        if (isPublisher) { 
+            this.buttonTemplateRefs.push(this.editButtonTemplateRef);
+        } 
+
         // Play Now button, if level is compatible with the game currently played by the player
         this.ownUserRoom = this.ownUser.activeRoom;
         if (this.ownUserRoom != undefined && areGameVersionsCompatible(this.level.gameVersion, this.ownUserRoom.game)) {
@@ -110,6 +137,12 @@ export class FancyHeaderLevelButtonsComponent {
         // Heart Button
         this.buttonTemplateRefs.push(this.heartButtonTemplateRef);
 
+        // Edit button further below, if the user is a curator or above and not already the publisher aswell
+        if (!isPublisher && this.ownUser.role >= UserRoles.Curator) { 
+            this.buttonTemplateRefs.push(this.editButtonTemplateRef);
+        } 
+
+        this.levelTitleSlug = this.slug.transform(this.level.title);
         this.buttonsInitialized = true;
     }
 
@@ -150,4 +183,5 @@ export class FancyHeaderLevelButtonsComponent {
     protected readonly faBellSlash = faBellSlash; 
     protected readonly faHeart = faHeart; 
     protected readonly faHeartCrack = faHeartCrack;
+    protected readonly faPencil = faPencil;
 }

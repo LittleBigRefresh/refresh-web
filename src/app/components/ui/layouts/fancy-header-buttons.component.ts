@@ -19,7 +19,7 @@ import { DropdownMenuComponent } from "../form/dropdown-menu.component";
             </app-button>
         </ng-template>
 
-        <app-dropdown-menu class="flex flex-row justify-end" [showMenu]="showMenu" offsets="top-9" [width]="48">
+        <app-dropdown-menu class="flex flex-row justify-end" [showMenu]="showMenu" offsets="top-9 right-0" [width]="48">
             <div trigger #firstButtonContainer></div>
             <div trigger #secondButtonContainer></div>
             <div content #navItemsContainer></div>
