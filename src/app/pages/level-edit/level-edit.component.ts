@@ -315,32 +315,20 @@ export class LevelEditComponent {
   }
 
   delete() {
-    if (true) {
-      this.banner.success("DELETE LOL", "yuo pressed oit!!");
-      return;
-    }
-
-    /*
     if (this.level == undefined) return;
 
     this.client.deleteLevelById(this.level.levelId, !this.isUserPublisher).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to delete the level", apiError == null ? error.message : apiError.message);
-
-        // Update level data
-        this.client.getLevelById(this.level!.levelId).subscribe(data => {
-          this.level = data;
-        });
       },
       next: response => {
         this.banner.success("Level deleted!", "The level was successfully deleted.");
 
-        // Navigate (TODO: redirect to page before both the edit and the details page)
-        this.router.navigate(['**']);
+        // Navigate (TODO: redirect to page before the details page, or atleast last viewed level category)
+        this.router.navigate(['/levels']);
       }
     });
-    */
   }
 
   protected readonly faFloppyDisk = faFloppyDisk;
