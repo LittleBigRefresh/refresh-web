@@ -117,6 +117,7 @@ export class FancyHeaderLevelButtonsComponent {
 
     ngAfterViewInit() {
         const isPublisher: boolean = this.level.publisher != null && this.level.publisher.userId == this.ownUser.userId;
+        this.levelTitleSlug = this.slug.transform(this.level.title);
 
         // Edit button at the top, if level is published by the user
         if (isPublisher) { 
@@ -140,9 +141,8 @@ export class FancyHeaderLevelButtonsComponent {
         // Edit button further below, if the user is a curator or above and not already the publisher aswell
         if (!isPublisher && this.ownUser.role >= UserRoles.Curator) { 
             this.buttonTemplateRefs.push(this.editButtonTemplateRef);
-        } 
+        }
 
-        this.levelTitleSlug = this.slug.transform(this.level.title);
         this.buttonsInitialized = true;
     }
 

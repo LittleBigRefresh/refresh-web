@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Injectable, Input} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import { NgClass } from "@angular/common";
 
@@ -18,6 +18,9 @@ import { NgClass } from "@angular/common";
             </div>
         </div>
     `
+})
+@Injectable({
+    providedIn: 'root'
 })
 export class DropdownMenuComponent {
   @Input() offsets: string = ""

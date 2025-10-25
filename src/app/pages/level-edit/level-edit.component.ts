@@ -26,7 +26,7 @@ import { RadioButtonComponent } from "../../components/ui/form/radio-button.comp
 import { TextAreaComponent } from "../../components/ui/form/textarea.component";
 import { DateComponent } from "../../components/ui/info/date.component";
 import { DropdownMenuComponent } from "../../components/ui/form/dropdown-menu.component";
-
+import { SlugPipe } from '../../pipes/slug.pipe';
 
 @Component({
     selector: 'app-level-edit',
@@ -46,6 +46,9 @@ import { DropdownMenuComponent } from "../../components/ui/form/dropdown-menu.co
     DateComponent,
     DropdownMenuComponent
 ],
+    providers: [
+        SlugPipe
+    ],
     templateUrl: './level-edit.component.html'
 })
 export class LevelEditComponent {
@@ -89,7 +92,7 @@ export class LevelEditComponent {
 
   constructor(private client: ClientService, protected banner: BannerService, route: ActivatedRoute, 
               protected layout: LayoutService, private auth: AuthenticationService,
-              @Inject(PLATFORM_ID) platformId: Object, private router: Router)
+              @Inject(PLATFORM_ID) platformId: Object, private router: Router, private slug: SlugPipe)
   {
     this.isBrowser = isPlatformBrowser(platformId);
 
@@ -99,6 +102,10 @@ export class LevelEditComponent {
         if(!this.level && data) {
           this.level = data;
           this.updateInputs(data);
+
+          if(this.isBrowser) {
+            window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}/edit`);
+          }
 
           this.auth.user.subscribe(user => {
             if(user) {
@@ -316,7 +323,7 @@ export class LevelEditComponent {
     /*
     if (this.level == undefined) return;
 
-    this.client.deleteLevelById(this.level.levelId, this.isUserPublisher()).subscribe({
+    this.client.deleteLevelById(this.level.levelId, !this.isUserPublisher).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to delete the level", apiError == null ? error.message : apiError.message);
