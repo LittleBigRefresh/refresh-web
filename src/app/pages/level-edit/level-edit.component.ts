@@ -12,7 +12,7 @@ import { ExtendedUser } from '../../api/types/users/extended-user';
 import { UserRoles } from '../../api/types/users/user-roles';
 import { PageTitleComponent } from "../../components/ui/text/page-title.component";
 import { ButtonComponent } from "../../components/ui/form/button.component";
-import { faCertificate, faChevronDown, faClone, faFloppyDisk, faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCertificate, faChevronDown, faChevronUp, faClone, faFloppyDisk, faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { TextboxComponent } from '../../components/ui/form/textbox.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LevelUpdateRequest } from '../../api/types/levels/level-update-request';
@@ -25,6 +25,7 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { RadioButtonComponent } from "../../components/ui/form/radio-button.component";
 import { TextAreaComponent } from "../../components/ui/form/textarea.component";
 import { DateComponent } from "../../components/ui/info/date.component";
+import { DropdownMenuComponent } from "../../components/ui/form/dropdown-menu.component";
 
 
 @Component({
@@ -36,14 +37,14 @@ import { DateComponent } from "../../components/ui/info/date.component";
     PageTitleComponent,
     ButtonComponent,
     TextboxComponent,
-    NgClass,
     NgIf,
     CheckboxComponent,
     FaIconComponent,
     RadioButtonComponent,
     GamePipe,
     TextAreaComponent,
-    DateComponent
+    DateComponent,
+    DropdownMenuComponent
 ],
     templateUrl: './level-edit.component.html'
 })
@@ -325,4 +326,5 @@ export class LevelEditComponent {
   protected readonly faCertificate = faCertificate;
   protected readonly faClone = faClone;
   protected readonly faChevronDown = faChevronDown;
+  protected readonly faChevronUp = faChevronUp;
 }

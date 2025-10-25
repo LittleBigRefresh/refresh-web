@@ -33,7 +33,7 @@
       
       <div class="flex flex-row justify-between pt-3 gap-x-2">
         <app-button *ngIf="ownUser.userId == level.publisher?.userId || (ownUser?.role ?? 0) >= moderatorRoleValue" 
-        [icon]="faFloppyDisk" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
+        [icon]="faTrash" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
         <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
       </div>
     </div>
@@ -41,31 +41,28 @@
     <app-divider></app-divider>
 
     <div class="flex flex-col gap-y-4" *ngIf="(ownUser?.role ?? 0) >= curatorRoleValue">
-      <app-page-title title="Admin/Crator Settings"></app-page-title>
+      <app-page-title title="Admin/Curator Settings"></app-page-title>
 
-      <div class="flex flex-row justify-start">
-        <p class="text-2xl mr-3 content-center">Game version:</p>
-        <div class="flex flex-row justify-start content-center space-x-1 min-w-24 group relative">
-          <app-button
+      <div class="flex flex-row flex-wrap gap-x-2 gap-y-1 justify-start">
+        <p class="w-42 text-2xl content-center">Game version:</p>
+        <app-dropdown-menu [showMenu]="showGameMenu" offsets="top-9 -left-5" [width]="64">
+          <app-button trigger
+            width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
             [text]="curatorForm.controls.gameVersion.getRawValue()! | game"
-            [icon]="faChevronDown"
+            [icon]="showGameMenu ? faChevronUp : faChevronDown"
             [color]="gameButtonColor"
             (click)="gameButtonClick()">
           </app-button>
-          <div class="absolute z-1 flex flex-col gap-y-1.5 w-64 px-5 py-2.5 rounded bg-header-background
-            border-4 border-backdrop border-solid top-10 cursor-pointer"
-            [ngClass]="showGameMenu ? '' : 'hidden'">
-            <div>
-              <app-radio-button [label]="0 | game" [form]="curatorForm" ctrlName="gameVersion" id="g0" [value]='0' (click)="setGame(0)"></app-radio-button>
-              <app-radio-button [label]="1 | game" [form]="curatorForm" ctrlName="gameVersion" id="g1" [value]='1' (click)="setGame(1)"></app-radio-button>
-              <app-radio-button [label]="2 | game" [form]="curatorForm" ctrlName="gameVersion" id="g2" [value]='2' (click)="setGame(2)"></app-radio-button>
-              <app-radio-button [label]="3 | game" [form]="curatorForm" ctrlName="gameVersion" id="g3" [value]='3' (click)="setGame(3)"></app-radio-button>
-              <app-radio-button [label]="4 | game" [form]="curatorForm" ctrlName="gameVersion" id="g4" [value]='4' (click)="setGame(4)"></app-radio-button>
-              <!-- 5 = Website, which is invalid -->
-              <app-radio-button [label]="6 | game" [form]="curatorForm" ctrlName="gameVersion" id="g6" [value]='6' (click)="setGame(6)"></app-radio-button>
-            </div>
+          <div class="" content>
+            <app-radio-button [label]="0 | game" [form]="curatorForm" ctrlName="gameVersion" id="g0" [value]='0' (click)="setGame(0)"></app-radio-button>
+            <app-radio-button [label]="1 | game" [form]="curatorForm" ctrlName="gameVersion" id="g1" [value]='1' (click)="setGame(1)"></app-radio-button>
+            <app-radio-button [label]="2 | game" [form]="curatorForm" ctrlName="gameVersion" id="g2" [value]='2' (click)="setGame(2)"></app-radio-button>
+            <app-radio-button [label]="3 | game" [form]="curatorForm" ctrlName="gameVersion" id="g3" [value]='3' (click)="setGame(3)"></app-radio-button>
+            <app-radio-button [label]="4 | game" [form]="curatorForm" ctrlName="gameVersion" id="g4" [value]='4' (click)="setGame(4)"></app-radio-button>
+            <!-- 5 = Website, which is invalid -->
+            <app-radio-button [label]="6 | game" [form]="curatorForm" ctrlName="gameVersion" id="g6" [value]='6' (click)="setGame(6)"></app-radio-button>
           </div>
-        </div>
+        </app-dropdown-menu>
       </div>
 
       <div class="flex flex-col flex-grow max-w-96 max-lg:w-auto gap-y-2.5">

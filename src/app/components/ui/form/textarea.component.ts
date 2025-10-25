@@ -6,9 +6,9 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 @Component({
     selector: 'app-textarea',
     imports: [
-        FaIconComponent,
-        ReactiveFormsModule
-    ],
+    FaIconComponent,
+    ReactiveFormsModule
+],
     template: `
     @if (label.length > 0) {
       <label [for]=ctrlName class="text-sm">{{label}}</label>
@@ -20,7 +20,8 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
           <p>{{maxLength - (form.get(ctrlName)?.value?.length ?? 0)}}</p>
         }
       </div>
-      <textarea [id]=ctrlName [formControlName]="ctrlName" [maxLength]="maxLength" [placeholder]="placeholder" class="grow min-w-10 min-h-20 outline-hidden wrap-break-word bg-teritary placeholder:text-gentle placeholder:italic" [required]="required"></textarea>
+      <textarea [id]=ctrlName [formControlName]="ctrlName" [maxLength]="maxLength" [placeholder]="placeholder" [rows]="defRows"
+        class="grow min-w-10 min-h-20 outline-hidden wrap-break-word bg-teritary placeholder:text-gentle placeholder:italic" [required]="required"></textarea>
     </div>
     `
 })
@@ -36,4 +37,6 @@ export class TextAreaComponent {
 
   @Input() maxLength: number = 4096;
   @Input() showMaxLength: boolean = false;
+
+  @Input() defRows: number = 4;
 }
