@@ -12,7 +12,7 @@ import { ExtendedUser } from '../../api/types/users/extended-user';
 import { UserRoles } from '../../api/types/users/user-roles';
 import { PageTitleComponent } from "../../components/ui/text/page-title.component";
 import { ButtonComponent } from "../../components/ui/form/button.component";
-import { faCertificate, faChevronDown, faChevronUp, faClone, faFloppyDisk, faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCertificate, faChevronDown, faChevronUp, faClone, faFloppyDisk, faPencil, faSignOutAlt, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { TextboxComponent } from '../../components/ui/form/textbox.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LevelUpdateRequest } from '../../api/types/levels/level-update-request';
@@ -27,6 +27,7 @@ import { TextAreaComponent } from "../../components/ui/form/textarea.component";
 import { DateComponent } from "../../components/ui/info/date.component";
 import { DropdownMenuComponent } from "../../components/ui/form/dropdown-menu.component";
 import { SlugPipe } from '../../pipes/slug.pipe';
+import { DialogComponent } from "../../components/ui/dialog.component";
 
 @Component({
     selector: 'app-level-edit',
@@ -44,7 +45,8 @@ import { SlugPipe } from '../../pipes/slug.pipe';
     GamePipe,
     TextAreaComponent,
     DateComponent,
-    DropdownMenuComponent
+    DropdownMenuComponent,
+    DialogComponent
 ],
     providers: [
         SlugPipe
@@ -83,6 +85,7 @@ export class LevelEditComponent {
   hasPendingChangesLevel: boolean = false;
   hasPendingCuratorChanges: boolean = false;
 
+  showDeletionPrompt: boolean = false;
   showGameMenu: boolean = false;
   gameButtonColor: string = "bg-secondary";
 
@@ -314,6 +317,14 @@ export class LevelEditComponent {
     img.srcset = "/assets/missingLevel.svg";
   }
 
+  async deleteButtonClick() {
+    this.showDeletionPrompt = !this.showDeletionPrompt;
+  }
+
+  async deleteCancelClick() {
+    this.showDeletionPrompt = false;
+  }
+
   delete() {
     if (this.level == undefined) return;
 
@@ -339,4 +350,5 @@ export class LevelEditComponent {
   protected readonly faClone = faClone;
   protected readonly faChevronDown = faChevronDown;
   protected readonly faChevronUp = faChevronUp;
+  protected readonly faSignOutAlt = faSignOutAlt;
 }

@@ -4,7 +4,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
     selector: 'app-dialog',
     imports: [],
     template: `
-    <dialog #dialog class="backdrop:backdrop-brightness-50 text-foreground bg-red bg-opacity-0 overflow-y-clip" tabindex="-1">
+    <dialog #dialog class="backdrop:backdrop-brightness-50 text-foreground bg-container-background bg-opacity-0 overflow-y-clip" tabindex="-1">
       <ng-content></ng-content>
     </dialog>
   `,

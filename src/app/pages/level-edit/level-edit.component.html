@@ -33,7 +33,7 @@
       
       <div class="flex flex-row justify-between pt-3 gap-x-2">
         <app-button *ngIf="isUserPublisher || isUserModerator" 
-        [icon]="faTrash" text="DELETE level" color="bg-red" (click)="delete()"></app-button>
+        [icon]="faTrash" text="DELETE level" color="bg-red" (click)="deleteButtonClick()"></app-button>
         <div class="flex flex-row flex-grow justify-end">
           <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
         </div>
@@ -84,4 +84,27 @@
       </div>
     }
   </div>
+
+  <!-- Deletion prompt overlay -->
+  @defer (when showDeletionPrompt) { @if (showDeletionPrompt) {
+    <app-dialog class="flex flex-row flex-grow" >
+      <div class="w-full h-full m-5 flex flex-col pr-10">
+        <app-page-title title="Are you sure you want to delete this level? This can not be undone!"></app-page-title>
+        <div class="flex flex-row gap-x-6 justify-between mt-10">
+          <app-button
+            text="Yes, Delete!"
+            [icon]="faTrash"
+            color="bg-red"
+            (click)="delete()"
+          ></app-button>
+          <app-button
+            text="No, Go back!"
+            [icon]="faSignOutAlt"
+            color="bg-secondary"
+            (click)="deleteCancelClick()"
+          ></app-button>
+        </div>
+      </div>
+    </app-dialog>
+  }}
 }
