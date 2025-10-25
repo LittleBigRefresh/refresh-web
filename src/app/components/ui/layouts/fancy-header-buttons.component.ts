@@ -12,7 +12,7 @@ import { DropdownMenuComponent } from "../form/dropdown-menu.component";
     template: `
         <ng-template #moreButtonTemplate>
             <app-button
-                text=""
+                width="w-11"
                 [icon]="showMenu ? faXmark : faEllipsisV"
                 color="bg-secondary"
                 (click)="moreButtonClick()"> 

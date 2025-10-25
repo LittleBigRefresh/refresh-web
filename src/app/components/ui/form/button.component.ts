@@ -10,18 +10,20 @@ import { NgClass } from "@angular/common";
         NgClass
     ],
     template: `
-    <button class="flex flex-row rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
+    <button class="flex flex-row justify-center rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
       [ngClass]="color + ' ' + width" [type]=type [disabled]="!enabled">
       @if (icon) {
         <fa-icon class="right-1" [icon]="icon" [ngClass]="text && text.length > 0 ? 'mr-2' : ''"></fa-icon>
       }
-      <div class="flex flex-row flex-grow justify-center"> {{ text }} </div>
+      @if (text) {
+        <div class="flex flex-row flex-grow justify-center"> {{ text }} </div>
+      }
     </button>
     `
 })
 export class ButtonComponent {
   // metadata
-  @Input({required: true}) text: string = "Button";
+  @Input() text: string | undefined;
   @Input() icon: IconProp | undefined;
   @Input() color: string = "bg-secondary";
 
