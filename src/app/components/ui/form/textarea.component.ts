@@ -14,8 +14,8 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
       <label [for]=ctrlName class="text-sm">{{label}}</label>
     }
     <div [formGroup]="form" class="min-w-full flex group rounded-md px-4 py-1.5 bg-teritary focus-within:outline-2 focus-within:outline focus-within:outline-secondary-bright max-w-fit text-nowrap transition-[outline]">
-      <div class="flex flex-col content-center mr-2">
-        <fa-icon [icon]="icon" class="text-gentle mr-2 group-focus-within:text-secondary-bright transition-colors"></fa-icon>
+      <div class="flex flex-col align-center mr-2 gap-y-2">
+        <fa-icon [icon]="icon" class="flex flex-row justify-center mt-1 text-gentle group-focus-within:text-secondary-bright transition-colors"></fa-icon>
         @if (showMaxLength == true) {
           <p>{{maxLength - (form.get(ctrlName)?.value?.length ?? 0)}}</p>
         }
