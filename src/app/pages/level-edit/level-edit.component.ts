@@ -264,7 +264,10 @@ export class LevelEditComponent {
       originalPublisher: this.curatorForm.controls.originalPublisher.getRawValue(),
     };
 
-    this.client.updateLevelById(this.level!.levelId, request, this.hasPendingCuratorChanges).subscribe({
+    // Only make an admin request if the curator has either changed any curator options on the level, 
+    // or this is another user's level. This way they may still edit the metadata of their own level
+    // without having that be counted as moderation action.
+    this.client.updateLevelById(this.level!.levelId, request, this.hasPendingCuratorChanges || !this.isUserPublisher).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to update the level", apiError == null ? error.message : apiError.message);
