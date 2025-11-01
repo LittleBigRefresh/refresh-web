@@ -4,7 +4,7 @@ import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild, EventEmitte
     selector: 'app-dialog',
     imports: [],
     template: `
-    <dialog (close)="close()" #dialog class="backdrop:backdrop-brightness-50 text-foreground bg-container-background bg-opacity-0 overflow-y-clip" tabindex="-1">
+    <dialog (close)="close()" #dialog class="backdrop:backdrop-brightness-50 flex flex-row flex-grow text-foreground bg-container-background bg-opacity-0 overflow-y-clip" tabindex="-1">
       <ng-content></ng-content>
     </dialog>
   `,

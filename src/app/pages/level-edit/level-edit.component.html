@@ -88,7 +88,7 @@
   <!-- Deletion prompt overlay -->
   @defer (when showDeletionPrompt) { @if (showDeletionPrompt) {
     <app-dialog class="flex flex-row flex-grow" (onDialogClose)="closeDeleteDialog()">
-      <div class="w-full h-full m-5 flex flex-col pr-10">
+      <div class="w-full h-full m-5 flex flex-col">
         <app-page-title title="Are you sure you want to delete this level? This can not be undone!"></app-page-title>
         <div class="flex flex-row gap-x-6 justify-between mt-10">
           <app-button

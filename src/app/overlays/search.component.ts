@@ -39,7 +39,7 @@ import {debounceTime} from "rxjs";
     </a>
     
     @defer (when show) { @if (show) {
-      <app-dialog>
+      <app-dialog (onDialogClose)="close()">
         <div class="w-[640px] h-full m-5 flex flex-col">
           @if (!(layout.isMobile | async)) {
             <app-form [form]="searchForm" [compact]="true" (submit)="search()">
