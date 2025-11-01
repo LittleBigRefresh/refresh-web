@@ -324,7 +324,7 @@ export class LevelEditComponent {
     this.showDeletionPrompt = !this.showDeletionPrompt;
   }
 
-  async deleteCancelClick() {
+  async closeDeleteDialog() {
     this.showDeletionPrompt = false;
   }
 
