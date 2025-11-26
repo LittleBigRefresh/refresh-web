@@ -5,6 +5,7 @@ export interface ProfileUpdateRequest {
 
     unescapeXmlSequences: boolean | undefined;
     showModdedContent: boolean | undefined;
+    showModdedPlanets: boolean | undefined;
     showReuploadedContent: boolean | undefined;
     redirectGriefReportsToPhotos: boolean | undefined;
 

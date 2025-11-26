@@ -11,6 +11,7 @@ export interface ExtendedUser extends User {
 
     unescapeXmlSequences: boolean;
     showModdedContent: boolean;
+    showModdedPlanets: boolean;
     showReuploadedContent: boolean;
     redirectGriefReportsToPhotos: boolean;
 
