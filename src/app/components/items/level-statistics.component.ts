@@ -27,24 +27,6 @@ import { LevelTeamPickStatusComponent } from "./level-team-pick-status.component
 export class LevelStatisticsComponent {
   @Input({required: true}) level: Level = undefined!;
 
-  ngOnInit() {
-    if (this.level.dateTeamPicked != null) {
-      this.level.dateTeamPicked = new Date(this.level.dateTeamPicked);
-    }
-  }
-
-  protected getFormattedDateTime(): string {
-    if (this.level.dateTeamPicked == null) return "unknown";
-
-    return getFormattedDateTime(this.level.dateTeamPicked);
-  }
-
-  protected getShortDateTime(): string {
-    if (this.level.dateTeamPicked == null) return "";
-
-    return getShortDateTime(this.level.dateTeamPicked);
-  }
-
   protected readonly faThumbsUp = faThumbsUp;
   protected readonly faThumbsDown = faThumbsDown;
   protected readonly faHeart = faHeart;
