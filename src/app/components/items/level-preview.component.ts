@@ -8,19 +8,21 @@ import {GamePipe} from "../../pipes/game.pipe";
 import {DateComponent} from "../ui/info/date.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LabelComponent} from "../ui/info/label.component";
+import { OriginalPublisherRouterLink } from "../ui/text/links/original-publisher-router-link.component";
 
 @Component({
     selector: 'app-level-preview',
     imports: [
-        UserLinkComponent,
-        LevelAvatarComponent,
-        LevelStatisticsComponent,
-        LevelRouterLinkComponent,
-        GamePipe,
-        DateComponent,
-        DefaultPipe,
-        LabelComponent
-    ],
+    UserLinkComponent,
+    LevelAvatarComponent,
+    LevelStatisticsComponent,
+    LevelRouterLinkComponent,
+    GamePipe,
+    DateComponent,
+    DefaultPipe,
+    LabelComponent,
+    OriginalPublisherRouterLink
+],
     template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
       <app-level-router-link [level]="level" class="min-w-[72px] self-center">
@@ -35,7 +37,12 @@ import {LabelComponent} from "../ui/info/label.component";
         <app-level-statistics [level]="level" class="text-sm"></app-level-statistics>
         
         <div class="text-gentle text-sm mt-0.5 flex gap-x-1">
-          by <app-user-link [user]="level.publisher"></app-user-link>
+          <p>by <app-user-link [user]="level.publisher"></app-user-link></p>
+          
+          @if (level.isReUpload) {
+            <p>(originally by <app-original-publisher-router-link [level]="this.level"></app-original-publisher-router-link>)</p>
+          }
+
           <app-date [date]="level.publishDate"></app-date>
         </div>
         

@@ -13,6 +13,8 @@ export interface Level {
     totalPlays: number;
     uniquePlays: number;
     publisher: User | undefined;
+    originalPublisher: string | undefined;
+    isReUpload: boolean;
     teamPicked: boolean;
     dateTeamPicked: Date | undefined;
     gameVersion: number;

@@ -26,6 +26,7 @@ import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { FancyHeaderLevelButtonsComponent } from '../../components/ui/layouts/fancy-header-level-buttons.component';
 import { LevelRelations } from '../../api/types/levels/level-relations';
+import { OriginalPublisherRouterLink } from "../../components/ui/text/links/original-publisher-router-link.component";
 
 
 @Component({
@@ -47,7 +48,8 @@ import { LevelRelations } from '../../api/types/levels/level-relations';
     PaneTitleComponent,
     EventPageComponent,
     RouterLink,
-    SlugPipe
+    SlugPipe,
+    OriginalPublisherRouterLink
 ],
     providers: [
         SlugPipe
