@@ -8,8 +8,11 @@ import { Level } from '../../../../api/types/levels/level';
         RouterLink
     ],
     template: `
-    <a routerLink="/user/!{{level.originalPublisher ?? this.unknownName}}" class="hover:underline">
-        {{level.originalPublisher ?? this.unknownName}}</a>
+    <span class="italic">
+        <a routerLink="/user/!{{level.originalPublisher ?? this.unknownName}}" class="hover:underline"
+            >{{level.originalPublisher ?? this.unknownName}}</a>
+    </span>
+    
   `
 })
 export class OriginalPublisherRouterLink {

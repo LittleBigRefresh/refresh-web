@@ -36,11 +36,13 @@ import { OriginalPublisherRouterLink } from "../ui/text/links/original-publisher
         
         <app-level-statistics [level]="level" class="text-sm"></app-level-statistics>
         
-        <div class="text-gentle text-sm mt-0.5 flex gap-x-1">
-          <p>by <app-user-link [user]="level.publisher"></app-user-link></p>
-          
+        <div class="text-gentle text-sm mt-0.5 flex flex-wrap gap-x-1">
           @if (level.isReUpload) {
-            <p>(originally by <app-original-publisher-router-link [level]="this.level"></app-original-publisher-router-link>)</p>
+            <p>by <app-original-publisher-router-link [level]="this.level"></app-original-publisher-router-link></p>
+            <p>(<app-user-link [user]="level.publisher"></app-user-link>)</p>
+          }
+          @else {
+            <p>by <app-user-link [user]="level.publisher"></app-user-link></p>
           }
 
           <app-date [date]="level.publishDate"></app-date>
