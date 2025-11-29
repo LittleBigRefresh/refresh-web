@@ -14,6 +14,7 @@ export interface Level {
     uniquePlays: number;
     publisher: User | undefined;
     teamPicked: boolean;
+    dateTeamPicked: Date | undefined;
     gameVersion: number;
     score: number;
     slotType: number;
