@@ -14,8 +14,8 @@ import { getFormattedDateTime, getShortDateTime } from '../../helpers/date-time'
     template: `
     <app-tooltip [text]="'Team picked since ' + this.getFormattedDateTime()">
         <div class="flex flex-row gap-x-1">
-        <fa-icon [icon]="faCircleCheck"></fa-icon>
-        <p> {{this.getShortDateTime()}}</p>
+            <fa-icon [icon]="faCircleCheck"></fa-icon>
+            <p> {{this.getShortDateTime()}}</p>
         </div>
     </app-tooltip>
   `
