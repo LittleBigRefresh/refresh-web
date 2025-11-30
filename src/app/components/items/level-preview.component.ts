@@ -9,6 +9,7 @@ import {DateComponent} from "../ui/info/date.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LabelComponent} from "../ui/info/label.component";
 import { OriginalPublisherRouterLink } from "../ui/text/links/original-publisher-router-link.component";
+import { TooltipComponent } from "../ui/text/tooltip.component";
 
 @Component({
     selector: 'app-level-preview',
@@ -21,7 +22,8 @@ import { OriginalPublisherRouterLink } from "../ui/text/links/original-publisher
     DateComponent,
     DefaultPipe,
     LabelComponent,
-    OriginalPublisherRouterLink
+    OriginalPublisherRouterLink,
+    TooltipComponent
 ],
     template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
@@ -49,7 +51,15 @@ import { OriginalPublisherRouterLink } from "../ui/text/links/original-publisher
         </div>
         
         <div class="flex gap-x-1 mt-1">
-          <app-label [primary]="true">{{level.gameVersion | game: true}}</app-label>
+          <app-tooltip [text]="'This level was published in ' + (level.gameVersion | game: false)">
+            <app-label [primary]="true">{{level.gameVersion | game: true}}</app-label>
+          </app-tooltip>
+          
+          @if (level.isModded) {
+            <app-tooltip text="This level contains modded assets">
+              <app-label [primary]="true">Modded</app-label>
+            </app-tooltip>
+          }
 <!--          <app-label>Platformer</app-label>-->
 <!--          <app-label>Short</app-label>-->
 <!--          <app-label>Insane</app-label>-->
