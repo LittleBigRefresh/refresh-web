@@ -3,18 +3,15 @@
     <app-level-avatar [level]="level" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-level-avatar>
     <ng-container titleSubtext>
       @if (level.isReUpload) {
-          <span class="text-nowrap">
-            by <app-original-publisher-router-link [level]="this.level"></app-original-publisher-router-link>
-          </span>
-          <span class="text-wrap"> - </span>
-          <span class="text-nowrap">
-            uploaded by <app-user-link [user]="level.publisher"></app-user-link>
-          </span>
+        <p class="text-wrap text-md">
+          by <app-original-publisher-router-link [level]="this.level"></app-original-publisher-router-link>, 
+          uploaded by <app-user-link [user]="level.publisher"></app-user-link>
+        </p>
       }
       @else {
-        <span class="text-nowrap">
+        <p class="text-nowrap">
           by <app-user-link [user]="level.publisher"></app-user-link>
-        </span>
+        </p>
       }
     </ng-container>
     <div class="text-gentle sm:text-sm md:text-sm text-md" belowTitle>
