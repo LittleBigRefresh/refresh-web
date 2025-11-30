@@ -31,7 +31,3 @@ export const timeIntervals: { [key: string]: number } = {
     minute: 60,
     second: 1,
 };
-
-export function getDifferenceFromNowAsTotalSeconds(date: Date) {
-    
-}

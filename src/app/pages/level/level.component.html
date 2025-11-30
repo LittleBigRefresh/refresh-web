@@ -1,18 +1,4 @@
 @if (level) {
-  <ng-template #datesTemplate>
-    <div class="text-gentle italic justify-start content-end sm:text-sm md:text-sm text-md">
-      <p>
-        Published <app-date [date]="level.publishDate"></app-date>
-      </p>
-      
-      @if(level.updateDate) {
-        <p>
-          Updated <app-date [date]="level.updateDate"></app-date>
-        </p>
-      }
-    </div>
-  </ng-template>
-
   <app-fancy-header [title]="level.title | default: 'Unnamed Level'" [description]="level.description | default: 'This level doesn\'t have a description.'">
     <app-level-avatar [level]="level" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-level-avatar>
     <ng-container titleSubtext>
