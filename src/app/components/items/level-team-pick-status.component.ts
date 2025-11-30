@@ -12,12 +12,12 @@ import { getFormattedDateTime, getShortDateTime } from '../../helpers/date-time'
     TooltipComponent
 ],
     template: `
-    <app-tooltip [text]="(short ? 'Team picked since ' : 'Since ') + this.getFormattedDateTime()">
+    <app-tooltip [text]="(short ? 'Team picked since ' : 'Since ') + this.formattedTime">
       <!-- TODO: Use "primary" once that is a declared color instead of "yellow" to prepare for themes -->
       <div class="flex flex-row gap-x-1 text-yellow">
           <fa-icon [icon]="faCircleCheck"></fa-icon>
           @if (!short) {
-            <p>team picked {{this.getShortDateTime()}}</p>
+            <p>team picked {{this.shortTime}}</p>
           }
           
       </div>
@@ -28,22 +28,15 @@ export class LevelTeamPickStatusComponent {
   @Input({required: true}) level: Level = undefined!;
   @Input() short: boolean = false;
 
+  protected formattedTime: string = "unknown";
+  protected shortTime: string = "";
+
   ngOnInit() {
     if (this.level.dateTeamPicked != null) {
       this.level.dateTeamPicked = new Date(this.level.dateTeamPicked);
+      this.shortTime = getShortDateTime(this.level.dateTeamPicked);
+      this.formattedTime = getFormattedDateTime(this.level.dateTeamPicked);
     }
-  }
-
-  protected getFormattedDateTime(): string {
-    if (this.level.dateTeamPicked == null) return "unknown";
-
-    return getFormattedDateTime(this.level.dateTeamPicked);
-  }
-
-  protected getShortDateTime(): string {
-    if (this.level.dateTeamPicked == null) return "";
-
-    return getShortDateTime(this.level.dateTeamPicked);
   }
 
   protected readonly faCircleCheck = faCircleCheck;
