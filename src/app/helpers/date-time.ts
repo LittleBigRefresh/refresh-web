@@ -4,7 +4,8 @@ export function getFormattedDateTime(date: Date) {
 
 export function getShortDateTime(date: Date) {
     const recentText = "just now";
-    const totalSeconds = getDifferenceFromNowAsTotalSeconds(date);
+    const now = new Date();
+    const totalSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
     if (totalSeconds < 20)
         return recentText;
@@ -32,12 +33,5 @@ export const timeIntervals: { [key: string]: number } = {
 };
 
 export function getDifferenceFromNowAsTotalSeconds(date: Date) {
-    const now = new Date();
-    return Math.floor((now.getTime() - date.getTime()) / 1000);
-}
-
-export function isOlderThanMonths(date: Date, months: number) {
-    const totalSeconds = getDifferenceFromNowAsTotalSeconds(date);
-    const time = Math.floor(totalSeconds / timeIntervals["month"]);
-    return time > 0;
+    
 }

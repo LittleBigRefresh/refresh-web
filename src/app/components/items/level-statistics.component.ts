@@ -19,13 +19,14 @@ import { LevelTeamPickStatusComponent } from "./level-team-pick-status.component
       <app-statistic [value]=level.uniquePlays name="Plays" [icon]=faPlay></app-statistic>
       <app-statistic [value]=level.score name="Cool Rating (CR)" [icon]=faStar [truncate]=true></app-statistic>
       @if (level.teamPicked) {
-        <app-level-team-pick-status [level]="level"></app-level-team-pick-status>
+        <app-level-team-pick-status [level]="level" [short]="short"></app-level-team-pick-status>
       }
     </div>
   `
 })
 export class LevelStatisticsComponent {
   @Input({required: true}) level: Level = undefined!;
+  @Input() short: boolean = false;
 
   protected readonly faThumbsUp = faThumbsUp;
   protected readonly faThumbsDown = faThumbsDown;

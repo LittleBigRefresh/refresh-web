@@ -36,7 +36,7 @@ import { TooltipComponent } from "../ui/text/tooltip.component";
              [title]=level.title>{{ level.title | default: "Unnamed Level" }}</p>
         </app-level-router-link>
         
-        <app-level-statistics [level]="level" class="text-sm"></app-level-statistics>
+        <app-level-statistics [level]="level" [short]="true" class="text-sm"></app-level-statistics>
         
         <div class="text-gentle text-sm mt-0.5 flex flex-wrap gap-x-1">
           @if (level.isReUpload) {

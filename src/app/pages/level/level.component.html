@@ -43,13 +43,13 @@
     </div>
 
     @if (!isMobile) {
-      <div belowTitleRight class="flex flex-col flex-grow text-gentle italic sm:text-sm md:text-sm text-md">
-        <div class="flex flex-row gap-x-1 justify-end">
+      <div belowTitleRight class="flex flex-col flex-grow text-gentle italic sm:text-sm md:text-sm text-md mr-1">
+        <div class="flex flex-row gap-x-1 text-nowrap justify-end">
           <p>published</p><app-date [date]="level.publishDate"></app-date>
         </div>
         
         @if(level.updateDate) {
-          <div class="flex flex-row gap-x-1 justify-end">
+          <div class="flex flex-row gap-x-1 text-nowrap justify-end">
             <p>updated</p><app-date [date]="level.updateDate"></app-date>
           </div>
         }

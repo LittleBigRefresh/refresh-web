@@ -33,7 +33,7 @@ import { NgTemplateOutlet } from "@angular/common";
             </app-page-title>
             <ng-content select="[buttonArea]"></ng-content>
           </div>
-          <div class="flex flex-row justify-between">
+          <div class="flex flex-row gap-x-1 justify-between">
             <div>
               <ng-content select="[belowTitle]"></ng-content>
               <ng-content select="[statistics]"></ng-content>
