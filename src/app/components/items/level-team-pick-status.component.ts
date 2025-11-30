@@ -3,29 +3,34 @@ import {Level} from "../../api/types/levels/level";
 import {faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { TooltipComponent } from "../ui/text/tooltip.component";
-import { getFormattedDateTime, getShortDateTime } from '../../helpers/date-time';
+import { getFormattedDateTime, getShortDateTime, isOlderThanMonths } from '../../helpers/date-time';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-level-team-pick-status',
     imports: [
     FaIconComponent,
-    TooltipComponent
+    TooltipComponent,
+    NgClass
 ],
     template: `
     <app-tooltip [text]="'Team picked since ' + this.getFormattedDateTime()">
-        <div class="flex flex-row gap-x-1">
-            <fa-icon [icon]="faCircleCheck"></fa-icon>
-            <p> {{this.getShortDateTime()}}</p>
-        </div>
+      <!-- TODO: Use "primary" once that is a declared color instead of "yellow" to prepare for themes -->
+      <div class="flex flex-row gap-x-1" [ngClass]="isRecent ? 'text-yellow' : ''">
+          <fa-icon [icon]="faCircleCheck"></fa-icon>
+          <p> {{this.getShortDateTime()}}</p>
+      </div>
     </app-tooltip>
   `
 })
 export class LevelTeamPickStatusComponent {
   @Input({required: true}) level: Level = undefined!;
+  isRecent: boolean = false;
 
   ngOnInit() {
     if (this.level.dateTeamPicked != null) {
       this.level.dateTeamPicked = new Date(this.level.dateTeamPicked);
+      this.isRecent = !isOlderThanMonths(this.level.dateTeamPicked, 1);
     }
   }
 
