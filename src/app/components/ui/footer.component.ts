@@ -70,7 +70,8 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
           </div>
         }
         @else {
-            <div class="flex flex-row gap-x-3 justify-evenly">
+          <div class="flex flex-row justify-center">
+            <div class="flex flex-row flex-grow gap-x-3 justify-evenly max-w-350">
               <div class="mb-20">
                 <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
               </div>
@@ -83,6 +84,7 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
                 <ng-container *ngTemplateOutlet="softwareInfo"></ng-container>
               </div>
             </div>
+          </div>
         }
       }
       @else {
