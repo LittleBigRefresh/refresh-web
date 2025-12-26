@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
 import { ClientService } from '../../api/client.service';
 import { Instance } from '../../api/types/instance';
 import { BannerService } from '../../banners/banner.service';
@@ -17,17 +17,20 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
     VerticalDividerComponent,
     DividerComponent,
     NgTemplateOutlet,
-    FaIconComponent
+    FaIconComponent,
+    NgOptimizedImage
 ],
   template: `
     <footer class="mt-10 mb-5 mx-4">
       @if (instance != null) {
         <ng-template #instanceInfo>
           <div class="flex flex-col gap-y-1">
-            <div class="flex flex-row gap-x-1">
-              <!-- TODO: Show instance icon downloaded from given URL -->
-              <p class="text-3xl">{{ instance.instanceName }}</p>
-            </div>
+            <p class="text-3xl">
+              <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
+                alt="" width="30" height="30"
+                (error)="iconErr($event.target)" loading="lazy">
+              {{ instance.instanceName }}
+            </p>
             <p class="text-wrap"> {{instance.instanceDescription}} </p>
           </div>
         </ng-template>
@@ -102,6 +105,7 @@ export class FooterComponent {
 
   protected isMobile: boolean = false;
   protected websiteRepoUrl: String = getWebsiteRepoUrl();
+  protected iconError: boolean = false;
   
   constructor(private client: ClientService, protected banner: BannerService, protected layout: LayoutService) {
     this.layout.isMobile.subscribe(v => this.isMobile = v);
@@ -115,6 +119,14 @@ export class FooterComponent {
         this.instance = response;
       }
     });
+  }
+
+  iconErr(img: EventTarget | null): void {
+    if(this.iconError) return;
+    this.iconError = true;
+
+    if(!(img instanceof HTMLImageElement)) return;
+    img.srcset = "/assets/logo.svg";
   }
 
   protected readonly faEnvelope = faEnvelope;
