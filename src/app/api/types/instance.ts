@@ -1,13 +1,18 @@
 import {Announcement} from "./announcement";
+import { ContactInfo } from "./contact-info";
 import {Contest} from "./contests/contest";
 
 export interface Instance {
     instanceName: string;
     instanceDescription: string;
+    websiteLogoUrl: string;
 
     softwareName: string;
     softwareVersion: string;
     softwareType: string;
+    softwareSourceUrl: string;
+    softwareLicenseName: string;
+    softwareLicenseUrl: string;
 
     registrationEnabled: boolean;
     maximumAssetSafetyLevel: number;
@@ -17,4 +22,5 @@ export interface Instance {
     grafanaDashboardUrl: string | null;
     
     activeContest: Contest | null;
+    contactInfo: ContactInfo;
 }
