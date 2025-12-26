@@ -10,7 +10,6 @@ import { faCodeFork, faEnvelope, faSignIn } from '@fortawesome/free-solid-svg-ic
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { DividerComponent } from "./divider.component";
 import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
-import { Statistics } from '../../api/types/statistics';
 
 @Component({
   selector: 'app-footer',
@@ -21,6 +20,8 @@ import { Statistics } from '../../api/types/statistics';
     FaIconComponent
 ],
   template: `
+    <!-- FIXME: Right now the footer is always right below the page content, even if there isn't enough
+        content to fill the window, so the footer is not always just at the bottom or below the screen -->
     <footer class="mt-10 mb-5 mx-4">
       @if (instance != null) {
         <ng-template #instanceInfo>
@@ -62,7 +63,7 @@ import { Statistics } from '../../api/types/statistics';
         </ng-template>
 
         @if (isMobile) {
-          <div class="flex flex-col gap-y-4">
+          <div class="flex flex-col gap-y-1">
             <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
             <app-divider color="bg-foreground"></app-divider>
             <ng-container *ngTemplateOutlet="contactInfo"></ng-container>
