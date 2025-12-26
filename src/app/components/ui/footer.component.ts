@@ -20,8 +20,6 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
     FaIconComponent
 ],
   template: `
-    <!-- FIXME: Right now the footer is always right below the page content, even if there isn't enough
-        content to fill the window, so the footer is not always just at the bottom or below the screen -->
     <footer class="mt-10 mb-5 mx-4">
       @if (instance != null) {
         <ng-template #instanceInfo>
@@ -72,19 +70,19 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
           </div>
         }
         @else {
-          <div class="flex flex-row gap-x-3 justify-center">
-            <div class="mb-20">
-              <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
+            <div class="flex flex-row gap-x-3 justify-evenly">
+              <div class="mb-20">
+                <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
+              </div>
+              <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
+              <div class="mb-20">
+                <ng-container *ngTemplateOutlet="contactInfo"></ng-container>
+              </div>
+              <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
+              <div class="mb-20">
+                <ng-container *ngTemplateOutlet="softwareInfo"></ng-container>
+              </div>
             </div>
-            <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
-            <div class="mb-20">
-              <ng-container *ngTemplateOutlet="contactInfo"></ng-container>
-            </div>
-            <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
-            <div class="mb-20">
-              <ng-container *ngTemplateOutlet="softwareInfo"></ng-container>
-            </div>
-          </div>
         }
       }
       @else {
