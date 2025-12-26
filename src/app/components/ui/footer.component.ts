@@ -24,20 +24,20 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
     <footer class="mt-10 mb-5 mx-4">
       @if (instance != null) {
         <ng-template #instanceInfo>
-          <div class="flex flex-col gap-y-1">
+          <div class="flex flex-col gap-y-1 max-w-90">
             <p class="text-3xl">
               <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
                 alt="" width="30" height="30"
                 (error)="iconErr($event.target)" loading="lazy">
               {{ instance.instanceName }}
             </p>
-            <p class="text-wrap"> {{instance.instanceDescription}} </p>
+            <p class="text-wrap"> {{instance.instanceDescription}}</p>
           </div>
         </ng-template>
 
         <ng-template #contactInfo>
           <div class="flex flex-col gap-y-1 w-max">
-            <p class="text-3xl">Contact Us</p>
+            <p class="text-3xl">Get In Touch</p>
             <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-secondary-bright hover:underline">
               <fa-icon class="pr-1" [icon]="faEnvelope"></fa-icon>
               Email Us
@@ -73,8 +73,7 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
           </div>
         }
         @else {
-          <div class="flex flex-row justify-center">
-            <div class="flex flex-row flex-grow gap-x-3 justify-evenly max-w-350">
+            <div class="flex flex-row flex-grow gap-x-3 justify-start">
               <div class="mb-20">
                 <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
               </div>
@@ -87,7 +86,6 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
                 <ng-container *ngTemplateOutlet="softwareInfo"></ng-container>
               </div>
             </div>
-          </div>
         }
       }
       @else {
