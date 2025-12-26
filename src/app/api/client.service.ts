@@ -16,6 +16,7 @@ import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
 import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
+import { Statistics } from './types/statistics';
 
 export const defaultPageSize: number = 40;
 
@@ -42,6 +43,10 @@ export class ClientService extends ApiImplementation {
 
   getLevelCategories() {
     return this.categories.asObservable();
+  }
+
+  getStatistics() {
+    return this.http.get<Statistics>("/statistics");
   }
 
   getRoomListing() {
