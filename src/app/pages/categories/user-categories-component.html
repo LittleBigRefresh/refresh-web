@@ -1,0 +1,8 @@
+<app-page-title></app-page-title>
+<p>Discover and browse through users using categories!</p>
+
+<app-responsive-grid>
+    @for (category of categories; track category.apiRoute) {
+        <app-user-category [category]="category"></app-user-category>
+    }
+</app-responsive-grid>

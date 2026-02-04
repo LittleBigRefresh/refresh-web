@@ -8,6 +8,7 @@ import {Photo} from "../api/types/photos/photo";
 import {getImageLink} from "../helpers/data-fetching";
 import {TitleService} from "./title.service";
 import {LevelCategory} from "../api/types/levels/level-category";
+import {UserCategory} from "../api/types/users/user-category";
 
 @Injectable({providedIn: 'root'})
 export class EmbedService {
@@ -93,7 +94,11 @@ export class EmbedService {
         this.setNamedTag("twitter:image", getImageLink(photo.largeHash));
     }
 
-    embedCategory(category: LevelCategory) {
+    embedLevelCategory(category: LevelCategory) {
+        this.embed(category.name, category.description);
+    }
+
+    embedUserCategory(category: UserCategory) {
         this.embed(category.name, category.description);
     }
 }

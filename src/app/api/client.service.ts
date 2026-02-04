@@ -16,6 +16,7 @@ import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
 import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
+import {UserCategory} from "./types/users/user-category";
 
 export const defaultPageSize: number = 40;
 
@@ -24,7 +25,8 @@ export const defaultPageSize: number = 40;
 })
 export class ClientService extends ApiImplementation {
   private readonly instance: LazySubject<Instance>;
-  private readonly categories: LazySubject<ListWithData<LevelCategory>>;
+  private readonly levelCategories: LazySubject<ListWithData<LevelCategory>>;
+  private readonly userCategories: LazySubject<ListWithData<UserCategory>>;
   
   private usersCache: User[] = [];
 
@@ -33,7 +35,9 @@ export class ClientService extends ApiImplementation {
     this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
     this.instance.tryLoad();
 
-    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"))
+    this.levelCategories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"))
+
+    this.userCategories = new LazySubject<ListWithData<UserCategory>>(() => this.http.get<ListWithData<UserCategory>>("/users"));
   }
 
   getInstance() {
@@ -41,7 +45,7 @@ export class ClientService extends ApiImplementation {
   }
 
   getLevelCategories() {
-    return this.categories.asObservable();
+    return this.levelCategories.asObservable();
   }
 
   getRoomListing() {
@@ -89,6 +93,14 @@ export class ClientService extends ApiImplementation {
 
     if(username) return this.getUserByUsername(username);
     else return this.getUserByUuid(uuid!)
+  }
+
+  getUserCategories() {
+    return this.userCategories.asObservable();
+  }
+
+  getUsersInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null) {
+    return this.http.get<ListWithData<User>>(`/users/${category}`, {params: this.setPageQuery(params, skip, count)});
   }
 
   getActivityPage(skip: number = 0, count: number = defaultPageSize) {

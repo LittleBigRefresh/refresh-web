@@ -9,13 +9,13 @@ export const routes: Routes = [
     },
     {
         path: 'levels',
-        loadComponent: () => import('./pages/categories/categories.component').then(x => x.CategoriesComponent),
+        loadComponent: () => import('./pages/categories/level-categories.component').then(x => x.LevelCategoriesComponent),
         data: {title: "Level Categories"}
     },
     {
         path: 'levels/:category',
         loadComponent: () => import('./pages/level-listing/level-listing.component').then(x => x.LevelListingComponent),
-        data: {title: "Category"}
+        data: {title: "Level Listing"}
     },
     {
         path: 'level/:id/:slug',
@@ -58,6 +58,16 @@ export const routes: Routes = [
         path: 'user/:username',
         loadComponent: () => import('./pages/user/user.component').then(x => x.UserComponent),
         data: {title: "User Page"},
+    },
+    {
+        path: 'users',
+        loadComponent: () => import('./pages/categories/user-categories-component').then(x => x.UserCategoriesComponent),
+        data: {title: "User Categories"},
+    },
+    {
+        path: 'users/:category',
+        loadComponent: () => import('./pages/user-listing/user-listing.component').then(x => x.UserListingComponent),
+        data: {title: "User Listing"},
     },
     {
         path: 'u/:uuid',

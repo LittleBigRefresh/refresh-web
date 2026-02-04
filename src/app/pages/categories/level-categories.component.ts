@@ -10,13 +10,13 @@ import {LevelCategoryComponent} from "../../components/items/level-category.comp
 @Component({
     selector: 'app-categories',
     imports: [
-    PageTitleComponent,
-    ResponsiveGridComponent,
-    LevelCategoryComponent
-],
-    templateUrl: './categories.component.html'
+        PageTitleComponent,
+        ResponsiveGridComponent,
+        LevelCategoryComponent
+    ],
+    templateUrl: './level-categories.component.html'
 })
-export class CategoriesComponent {
+export class LevelCategoriesComponent {
   categories: LevelCategory[] | undefined;
 
   constructor(client: ClientService) {
