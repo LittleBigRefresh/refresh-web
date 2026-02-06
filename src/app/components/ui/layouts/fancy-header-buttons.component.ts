@@ -1,33 +1,29 @@
 import { Component, Input, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { ButtonComponent } from "../form/button.component";
-import { NgClass } from "@angular/common";
-import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
+import {faEllipsisV, faXmark} from "@fortawesome/free-solid-svg-icons";
+import { DropdownMenuComponent } from "../form/dropdown-menu.component";
 
 @Component({
     selector: 'app-fancy-header-buttons',
     imports: [
-        ButtonComponent,
-        NgClass
-    ],
+    ButtonComponent,
+    DropdownMenuComponent
+],
     template: `
         <ng-template #moreButtonTemplate>
             <app-button
-                text=""
-                [icon]="faEllipsisV"
+                width="w-11"
+                [icon]="showMenu ? faXmark : faEllipsisV"
                 color="bg-secondary"
                 (click)="moreButtonClick()"> 
             </app-button>
         </ng-template>
-        
-        <div class="flex flex-row justify-end content-center space-x-1 group relative text-nowrap">
-            <div #firstButtonContainer></div>
-            <div #secondButtonContainer></div>
-            <div class="absolute z-1 flex flex-col gap-y-1.5 w-48 px-5 py-2.5 rounded bg-header-background
-                border-4 border-backdrop border-solid top-10 cursor-pointer"
-                [ngClass]="showMenu ? '' : 'hidden'">
-                <div #navItemsContainer>
-            </div>
-        </div>
+
+        <app-dropdown-menu class="flex flex-row justify-end" [showMenu]="showMenu" offsets="top-9 right-0" [width]="48">
+            <div trigger #firstButtonContainer></div>
+            <div trigger #secondButtonContainer></div>
+            <div content #navItemsContainer></div>
+        </app-dropdown-menu>
     `,
     styles: ``
 })
@@ -70,4 +66,5 @@ export class FancyHeaderButtonsComponent {
     }
 
     protected readonly faEllipsisV = faEllipsisV;
+    protected readonly faXmark = faXmark;
 }
