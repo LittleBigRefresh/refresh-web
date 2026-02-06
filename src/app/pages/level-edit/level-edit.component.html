@@ -24,18 +24,18 @@
           </div>
           
           <div class="flex flex-col flex-grow gap-y-4">
-            <app-textarea label="Title" [showMaxLength]="true" [maxLength]="64" [form]="settingsForm" placeholder="Unnamed Level" ctrlName="title" [icon]="faPencil" (change)="checkTitleChanges()"></app-textarea>
+            <app-textarea label="Title" [showMaxLength]="true" [maxLength]="64" [form]="metadataForm" placeholder="Unnamed Level" ctrlName="title" [icon]="faPencil" (change)="checkTitleChanges()"></app-textarea>
           </div>
         </div>
 
-        <app-textarea class="pt-2" [showMaxLength]="true" [maxLength]="512" label="Description" [form]="settingsForm" placeholder="No description, yet..." ctrlName="description" [icon]="faPencil" (change)="checkDescriptionChanges()"></app-textarea>
+        <app-textarea class="pt-2" [showMaxLength]="true" [maxLength]="512" label="Description" [form]="metadataForm" placeholder="No description, yet..." ctrlName="description" [icon]="faPencil" (change)="checkDescriptionChanges()"></app-textarea>
       </div>
       
       <div class="flex flex-row justify-between pt-3 gap-x-2">
         <app-button *ngIf="isUserPublisher || isUserModerator" 
         [icon]="faTrash" text="DELETE level" color="bg-red" (click)="deleteButtonClick()"></app-button>
         <div class="flex flex-row flex-grow justify-end">
-          <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasPendingChangesTotal" (click)="uploadChanges()"></app-button>
+          <app-button [icon]="faFloppyDisk" text="Save changes" color="bg-primary" [enabled]="hasAnyPendingChanges" (click)="uploadChanges()"></app-button>
         </div>
       </div>
     </div>

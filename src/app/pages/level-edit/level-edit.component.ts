@@ -60,7 +60,7 @@ export class LevelEditComponent {
   protected isMobile: boolean = false;
   protected ownUser: ExtendedUser | undefined;
 
-  settingsForm = new FormGroup({
+  metadataForm = new FormGroup({
     title: new FormControl(),
     description: new FormControl(),
   });
@@ -81,8 +81,8 @@ export class LevelEditComponent {
   hasTeamPickedChanged: boolean = false;
   hasGameChanged: boolean = false;
 
-  hasPendingChangesTotal: boolean = false;
-  hasPendingChangesLevel: boolean = false;
+  hasAnyPendingChanges: boolean = false;
+  hasPendingMetadataChanges: boolean = false;
   hasPendingCuratorChanges: boolean = false;
 
   showDeletionPrompt: boolean = false;
@@ -126,12 +126,12 @@ export class LevelEditComponent {
   }
 
   checkTitleChanges() {
-    this.hasTitleChanged = this.settingsForm.controls.title.getRawValue() != this.level?.title;
+    this.hasTitleChanged = this.metadataForm.controls.title.getRawValue() != this.level?.title;
     this.doesPageHavePendingChanges();
   }
 
   checkDescriptionChanges() {
-    this.hasDescriptionChanged = this.settingsForm.controls.description.getRawValue() != this.level?.description;
+    this.hasDescriptionChanged = this.metadataForm.controls.description.getRawValue() != this.level?.description;
     this.doesPageHavePendingChanges();
   }
 
@@ -170,13 +170,13 @@ export class LevelEditComponent {
   }
 
   doesPageHavePendingChanges() {
-    this.hasPendingChangesTotal =
+    this.hasAnyPendingChanges =
       this.doesLevelHavePendingChanges()
       || this.hasTeamPickedChanged;
   }
 
   doesLevelHavePendingChanges(): boolean {
-    return this.hasPendingChangesLevel =
+    return this.hasPendingMetadataChanges =
       this.hasTitleChanged
       || this.hasDescriptionChanged
       || this.doesLevelHavePendingCuratorSettingChanges();
@@ -190,12 +190,12 @@ export class LevelEditComponent {
   }
 
   updateInputs(level: Level) {
-    this.hasPendingChangesTotal = false;
-    this.hasPendingChangesLevel = false;
+    this.hasAnyPendingChanges = false;
+    this.hasPendingMetadataChanges = false;
     this.hasPendingCuratorChanges = false;
 
-    this.settingsForm.controls.title.setValue(level.title);
-    this.settingsForm.controls.description.setValue(level.description);
+    this.metadataForm.controls.title.setValue(level.title);
+    this.metadataForm.controls.description.setValue(level.description);
 
     this.curatorForm.controls.gameVersion.setValue(level.gameVersion);
     this.curatorForm.controls.isTeamPicked.setValue(level.teamPicked);
@@ -217,11 +217,11 @@ export class LevelEditComponent {
   }
 
   uploadChanges() {
-    if (!this.hasPendingChangesTotal) return;
+    if (!this.hasAnyPendingChanges) return;
 
     if (this.hasTeamPickedChanged) this.updateTeamPick();
-    if (this.hasPendingChangesLevel) this.updateLevel();
-    this.hasPendingChangesTotal = false;
+    if (this.hasPendingMetadataChanges) this.updateLevel();
+    this.hasAnyPendingChanges = false;
   }
 
   updateTeamPick() {
@@ -256,8 +256,8 @@ export class LevelEditComponent {
 
   updateLevel() {
     let request: LevelUpdateRequest = {
-      title: this.settingsForm.controls.title.getRawValue(),
-      description: this.settingsForm.controls.description.getRawValue(),
+      title: this.metadataForm.controls.title.getRawValue(),
+      description: this.metadataForm.controls.description.getRawValue(),
 
       gameVersion: this.curatorForm.controls.gameVersion.getRawValue()!,
       isReUpload: this.curatorForm.controls.isReupload.getRawValue(),

@@ -20,7 +20,7 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
           <p>{{maxLength - (form.get(ctrlName)?.value?.length ?? 0)}}</p>
         }
       </div>
-      <textarea [id]=ctrlName [formControlName]="ctrlName" [maxLength]="maxLength" [placeholder]="placeholder" [rows]="defRows"
+      <textarea [id]=ctrlName [formControlName]="ctrlName" [maxLength]="maxLength" [placeholder]="placeholder" [rows]="defaultRowCount"
         class="grow min-w-10 min-h-20 outline-hidden wrap-break-word bg-teritary placeholder:text-gentle placeholder:italic" [required]="required"></textarea>
     </div>
     `
@@ -38,5 +38,5 @@ export class TextAreaComponent {
   @Input() maxLength: number = 4096;
   @Input() showMaxLength: boolean = false;
 
-  @Input() defRows: number = 4;
+  @Input() defaultRowCount: number = 4;
 }
