@@ -10,7 +10,7 @@ export interface Level {
     isReUpload: boolean;
     isModded: boolean;
     teamPicked: boolean;
-    dateTeamPicked: Date | undefined;
+    dateTeamPicked: Date;
     gameVersion: number;
     score: number;
     slotType: number;
