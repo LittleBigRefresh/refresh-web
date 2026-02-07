@@ -12,7 +12,7 @@
     <p>Server software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
     <p>Server version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
     <p>Server license: 
-        <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline">
+        <a [href]="instance.softwareLicenseUrl" class="text-link hover:text-link-hover hover:underline">
             {{ instance.softwareLicenseName }}
         </a>
     </p>
@@ -39,7 +39,7 @@
     <br><h2 class="font-bold text-2xl">Activity</h2>
     <p>Active users: {{statistics.activeUsers}}</p>
     <p>People online now: {{statistics.currentIngamePlayersCount}}</p>
-    <p><a class="text-secondary-bright hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
+    <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
 
 }
 @else if (statisticsError != null) {

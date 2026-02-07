@@ -55,7 +55,7 @@ import { RouterLink } from "@angular/router";
                     <app-statistic [value]=statistics.totalEvents name="Total Events" [icon]=faPlay></app-statistic>
                     <app-statistic [value]=statistics.requestStatistics.apiRequests name="API Requests" [icon]=faArrowUp></app-statistic>
                   </div>
-                  <a routerLink="/instance" class="text-secondary-bright hover:underline">
+                  <a routerLink="/instance" class="text-link hover:text-link-hover hover:underline">
                     More stats
                   </a>
                 </div>
@@ -73,11 +73,11 @@ import { RouterLink } from "@angular/router";
         <ng-template #contactInfo>
           <div class="flex flex-col gap-y-1">
             <p class="text-3xl">Get In Touch</p>
-            <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-secondary-bright hover:underline">
+            <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-link hover:text-link-hover hover:underline">
               <fa-icon class="pr-1" [icon]="faEnvelope"></fa-icon>
               Email Us ({{ instance.contactInfo.emailAddress }})
             </a>
-            <a [href]="instance.contactInfo.discordServerInvite" class="text-secondary-bright hover:underline">
+            <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
               <fa-icon class="pr-1" [icon]="faSignIn"></fa-icon>
               Join Our Discord Server
             </a>
@@ -90,17 +90,17 @@ import { RouterLink } from "@angular/router";
         <ng-template #softwareInfo>
           <div class="flex flex-col gap-y-1">
             <p class="text-3xl">The Software</p>
-            <a [href]="websiteRepoUrl" class="text-secondary-bright hover:underline">
+            <a [href]="websiteRepoUrl" class="text-link hover:text-link-hover hover:underline">
               <fa-icon class="pr-1" [icon]="faCodeFork"></fa-icon>
               Website Repository
             </a>
-            <a [href]="instance.softwareSourceUrl" class="text-secondary-bright hover:underline">
+            <a [href]="instance.softwareSourceUrl" class="text-link hover:text-link-hover hover:underline">
               <fa-icon class="pr-1" [icon]="faCodeFork"></fa-icon>
               Server Repository
             </a>
             <p class="text-wrap">
               Server license:
-              <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline">
+              <a [href]="instance.softwareLicenseUrl" class="text-link hover:text-link-hover hover:underline">
                 <fa-icon class="pr-1"></fa-icon>
                 {{ instance.softwareLicenseName }}
               </a>
