@@ -24,7 +24,7 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
     <footer class="mt-10 mb-5 mx-4">
       @if (instance != null) {
         <ng-template #instanceInfo>
-          <div class="flex flex-col gap-y-1 max-w-90">
+          <div class="flex flex-col gap-y-1">
             <p class="text-3xl">
               <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
                 alt="" width="30" height="30"
@@ -36,7 +36,7 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
         </ng-template>
 
         <ng-template #contactInfo>
-          <div class="flex flex-col gap-y-1 w-max">
+          <div class="flex flex-col gap-y-1">
             <p class="text-3xl">Get In Touch</p>
             <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-secondary-bright hover:underline">
               <fa-icon class="pr-1" [icon]="faEnvelope"></fa-icon>
@@ -50,7 +50,7 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
         </ng-template>
 
         <ng-template #softwareInfo>
-          <div class="flex flex-col gap-y-1 w-max">
+          <div class="flex flex-col gap-y-1">
             <p class="text-3xl">The Software</p>
             <a [href]="websiteRepoUrl" class="text-secondary-bright hover:underline">
               <fa-icon class="pr-1" [icon]="faCodeFork"></fa-icon>
@@ -60,6 +60,15 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
               <fa-icon class="pr-1" [icon]="faCodeFork"></fa-icon>
               Server Repository
             </a>
+            <p>Server version: <span class="italic">{{ instance.softwareType }}</span> - <span class="word-wrap-and-break italic">{{ instance.softwareVersion }}</span></p>
+            <p class="text-wrap">
+              The server is licensed under 
+              <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline italic">
+                <fa-icon class="pr-1"></fa-icon>
+                {{ instance.softwareLicenseName }}
+              </a>
+            </p>
+            
           </div>
         </ng-template>
 
@@ -73,16 +82,16 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
           </div>
         }
         @else {
-            <div class="flex flex-row flex-grow gap-x-3 justify-start">
-              <div class="mb-20">
+            <div class="flex flex-row flex-grow gap-x-3">
+              <div class="w-full mb-20">
                 <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
               </div>
               <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
-              <div class="mb-20">
+              <div class="w-full mb-20">
                 <ng-container *ngTemplateOutlet="contactInfo"></ng-container>
               </div>
               <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
-              <div class="mb-20">
+              <div class="w-full mb-20">
                 <ng-container *ngTemplateOutlet="softwareInfo"></ng-container>
               </div>
             </div>
