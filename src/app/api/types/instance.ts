@@ -1,4 +1,5 @@
 import {Announcement} from "./announcement";
+import { AssetConfigFlags } from "./asset-config-flags";
 import { ContactInfo } from "./contact-info";
 import {Contest} from "./contests/contest";
 
@@ -15,7 +16,8 @@ export interface Instance {
     softwareLicenseUrl: string;
 
     registrationEnabled: boolean;
-    maximumAssetSafetyLevel: number;
+    blockedAssetFlags: AssetConfigFlags;
+    blockedAssetFlagsForTrustedUsers: AssetConfigFlags;
 
     announcements: Announcement[];
     maintenanceModeEnabled: boolean;
