@@ -14,8 +14,7 @@ import { LayoutService } from '../../services/layout.service';
 ],
     template: `
     <app-tooltip [text]="(short ? 'Team picked since ' : 'Since ') + this.formattedTime">
-      <!-- TODO: Use "primary" once that is a declared color instead of "yellow" to prepare for themes -->
-      <div class="flex flex-row gap-x-1 text-yellow">
+      <div class="flex flex-row gap-x-1 text-emphasized-primary">
           <fa-icon [icon]="faCircleCheck"></fa-icon>
 
           @if (!short) {
