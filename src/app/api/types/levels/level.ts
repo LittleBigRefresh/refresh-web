@@ -8,6 +8,7 @@ export interface Level {
     publisher: User | undefined;
     originalPublisher: string | undefined;
     isReUpload: boolean;
+    isModded: boolean;
     teamPicked: boolean;
     dateTeamPicked: Date;
     gameVersion: number;

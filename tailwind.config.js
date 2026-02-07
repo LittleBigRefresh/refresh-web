@@ -19,6 +19,8 @@ const defaultColors = {
 
   "secondary-bright": "#E2CFE5",
 
+  "emphasized-primary": "#F2AA00",
+
   "red": "#E52E2E",
   "green": "#52BC24",
   "dark-green": "#4a9e27ff",
