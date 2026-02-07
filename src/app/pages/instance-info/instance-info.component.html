@@ -10,14 +10,14 @@
     <br>
 
     <h2 class="font-bold text-2xl">Server Information</h2>
-    <p>Server software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
-    <p>Server version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
-    <p>Server license: 
+    <p>Software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
+    <p>Version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
+    <p>License: 
         <a [href]="instance.softwareLicenseUrl" class="text-link hover:text-link-hover hover:underline">
             {{ instance.softwareLicenseName }}
         </a>
     </p>
-    <p>Server repository: 
+    <p>Source repository: 
         <a [href]="instance.softwareSourceUrl" class="text-link hover:text-link-hover hover:underline">
             {{ instance.softwareSourceUrl }}
         </a>
@@ -26,9 +26,9 @@
     <p>Blocked assets for trusted users: <span class="italic">{{ blockedAssetFlagsForTrustedUsers }}</span></p>
     <br>
 
-    <h2 class="font-bold text-2xl">Contact Data</h2>
-    <p>Owner name: <span class="italic">{{ instance.contactInfo.adminName }}</span></p>
-    <p>Owner discord username: <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span></p>
+    <h2 class="font-bold text-2xl">Contact Us</h2>
+    <p>Owner: <span class="italic">{{ instance.contactInfo.adminName }}</span></p>
+    <p>Owner Discord username: <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span></p>
     <p>Discord server invite: 
         <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
             {{ instance.contactInfo.discordServerInvite }}
@@ -55,16 +55,15 @@
     <p><a routerLink="/activity">Events occurred: {{statistics.totalEvents}}</a></p>
     <br>
 
-    <h2 class="font-bold text-2xl">Requests ({{statistics.requestStatistics.totalRequests}} in total)</h2>
-    <p>API requests: {{statistics.requestStatistics.apiRequests}}</p>
-    <p>Game API requests: {{statistics.requestStatistics.gameRequests}}</p>
-    <br>
-
     <h2 class="font-bold text-2xl">Activity</h2>
     <p>Active users: {{statistics.activeUsers}}</p>
     <p>People online now: {{statistics.currentIngamePlayersCount}}</p>
     <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
+    <br>
 
+    <h2 class="font-bold text-2xl">Requests ({{statistics.requestStatistics.totalRequests}} in total)</h2>
+    <p>API requests: {{statistics.requestStatistics.apiRequests}}</p>
+    <p>Game API requests: {{statistics.requestStatistics.gameRequests}}</p>
 }
 @else if (statisticsError != null) {
     <p>{{ statisticsError }}</p>
