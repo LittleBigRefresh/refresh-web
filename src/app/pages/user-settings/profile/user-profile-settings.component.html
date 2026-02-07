@@ -27,6 +27,7 @@
                 <div>
                     <app-checkbox label="Redirect Grief Report Screen&shy;shots to Public Photos" [form]="settingsForm" ctrlName="griefToPhotos" (change)="checkGriefToPhotosChanges()"></app-checkbox>
                     <app-checkbox label="Show modded levels" [form]="settingsForm" ctrlName="showModded" (change)="checkShowModdedChanges()"></app-checkbox>
+                    <app-checkbox label="Show others' modded planets" [form]="settingsForm" ctrlName="showModdedPlanets" (change)="checkShowModdedPlanetsChanges()"></app-checkbox>
                     <app-checkbox label="Show reuploaded levels" [form]="settingsForm" ctrlName="showReuploaded" (change)="checkShowReuploadedChanges()"></app-checkbox>
                     <app-checkbox label="Unescape XML sequences" [form]="settingsForm" ctrlName="unescapeXml" (change)="checkUnescapeXmlChanges()"></app-checkbox>
                 </div>

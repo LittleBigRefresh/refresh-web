@@ -52,6 +52,7 @@ export class UserProfileSettingsComponent {
         description: new FormControl(),
         unescapeXml: new FormControl(),
         showModded: new FormControl(),
+        showModdedPlanets: new FormControl(),
         showReuploaded: new FormControl(),
         griefToPhotos: new FormControl(),
         levelVisibility: new FormControl(0),
@@ -63,6 +64,7 @@ export class UserProfileSettingsComponent {
     hasDescriptionChanged: boolean = false;
     hasGriefToPhotoChanged: boolean = false;
     hasShowModdedChanged: boolean = false;
+    hasShowModdedPlanetsChanged: boolean = false;
     hasShowReuploadedChanged: boolean = false;
     hasUnescapeXmlChanged: boolean = false;
     hasLevelVisibilityChanged: boolean = false;
@@ -99,6 +101,11 @@ export class UserProfileSettingsComponent {
         this.doesPageHavePendingChanges();
     }
 
+    checkShowModdedPlanetsChanges() {
+        this.hasShowModdedPlanetsChanged = this.settingsForm.controls.showModdedPlanets.getRawValue() != this.ownUser?.showModdedPlanets;
+        this.doesPageHavePendingChanges();
+    }
+
     checkShowReuploadedChanges() {
         this.hasShowReuploadedChanged = this.settingsForm.controls.showReuploaded.getRawValue() != this.ownUser?.showReuploadedContent;
         this.doesPageHavePendingChanges();
@@ -126,6 +133,7 @@ export class UserProfileSettingsComponent {
             this.hasDescriptionChanged
             || this.hasGriefToPhotoChanged
             || this.hasShowModdedChanged
+            || this.hasShowModdedPlanetsChanged
             || this.hasShowReuploadedChanged
             || this.hasShowModdedChanged
             || this.hasUnescapeXmlChanged
@@ -141,6 +149,7 @@ export class UserProfileSettingsComponent {
 
         this.settingsForm.controls.unescapeXml.setValue(user.unescapeXmlSequences);
         this.settingsForm.controls.showModded.setValue(user.showModdedContent);
+        this.settingsForm.controls.showModdedPlanets.setValue(user.showModdedPlanets);
         this.settingsForm.controls.showReuploaded.setValue(user.showReuploadedContent);
         this.settingsForm.controls.griefToPhotos.setValue(user.redirectGriefReportsToPhotos);
 
@@ -156,6 +165,7 @@ export class UserProfileSettingsComponent {
 
             unescapeXmlSequences: this.settingsForm.controls.unescapeXml.getRawValue(),
             showModdedContent: this.settingsForm.controls.showModded.getRawValue(),
+            showModdedPlanets: this.settingsForm.controls.showModdedPlanets.getRawValue(),
             showReuploadedContent: this.settingsForm.controls.showReuploaded.getRawValue(),
             redirectGriefReportsToPhotos: this.settingsForm.controls.griefToPhotos.getRawValue(),
 

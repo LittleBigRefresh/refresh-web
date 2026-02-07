@@ -5,16 +5,21 @@ export interface Level {
     title: string;
     description: string;
     iconHash: string;
+    publisher: User | undefined;
+    originalPublisher: string | undefined;
+    isReUpload: boolean;
+    isModded: boolean;
+    teamPicked: boolean;
+    dateTeamPicked: Date;
+    gameVersion: number;
+    score: number;
+    slotType: number;
     publishDate: Date;
     updateDate: Date;
+
     booRatings: number;
     yayRatings: number;
     hearts: number;
     totalPlays: number;
     uniquePlays: number;
-    publisher: User | undefined;
-    teamPicked: boolean;
-    gameVersion: number;
-    score: number;
-    slotType: number;
 }
