@@ -26,6 +26,7 @@ export const defaultPageSize: number = 40;
 export class ClientService extends ApiImplementation {
   private readonly instance: LazySubject<Instance>;
   private readonly categories: LazySubject<ListWithData<LevelCategory>>;
+  private statistics: LazySubject<Statistics>;
   
   private usersCache: User[] = [];
 
@@ -34,7 +35,9 @@ export class ClientService extends ApiImplementation {
     this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
     this.instance.tryLoad();
 
-    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"))
+    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
+
+    this.statistics = new LazySubject<Statistics>(() => this.http.get<Statistics>("/statistics"));
   }
 
   getInstance() {
@@ -45,8 +48,12 @@ export class ClientService extends ApiImplementation {
     return this.categories.asObservable();
   }
 
-  getStatistics() {
-    return this.http.get<Statistics>("/statistics");
+  getStatistics(refresh: boolean) {
+    if (refresh) {
+      this.statistics = new LazySubject<Statistics>(() => this.http.get<Statistics>("/statistics"));
+    }
+
+    return this.statistics.asObservable();
   }
 
   getRoomListing() {
