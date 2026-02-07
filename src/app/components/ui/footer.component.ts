@@ -6,10 +6,13 @@ import { BannerService } from '../../banners/banner.service';
 import { RefreshApiError } from '../../api/refresh-api-error';
 import { LayoutService } from '../../services/layout.service';
 import { VerticalDividerComponent } from "./vertical-divider.component";
-import { faCodeFork, faEnvelope, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faCertificate, faCodeFork, faEnvelope, faPlay, faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { DividerComponent } from "./divider.component";
 import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
+import { Statistics } from '../../api/types/statistics';
+import { StatisticComponent } from "./info/statistic.component";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-footer',
@@ -18,7 +21,9 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
     DividerComponent,
     NgTemplateOutlet,
     FaIconComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    StatisticComponent,
+    RouterLink
 ],
   template: `
     <footer class="mt-10 mb-5 mx-4">
@@ -27,11 +32,41 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
           <div class="flex flex-col gap-y-1">
             <p class="text-3xl">
               <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
-                alt="" width="30" height="30"
+                alt="Server icon" width="30" height="30"
                 (error)="iconErr($event.target)" loading="lazy">
               {{ instance.instanceName }}
             </p>
             <p class="text-wrap"> {{instance.instanceDescription}}</p>
+
+            @if (isMobile) {
+              <app-divider color="bg-foreground"></app-divider>
+            }
+            @else {
+              <div class="pt-3"></div>
+            }
+            
+            <div>
+              @if (statistics != null) {
+                <div class="flex flex-col gap-y-1">
+                  <p class="text-3xl">Global Statistics</p>
+                  <div class="flex flex-wrap gap-x-1.5">
+                    <app-statistic [value]=statistics.totalLevels name="Total Levels" [icon]=faCertificate></app-statistic>
+                    <app-statistic [value]=statistics.totalUsers name="Total Users" [icon]=faUser></app-statistic>
+                    <app-statistic [value]=statistics.totalEvents name="Total Events" [icon]=faPlay></app-statistic>
+                    <app-statistic [value]=statistics.requestStatistics.apiRequests name="API Requests" [icon]=faArrowUp></app-statistic>
+                  </div>
+                  <a routerLink="/instance" class="text-secondary-bright hover:underline">
+                    More stats
+                  </a>
+                </div>
+              } 
+              @else {
+                <div class="flex flex-col">
+                  <p class="text-2xl text-wrap">Failed to retrieve statistics</p>
+                  <p>{{ statisticsError ?? "" }}</p>
+                </div>
+              }             
+            </div>
           </div>
         </ng-template>
 
@@ -40,12 +75,15 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
             <p class="text-3xl">Get In Touch</p>
             <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-secondary-bright hover:underline">
               <fa-icon class="pr-1" [icon]="faEnvelope"></fa-icon>
-              Email Us
+              Email Us ({{ instance.contactInfo.emailAddress }})
             </a>
             <a [href]="instance.contactInfo.discordServerInvite" class="text-secondary-bright hover:underline">
               <fa-icon class="pr-1" [icon]="faSignIn"></fa-icon>
               Join Our Discord Server
             </a>
+            <p>
+              You can also contact <span class="italic">{{ instance.contactInfo.adminName }}</span> on Discord at <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span>
+            </p>
           </div>
         </ng-template>
 
@@ -60,20 +98,21 @@ import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
               <fa-icon class="pr-1" [icon]="faCodeFork"></fa-icon>
               Server Repository
             </a>
-            <p>Server version: <span class="italic">{{ instance.softwareType }}</span> - <span class="word-wrap-and-break italic">{{ instance.softwareVersion }}</span></p>
             <p class="text-wrap">
               The server is licensed under 
-              <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline italic">
+              <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline">
                 <fa-icon class="pr-1"></fa-icon>
                 {{ instance.softwareLicenseName }}
               </a>
             </p>
-            
+            <p>
+              Server version: <span class="italic">{{ instance.softwareType }}</span> - <span class="word-wrap-and-break italic">{{ instance.softwareVersion }}</span>
+            </p>
           </div>
         </ng-template>
 
         @if (isMobile) {
-          <div class="flex flex-col gap-y-1">
+          <div class="flex flex-col gap-y-1 pb-10">
             <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
             <app-divider color="bg-foreground"></app-divider>
             <ng-container *ngTemplateOutlet="contactInfo"></ng-container>
@@ -110,6 +149,9 @@ export class FooterComponent {
   protected instance: Instance | undefined;
   protected instanceError: String | undefined;
 
+  protected statistics: Statistics | undefined;
+  protected statisticsError: String | undefined;
+
   protected isMobile: boolean = false;
   protected websiteRepoUrl: String = getWebsiteRepoUrl();
   protected iconError: boolean = false;
@@ -124,6 +166,17 @@ export class FooterComponent {
       },
       next: response => {
         this.instance = response;
+
+        // Only get stats after instance
+        client.getStatistics(false).subscribe({
+          error: error => {
+            const apiError: RefreshApiError | undefined = error.error?.error;
+            this.statisticsError = apiError == null ? error.message : apiError.message;
+          },
+          next: response => {
+            this.statistics = response
+          }
+        });
       }
     });
   }
@@ -139,4 +192,8 @@ export class FooterComponent {
   protected readonly faEnvelope = faEnvelope;
   protected readonly faSignIn = faSignIn;
   protected readonly faCodeFork = faCodeFork;
+  protected readonly faCertificate = faCertificate;
+  protected readonly faPlay = faPlay;
+  protected readonly faUser = faUser;
+  protected readonly faArrowUp = faArrowUp;
 }
