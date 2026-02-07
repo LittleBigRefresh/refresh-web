@@ -41,10 +41,14 @@
     </p>
     <br>
 }
-@else if (instanceError != null) {
-    <p>{{ instanceError }}</p>
-    <br>
-}
+
+<h2 class="font-bold text-2xl">Website</h2>
+<p>Source repository: 
+    <a [href]="websiteRepoUrl" class="text-link hover:text-link-hover hover:underline">
+        {{ websiteRepoUrl }}
+    </a>
+</p>
+<br>
 
 @if(statistics != null) {
     <h2 class="font-bold text-2xl">Things!</h2>
@@ -64,7 +68,4 @@
     <h2 class="font-bold text-2xl">Requests ({{statistics.requestStatistics.totalRequests}} in total)</h2>
     <p>API requests: {{statistics.requestStatistics.apiRequests}}</p>
     <p>Game API requests: {{statistics.requestStatistics.gameRequests}}</p>
-}
-@else if (statisticsError != null) {
-    <p>{{ statisticsError }}</p>
 }

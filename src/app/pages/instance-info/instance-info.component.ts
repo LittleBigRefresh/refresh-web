@@ -21,9 +21,7 @@ import { blockedFlagsAsString } from '../../api/types/asset-config-flags';
 })
 export class InstanceInfoComponent {
   protected instance: Instance | undefined;
-  protected instanceError: RefreshApiError | undefined;
   protected statistics: Statistics | undefined;
-  protected statisticsError: RefreshApiError | undefined;
 
   protected websiteRepoUrl: String = getWebsiteRepoUrl();
   protected iconError: boolean = false;
