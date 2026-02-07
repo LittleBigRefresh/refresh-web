@@ -1,0 +1,47 @@
+<app-page-title></app-page-title>
+@if(instance != null) {
+    <br><p class="text-3xl">
+        <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
+        alt="Server icon" width="30" height="30"
+        (error)="iconErr($event.target)" loading="lazy">
+        {{ instance.instanceName }}
+    </p>
+    <p class="text-wrap"> {{instance.instanceDescription}}</p>
+
+    <br><h2 class="font-bold text-2xl">Server Information</h2>
+    <p>Server software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
+    <p>Server version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
+    <p>Server license: 
+        <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline">
+            {{ instance.softwareLicenseName }}
+        </a>
+    </p>
+    <p>Blocked assets for regular users: <span class="italic">{{ blockedAssetFlags }}</span></p>
+    <p>Blocked assets for trusted users: <span class="italic">{{ blockedAssetFlagsForTrustedUsers }}</span></p>
+    <br>
+}
+@else if (instanceError != null) {
+    <p>{{ instanceError }}</p>
+}
+
+@if(statistics != null) {
+    <h2 class="font-bold text-2xl">Things!</h2>
+    <p><a routerLink="/users">Registered users: {{statistics.totalUsers}}</a></p>
+    <p><a routerLink="/levels">Published levels: {{statistics.totalLevels}}</a></p>
+    <p><a routerLink="/levels">Modded levels: {{statistics.moddedLevels}}</a></p>
+    <p><a routerLink="/photos">Uploaded photos: {{statistics.totalPhotos}}</a></p>
+    <p><a routerLink="/activity">Events occurred: {{statistics.totalEvents}}</a></p>
+
+    <br><h2 class="font-bold text-2xl">Requests ({{statistics.requestStatistics.totalRequests}} in total)</h2>
+    <p>API requests: {{statistics.requestStatistics.apiRequests}}</p>
+    <p>Game API requests: {{statistics.requestStatistics.gameRequests}}</p>
+
+    <br><h2 class="font-bold text-2xl">Activity</h2>
+    <p>Active users: {{statistics.activeUsers}}</p>
+    <p>People online now: {{statistics.currentIngamePlayersCount}}</p>
+    <p><a class="text-secondary-bright hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
+
+}
+@else if (statisticsError != null) {
+    <p>{{ statisticsError }}</p>
+}

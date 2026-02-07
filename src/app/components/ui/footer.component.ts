@@ -106,7 +106,7 @@ import { RouterLink } from "@angular/router";
               </a>
             </p>
             <p>
-              Server software: <span class="italic">{{instance.softwareName}}</span> (<span class="italic">{{instance.softwareType}})</span>
+              Server software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span>
             </p>
             <p>
               Server version: <span class="word-wrap-and-break italic">v{{ instance.softwareVersion }}</span>

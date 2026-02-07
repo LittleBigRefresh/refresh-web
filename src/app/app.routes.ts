@@ -84,6 +84,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/contest-listing/contest-listing.component').then(x => x.ContestListingComponent),
         data: {title: "Contests"},
     },
+    {
+        path: 'instance',
+        loadComponent: () => import('./pages/instance-info/instance-info.component').then(x => x.InstanceInfoComponent),
+        data: {title: "About Us"},
+    },
     ...appendDebugRoutes(),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {
