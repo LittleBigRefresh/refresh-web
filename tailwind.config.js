@@ -9,7 +9,7 @@ const defaultColors = {
   "header-foreground": "#F7F7F7",
   "foreground": "#F7F7F7",
   "gentle": "#C3C3C3",
-  "link": "#d4c6d5",
+  "link": "#c899ccff",
   "link-hover": "#fde9ff",
   "invisible": "#00000000",
 

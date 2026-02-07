@@ -2,10 +2,10 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {
     faBookOpen,
     faCheckCircle,
-    faEnvelope,
     faFire,
     faFireAlt,
     faImages,
+    faInfoCircle,
     faPlay,
     faQuestionCircle,
     faRandom,
@@ -99,9 +99,9 @@ export const rightNavTree: NavCategory[] = [
                 route: "/docs"
             },
             {
-                name: "Contact Us",
-                icon: faEnvelope,
-                route: "/contact"
+                name: "About Us",
+                icon: faInfoCircle,
+                route: "/instance"
             },
         ]
     }

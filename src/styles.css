@@ -25,3 +25,11 @@ layer(base);
 body {
     font-family: Rubik, serif
 }
+
+/*
+  Tailwind's wrap-break-word class doesn't work, apparently.
+  See https://github.com/tailwindlabs/tailwindcss/discussions/17217
+*/
+.word-wrap-and-break {
+  overflow-wrap: anywhere;
+}
