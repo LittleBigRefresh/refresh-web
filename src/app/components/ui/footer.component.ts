@@ -99,14 +99,17 @@ import { RouterLink } from "@angular/router";
               Server Repository
             </a>
             <p class="text-wrap">
-              The server is licensed under 
+              Server license:
               <a [href]="instance.softwareLicenseUrl" class="text-secondary-bright hover:underline">
                 <fa-icon class="pr-1"></fa-icon>
                 {{ instance.softwareLicenseName }}
               </a>
             </p>
             <p>
-              Server version: <span class="italic">{{ instance.softwareType }}</span> - <span class="word-wrap-and-break italic">{{ instance.softwareVersion }}</span>
+              Server software: <span class="italic">{{instance.softwareName}}</span> (<span class="italic">{{instance.softwareType}})</span>
+            </p>
+            <p>
+              Server version: <span class="word-wrap-and-break italic">v{{ instance.softwareVersion }}</span>
             </p>
           </div>
         </ng-template>
