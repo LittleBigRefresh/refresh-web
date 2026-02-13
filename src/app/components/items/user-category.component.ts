@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {UserCategory} from "../../api/types/users/user-category";
+import {UserCategory} from "../../api/types/categories/user-category";
 import {ContainerComponent} from "../ui/container.component";
 import {RouterLink} from "@angular/router";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";

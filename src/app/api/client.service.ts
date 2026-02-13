@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Instance} from "./types/instance";
 import {LazySubject} from "../helpers/lazy-subject";
-import {LevelCategory} from "./types/levels/level-category";
+import {LevelCategory} from "./types/categories/level-category";
 import {Room} from "./types/rooms/room";
 import {Level} from "./types/levels/level";
 import {ListWithData} from "./list-with-data";
@@ -16,7 +16,7 @@ import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
 import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
-import {UserCategory} from "./types/users/user-category";
+import {UserCategory} from "./types/categories/user-category";
 
 export const defaultPageSize: number = 40;
 

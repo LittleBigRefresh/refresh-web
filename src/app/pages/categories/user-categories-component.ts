@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
-import {UserCategory} from "../../api/types/users/user-category";
+import {UserCategory} from "../../api/types/categories/user-category";
 import {ClientService} from "../../api/client.service";
 
 

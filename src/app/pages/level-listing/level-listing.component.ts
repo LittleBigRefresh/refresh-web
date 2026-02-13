@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LevelCategory} from "../../api/types/levels/level-category";
+import {LevelCategory} from "../../api/types/categories/level-category";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";

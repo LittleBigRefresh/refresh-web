@@ -7,8 +7,8 @@ import {ClientService} from "../api/client.service";
 import {Photo} from "../api/types/photos/photo";
 import {getImageLink} from "../helpers/data-fetching";
 import {TitleService} from "./title.service";
-import {LevelCategory} from "../api/types/levels/level-category";
-import {UserCategory} from "../api/types/users/user-category";
+import {LevelCategory} from "../api/types/categories/level-category";
+import {UserCategory} from "../api/types/categories/user-category";
 
 @Injectable({providedIn: 'root'})
 export class EmbedService {
