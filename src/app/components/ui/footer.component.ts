@@ -62,8 +62,8 @@ import { RouterLink } from "@angular/router";
               } 
               @else {
                 <div class="flex flex-col">
-                  <p class="text-2xl text-wrap">Failed to retrieve statistics</p>
-                  <p>{{ statisticsError ?? "" }}</p>
+                  <p class="text-2xl text-wrap">Failed to get statistics</p>
+                  <p>{{ statisticsError ?? "Unset error message" }}</p>
                 </div>
               }             
             </div>
@@ -141,8 +141,8 @@ import { RouterLink } from "@angular/router";
       }
       @else {
         <div class="flex flex-col">
-          <p class="text-3xl">Failed to retrieve instance data</p>
-          <p>{{ instanceError ?? "" }}</p>
+          <p class="text-2xl">Failed to get instance data for the footer</p>
+          <p>{{ instanceError ?? "Unset error message" }}</p>
         </div>
       }
     </footer>
@@ -169,7 +169,6 @@ export class FooterComponent {
       },
       next: response => {
         this.instance = response;
-
         // Only get stats after instance
         client.getStatistics(false).subscribe({
           error: error => {
