@@ -30,6 +30,12 @@ export const routes: Routes = [
     ...alias("level/:id/:slug", "slot/:id/:slug"),
     ...alias("level/:id", "slot/:id",),
     {
+        path: 'level/:id/:slug/edit',
+        loadComponent: () => import('./pages/level-edit/level-edit.component').then(x => x.LevelEditComponent),
+        data: {title: "Edit Level"},
+    },
+    ...alias("level/:id/:slug/edit", "slot/:id/:slug/edit"),
+    {
         path: 'photos',
         loadComponent: () => import('./pages/photo-listing/photo-listing.component').then(x => x.PhotoListingComponent),
         data: {title: "Photos"},
@@ -93,6 +99,11 @@ export const routes: Routes = [
         path: 'contests',
         loadComponent: () => import('./pages/contest-listing/contest-listing.component').then(x => x.ContestListingComponent),
         data: {title: "Contests"},
+    },
+    {
+        path: 'instance',
+        loadComponent: () => import('./pages/instance-info/instance-info.component').then(x => x.InstanceInfoComponent),
+        data: {title: "About Us"},
     },
     ...appendDebugRoutes(),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.

@@ -12,12 +12,13 @@ import {animate, group, query, style, transition, trigger} from "@angular/animat
 import {LayoutService} from "./services/layout.service";
 import {AsyncPipe} from "@angular/common";
 import {HeaderMobileComponent} from "./components/ui/header/mobile/header-mobile.component";
+import { FooterComponent } from "./components/ui/footer.component";
 
 const fadeLength: string = "100ms";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent, AsyncPipe, HeaderMobileComponent],
+    imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent, AsyncPipe, HeaderMobileComponent, FooterComponent],
     templateUrl: './app.component.html',
     animations: [
         trigger('routeAnimations', [

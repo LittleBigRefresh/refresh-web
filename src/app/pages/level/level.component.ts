@@ -3,7 +3,7 @@ import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {SlugPipe} from "../../pipes/slug.pipe";
-import { AsyncPipe, isPlatformBrowser, } from "@angular/common";
+import { AsyncPipe, isPlatformBrowser } from "@angular/common";
 import {LevelStatisticsComponent} from "../../components/items/level-statistics.component";
 import {DefaultPipe} from "../../pipes/default.pipe";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
@@ -26,6 +26,9 @@ import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { FancyHeaderLevelButtonsComponent } from '../../components/ui/layouts/fancy-header-level-buttons.component';
 import { LevelRelations } from '../../api/types/levels/level-relations';
+import { OriginalPublisherRouterLink } from "../../components/ui/text/links/original-publisher-router-link.component";
+import { LargerLabelComponent } from "../../components/ui/info/larger-label.component";
+import { TooltipComponent } from "../../components/ui/text/tooltip.component";
 
 
 @Component({
@@ -47,7 +50,10 @@ import { LevelRelations } from '../../api/types/levels/level-relations';
     PaneTitleComponent,
     EventPageComponent,
     RouterLink,
-    SlugPipe
+    SlugPipe,
+    OriginalPublisherRouterLink,
+    LargerLabelComponent,
+    TooltipComponent
 ],
     providers: [
         SlugPipe

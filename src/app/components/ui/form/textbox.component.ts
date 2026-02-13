@@ -7,16 +7,19 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 @Component({
     selector: 'app-textbox',
     imports: [
-        FaIconComponent,
-        ReactiveFormsModule
-    ],
+    FaIconComponent,
+    ReactiveFormsModule,
+],
     template: `
     @if (label.length > 0) {
       <label [for]=ctrlName class="text-sm">{{label}}</label>
     }
     <div [formGroup]="form" class="min-w-full flex group rounded-full px-4 py-1.5 bg-teritary focus-within:outline-2 focus-within:outline focus-within:outline-secondary-bright max-w-fit text-nowrap transition-[outline]">
       <fa-icon [icon]="icon" class="text-gentle mr-2 group-focus-within:text-secondary-bright transition-colors"></fa-icon>
-      <input [type]="type" [id]=ctrlName [formControlName]="ctrlName" [placeholder]="placeholder" class="grow outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">
+      <input [type]="type" [maxlength]="maxLength" [id]=ctrlName [formControlName]="ctrlName" [placeholder]="placeholder" class="grow outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">
+      @if (showMaxLength == true) {
+        <p>{{maxLength - (form.get(ctrlName)?.value?.length ?? 0)}}</p>
+      }
     </div>
     `
 })
@@ -30,4 +33,7 @@ export class TextboxComponent {
 
   @Input() required: boolean = true;
   @Input() type: string = "text";
+
+  @Input() maxLength: number = 256;
+  @Input() showMaxLength: boolean = false;
 }
