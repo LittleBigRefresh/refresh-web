@@ -19,11 +19,18 @@ const defaultColors = {
 
   "secondary-bright": "#E2CFE5",
 
+  "emphasized-primary": "#F2AA00",
+
   "red": "#E52E2E",
   "green": "#52BC24",
+  "dark-green": "#4a9e27ff",
+  "light-blue": "#2d92e5ff",
   "blue": "#2D43E5",
   "yellow": "#F2AA00",
+  "orange": "#f8640eff",
+  "dark-pink": "#f145a4ff",
   "pink": "#ff68f4",
+  "purple": "#A13DE3",
 
   "rank-gold": "#FFD234",
   "rank-silver": "#f9f4f9",

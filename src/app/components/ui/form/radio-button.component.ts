@@ -7,11 +7,11 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
         ReactiveFormsModule
     ],
     template: `
-        <div [formGroup]="form" class="min-w-full flex flex-row content-center justify-start rounded-md px-2 py-1 hover-within:outline-2 hover-within:outline hover-within:outline-secondary-bright max-w-fit transition-[outline]">
-            <input type="radio" [id]=id [formControlName]="ctrlName" [name]="ctrlName" [value]=value class="outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">
+        <div [formGroup]="form" class="cursor-pointer min-w-full flex flex-row content-center justify-start rounded-md px-2 py-1 hover-within:outline-2 hover-within:outline hover-within:outline-secondary-bright max-w-fit transition-[outline]">
+            <input type="radio" [id]=id [formControlName]="ctrlName" [name]="ctrlName" [value]=value class="cursor-pointer outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">
             
             @if (label.length > 0) {
-                <label [for]=id class="text-base hyphens-manual ml-3">{{label}}</label>
+                <label [for]=id class="text-base hyphens-manual ml-3 cursor-pointer">{{label}}</label>
             }
         </div>
     `

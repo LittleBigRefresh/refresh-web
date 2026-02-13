@@ -1,5 +1,5 @@
 export interface AssetConfigFlags {
-    // For some reason these are serialized as capitalized
+    // For some reason these are serialized as capitalized by Refresh, unlike most other attributes.
     Dangerous: boolean;
     Media: boolean;
     Modded: boolean;

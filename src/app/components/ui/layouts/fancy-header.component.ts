@@ -33,15 +33,23 @@ import { NgTemplateOutlet } from "@angular/common";
             </app-page-title>
             <ng-content select="[buttonArea]"></ng-content>
           </div>
-          <div>
-            <ng-content select="[belowTitle]"></ng-content>
-            <ng-content select="[statistics]"></ng-content>
+          <div class="flex flex-row gap-x-1 justify-between">
+            <div>
+              <ng-content select="[belowTitle]"></ng-content>
+              <ng-content select="[statistics]"></ng-content>
+              <ng-content select="[belowStatistics]"></ng-content>
+            </div>
+            <div>
+              <ng-content select="[belowTitleRight]"></ng-content>
+            </div>
           </div>
         </div>
       </div>
-      <ng-content select="[buttonAreaMobile]"></ng-content>
       <div class="mt-2.5">
         <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
+      </div>
+      <div class="mt-2.5">
+        <ng-content select="[buttonAreaMobile]"></ng-content>
       </div>
     </app-container-header>
     `

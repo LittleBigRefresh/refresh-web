@@ -10,24 +10,27 @@ import { NgClass } from "@angular/common";
         NgClass
     ],
     template: `
-    <button class="rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
-      [ngClass]="color" [type]=type [disabled]="!enabled">
+    <button class="flex flex-row justify-center rounded px-4 py-1.5 hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
+      [ngClass]="color + ' ' + width" [type]=type [disabled]="!enabled">
       @if (icon) {
-        <fa-icon [icon]="icon" [ngClass]="text && text.length > 0 ? 'mr-1' : ''"></fa-icon>
+        <fa-icon class="right-1" [icon]="icon" [ngClass]="text && text.length > 0 ? 'mr-2' : ''"></fa-icon>
       }
-      {{ text }}
+      @if (text) {
+        <div class="flex flex-row flex-grow justify-center"> {{ text }} </div>
+      }
     </button>
     `
 })
 export class ButtonComponent {
   // metadata
-  @Input({required: true}) text: string = "Button";
+  @Input() text: string | undefined;
   @Input() icon: IconProp | undefined;
   @Input() color: string = "bg-secondary";
 
   @Input() type: "submit" | "reset" | "button" = "button";
 
   @Input() enabled: boolean = true;
+  @Input() width: string = "";
 
   // actions
   @Input() routerLink: any[] | string | null | undefined
