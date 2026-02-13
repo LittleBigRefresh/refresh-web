@@ -37,7 +37,7 @@ export class ClientService extends ApiImplementation {
 
     this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
 
-    this.statistics = new LazySubject<Statistics>(() => this.http.get<Statistics>("/statistics"));
+    this.statistics = this.getStatisticsInternal();
   }
 
   getInstance() {
@@ -48,9 +48,13 @@ export class ClientService extends ApiImplementation {
     return this.categories.asObservable();
   }
 
-  getStatistics(refresh: boolean) {
-    if (refresh) {
-      this.statistics = new LazySubject<Statistics>(() => this.http.get<Statistics>("/statistics"));
+  private getStatisticsInternal() {
+    return this.statistics = new LazySubject<Statistics>(() => this.http.get<Statistics>("/statistics"));
+  }
+
+  getStatistics(ignoreCache: boolean = false) {
+    if (ignoreCache) {
+      this.statistics = this.getStatisticsInternal();
     }
 
     return this.statistics.asObservable();
