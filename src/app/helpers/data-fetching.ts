@@ -19,3 +19,7 @@ export function loadImage(config: ImageLoaderConfig) {
 
     return getImageLink(config.src);
 }
+
+export function getWebsiteRepoUrl(): string {
+    return "https://github.com/LittleBigRefresh/refresh-web";
+}

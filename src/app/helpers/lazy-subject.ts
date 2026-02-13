@@ -12,9 +12,14 @@ export class LazySubject<TData> {
     }
 
     private consumeObservable() {
-        this.observable().subscribe(data => {
-            this.subject.next(data);
-        })
+        this.observable().subscribe({
+            error: error => {
+                this.subject.error(error);
+            },
+            next: data => {
+                this.subject.next(data);
+            }
+        });
     }
 
     public tryLoad(): boolean {

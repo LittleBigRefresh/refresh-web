@@ -1,12 +1,18 @@
-@if(!(layout.isMobile | async)) {
-    <app-header></app-header>
-} @else {
-    <app-header-mobile></app-header-mobile>
-}
-@defer (when bannerService.banners.length > 0) {
-    <app-popup-banner-container></app-popup-banner-container>
-}
-<div class="container mx-auto bg-backdrop p-5 border-divider"
-    [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
-    <router-outlet #o=outlet />
+<div class="flex flex-col min-h-screen">
+    <div class="flex-grow">
+        @if(!(layout.isMobile | async)) {
+            <app-header></app-header>
+        } @else {
+            <app-header-mobile></app-header-mobile>
+        }
+        @defer (when bannerService.banners.length > 0) {
+            <app-popup-banner-container></app-popup-banner-container>
+        }
+        <div class="container mx-auto bg-backdrop p-5 border-divider"
+            [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
+            <router-outlet #o=outlet />
+        </div>
+    </div>
+    
+    <app-footer class="container mx-auto"></app-footer>
 </div>

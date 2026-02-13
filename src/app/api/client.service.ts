@@ -16,6 +16,7 @@ import {Contest} from "./types/contests/contest";
 import {Score} from "./types/levels/score";
 import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
+import { Statistics } from './types/statistics';
 import { LevelUpdateRequest } from './types/levels/level-update-request';
 
 export const defaultPageSize: number = 40;
@@ -26,6 +27,7 @@ export const defaultPageSize: number = 40;
 export class ClientService extends ApiImplementation {
   private readonly instance: LazySubject<Instance>;
   private readonly categories: LazySubject<ListWithData<LevelCategory>>;
+  private statistics: LazySubject<Statistics>;
   
   private usersCache: User[] = [];
 
@@ -34,7 +36,9 @@ export class ClientService extends ApiImplementation {
     this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
     this.instance.tryLoad();
 
-    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"))
+    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
+
+    this.statistics = this.getStatisticsInternal();
   }
 
   getInstance() {
@@ -43,6 +47,18 @@ export class ClientService extends ApiImplementation {
 
   getLevelCategories() {
     return this.categories.asObservable();
+  }
+
+  private getStatisticsInternal() {
+    return this.statistics = new LazySubject<Statistics>(() => this.http.get<Statistics>("/statistics"));
+  }
+
+  getStatistics(ignoreCache: boolean = false) {
+    if (ignoreCache) {
+      this.statistics = this.getStatisticsInternal();
+    }
+
+    return this.statistics.asObservable();
   }
 
   getRoomListing() {
