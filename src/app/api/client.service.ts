@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Instance} from "./types/instance";
 import {LazySubject} from "../helpers/lazy-subject";
-import {LevelCategory} from "./types/levels/level-category";
+import {LevelCategory} from "./types/categories/level-category";
+import {UserCategory} from "./types/categories/user-category";
 import {Room} from "./types/rooms/room";
 import {Level} from "./types/levels/level";
 import {ListWithData} from "./list-with-data";
@@ -26,7 +27,8 @@ export const defaultPageSize: number = 40;
 })
 export class ClientService extends ApiImplementation {
   private readonly instance: LazySubject<Instance>;
-  private readonly categories: LazySubject<ListWithData<LevelCategory>>;
+  private readonly levelCategories: LazySubject<ListWithData<LevelCategory>>;
+  private readonly userCategories: LazySubject<ListWithData<UserCategory>>;
   private statistics: LazySubject<Statistics>;
   
   private usersCache: User[] = [];
@@ -36,7 +38,8 @@ export class ClientService extends ApiImplementation {
     this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
     this.instance.tryLoad();
 
-    this.categories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
+    this.levelCategories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
+    this.userCategories = new LazySubject<ListWithData<UserCategory>>(() => this.http.get<ListWithData<UserCategory>>("/users?includePreviews=true"));
 
     this.statistics = this.getStatisticsInternal();
   }
@@ -46,7 +49,7 @@ export class ClientService extends ApiImplementation {
   }
 
   getLevelCategories() {
-    return this.categories.asObservable();
+    return this.levelCategories.asObservable();
   }
 
   private getStatisticsInternal() {
@@ -118,6 +121,14 @@ export class ClientService extends ApiImplementation {
 
     if(username) return this.getUserByUsername(username);
     else return this.getUserByUuid(uuid!)
+  }
+
+  getUserCategories() {
+    return this.userCategories.asObservable();
+  }
+
+  getUsersInCategory(category: string, skip: number = 0, count: number = defaultPageSize, params: Params | null = null) {
+    return this.http.get<ListWithData<User>>(`/users/${category}`, {params: this.setPageQuery(params, skip, count)});
   }
 
   getActivityPage(skip: number = 0, count: number = defaultPageSize) {
