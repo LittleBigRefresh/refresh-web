@@ -55,9 +55,6 @@ import { RouterLink } from "@angular/router";
                     <app-statistic [value]=statistics.totalEvents name="Total Events" [icon]=faPlay></app-statistic>
                     <app-statistic [value]=statistics.requestStatistics.apiRequests name="API Requests" [icon]=faArrowUp></app-statistic>
                   </div>
-                  <a routerLink="/instance" class="text-link hover:text-link-hover hover:underline">
-                    More stats
-                  </a>
                 </div>
               } 
               @else {
@@ -65,7 +62,12 @@ import { RouterLink } from "@angular/router";
                   <p class="text-2xl text-wrap">Failed to get statistics</p>
                   <p>{{ statisticsError ?? "Unset error message" }}</p>
                 </div>
-              }             
+              }
+              <div class="pt-2">
+                <a routerLink="/instance" class="text-link hover:text-link-hover hover:underline">
+                  More information
+                </a>
+              </div>
             </div>
           </div>
         </ng-template>
@@ -125,15 +127,15 @@ import { RouterLink } from "@angular/router";
         }
         @else {
             <div class="flex flex-row flex-grow gap-x-3">
-              <div class="w-full mb-20">
+              <div class="w-full mt-5 mb-20">
                 <ng-container *ngTemplateOutlet="instanceInfo"></ng-container>
               </div>
               <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
-              <div class="w-full mb-20">
+              <div class="w-full mt-5 mb-20">
                 <ng-container *ngTemplateOutlet="contactInfo"></ng-container>
               </div>
               <app-vertical-divider color="bg-foreground" height="h-full"></app-vertical-divider>
-              <div class="w-full mb-20">
+              <div class="w-full mt-5 mb-20">
                 <ng-container *ngTemplateOutlet="softwareInfo"></ng-container>
               </div>
             </div>
@@ -143,6 +145,11 @@ import { RouterLink } from "@angular/router";
         <div class="flex flex-col">
           <p class="text-2xl">Failed to get instance data for the footer</p>
           <p>{{ instanceError ?? "Unset error message" }}</p>
+          <div class="pt-2 flex flex-row justify-center">
+            <a routerLink="/instance" class="text-link hover:text-link-hover hover:underline">
+              Visit instance data page
+            </a>
+          </div>
         </div>
       }
     </footer>
