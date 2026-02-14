@@ -46,9 +46,9 @@
     @else {
         <p>No Discord server invite</p>
     }
-    
+
     <p>Email address: 
-        <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-link hover:text-link-hover hover:underline">
+        <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-link hover:text-link-hover hover:underline word-wrap-and-break">
             {{instance.contactInfo.emailAddress }}
         </a>
     </p>

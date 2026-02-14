@@ -77,7 +77,7 @@ import { RouterLink } from "@angular/router";
             <p class="text-3xl">Get In Touch</p>
             <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-link hover:text-link-hover hover:underline">
               <fa-icon class="pr-1" [icon]="faEnvelope"></fa-icon>
-              Email Us ({{ instance.contactInfo.emailAddress }})
+              Email Us <span class="word-wrap-and-break">({{ instance.contactInfo.emailAddress }})</span>
             </a>
             @if (instance.contactInfo.discordServerInvite != null) {
               <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
