@@ -79,13 +79,22 @@ import { RouterLink } from "@angular/router";
               <fa-icon class="pr-1" [icon]="faEnvelope"></fa-icon>
               Email Us ({{ instance.contactInfo.emailAddress }})
             </a>
-            <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
-              <fa-icon class="pr-1" [icon]="faSignIn"></fa-icon>
-              Join Our Discord Server
-            </a>
-            <p>
-              You can also contact <span class="italic">{{ instance.contactInfo.adminName }}</span> on Discord at <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span>
-            </p>
+            @if (instance.contactInfo.discordServerInvite != null) {
+              <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
+                <fa-icon class="pr-1" [icon]="faSignIn"></fa-icon>
+                Join Our Discord Server
+              </a>
+            }
+            @if (instance.contactInfo.adminDiscordUsername != null) {
+              <p>
+                You can also contact <span class="italic">{{ instance.contactInfo.adminName }}</span> on Discord at <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span>
+              </p>
+            }
+            @else {
+              <p>
+                Server owner: <span class="italic">{{ instance.contactInfo.adminName }}</span>
+              </p>
+            }
           </div>
         </ng-template>
 
