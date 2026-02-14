@@ -81,7 +81,7 @@ export class AuthenticationService extends ApiImplementation {
                     this.bannerService.warn("Session Expired", "Your session has expired, please sign in again.");
                 }
                 else {
-                    this.bannerService.warn("Failed to refresh session", "An unknown error occured (but you are still signed in): " + (apiError === undefined ? error.message : apiError.message));
+                    this.bannerService.warn("Failed to refresh session", "An unknown error occurred (but you are still signed in): " + (apiError === undefined ? error.message : apiError.message));
                 }
             },
             next: response => {
