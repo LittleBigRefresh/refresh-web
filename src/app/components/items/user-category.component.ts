@@ -20,21 +20,21 @@ import {UserPreviewComponent} from "./user-preview.component";
         UserPreviewComponent
     ],
     template: `
-    <app-container>
-      <app-container-title>
-        <a [routerLink]="'/users/' + category.apiRoute" class="underline">
-          <fa-icon [icon]=category.fontAwesomeIcon class="mr-2"></fa-icon>
-          <span>{{category.name}}</span>
-        </a>
-      </app-container-title>
-    
-      <p>{{category.description}}</p>
-    
-      @if (category.previewUser) {
-        <app-divider></app-divider>
-        <app-user-preview [user]=category.previewUser></app-user-preview>
-      }
-    </app-container>
+        <app-container>
+            <app-container-title>
+                <a [routerLink]="'/users/' + category.apiRoute" class="underline">
+                    <fa-icon [icon]=category.fontAwesomeIcon class="mr-2"></fa-icon>
+                    <span>{{ category.name }}</span>
+                </a>
+            </app-container-title>
+
+            <p>{{ category.description }}</p>
+
+            @if (category.previewItem) {
+                <app-divider></app-divider>
+                <app-user-preview [user]=category.previewItem></app-user-preview>
+            }
+        </app-container>
     `
 })
 export class UserCategoryComponent {
