@@ -73,11 +73,16 @@ export class AuthenticationService extends ApiImplementation {
 
         this.http.post<AuthResponse>("/refreshToken", request).subscribe({
             error: error => {
-                this.ResetStoredInformation();
                 const apiError: RefreshApiError | undefined = error.error?.error;
-
                 console.warn("API error during token refresh:", apiError);
-                this.bannerService.warn("Session Expired", "Your session has expired, please sign in again.");
+
+                if (apiError !== undefined && apiError.statusCode == 403) {
+                    this.ResetStoredInformation();
+                    this.bannerService.warn("Session Expired", "Your session has expired, please sign in again.");
+                }
+                else {
+                    this.bannerService.warn("Failed to refresh session", "An unknown error occurred (but you are still signed in): " + (apiError === undefined ? error.message : apiError.message));
+                }
             },
             next: response => {
                 this.tokenStorage.SetStoredGameToken(response.tokenData);
