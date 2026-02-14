@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {LevelCategory} from "../../api/types/levels/level-category";
+import {LevelCategory} from "../../api/types/categories/level-category";
 import {ContainerComponent} from "../ui/container.component";
 import {RouterLink} from "@angular/router";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";

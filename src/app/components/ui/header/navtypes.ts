@@ -12,7 +12,8 @@ import {
     faShareAlt,
     faThList,
     faTools,
-    faTrophy
+    faTrophy,
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 
 export interface NavCategory {
@@ -82,6 +83,11 @@ export const navTree: NavCategory[] = [
                 name: "Photos",
                 icon: faImages,
                 route: "/photos"
+            },
+            {
+                name: "Users",
+                icon: faUser,
+                route: "/users"
             }
         ]
     }

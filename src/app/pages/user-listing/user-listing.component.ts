@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {LevelCategory} from "../../api/types/categories/level-category";
+import {UserCategory} from "../../api/types/categories/user-category";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 
 
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
-import {Level} from "../../api/types/levels/level";
-import {LevelPreviewComponent} from "../../components/items/level-preview.component";
+import {User} from "../../api/types/users/user";
+import {UserPreviewComponent} from "../../components/items/user-preview.component";
 import {ContainerComponent} from "../../components/ui/container.component";
 import {Scrollable} from "../../helpers/scrollable";
 import {defaultListInfo, RefreshApiListInfo} from "../../api/refresh-api-list-info";
@@ -15,25 +15,25 @@ import {InfiniteScrollerComponent} from "../../components/ui/infinite-scroller.c
 import {EmbedService} from "../../services/embed.service";
 
 @Component({
-    selector: 'app-level-listing',
+    selector: 'app-user-listing',
     imports: [
     PageTitleComponent,
     ResponsiveGridComponent,
-    LevelPreviewComponent,
+    UserPreviewComponent,
     ContainerComponent,
     InfiniteScrollerComponent
 ],
-    templateUrl: './level-listing.component.html'
+    templateUrl: './user-listing.component.html'
 })
-export class LevelListingComponent implements OnInit, Scrollable {
-  category: LevelCategory | null | undefined = undefined;
-  levels: Level[] = [];
+export class UserListingComponent implements OnInit, Scrollable {
+  category: UserCategory | null | undefined = undefined;
+  users: User[] = [];
 
   private queryParams: Params = {};
 
   constructor(private client: ClientService, private embed: EmbedService, private route: ActivatedRoute) {
     // Start requesting category information immediately.
-    this.client.getLevelCategories().subscribe();
+    this.client.getUserCategories().subscribe();
   }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class LevelListingComponent implements OnInit, Scrollable {
     // clear out any bad state left by previous pages
     this.reset();
 
-    this.client.getLevelCategories().subscribe(list => {
+    this.client.getUserCategories().subscribe(list => {
       for (let category of list.data) {
         if (category.apiRoute != route) continue;
 
@@ -69,7 +69,7 @@ export class LevelListingComponent implements OnInit, Scrollable {
 
       if(this.category) {
         this.loadData();
-        this.embed.embedLevelCategory(this.category)
+        this.embed.embedUserCategory(this.category)
       } else {
         console.warn("No category found for route " + route)
       }
@@ -83,16 +83,16 @@ export class LevelListingComponent implements OnInit, Scrollable {
     if(!this.category) return;
 
     this.isLoading = true;
-    this.client.getLevelsInCategory(this.category.apiRoute, this.listInfo.nextPageIndex, defaultPageSize, this.queryParams).subscribe(list => {
+    this.client.getUsersInCategory(this.category.apiRoute, this.listInfo.nextPageIndex, defaultPageSize, this.queryParams).subscribe(list => {
       this.isLoading = false;
 
-      this.levels = this.levels.concat(list.data);
+      this.users = this.users.concat(list.data);
       this.listInfo = list.listInfo;
     });
   }
 
   reset(): void {
-    this.levels = [];
+    this.users = [];
     this.isLoading = false;
     this.listInfo = defaultListInfo;
   }

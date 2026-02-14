@@ -1,0 +1,25 @@
+@if (category) {
+    <app-page-title [title]="category.name" [icon]="category.fontAwesomeIcon"></app-page-title>
+    <p>{{category.description}}</p>
+    @if (users) {
+        <app-responsive-grid>
+            @for (user of this.users; track user.userId) {
+                <app-container [tight]="true">
+                    <app-user-preview [user]="user"></app-user-preview>
+                </app-container>
+            }
+        </app-responsive-grid>
+    }
+    <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
+}
+
+@if (category == null) {
+    <app-page-title title="Category Not Found"></app-page-title>
+    <p>
+        We couldn't find that user category.
+        Try checking the URL, or pick another category to get your bearings.
+    </p>
+    <p>
+        Otherwise, it may be missing or unavailable temporarily.
+    </p>
+}
