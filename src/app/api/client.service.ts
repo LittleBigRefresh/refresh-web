@@ -19,6 +19,9 @@ import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
 import { Statistics } from './types/statistics';
 import { LevelUpdateRequest } from './types/levels/level-update-request';
+import { AdminUserUpdateRequest } from './types/users/admin-user-update-request';
+import { ExtendedUser } from './types/users/extended-user';
+import { PunishUserRequest } from './types/moderation/punish-user-request';
 
 export const defaultPageSize: number = 40;
 
@@ -185,5 +188,37 @@ export class ClientService extends ApiImplementation {
 
   uploadAsset(hash: string, data: ArrayBuffer) {
     return this.http.post<Asset>(`/assets/${hash}`, data);
+  }
+
+  getExtendedUserAsModerator(uuid: string) {
+    return this.http.get<ExtendedUser>(`/admin/users/uuid/${uuid}`);
+  }
+
+  getExtendedUserListAsModerator(skip: number, count: number, params: Params | null = null) {
+    return this.http.get<ExtendedUser>(`/admin/users`, {params: this.setPageQuery(params, skip, count)});
+  }
+
+  getUserPlanetHashesAsModerator(uuid: string) {
+    return this.http.get<ExtendedUser>(`/admin/users/uuid/${uuid}/planets`);
+  }
+
+  resetUserPlanetHashesAsModerator(uuid: string) {
+    return this.http.delete<ExtendedUser>(`/admin/users/uuid/${uuid}/planets`);
+  }
+
+  updateUserAsModerator(uuid: string, data: AdminUserUpdateRequest) {
+    return this.http.patch<ExtendedUser>(`/admin/users/uuid/${uuid}`, data);
+  }
+
+  banUser(uuid: string, data: PunishUserRequest) {
+    return this.http.post<Response>(`/admin/users/uuid/${uuid}/ban`, data);
+  }
+
+  restrictUser(uuid: string, data: PunishUserRequest) {
+    return this.http.post<Response>(`/admin/users/uuid/${uuid}/restrict`, data);
+  }
+
+  pardonUser(uuid: string) {
+    return this.http.post<Response>(`/admin/users/uuid/${uuid}/pardon`, null);
   }
 }
