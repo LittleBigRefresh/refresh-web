@@ -1,4 +1,5 @@
 import {User} from "../users/user";
+import { LevelRelations } from "./level-relations";
 
 export interface Level {
     levelId: number;
@@ -22,4 +23,6 @@ export interface Level {
     hearts: number;
     totalPlays: number;
     uniquePlays: number;
+
+    ownRelations: LevelRelations | undefined;
 }
