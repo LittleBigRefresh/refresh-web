@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
-import { faCancel, faChevronDown, faChevronUp, faFloppyDisk, faPencil, faSignOutAlt, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { faBan, faCancel, faChevronDown, faChevronUp, faFlag, faFloppyDisk, faGavel, faPencil, faSignOutAlt, faTrash, faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe } from "@angular/common";
 import { UserRoles } from "../../../api/types/users/user-roles";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
@@ -26,7 +26,9 @@ import { DividerComponent } from "../../../components/ui/divider.component";
 import { TextboxComponent } from "../../../components/ui/form/textbox.component";
 import { PlanetInfo } from "../../../api/types/users/planet-info";
 import { LabelComponent } from "../../../components/ui/info/label.component";
-import { DialogComponent } from "../../../components/ui/dialog.component";
+import { PunishUserRequest } from "../../../api/types/moderation/punish-user-request";
+import { ConfirmationDialogComponent } from "../../../components/ui/confirmation-dialog.component";
+import { DarkContainerComponent } from "../../../components/ui/dark-container.component";
 
 @Component({
     selector: 'app-admin-user-settings',
@@ -46,7 +48,9 @@ import { DialogComponent } from "../../../components/ui/dialog.component";
     DividerComponent,
     TextboxComponent,
     LabelComponent,
-    DialogComponent
+    ConfirmationDialogComponent,
+    DarkContainerComponent,
+    ReactiveFormsModule
 ],
     templateUrl: './admin-user-settings.component.html',
     styles: ``
@@ -80,6 +84,7 @@ export class AdminUserSettingsComponent {
     protected curatorValue: UserRoles = UserRoles.Curator;
     protected trustedValue: UserRoles = UserRoles.Trusted;
     protected userValue: UserRoles = UserRoles.User;
+    protected restrictedValue: UserRoles = UserRoles.Restricted;
 
     planets: PlanetInfo | undefined;
 
@@ -232,19 +237,15 @@ export class AdminUserSettingsComponent {
         });
     }
 
-    protected showPlanetResetDialog = false;
+    protected showPlanetResetDialog: boolean = false;
 
-    openPlanetResetDialog() {
-        this.showPlanetResetDialog = true;
-    }
-
-    closePlanetResetDialog() {
-        this.showPlanetResetDialog = false;
+    togglePlanetResetDialog(visibility: boolean) {
+        this.showPlanetResetDialog = visibility;
     }
 
     resetPlanets() {
         if (!this.targetUser) return;
-        this.closePlanetResetDialog();
+        this.togglePlanetResetDialog(false);
 
         this.client.resetUserPlanetDataByUuid(this.targetUser.userId).subscribe({
             error: error => {
@@ -257,6 +258,102 @@ export class AdminUserSettingsComponent {
         });
     }
 
+    protected showRestrictionDialog: boolean = false;
+
+    toggleRestrictionDialog(visibility: boolean) {
+        this.showRestrictionDialog = visibility;
+    }
+
+    restrictUser() {
+        if (!this.targetUser) return;
+        this.toggleRestrictionDialog(false);
+
+        let punishmentData: PunishUserRequest = {
+            reason: this.punishmentForm.controls.reason.getRawValue(),
+            expiryDate: this.punishmentForm.controls.expiryDate.getRawValue()
+        };
+        this.client.restrictUserByUuid(this.targetUser.userId, punishmentData).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to restrict this user", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.setRole(UserRoles.Restricted);
+            }
+        });
+    }
+
+    protected showBanDialog: boolean = false;
+
+    toggleBanDialog(visibility: boolean) {
+        this.showBanDialog = visibility;
+    }
+
+    banUser() {
+        if (!this.targetUser) return;
+        this.toggleBanDialog(false);
+
+        let punishmentData: PunishUserRequest = {
+            reason: this.punishmentForm.controls.reason.getRawValue(),
+            expiryDate: this.punishmentForm.controls.expiryDate.getRawValue()
+        };
+        this.client.banUserByUuid(this.targetUser.userId, punishmentData).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to ban this user", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.setRole(UserRoles.Banned);
+            }
+        });
+    }
+
+    protected showPardonDialog: boolean = false;
+
+    togglePardonDialog(visibility: boolean) {
+        this.showPardonDialog = visibility;
+    }
+
+    pardonUser() {
+        if (!this.targetUser) return;
+        this.togglePardonDialog(false);
+
+        this.client.pardonUserByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to pardon this user", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.setRole(UserRoles.User);
+            }
+        });
+    }
+
+    punishmentForm = new FormGroup({
+        reason: new FormControl(),
+        expiryDate: new FormControl()
+    });
+
+    hasEnteredReason: boolean = false;
+    hasEnteredExpiryDate: boolean = false;
+
+    checkExpiryDateChanges() {
+        this.banner.success("checkExpiryDateChanges", this.punishmentForm.controls.expiryDate.getRawValue() + " -date ");
+        this.hasEnteredExpiryDate = true;
+        this.doesPunishmentHavePendingChanges();
+    }
+
+    checkReasonChanges() {
+        this.hasEnteredReason = this.punishmentForm.controls.reason.getRawValue().length > 0;
+        this.doesPunishmentHavePendingChanges();
+    }
+
+    private doesPunishmentHavePendingChanges() {
+        this.hasPendingChanges =
+            this.hasEnteredReason
+            || this.hasEnteredExpiryDate;
+    }
+
     protected readonly faPencil = faPencil;
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faTrash = faTrash;
@@ -265,4 +362,7 @@ export class AdminUserSettingsComponent {
     protected readonly faUser = faUser;
     protected readonly faCancel = faCancel;
     protected readonly faSignOutAlt = faSignOutAlt;
+    protected readonly faGavel = faGavel;
+    protected readonly faBan = faBan;
+    protected readonly faFlag = faFlag;
 }

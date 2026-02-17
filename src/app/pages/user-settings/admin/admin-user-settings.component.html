@@ -83,15 +83,12 @@
                         </div>
                     </app-dropdown-menu>
                 </div>
-                
             }
         </div>
         <app-two-pane-layout>
             <app-container class="w-full">
                 <app-pane-title>
-                    <p>
-                        Planets
-                    </p>
+                    <p> Planets </p>
                 </app-pane-title>
                 <app-divider></app-divider>
                 <div class="flex flex-col gap-y-3">
@@ -153,45 +150,72 @@
                     }
 
                     <div class="pt-4">
-                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="openPlanetResetDialog()" width="w-full"></app-button>
+                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="togglePlanetResetDialog(!showPlanetResetDialog)" width="w-full"></app-button>
                     </div>
-                    
                 </div>
             </app-container>
             <app-container class="w-full">
                 <app-pane-title>
-                    <p>
-                        Punish
-                    </p>
+                    <p> Punish </p>
                 </app-pane-title>
                 <app-divider></app-divider>
-                <div>
-                    TODO
+                <div class="flex flex-col gap-y-4">
+                    <app-textarea class="w-full" [icon]="faPencil" [form]="punishmentForm" placeholder="Provide a reason..." 
+                        ctrlName="reason" type="reason" (change)="checkReasonChanges()"></app-textarea>
+
+                    <div [formGroup]="punishmentForm" class="flex flex-row flex-wrap gap-x-2 justify-start content-center">
+                        <p class="content-center text-2xl">Expiry date:</p>
+                        <app-dark-container>
+                            <input type="datetime-local" id="expiryDateInput" (change)="checkExpiryDateChanges()"
+                                formControlName="expiryDate">
+                        </app-dark-container>
+                    </div>
+
+                    <div class="flex flex-row flex-wrap gap-x-2 justify-start content-center pt-2">
+                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(!showRestrictionDialog)"></app-button>
+                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(!showBanDialog)"></app-button>
+                    </div>
+                    
+                    <div>
+                        @if (targetUser.role > restrictedValue) {
+                            <app-divider></app-divider>
+                            <app-button text="Pardon instead" [icon]="faTrash" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"></app-button>
+                        }
+                    </div>
                 </div>
             </app-container>
         </app-two-pane-layout>
     </div>
 
-    <!-- Planet reset prompt overlay -->
+    <!-- Planet reset prompt -->
     @defer (when showPlanetResetDialog) { @if (showPlanetResetDialog) {
-        <app-dialog class="flex flex-row flex-grow" (onDialogClose)="closePlanetResetDialog()">
-        <div class="w-full h-full m-5 flex flex-col">
-            <app-page-title title="Are you sure you want to reset this user's planets?"></app-page-title>
-            <div class="flex flex-row gap-x-6 justify-between mt-10">
-            <app-button
-                text="Yes, Reset!"
-                [icon]="faTrash"
-                color="bg-red"
-                (click)="resetPlanets()"
-            ></app-button>
-            <app-button
-                text="No, Go back!"
-                [icon]="faSignOutAlt"
-                color="bg-secondary"
-                (click)="closePlanetResetDialog()"
-            ></app-button>
-            </div>
-        </div>
-        </app-dialog>
+        <app-confirmation-dialog infoText="Do you really want to reset this user's planets?" (closeDialog)="toggleRestrictionDialog(false)">
+            <app-button text="No, go back" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePlanetResetDialog(false)"></app-button>
+            <app-button text="Yes, Reset!" [icon]="faTrash" color="bg-red" (click)="resetPlanets()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Restrict prompt -->
+    @defer (when showRestrictionDialog) { @if (showRestrictionDialog) {
+        <app-confirmation-dialog infoText="Do you really want to RESTRICT this user? This will override any previous punishment." (closeDialog)="toggleRestrictionDialog(false)">
+            <app-button text="Spare" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleRestrictionDialog(false)"></app-button>
+            <app-button text="Restrict!" [icon]="faGavel" color="bg-red" (click)="restrictUser()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Ban prompt -->
+    @defer (when showBanDialog) { @if (showBanDialog) {
+        <app-confirmation-dialog infoText="Do you really want to BAN this user? This will override any previous punishment." (closeDialog)="toggleRestrictionDialog(false)">
+            <app-button text="Spare" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleBanDialog(false)"></app-button>
+            <app-button text="Ban!" [icon]="faBan" color="bg-red" (click)="banUser()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Pardon prompt -->
+    @defer (when showPardonDialog) { @if (showPardonDialog) {
+        <app-confirmation-dialog infoText="Do you really want to pardon this user? This will remove any previous punishment." (closeDialog)="toggleRestrictionDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePardonDialog(false)"></app-button>
+            <app-button text="Pardon!" [icon]="faFlag" color="bg-green" (click)="pardonUser()"></app-button>
+        </app-confirmation-dialog>
     }}
 }
