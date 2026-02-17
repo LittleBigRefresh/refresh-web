@@ -186,4 +186,12 @@ export class ClientService extends ApiImplementation {
   uploadAsset(hash: string, data: ArrayBuffer) {
     return this.http.post<Asset>(`/assets/${hash}`, data);
   }
+
+  setUserAsHearted(uuid: string) {
+    return this.http.post<Response>(`/users/uuid/${uuid}/heart`, null);
+  }
+
+  setUserAsUnhearted(uuid: string) {
+    return this.http.post<Response>(`/users/uuid/${uuid}/unheart`, null);
+  }
 }

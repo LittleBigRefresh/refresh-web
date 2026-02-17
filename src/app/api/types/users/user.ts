@@ -1,4 +1,5 @@
 import {Room} from "../rooms/room";
+import { UserRelations } from "./user-relations";
 import {UserStatistics} from "./user-statistics";
 
 export interface User {
@@ -13,4 +14,5 @@ export interface User {
 
     statistics: UserStatistics;
     activeRoom: Room | undefined;
+    ownRelations: UserRelations | undefined;
 }
