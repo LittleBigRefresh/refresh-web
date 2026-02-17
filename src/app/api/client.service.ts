@@ -190,35 +190,48 @@ export class ClientService extends ApiImplementation {
     return this.http.post<Asset>(`/assets/${hash}`, data);
   }
 
-  getExtendedUserAsModerator(uuid: string) {
+  getExtendedUserByEitherLookup(username: string | undefined, uuid: string | undefined): Observable<ExtendedUser> {
+    if(!username && !uuid) {
+      throw new Error("no username or uuid was provided for lookup");
+    }
+
+    if(username) return this.getExtendedUserByUsername(username);
+    else return this.getExtendedUserByUuid(uuid!)
+  }
+
+  getExtendedUserByUuid(uuid: string) {
     return this.http.get<ExtendedUser>(`/admin/users/uuid/${uuid}`);
   }
 
-  getExtendedUserListAsModerator(skip: number, count: number, params: Params | null = null) {
+  getExtendedUserByUsername(username: string) {
+    return this.http.get<ExtendedUser>(`/admin/users/name/${username}`);
+  }
+
+  getExtendedUserList(skip: number, count: number, params: Params | null = null) {
     return this.http.get<ExtendedUser>(`/admin/users`, {params: this.setPageQuery(params, skip, count)});
   }
 
-  getUserPlanetHashesAsModerator(uuid: string) {
+  getUserPlanetHashesByUuid(uuid: string) {
     return this.http.get<ExtendedUser>(`/admin/users/uuid/${uuid}/planets`);
   }
 
-  resetUserPlanetHashesAsModerator(uuid: string) {
+  resetUserPlanetHashesByUuid(uuid: string) {
     return this.http.delete<ExtendedUser>(`/admin/users/uuid/${uuid}/planets`);
   }
 
-  updateUserAsModerator(uuid: string, data: AdminUserUpdateRequest) {
+  updateUserByUuid(uuid: string, data: AdminUserUpdateRequest) {
     return this.http.patch<ExtendedUser>(`/admin/users/uuid/${uuid}`, data);
   }
 
-  banUser(uuid: string, data: PunishUserRequest) {
+  banUserByUuid(uuid: string, data: PunishUserRequest) {
     return this.http.post<Response>(`/admin/users/uuid/${uuid}/ban`, data);
   }
 
-  restrictUser(uuid: string, data: PunishUserRequest) {
+  restrictUserByUuid(uuid: string, data: PunishUserRequest) {
     return this.http.post<Response>(`/admin/users/uuid/${uuid}/restrict`, data);
   }
 
-  pardonUser(uuid: string) {
+  pardonUserByUuid(uuid: string) {
     return this.http.post<Response>(`/admin/users/uuid/${uuid}/pardon`, null);
   }
 }

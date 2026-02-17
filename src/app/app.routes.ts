@@ -86,7 +86,12 @@ export const routes: Routes = [
         data: {title: "Profile Settings"},
     },
     {
-        path: 'admin/u/:uuid/settings',
+        path: 'u/:uuid/settings',
+        loadComponent: () => import('./pages/user-settings/admin/admin-user-settings.component').then(x => x.AdminUserSettingsComponent),
+        data: {title: "User Settings (Moderation)"},
+    },
+    {
+        path: 'user/:username/settings',
         loadComponent: () => import('./pages/user-settings/admin/admin-user-settings.component').then(x => x.AdminUserSettingsComponent),
         data: {title: "User Settings (Moderation)"},
     },

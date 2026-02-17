@@ -88,10 +88,11 @@ export class AdminUserSettingsComponent {
                 if (ownUser.role >= UserRoles.Moderator) {
                     // Only try getting user if we are a signed in moderator or above
                     route.params.subscribe(params => {
-                        //const username: string | undefined = params['username'];
+                        const username: string | undefined = params['username'];
                         const uuid: string | undefined = params['uuid'];
-                        if (uuid !== undefined) {
-                            this.client.getExtendedUserAsModerator(uuid).subscribe({
+                        
+                        if (uuid !== undefined || username !== undefined) {
+                            this.client.getExtendedUserByEitherLookup(username, uuid).subscribe({
                                 error: error => {
                                     const apiError: RefreshApiError | undefined = error.error?.error;
                                     this.banner.error("Failed to get extended user", apiError == null ? error.message : apiError.message);
@@ -192,7 +193,7 @@ export class AdminUserSettingsComponent {
             betaIconHash: this.shouldResetBetaIcon ? "0" : null,
         };
 
-        this.client.updateUserAsModerator(this.targetUser.userId, request).subscribe({
+        this.client.updateUserByUuid(this.targetUser.userId, request).subscribe({
             error: error => {
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.banner.warn("Failed to update this user", apiError == null ? error.message : apiError.message);
