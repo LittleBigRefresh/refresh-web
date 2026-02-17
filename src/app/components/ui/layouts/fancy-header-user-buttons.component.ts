@@ -75,6 +75,7 @@ export class FancyHeaderUserButtonsComponent {
                 },
                 next: _ => {
                     this.relations.isHearted = false;
+                    this.targetUser.statistics.favourites--;
                 }
             });
         }
@@ -86,6 +87,7 @@ export class FancyHeaderUserButtonsComponent {
                 },
                 next: _ => {
                     this.relations.isHearted = true;
+                    this.targetUser.statistics.favourites++;
                 }
             });
         }
