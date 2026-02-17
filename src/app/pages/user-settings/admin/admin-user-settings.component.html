@@ -3,8 +3,13 @@
         <div class="flex flex-col gap-y-2 mb-4">
             <div class="mx-4 my-4 flex flex-col gap-y-2">
                 <app-page-title class=""></app-page-title>
-                <p class="text-gentle content-center">{{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span></p>
-                <div class="flex flex-row flex-wrap gap-x-2 justify-between">
+                <p class="text-gentle content-center">
+                    {{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span>
+                </p>
+                <p class="italic font-sm text-yellow">
+                    Renaming fake/generally prefixed users is currently not supported
+                </p>
+                <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-between">
                     <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingChanges" color="bg-red" (click)="discardChanges()"></app-button>
                     <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
                 </div>
