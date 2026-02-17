@@ -94,8 +94,68 @@
                     </p>
                 </app-pane-title>
                 <app-divider></app-divider>
-                <div>
-                    TODO
+                <div class="flex flex-col gap-y-3">
+                    @if (planets) {
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>LBP2:</span>
+                            @if (planets.areLbp2PlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.lbp2PlanetsHash.length > 0) {
+                                <code>{{ planets.lbp2PlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+                        
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>LBP3:</span>
+                            @if (planets.areLbp3PlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.lbp3PlanetsHash.length > 0) {
+                                <code class="word-wrap-and-break">{{ planets.lbp3PlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>LBP Vita: </span>
+                            @if (planets.areVitaPlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.vitaPlanetsHash.length > 0) {
+                                <code>{{ planets.vitaPlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>Beta build: </span>
+                            @if (planets.areBetaPlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.betaPlanetsHash.length > 0) {
+                                <code>{{ planets.betaPlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+                    }
+                    @else {
+                        <p>No data</p>
+                    }
+
+                    <div class="pt-4">
+                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="openPlanetResetDialog()" width="w-full"></app-button>
+                    </div>
+                    
                 </div>
             </app-container>
             <app-container class="w-full">
@@ -110,5 +170,28 @@
                 </div>
             </app-container>
         </app-two-pane-layout>
-    </div>    
+    </div>
+
+    <!-- Planet reset prompt overlay -->
+    @defer (when showPlanetResetDialog) { @if (showPlanetResetDialog) {
+        <app-dialog class="flex flex-row flex-grow" (onDialogClose)="closePlanetResetDialog()">
+        <div class="w-full h-full m-5 flex flex-col">
+            <app-page-title title="Are you sure you want to reset this user's planets?"></app-page-title>
+            <div class="flex flex-row gap-x-6 justify-between mt-10">
+            <app-button
+                text="Yes, Reset!"
+                [icon]="faTrash"
+                color="bg-red"
+                (click)="resetPlanets()"
+            ></app-button>
+            <app-button
+                text="No, Go back!"
+                [icon]="faSignOutAlt"
+                color="bg-secondary"
+                (click)="closePlanetResetDialog()"
+            ></app-button>
+            </div>
+        </div>
+        </app-dialog>
+    }}
 }

@@ -22,6 +22,7 @@ import { LevelUpdateRequest } from './types/levels/level-update-request';
 import { AdminUserUpdateRequest } from './types/users/admin-user-update-request';
 import { ExtendedUser } from './types/users/extended-user';
 import { PunishUserRequest } from './types/moderation/punish-user-request';
+import { PlanetInfo } from './types/users/planet-info';
 
 export const defaultPageSize: number = 40;
 
@@ -207,20 +208,20 @@ export class ClientService extends ApiImplementation {
     return this.http.get<ExtendedUser>(`/admin/users/name/${username}`);
   }
 
+  updateUserByUuid(uuid: string, data: AdminUserUpdateRequest) {
+    return this.http.patch<ExtendedUser>(`/admin/users/uuid/${uuid}`, data);
+  }
+
   getExtendedUserList(skip: number, count: number, params: Params | null = null) {
     return this.http.get<ExtendedUser>(`/admin/users`, {params: this.setPageQuery(params, skip, count)});
   }
 
-  getUserPlanetHashesByUuid(uuid: string) {
-    return this.http.get<ExtendedUser>(`/admin/users/uuid/${uuid}/planets`);
+  getUserPlanetDataByUuid(uuid: string) {
+    return this.http.get<PlanetInfo>(`/admin/users/uuid/${uuid}/planets`);
   }
 
-  resetUserPlanetHashesByUuid(uuid: string) {
-    return this.http.delete<ExtendedUser>(`/admin/users/uuid/${uuid}/planets`);
-  }
-
-  updateUserByUuid(uuid: string, data: AdminUserUpdateRequest) {
-    return this.http.patch<ExtendedUser>(`/admin/users/uuid/${uuid}`, data);
+  resetUserPlanetDataByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/planets`);
   }
 
   banUserByUuid(uuid: string, data: PunishUserRequest) {

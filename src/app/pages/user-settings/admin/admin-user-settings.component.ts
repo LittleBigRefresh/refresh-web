@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { faCancel, faChevronDown, faChevronUp, faFloppyDisk, faPencil, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faChevronDown, faChevronUp, faFloppyDisk, faPencil, faSignOutAlt, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe } from "@angular/common";
 import { UserRoles } from "../../../api/types/users/user-roles";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
@@ -24,6 +24,9 @@ import { RadioButtonComponent } from "../../../components/ui/form/radio-button.c
 import { RolePipe } from "../../../pipes/role.pipe";
 import { DividerComponent } from "../../../components/ui/divider.component";
 import { TextboxComponent } from "../../../components/ui/form/textbox.component";
+import { PlanetInfo } from "../../../api/types/users/planet-info";
+import { LabelComponent } from "../../../components/ui/info/label.component";
+import { DialogComponent } from "../../../components/ui/dialog.component";
 
 @Component({
     selector: 'app-admin-user-settings',
@@ -41,7 +44,9 @@ import { TextboxComponent } from "../../../components/ui/form/textbox.component"
     DropdownMenuComponent,
     RadioButtonComponent,
     DividerComponent,
-    TextboxComponent
+    TextboxComponent,
+    LabelComponent,
+    DialogComponent
 ],
     templateUrl: './admin-user-settings.component.html',
     styles: ``
@@ -76,6 +81,8 @@ export class AdminUserSettingsComponent {
     protected trustedValue: UserRoles = UserRoles.Trusted;
     protected userValue: UserRoles = UserRoles.User;
 
+    planets: PlanetInfo | undefined;
+
     protected isMobile: boolean = false;
 
     constructor(private client: ClientService, private auth: AuthenticationService, 
@@ -97,8 +104,11 @@ export class AdminUserSettingsComponent {
                                     const apiError: RefreshApiError | undefined = error.error?.error;
                                     this.banner.error("Failed to get extended user", apiError == null ? error.message : apiError.message);
                                 },
-                                next: response => {
-                                    this.updateInputs(response);
+                                next: user => {
+                                    if (user) {
+                                        this.updateInputs(user);
+                                        this.getPlanets(user.userId);
+                                    }
                                 }
                             });
                         }
@@ -209,6 +219,44 @@ export class AdminUserSettingsComponent {
         })
     }
 
+    private getPlanets(uuid: string) {
+        this.client.getUserPlanetDataByUuid(uuid).subscribe({
+            error: error => {
+                this.planets = undefined;
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to get planet data", apiError == null ? error.message : apiError.message);
+            },
+            next: planets => {
+                this.planets = planets;
+            }
+        });
+    }
+
+    protected showPlanetResetDialog = false;
+
+    openPlanetResetDialog() {
+        this.showPlanetResetDialog = true;
+    }
+
+    closePlanetResetDialog() {
+        this.showPlanetResetDialog = false;
+    }
+
+    resetPlanets() {
+        if (!this.targetUser) return;
+        this.closePlanetResetDialog();
+
+        this.client.resetUserPlanetDataByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to reset this user's planet data", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.getPlanets(this.targetUser!.userId);
+            }
+        });
+    }
+
     protected readonly faPencil = faPencil;
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faTrash = faTrash;
@@ -216,4 +264,5 @@ export class AdminUserSettingsComponent {
     protected readonly faChevronUp = faChevronUp;
     protected readonly faUser = faUser;
     protected readonly faCancel = faCancel;
+    protected readonly faSignOutAlt = faSignOutAlt;
 }
