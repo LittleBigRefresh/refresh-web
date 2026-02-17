@@ -3,23 +3,24 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import {TooltipComponent} from "../text/tooltip.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import { DecimalPipe } from "@angular/common";
+import { DecimalPipe, NgClass } from "@angular/common";
 
 @Component({
     selector: 'app-statistic',
     imports: [
         TooltipComponent,
         FaIconComponent,
-        DecimalPipe
+        DecimalPipe,
+        NgClass
     ],
     template: `
     <app-tooltip [text]="name" class="text-secondary-bright">
-      <fa-icon [icon]="icon" class="mr-0.5"></fa-icon>
+      <fa-icon [icon]="icon" class="mr-0.5" [ngClass]="emphasize ? 'text-emphasized-primary' : ''"></fa-icon>
       @if (truncate) {
-        <span>{{value | number:'1.0-1'}}</span>
+        <span [ngClass]="emphasize ? 'text-emphasized-primary' : ''">{{value | number:'1.0-1'}}</span>
       }
       @else {
-        <span>{{value}}</span>
+        <span [ngClass]="emphasize ? 'text-emphasized-primary' : ''">{{value}}</span>
       }
     </app-tooltip>
     `
@@ -29,4 +30,5 @@ export class StatisticComponent {
   @Input({required: true}) name: string = "Statistic";
   @Input({required: true}) icon: IconProp = faExclamationTriangle;
   @Input() truncate: boolean = false;
+  @Input() emphasize: boolean = false;
 }
