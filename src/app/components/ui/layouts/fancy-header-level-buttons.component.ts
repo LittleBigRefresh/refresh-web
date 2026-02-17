@@ -169,11 +169,13 @@ export class FancyHeaderLevelButtonsComponent {
         if (this.relations.isHearted) {
             this.client.setLevelAsUnhearted(this.level.levelId).subscribe(_ => {
                 this.relations.isHearted = false;
+                this.level.hearts--;
             });
         }
         else {
             this.client.setLevelAsHearted(this.level.levelId).subscribe(_ => {
                 this.relations.isHearted = true;
+                this.level.hearts++;
             });
         }
     }
