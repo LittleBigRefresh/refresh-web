@@ -81,7 +81,6 @@ export class LevelComponent {
       this.auth.user.subscribe(user => {
         if(user) {
           this.ownUser = user;
-          this.client.getLevelRelations(id).subscribe(relations => this.relations = relations);
         }
       });
     });
@@ -91,6 +90,7 @@ export class LevelComponent {
 
   setDataFromLevel(data: Level) {
     this.level = data;
+    this.relations = data.ownRelations;
     if(this.isBrowser) {
       window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}`);
     }

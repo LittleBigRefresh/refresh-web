@@ -151,10 +151,6 @@ export class ClientService extends ApiImplementation {
     return this.http.get<Photo>(`/photos/id/${id}`);
   }
 
-  getLevelRelations(id: number) {
-    return this.http.get<LevelRelations>(`/levels/id/${id}/relations`);
-  }
-
   setLevelAsHearted(id: number) {
     return this.http.post<Response>(`/levels/id/${id}/heart`, null);
   }
