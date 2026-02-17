@@ -3,6 +3,7 @@
         <div class="flex flex-col gap-y-2 mb-4">
             <div class="mx-4 my-4 flex flex-col gap-y-2">
                 <app-page-title class=""></app-page-title>
+                <p class="text-gentle content-center">{{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span></p>
                 <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
             </div>
             <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
@@ -47,30 +48,34 @@
             <app-textarea class="w-full py-4" [icon]="faPencil" [form]="metadataForm" placeholder="Change this user's description..." 
                 ctrlName="description" type="description" (change)="checkDescriptionChanges()" [maxLength]="512" [showMaxLength]="true"></app-textarea>
             
-            @if (ownUser.role <= moderatorValue) {
+            @if (ownUser.role < moderatorValue) {
                 <p>You don't have perms to update this user's role</p>
             }
-            @else if (targetUser.role >= userValue) {
-                <app-dropdown-menu [showMenu]="showRoleMenu" offsets="top-9 -left-5" [width]="64">
-                    <app-button trigger
-                        width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
-                        [text]="metadataForm.controls.role.getRawValue()! | role"
-                        [icon]="showRoleMenu ? faChevronUp : faChevronDown"
-                        color="bg-primary"
-                        (click)="roleDropdownButtonClick()">
-                    </app-button>
-                    <div class="" content>
-                        <app-radio-button label="Admin" [form]="metadataForm" ctrlName="gameVersion" id="g0" [value]='adminValue' (click)="setRole(adminValue)"></app-radio-button>
-                        <app-radio-button label="Moderator" [form]="metadataForm" ctrlName="gameVersion" id="g1" [value]='moderatorValue' (click)="setRole(moderatorValue)"></app-radio-button>
-                        <app-radio-button label="Curator" [form]="metadataForm" ctrlName="gameVersion" id="g2" [value]='curatorValue' (click)="setRole(curatorValue)"></app-radio-button>
-                        <app-radio-button label="Trusted" [form]="metadataForm" ctrlName="gameVersion" id="g3" [value]='trustedValue' (click)="setRole(trustedValue)"></app-radio-button>
-                        <app-radio-button label="User" [form]="metadataForm" ctrlName="gameVersion" id="g4" [value]='userValue' (click)="setRole(userValue)"></app-radio-button>
-                        <!-- all roles below cannot be set this way -->
-                    </div>
-                </app-dropdown-menu>
+            @else if (targetUser.role < userValue) {
+                <p>This user's role cannot be updated this way due to their current role: {{ targetUser.role | role }}</p>
             }
             @else {
-                <p>This user's role cannot be updated this way due to their current role: {{ targetUser.role | role }}</p>
+                <div class="flex flex-row flex-wrap gap-x-4">
+                    <p class="text-2xl content-center">Role:</p>
+                    <app-dropdown-menu [showMenu]="showRoleMenu" offsets="top-9 " [width]="32">
+                        <app-button trigger
+                            width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                            [text]="metadataForm.controls.role.getRawValue()! | role"
+                            [icon]="showRoleMenu ? faChevronUp : faChevronDown"
+                            color="bg-primary"
+                            (click)="roleDropdownButtonClick()">
+                        </app-button>
+                        <div class="" content>
+                            <app-radio-button label="Admin" [form]="metadataForm" ctrlName="role" id="r0" [value]='adminValue' (click)="setRole(adminValue)"></app-radio-button>
+                            <app-radio-button label="Moderator" [form]="metadataForm" ctrlName="role" id="r1" [value]='moderatorValue' (click)="setRole(moderatorValue)"></app-radio-button>
+                            <app-radio-button label="Curator" [form]="metadataForm" ctrlName="role" id="r2" [value]='curatorValue' (click)="setRole(curatorValue)"></app-radio-button>
+                            <app-radio-button label="Trusted" [form]="metadataForm" ctrlName="role" id="r3" [value]='trustedValue' (click)="setRole(trustedValue)"></app-radio-button>
+                            <app-radio-button label="User" [form]="metadataForm" ctrlName="role" id="r4" [value]='userValue' (click)="setRole(userValue)"></app-radio-button>
+                            <!-- all roles below cannot be set this way -->
+                        </div>
+                    </app-dropdown-menu>
+                </div>
+                
             }
         </div>
         <app-two-pane-layout>

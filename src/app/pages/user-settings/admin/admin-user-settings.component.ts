@@ -71,10 +71,10 @@ export class AdminUserSettingsComponent {
     hasPendingChanges: boolean = false;
 
     protected adminValue: UserRoles = UserRoles.Admin;
-    protected moderatorValue: UserRoles = UserRoles.Admin;
-    protected curatorValue: UserRoles = UserRoles.Admin;
-    protected trustedValue: UserRoles = UserRoles.Admin;
-    protected userValue: UserRoles = UserRoles.Admin;
+    protected moderatorValue: UserRoles = UserRoles.Moderator;
+    protected curatorValue: UserRoles = UserRoles.Curator;
+    protected trustedValue: UserRoles = UserRoles.Trusted;
+    protected userValue: UserRoles = UserRoles.User;
 
     protected isMobile: boolean = false;
 
