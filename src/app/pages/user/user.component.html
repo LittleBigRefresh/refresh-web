@@ -10,7 +10,7 @@
         <ng-container belowTitle>
             <app-user-status [activeRoom]="user.activeRoom" [lastSeen]="user.lastLoginDate"></app-user-status>
         </ng-container>
-        <app-user-statistics [stats]="user.statistics" statistics></app-user-statistics>
+        <app-user-statistics [stats]="user.statistics" [ownRelations]="user.ownRelations" statistics></app-user-statistics>
         @if(ownUser && relations && !isMobile) {
             <app-fancy-header-user-buttons [targetUser]="user" [ownUser]="ownUser" [relations]="relations" buttonArea></app-fancy-header-user-buttons>
         }
