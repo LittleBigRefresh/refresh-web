@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { faChevronDown, faChevronUp, faFloppyDisk, faPencil, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faChevronDown, faChevronUp, faFloppyDisk, faPencil, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe } from "@angular/common";
 import { UserRoles } from "../../../api/types/users/user-roles";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
@@ -179,6 +179,11 @@ export class AdminUserSettingsComponent {
         this.metadataForm.controls.role.setValue(user.role);
     }
 
+    protected discardChanges() {
+        if (!this.targetUser) return;
+        this.updateInputs(this.targetUser);
+    }
+
     uploadChanges() {
         if (!this.hasPendingChanges) return;
         if (!this.targetUser) return;
@@ -210,4 +215,5 @@ export class AdminUserSettingsComponent {
     protected readonly faChevronDown = faChevronDown;
     protected readonly faChevronUp = faChevronUp;
     protected readonly faUser = faUser;
+    protected readonly faCancel = faCancel;
 }

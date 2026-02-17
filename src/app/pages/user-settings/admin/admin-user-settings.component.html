@@ -4,7 +4,10 @@
             <div class="mx-4 my-4 flex flex-col gap-y-2">
                 <app-page-title class=""></app-page-title>
                 <p class="text-gentle content-center">{{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span></p>
-                <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
+                <div class="flex flex-row flex-wrap gap-x-2 justify-between">
+                    <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingChanges" color="bg-red" (click)="discardChanges()"></app-button>
+                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
+                </div>
             </div>
             <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
                 <div class="flex flex-col justify-center items-center aspect-square my-2.5" >
@@ -59,7 +62,7 @@
                     <p class="text-2xl content-center">Role:</p>
                     <app-dropdown-menu [showMenu]="showRoleMenu" offsets="top-9 " [width]="32">
                         <app-button trigger
-                            width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                            width="flex flex-shrink justify-evenly flex-grow text-nowrap"
                             [text]="metadataForm.controls.role.getRawValue()! | role"
                             [icon]="showRoleMenu ? faChevronUp : faChevronDown"
                             color="bg-primary"
