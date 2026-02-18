@@ -77,7 +77,7 @@ export class AdminUserSettingsComponent {
     shouldResetBetaIcon: boolean = false;
 
     showRoleMenu: boolean = false;
-    hasPendingChanges: boolean = false;
+    hasPendingMetadataChanges: boolean = false;
 
     protected adminValue: UserRoles = UserRoles.Admin;
     protected moderatorValue: UserRoles = UserRoles.Moderator;
@@ -130,41 +130,48 @@ export class AdminUserSettingsComponent {
 
     checkResetIcon() {
         this.shouldResetIcon = this.metadataForm.controls.resetIcon.getRawValue();
-        this.doesPageHavePendingChanges();
+        this.doesMetadataHavePendingChanges();
     }
 
     checkResetVitaIcon() {
         this.shouldResetVitaIcon = this.metadataForm.controls.resetVitaIcon.getRawValue();
-        this.doesPageHavePendingChanges();
+        this.doesMetadataHavePendingChanges();
     }
 
     checkResetBetaIcon() {
         this.shouldResetBetaIcon = this.metadataForm.controls.resetBetaIcon.getRawValue();
-        this.doesPageHavePendingChanges();
+        this.doesMetadataHavePendingChanges();
     }
 
     checkUsernameChanges() {
         this.hasUsernameChanged = this.metadataForm.controls.username.getRawValue() !== this.targetUser?.username;
-        this.doesPageHavePendingChanges();
+        this.doesMetadataHavePendingChanges();
     }
 
     checkDescriptionChanges() {
         this.hasDescriptionChanged = this.metadataForm.controls.description.getRawValue() !== this.targetUser?.description;
-        this.doesPageHavePendingChanges();
+        this.doesMetadataHavePendingChanges();
     }
 
     setRole(input: UserRoles) {
         this.metadataForm.controls.role.setValue(input);
         this.hasRoleChanged = input !== this.targetUser!.role;
-        this.doesPageHavePendingChanges();
+        this.doesMetadataHavePendingChanges();
+    }
+
+    overrideRole(input: UserRoles) {
+        if (!this.targetUser) return;
+        this.targetUser.role = input;
+        this.metadataForm.controls.role.setValue(input);
+        this.hasRoleChanged = false;
     }
 
     roleDropdownButtonClick() {
         this.showRoleMenu = !this.showRoleMenu;
     }
 
-    private doesPageHavePendingChanges() {
-        this.hasPendingChanges =
+    private doesMetadataHavePendingChanges() {
+        this.hasPendingMetadataChanges =
             this.hasDescriptionChanged
             || this.hasUsernameChanged
             || this.hasRoleChanged
@@ -175,7 +182,7 @@ export class AdminUserSettingsComponent {
 
     private updateInputs(user: ExtendedUser) {
         this.targetUser = user;
-        this.hasPendingChanges = false;
+        this.hasPendingMetadataChanges = false;
 
         this.shouldResetIcon = false;
         this.shouldResetVitaIcon = false;
@@ -200,7 +207,7 @@ export class AdminUserSettingsComponent {
     }
 
     uploadChanges() {
-        if (!this.hasPendingChanges) return;
+        if (!this.hasPendingMetadataChanges) return;
         if (!this.targetUser) return;
 
         let request: AdminUserUpdateRequest = {
@@ -278,7 +285,7 @@ export class AdminUserSettingsComponent {
                 this.banner.warn("Failed to restrict this user", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
-                this.setRole(UserRoles.Restricted);
+                this.overrideRole(UserRoles.Restricted);
             }
         });
     }
@@ -303,7 +310,7 @@ export class AdminUserSettingsComponent {
                 this.banner.warn("Failed to ban this user", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
-                this.setRole(UserRoles.Banned);
+                this.overrideRole(UserRoles.Banned);
             }
         });
     }
@@ -324,7 +331,7 @@ export class AdminUserSettingsComponent {
                 this.banner.warn("Failed to pardon this user", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
-                this.setRole(UserRoles.User);
+                this.overrideRole(UserRoles.User);
             }
         });
     }
@@ -336,22 +343,20 @@ export class AdminUserSettingsComponent {
 
     hasEnteredReason: boolean = false;
     hasEnteredExpiryDate: boolean = false;
+    isPunishmentReady: boolean = false;
 
     checkExpiryDateChanges() {
-        this.banner.success("checkExpiryDateChanges", this.punishmentForm.controls.expiryDate.getRawValue() + " -date ");
         this.hasEnteredExpiryDate = true;
-        this.doesPunishmentHavePendingChanges();
+        this.checkPunishmentReadiness();
     }
 
     checkReasonChanges() {
         this.hasEnteredReason = this.punishmentForm.controls.reason.getRawValue().length > 0;
-        this.doesPunishmentHavePendingChanges();
+        this.checkPunishmentReadiness();
     }
 
-    private doesPunishmentHavePendingChanges() {
-        this.hasPendingChanges =
-            this.hasEnteredReason
-            || this.hasEnteredExpiryDate;
+    private checkPunishmentReadiness() {
+        this.isPunishmentReady = this.hasEnteredReason && this.hasEnteredExpiryDate;
     }
 
     protected readonly faPencil = faPencil;

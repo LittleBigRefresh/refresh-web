@@ -6,12 +6,9 @@
                 <p class="text-gentle content-center">
                     {{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span>
                 </p>
-                <p class="italic font-sm text-yellow">
-                    Renaming fake/generally prefixed users is currently not supported
-                </p>
                 <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-between">
-                    <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingChanges" color="bg-red" (click)="discardChanges()"></app-button>
-                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
+                    <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingMetadataChanges" color="bg-red" (click)="discardChanges()"></app-button>
+                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
                 </div>
             </div>
             <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
@@ -172,16 +169,15 @@
                     </div>
 
                     <div class="flex flex-row flex-wrap gap-x-2 justify-start content-center pt-2">
-                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(!showRestrictionDialog)"></app-button>
-                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(!showBanDialog)"></app-button>
+                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(!showRestrictionDialog)"
+                            [enabled]="isPunishmentReady"></app-button>
+                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(!showBanDialog)"
+                            [enabled]="isPunishmentReady"></app-button>
                     </div>
                     
-                    <div>
-                        @if (targetUser.role > restrictedValue) {
-                            <app-divider></app-divider>
-                            <app-button text="Pardon instead" [icon]="faTrash" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"></app-button>
-                        }
-                    </div>
+                    <app-divider></app-divider>
+                    <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"
+                        [enabled]="targetUser.role <= restrictedValue"></app-button>
                 </div>
             </app-container>
         </app-two-pane-layout>

@@ -5,5 +5,5 @@ export enum UserRoles {
     Trusted = 1,
     User = 0,
     Restricted = -126,
-    Banned = 127,
+    Banned = -127,
 }
