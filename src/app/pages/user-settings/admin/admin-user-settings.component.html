@@ -168,16 +168,15 @@
                         </app-dark-container>
                     </div>
 
-                    <div class="flex flex-row flex-wrap gap-x-2 justify-start content-center pt-2">
+                    <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-start content-center pt-2">
                         <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(!showRestrictionDialog)"
                             [enabled]="isPunishmentReady"></app-button>
                         <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(!showBanDialog)"
                             [enabled]="isPunishmentReady"></app-button>
+                        <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"
+                            [enabled]="targetUser.role <= restrictedValue"></app-button>
                     </div>
                     
-                    <app-divider></app-divider>
-                    <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"
-                        [enabled]="targetUser.role <= restrictedValue"></app-button>
                 </div>
             </app-container>
         </app-two-pane-layout>
