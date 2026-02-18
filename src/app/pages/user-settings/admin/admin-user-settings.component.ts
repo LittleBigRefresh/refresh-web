@@ -260,7 +260,16 @@ export class AdminUserSettingsComponent {
                 this.banner.warn("Failed to reset this user's planet data", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
-                this.getPlanets(this.targetUser!.userId);
+                this.planets = {
+                    lbp2PlanetsHash: "0",
+                    lbp3PlanetsHash: "0",
+                    vitaPlanetsHash: "0",
+                    betaPlanetsHash: "0",
+                    areLbp2PlanetsModded: false,
+                    areLbp3PlanetsModded: false,
+                    areVitaPlanetsModded: false,
+                    areBetaPlanetsModded: false,
+                };
             }
         });
     }
