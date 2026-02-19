@@ -18,7 +18,7 @@
                         <p class="italic">No icon</p>
                     }
                     @else {
-                        <app-user-avatar-general [iconHash]="targetUser.iconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar-general>
+                        <app-user-avatar [iconHash]="targetUser.iconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
                     }
                     <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetIcon" (change)="checkResetIcon()"></app-checkbox>
                 </div>
@@ -29,7 +29,7 @@
                         <p class="italic">No icon</p>
                     }
                     @else {
-                        <app-user-avatar-general [iconHash]="targetUser.vitaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar-general>
+                        <app-user-avatar [iconHash]="targetUser.vitaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
                     }
                     <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetVitaIcon" (change)="checkResetVitaIcon()"></app-checkbox>
                 </div>
@@ -40,7 +40,7 @@
                         <p class="italic">No icon</p>
                     }
                     @else {
-                        <app-user-avatar-general [iconHash]="targetUser.betaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar-general>
+                        <app-user-avatar [iconHash]="targetUser.betaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
                     }
                     
                     <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetBetaIcon" (change)="checkResetBetaIcon()"></app-checkbox>

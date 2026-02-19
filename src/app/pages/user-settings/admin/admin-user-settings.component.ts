@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { faBan, faCancel, faChevronDown, faChevronUp, faFlag, faFloppyDisk, faGavel, faPencil, faSignOutAlt, faTrash, faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCancel, faChevronDown, faChevronUp, faFlag, 
+    faFloppyDisk, faGavel, faPencil, faSignOutAlt, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe } from "@angular/common";
 import { UserRoles } from "../../../api/types/users/user-roles";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
@@ -12,7 +13,6 @@ import { ActivatedRoute } from "@angular/router";
 import { AdminUserUpdateRequest } from "../../../api/types/users/admin-user-update-request";
 import { LayoutService } from "../../../services/layout.service";
 import { CheckboxComponent } from "../../../components/ui/form/checkbox.component";
-import { UserAvatarGeneralComponent } from "../../../components/ui/photos/user-avatar-general.component";
 import { PageTitleComponent } from "../../../components/ui/text/page-title.component";
 import { ButtonComponent } from "../../../components/ui/form/button.component";
 import { TextAreaComponent } from "../../../components/ui/form/textarea.component";
@@ -29,6 +29,7 @@ import { LabelComponent } from "../../../components/ui/info/label.component";
 import { PunishUserRequest } from "../../../api/types/moderation/punish-user-request";
 import { ConfirmationDialogComponent } from "../../../components/ui/confirmation-dialog.component";
 import { DarkContainerComponent } from "../../../components/ui/dark-container.component";
+import { UserAvatarComponent } from "../../../components/ui/photos/user-avatar.component";
 
 @Component({
     selector: 'app-admin-user-settings',
@@ -36,7 +37,6 @@ import { DarkContainerComponent } from "../../../components/ui/dark-container.co
     AsyncPipe,
     RolePipe,
     CheckboxComponent,
-    UserAvatarGeneralComponent,
     PageTitleComponent,
     ButtonComponent,
     TextAreaComponent,
@@ -50,7 +50,8 @@ import { DarkContainerComponent } from "../../../components/ui/dark-container.co
     LabelComponent,
     ConfirmationDialogComponent,
     DarkContainerComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UserAvatarComponent
 ],
     templateUrl: './admin-user-settings.component.html',
     styles: ``
