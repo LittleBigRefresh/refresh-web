@@ -227,6 +227,7 @@ export class AdminUserSettingsComponent {
             },
             next: response => {
                 this.updateInputs(response);
+                this.banner.success("Successfully updated " + this.targetUser?.username, "");
             }
         })
     }
@@ -260,6 +261,7 @@ export class AdminUserSettingsComponent {
                 this.banner.warn("Failed to reset this user's planet data", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
+                this.banner.success("Successfully reset " + this.targetUser?.username + "'s planets!", "");
                 this.planets = {
                     lbp2PlanetsHash: "0",
                     lbp3PlanetsHash: "0",
@@ -276,12 +278,20 @@ export class AdminUserSettingsComponent {
 
     protected showRestrictionDialog: boolean = false;
 
+    resetPunishmentForm() {
+        // No need to reset date, but do reset reason to make it more obvious that the punishment request was successful.
+        this.punishmentForm.controls.reason.setValue("");
+        this.hasEnteredReason = false;
+        this.isPunishmentReady = false;
+    }
+
     toggleRestrictionDialog(visibility: boolean) {
         this.showRestrictionDialog = visibility;
     }
 
     restrictUser() {
         if (!this.targetUser) return;
+        this.waitingForPunishmentResponse = true;
         this.toggleRestrictionDialog(false);
 
         let punishmentData: PunishUserRequest = {
@@ -294,11 +304,15 @@ export class AdminUserSettingsComponent {
         };
         this.client.restrictUserByUuid(this.targetUser.userId, punishmentData).subscribe({
             error: error => {
+                this.waitingForPunishmentResponse = false;
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.banner.warn("Failed to restrict this user", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
+                this.waitingForPunishmentResponse = false;
                 this.overrideRole(UserRoles.Restricted);
+                this.resetPunishmentForm();
+                this.banner.success("Successfully restricted " + this.targetUser?.username, "");
             }
         });
     }
@@ -311,6 +325,7 @@ export class AdminUserSettingsComponent {
 
     banUser() {
         if (!this.targetUser) return;
+        this.waitingForPunishmentResponse = true;
         this.toggleBanDialog(false);
 
         let punishmentData: PunishUserRequest = {
@@ -319,11 +334,15 @@ export class AdminUserSettingsComponent {
         };
         this.client.banUserByUuid(this.targetUser.userId, punishmentData).subscribe({
             error: error => {
+                this.waitingForPunishmentResponse = false;
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.banner.warn("Failed to ban this user", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
+                this.waitingForPunishmentResponse = false;
                 this.overrideRole(UserRoles.Banned);
+                this.resetPunishmentForm();
+                this.banner.success("Successfully banned " + this.targetUser?.username, "");
             }
         });
     }
@@ -336,15 +355,19 @@ export class AdminUserSettingsComponent {
 
     pardonUser() {
         if (!this.targetUser) return;
+        this.waitingForPunishmentResponse = true;
         this.togglePardonDialog(false);
 
         this.client.pardonUserByUuid(this.targetUser.userId).subscribe({
             error: error => {
+                this.waitingForPunishmentResponse = false;
                 const apiError: RefreshApiError | undefined = error.error?.error;
                 this.banner.warn("Failed to pardon this user", apiError == null ? error.message : apiError.message);
             },
             next: _ => {
+                this.waitingForPunishmentResponse = false;
                 this.overrideRole(UserRoles.User);
+                this.banner.success("Successfully pardoned " + this.targetUser?.username, "");
             }
         });
     }
@@ -357,6 +380,7 @@ export class AdminUserSettingsComponent {
     hasEnteredReason: boolean = false;
     hasEnteredExpiryDate: boolean = false;
     isPunishmentReady: boolean = false;
+    waitingForPunishmentResponse = false;
 
     checkExpiryDateChanges() {
         this.hasEnteredExpiryDate = true;

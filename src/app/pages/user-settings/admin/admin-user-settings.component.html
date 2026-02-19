@@ -6,7 +6,7 @@
                 <p class="text-gentle content-center">
                     {{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span>
                 </p>
-                <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-between">
+                <div class="flex flex-row flex-wrap gap-x-2 gap-y-4 justify-between">
                     <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingMetadataChanges" color="bg-red" (click)="discardChanges()"></app-button>
                     <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
                 </div>
@@ -170,13 +170,18 @@
 
                     <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-start content-center pt-2">
                         <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(!showRestrictionDialog)"
-                            [enabled]="isPunishmentReady"></app-button>
+                            [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
                         <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(!showBanDialog)"
-                            [enabled]="isPunishmentReady"></app-button>
+                            [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
                         <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"
-                            [enabled]="targetUser.role <= restrictedValue"></app-button>
+                            [enabled]="!waitingForPunishmentResponse && targetUser.role <= restrictedValue"></app-button>
                     </div>
-                    
+                    @if (waitingForPunishmentResponse) {
+                        <p>Waiting for response...</p>
+                    }
+                    @else if (!isPunishmentReady) {
+                        <p>You must enter a reason and an expiry date to punish this user</p>
+                    }
                 </div>
             </app-container>
         </app-two-pane-layout>
