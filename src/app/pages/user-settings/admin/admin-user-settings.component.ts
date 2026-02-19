@@ -286,7 +286,11 @@ export class AdminUserSettingsComponent {
 
         let punishmentData: PunishUserRequest = {
             reason: this.punishmentForm.controls.reason.getRawValue(),
-            expiryDate: this.punishmentForm.controls.expiryDate.getRawValue()
+            // Must wrap this in a new Date, else the timestamp wont include Z, making Bunkum's serializer add its local timezone offset
+            // instead of treating the timestamp as UTC. Not only would this modify the actual timestamp, but EF also doesn't
+            // support saving timestamps with offsets, so Refresh would throw if it receives a timestamp with either
+            // a non-0 offset or one with no offset and no Z.
+            expiryDate: new Date(this.punishmentForm.controls.expiryDate.getRawValue()),
         };
         this.client.restrictUserByUuid(this.targetUser.userId, punishmentData).subscribe({
             error: error => {
@@ -311,7 +315,7 @@ export class AdminUserSettingsComponent {
 
         let punishmentData: PunishUserRequest = {
             reason: this.punishmentForm.controls.reason.getRawValue(),
-            expiryDate: this.punishmentForm.controls.expiryDate.getRawValue()
+            expiryDate: new Date(this.punishmentForm.controls.expiryDate.getRawValue()),
         };
         this.client.banUserByUuid(this.targetUser.userId, punishmentData).subscribe({
             error: error => {
