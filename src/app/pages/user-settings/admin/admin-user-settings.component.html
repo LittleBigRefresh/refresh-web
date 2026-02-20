@@ -6,6 +6,11 @@
                 <p class="text-gentle content-center">
                     {{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span>
                 </p>
+
+                @if (targetUser.userId === ownUser.userId) {
+                    <p class="text-emphasized-primary">Looks like you're editing your own account. Please be aware that there is no safety against you punishing yourself (or you taking your own admin role away, if you are an admin)</p>
+                }
+                
                 <div class="flex flex-row flex-wrap gap-x-2 gap-y-4 justify-between">
                     <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingMetadataChanges" color="bg-red" (click)="discardChanges()"></app-button>
                     <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="toggleUpdateDialog(!showUpdateDialog)"></app-button>
