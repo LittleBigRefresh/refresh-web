@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { faBan, faCancel, faChevronDown, faChevronUp, faFlag, 
+import { faBan, faCancel, faCheckCircle, faChevronDown, faChevronUp, faFlag, 
     faFloppyDisk, faGavel, faPencil, faSignOutAlt, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe } from "@angular/common";
 import { UserRoles } from "../../../api/types/users/user-roles";
@@ -207,9 +207,16 @@ export class AdminUserSettingsComponent {
         this.updateInputs(this.targetUser);
     }
 
-    uploadChanges() {
+    protected showUpdateDialog: boolean = false;
+
+    toggleUpdateDialog(visibility: boolean) {
+        this.showUpdateDialog = visibility;
+    }
+
+    protected uploadChanges() {
         if (!this.hasPendingMetadataChanges) return;
         if (!this.targetUser) return;
+        this.toggleUpdateDialog(false);
 
         let request: AdminUserUpdateRequest = {
             role: this.hasRoleChanged ? this.metadataForm.controls.role.getRawValue() : null,
@@ -408,4 +415,5 @@ export class AdminUserSettingsComponent {
     protected readonly faGavel = faGavel;
     protected readonly faBan = faBan;
     protected readonly faFlag = faFlag;
+    protected readonly faCheckCircle = faCheckCircle;
 }

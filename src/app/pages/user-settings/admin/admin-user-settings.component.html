@@ -8,7 +8,7 @@
                 </p>
                 <div class="flex flex-row flex-wrap gap-x-2 gap-y-4 justify-between">
                     <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingMetadataChanges" color="bg-red" (click)="discardChanges()"></app-button>
-                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="uploadChanges()"></app-button>
+                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="toggleUpdateDialog(!showUpdateDialog)"></app-button>
                 </div>
             </div>
             <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
@@ -49,6 +49,10 @@
 
             <app-textbox label="Username" [showMaxLength]="true" [maxLength]="16" [form]="metadataForm" 
                 placeholder="greek-player_50" ctrlName="username" [icon]="faUser" (change)="checkUsernameChanges()"></app-textbox>
+            
+            @if (hasUsernameChanged) {
+                <p class="text-emphasized-primary">You are about to rename this user</p>
+            }
 
             <app-textarea class="w-full py-4" [icon]="faPencil" [form]="metadataForm" placeholder="Change this user's description..." 
                 ctrlName="description" type="description" (change)="checkDescriptionChanges()" [maxLength]="512" [showMaxLength]="true"></app-textarea>
@@ -187,9 +191,17 @@
         </app-two-pane-layout>
     </div>
 
+    <!-- Metadata update prompt -->
+    @defer (when showUpdateDialog) { @if (showUpdateDialog) {
+        <app-confirmation-dialog [infoText]="'Do you really want to update this user?' + (hasUsernameChanged ? '\n\nUpdating will also RENAME this user!' : '')" (closeDialog)="toggleUpdateDialog(false)">
+            <app-button text="No, go back" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleUpdateDialog(false)"></app-button>
+            <app-button text="Yes, Update!" [icon]="faCheckCircle" color="bg-green" (click)="uploadChanges()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
     <!-- Planet reset prompt -->
     @defer (when showPlanetResetDialog) { @if (showPlanetResetDialog) {
-        <app-confirmation-dialog infoText="Do you really want to reset this user's planets?" (closeDialog)="toggleRestrictionDialog(false)">
+        <app-confirmation-dialog infoText="Do you really want to reset this user's planets?" (closeDialog)="togglePlanetResetDialog(false)">
             <app-button text="No, go back" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePlanetResetDialog(false)"></app-button>
             <app-button text="Yes, Reset!" [icon]="faTrash" color="bg-red" (click)="resetPlanets()"></app-button>
         </app-confirmation-dialog>
@@ -205,7 +217,7 @@
 
     <!-- Ban prompt -->
     @defer (when showBanDialog) { @if (showBanDialog) {
-        <app-confirmation-dialog infoText="Do you really want to BAN this user? This will override any previous punishment." (closeDialog)="toggleRestrictionDialog(false)">
+        <app-confirmation-dialog infoText="Do you really want to BAN this user? This will override any previous punishment." (closeDialog)="toggleBanDialog(false)">
             <app-button text="Spare" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleBanDialog(false)"></app-button>
             <app-button text="Ban!" [icon]="faBan" color="bg-red" (click)="banUser()"></app-button>
         </app-confirmation-dialog>
@@ -213,7 +225,7 @@
 
     <!-- Pardon prompt -->
     @defer (when showPardonDialog) { @if (showPardonDialog) {
-        <app-confirmation-dialog infoText="Do you really want to pardon this user? This will remove any previous punishment." (closeDialog)="toggleRestrictionDialog(false)">
+        <app-confirmation-dialog infoText="Do you really want to pardon this user? This will remove any previous punishment." (closeDialog)="togglePardonDialog(false)">
             <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePardonDialog(false)"></app-button>
             <app-button text="Pardon!" [icon]="faFlag" color="bg-green" (click)="pardonUser()"></app-button>
         </app-confirmation-dialog>
