@@ -13,7 +13,7 @@
                 
                 <div class="flex flex-row flex-wrap gap-x-2 gap-y-4 justify-between">
                     <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingMetadataChanges" color="bg-red" (click)="discardChanges()"></app-button>
-                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="toggleUpdateDialog(!showUpdateDialog)"></app-button>
+                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="toggleUpdateDialog(true)"></app-button>
                 </div>
             </div>
             <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
@@ -156,7 +156,7 @@
                     }
 
                     <div class="pt-4">
-                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="togglePlanetResetDialog(!showPlanetResetDialog)" width="w-full"></app-button>
+                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="togglePlanetResetDialog(true)" width="w-full"></app-button>
                     </div>
                 </div>
             </app-container>
@@ -178,11 +178,11 @@
                     </div>
 
                     <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-start content-center pt-2">
-                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(!showRestrictionDialog)"
+                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(true)"
                             [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
-                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(!showBanDialog)"
+                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(true)"
                             [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
-                        <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(!showPardonDialog)"
+                        <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(true)"
                             [enabled]="!waitingForPunishmentResponse && targetUser.role <= restrictedValue"></app-button>
                     </div>
                     @if (waitingForPunishmentResponse) {
