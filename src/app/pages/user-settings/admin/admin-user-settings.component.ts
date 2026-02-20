@@ -58,10 +58,10 @@ import { UserAvatarComponent } from "../../../components/ui/photos/user-avatar.c
 })
 
 export class AdminUserSettingsComponent {
-    ownUser: ExtendedUser | undefined | null;
-    targetUser: ExtendedUser | undefined | null;
+    protected ownUser: ExtendedUser | undefined | null;
+    protected targetUser: ExtendedUser | undefined | null;
     
-    metadataForm = new FormGroup({
+    protected metadataForm = new FormGroup({
         username: new FormControl(),
         description: new FormControl(),
         role: new FormControl(UserRoles.User),
@@ -70,15 +70,15 @@ export class AdminUserSettingsComponent {
         resetBetaIcon: new FormControl(),
     });
 
-    hasUsernameChanged: boolean = false;
-    hasDescriptionChanged: boolean = false;
-    hasRoleChanged: boolean = false;
-    shouldResetIcon: boolean = false;
-    shouldResetVitaIcon: boolean = false;
-    shouldResetBetaIcon: boolean = false;
+    protected hasUsernameChanged: boolean = false;
+    protected hasDescriptionChanged: boolean = false;
+    protected hasRoleChanged: boolean = false;
+    protected shouldResetIcon: boolean = false;
+    protected shouldResetVitaIcon: boolean = false;
+    protected shouldResetBetaIcon: boolean = false;
 
-    showRoleMenu: boolean = false;
-    hasPendingMetadataChanges: boolean = false;
+    protected showRoleMenu: boolean = false;
+    protected hasPendingMetadataChanges: boolean = false;
 
     protected adminValue: UserRoles = UserRoles.Admin;
     protected moderatorValue: UserRoles = UserRoles.Moderator;
@@ -87,8 +87,7 @@ export class AdminUserSettingsComponent {
     protected userValue: UserRoles = UserRoles.User;
     protected restrictedValue: UserRoles = UserRoles.Restricted;
 
-    planets: PlanetInfo | undefined;
-
+    protected planets: PlanetInfo | undefined;
     protected isMobile: boolean = false;
 
     constructor(private client: ClientService, private auth: AuthenticationService, 
@@ -129,45 +128,45 @@ export class AdminUserSettingsComponent {
         this.layout.isMobile.subscribe(v => this.isMobile = v);
     }
 
-    checkResetIcon() {
+    protected checkResetIcon() {
         this.shouldResetIcon = this.metadataForm.controls.resetIcon.getRawValue();
         this.doesMetadataHavePendingChanges();
     }
 
-    checkResetVitaIcon() {
+    protected checkResetVitaIcon() {
         this.shouldResetVitaIcon = this.metadataForm.controls.resetVitaIcon.getRawValue();
         this.doesMetadataHavePendingChanges();
     }
 
-    checkResetBetaIcon() {
+    protected checkResetBetaIcon() {
         this.shouldResetBetaIcon = this.metadataForm.controls.resetBetaIcon.getRawValue();
         this.doesMetadataHavePendingChanges();
     }
 
-    checkUsernameChanges() {
+    protected checkUsernameChanges() {
         this.hasUsernameChanged = this.metadataForm.controls.username.getRawValue() !== this.targetUser?.username;
         this.doesMetadataHavePendingChanges();
     }
 
-    checkDescriptionChanges() {
+    protected checkDescriptionChanges() {
         this.hasDescriptionChanged = this.metadataForm.controls.description.getRawValue() !== this.targetUser?.description;
         this.doesMetadataHavePendingChanges();
     }
 
-    setRole(input: UserRoles) {
+    protected setRole(input: UserRoles) {
         this.metadataForm.controls.role.setValue(input);
         this.hasRoleChanged = input !== this.targetUser!.role;
         this.doesMetadataHavePendingChanges();
     }
 
-    overrideRole(input: UserRoles) {
+    private overrideRole(input: UserRoles) {
         if (!this.targetUser) return;
         this.targetUser.role = input;
         this.metadataForm.controls.role.setValue(input);
         this.hasRoleChanged = false;
     }
 
-    roleDropdownButtonClick() {
+    protected roleDropdownButtonClick() {
         this.showRoleMenu = !this.showRoleMenu;
     }
 
@@ -209,7 +208,7 @@ export class AdminUserSettingsComponent {
 
     protected showUpdateDialog: boolean = false;
 
-    toggleUpdateDialog(visibility: boolean) {
+    protected toggleUpdateDialog(visibility: boolean) {
         this.showUpdateDialog = visibility;
     }
 
@@ -255,11 +254,11 @@ export class AdminUserSettingsComponent {
 
     protected showPlanetResetDialog: boolean = false;
 
-    togglePlanetResetDialog(visibility: boolean) {
+    protected togglePlanetResetDialog(visibility: boolean) {
         this.showPlanetResetDialog = visibility;
     }
 
-    resetPlanets() {
+    protected resetPlanets() {
         if (!this.targetUser) return;
         this.togglePlanetResetDialog(false);
 
@@ -286,18 +285,18 @@ export class AdminUserSettingsComponent {
 
     protected showRestrictionDialog: boolean = false;
 
-    resetPunishmentForm() {
+    private resetPunishmentForm() {
         // No need to reset date, but do reset reason to make it more obvious that the punishment request was successful.
         this.punishmentForm.controls.reason.setValue("");
         this.hasEnteredReason = false;
         this.isPunishmentReady = false;
     }
 
-    toggleRestrictionDialog(visibility: boolean) {
+    protected toggleRestrictionDialog(visibility: boolean) {
         this.showRestrictionDialog = visibility;
     }
 
-    restrictUser() {
+    protected restrictUser() {
         if (!this.targetUser) return;
         this.waitingForPunishmentResponse = true;
         this.toggleRestrictionDialog(false);
@@ -327,11 +326,11 @@ export class AdminUserSettingsComponent {
 
     protected showBanDialog: boolean = false;
 
-    toggleBanDialog(visibility: boolean) {
+    protected toggleBanDialog(visibility: boolean) {
         this.showBanDialog = visibility;
     }
 
-    banUser() {
+    protected banUser() {
         if (!this.targetUser) return;
         this.waitingForPunishmentResponse = true;
         this.toggleBanDialog(false);
@@ -357,11 +356,11 @@ export class AdminUserSettingsComponent {
 
     protected showPardonDialog: boolean = false;
 
-    togglePardonDialog(visibility: boolean) {
+    protected togglePardonDialog(visibility: boolean) {
         this.showPardonDialog = visibility;
     }
 
-    pardonUser() {
+    protected pardonUser() {
         if (!this.targetUser) return;
         this.waitingForPunishmentResponse = true;
         this.togglePardonDialog(false);
@@ -380,22 +379,22 @@ export class AdminUserSettingsComponent {
         });
     }
 
-    punishmentForm = new FormGroup({
+    protected punishmentForm = new FormGroup({
         reason: new FormControl(),
         expiryDate: new FormControl()
     });
 
-    hasEnteredReason: boolean = false;
-    hasEnteredExpiryDate: boolean = false;
-    isPunishmentReady: boolean = false;
-    waitingForPunishmentResponse = false;
+    protected hasEnteredReason: boolean = false;
+    protected hasEnteredExpiryDate: boolean = false;
+    protected isPunishmentReady: boolean = false;
+    protected waitingForPunishmentResponse = false;
 
-    checkExpiryDateChanges() {
+    protected checkExpiryDateChanges() {
         this.hasEnteredExpiryDate = true;
         this.checkPunishmentReadiness();
     }
 
-    checkReasonChanges() {
+    protected checkReasonChanges() {
         this.hasEnteredReason = this.punishmentForm.controls.reason.getRawValue().length > 0;
         this.checkPunishmentReadiness();
     }
