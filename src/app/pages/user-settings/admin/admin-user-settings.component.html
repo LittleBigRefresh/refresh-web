@@ -57,7 +57,7 @@
             <app-textarea class="w-full py-4" [icon]="faPencil" [form]="metadataForm" placeholder="Change this user's description..." 
                 ctrlName="description" type="description" (change)="checkDescriptionChanges()" [maxLength]="512" [showMaxLength]="true"></app-textarea>
             
-            @if (ownUser.role < moderatorValue) {
+            @if (ownUser.role < adminValue) {
                 <p>You don't have perms to update this user's role</p>
             }
             @else if (targetUser.role < userValue) {
