@@ -53,6 +53,9 @@ import { UserAvatarComponent } from "../../../components/ui/photos/user-avatar.c
     ReactiveFormsModule,
     UserAvatarComponent
 ],
+    providers: [
+        RolePipe
+    ],
     templateUrl: './admin-user-settings.component.html',
     styles: ``
 })
@@ -91,10 +94,10 @@ export class AdminUserSettingsComponent {
     protected isMobile: boolean = false;
 
     constructor(private client: ClientService, private auth: AuthenticationService, 
-        private banner: BannerService, route: ActivatedRoute, protected layout: LayoutService) 
+        private banner: BannerService, route: ActivatedRoute, protected layout: LayoutService, private role: RolePipe) 
     {
         this.auth.user.subscribe(ownUser => {
-            if (ownUser) {
+            if (ownUser && this.ownUser == null) {
                 this.ownUser = ownUser;
 
                 if (ownUser.role >= UserRoles.Moderator) {
@@ -111,8 +114,14 @@ export class AdminUserSettingsComponent {
                                 },
                                 next: user => {
                                     if (user) {
-                                        this.updateInputs(user);
-                                        this.getPlanets(user.userId);
+                                        if (ownUser.role < UserRoles.Admin && user.role >= UserRoles.Moderator) {
+                                            this.banner.error("You may not update or punish " + user.username, 
+                                                "Their role (" + this.role.transform(user.role) + ") is above your own role (" + this.role.transform(ownUser.role) + ")");
+                                        }
+                                        else {
+                                            this.updateInputs(user);
+                                            this.getPlanets(user.userId);
+                                        }
                                     }
                                 }
                             });
@@ -120,7 +129,7 @@ export class AdminUserSettingsComponent {
                     });
                 }
                 else {
-                    this.banner.warn("You are not a moderator", "Get out!");
+                    this.banner.error("You are not a moderator", "Get out!");
                 }
             }
         });
