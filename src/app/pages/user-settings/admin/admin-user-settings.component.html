@@ -198,7 +198,7 @@
 
     <!-- Metadata update prompt -->
     @defer (when showUpdateDialog) { @if (showUpdateDialog) {
-        <app-confirmation-dialog [infoText]="'Do you really want to update this user?' + (hasUsernameChanged ? 'Updating will also RENAME this user!' : '')" (closeDialog)="toggleUpdateDialog(false)">
+        <app-confirmation-dialog [infoText]="'Do you really want to update this user?' + (hasUsernameChanged ? ' Updating will also RENAME this user!' : '')" (closeDialog)="toggleUpdateDialog(false)">
             <app-button text="No, go back" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleUpdateDialog(false)"></app-button>
             <app-button text="Yes, Update!" [icon]="faCheckCircle" color="bg-green" (click)="uploadChanges()"></app-button>
         </app-confirmation-dialog>
