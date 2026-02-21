@@ -19,6 +19,10 @@ import { LevelRelations } from './types/levels/level-relations';
 import { Asset } from './types/asset';
 import { Statistics } from './types/statistics';
 import { LevelUpdateRequest } from './types/levels/level-update-request';
+import { AdminUserUpdateRequest } from './types/users/admin-user-update-request';
+import { ExtendedUser } from './types/users/extended-user';
+import { PunishUserRequest } from './types/moderation/punish-user-request';
+import { PlanetInfo } from './types/users/planet-info';
 
 export const defaultPageSize: number = 40;
 
@@ -183,6 +187,51 @@ export class ClientService extends ApiImplementation {
     return this.http.post<Asset>(`/assets/${hash}`, data);
   }
 
+  getExtendedUserByEitherLookup(username: string | undefined, uuid: string | undefined): Observable<ExtendedUser> {
+    if(!username && !uuid) {
+      throw new Error("no username or uuid was provided for lookup");
+    }
+
+    if(username) return this.getExtendedUserByUsername(username);
+    else return this.getExtendedUserByUuid(uuid!)
+  }
+
+  getExtendedUserByUuid(uuid: string) {
+    return this.http.get<ExtendedUser>(`/admin/users/uuid/${uuid}`);
+  }
+
+  getExtendedUserByUsername(username: string) {
+    return this.http.get<ExtendedUser>(`/admin/users/name/${username}`);
+  }
+
+  updateUserByUuid(uuid: string, data: AdminUserUpdateRequest) {
+    return this.http.patch<ExtendedUser>(`/admin/users/uuid/${uuid}`, data);
+  }
+
+  getExtendedUserList(skip: number, count: number, params: Params | null = null) {
+    return this.http.get<ExtendedUser>(`/admin/users`, {params: this.setPageQuery(params, skip, count)});
+  }
+
+  getUserPlanetDataByUuid(uuid: string) {
+    return this.http.get<PlanetInfo>(`/admin/users/uuid/${uuid}/planets`);
+  }
+
+  resetUserPlanetDataByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/planets`);
+  }
+
+  banUserByUuid(uuid: string, data: PunishUserRequest) {
+    return this.http.post<Response>(`/admin/users/uuid/${uuid}/ban`, data);
+  }
+
+  restrictUserByUuid(uuid: string, data: PunishUserRequest) {
+    return this.http.post<Response>(`/admin/users/uuid/${uuid}/restrict`, data);
+  }
+
+  pardonUserByUuid(uuid: string) {
+    return this.http.post<Response>(`/admin/users/uuid/${uuid}/pardon`, null);
+  }
+  
   setUserAsHearted(uuid: string) {
     return this.http.post<Response>(`/users/uuid/${uuid}/heart`, null);
   }

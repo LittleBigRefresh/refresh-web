@@ -1,0 +1,238 @@
+@if (ownUser && targetUser) {
+    <div class="flex flex-col">
+        <div class="flex flex-col gap-y-2 mb-4">
+            <div class="mx-4 my-4 flex flex-col gap-y-2">
+                <app-page-title></app-page-title>
+                <p class="text-gentle content-center">
+                    {{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span>
+                </p>
+
+                @if (targetUser.userId === ownUser.userId) {
+                    <p class="text-emphasized-primary">Looks like you're editing your own account. Please be aware that there is no safety against you punishing yourself, or you taking your own role away, if you are an admin</p>
+                }
+                
+                <div class="flex flex-row flex-wrap gap-x-2 gap-y-4 justify-between">
+                    <app-button text="Discard Changes" [icon]="faCancel" [enabled]="hasPendingMetadataChanges" color="bg-red" (click)="discardChanges()"></app-button>
+                    <app-button text="Save Changes" [icon]="faFloppyDisk" [enabled]="hasPendingMetadataChanges" color="bg-primary" (click)="toggleUpdateDialog(true)"></app-button>
+                </div>
+            </div>
+            <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
+                <!-- TODO: Refactor this into its own component -->
+                <div class="flex flex-col justify-center items-center aspect-square my-2.5" >
+                    <p class="font-bold">Mainline icon</p>
+                    @if (targetUser.iconHash === "0") {
+                        <p class="italic">No icon</p>
+                    }
+                    @else {
+                        <app-user-avatar [iconHash]="targetUser.iconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
+                    }
+                    <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetIcon" (change)="checkResetIcon()"></app-checkbox>
+                </div>
+
+                <div class="flex flex-col justify-center items-center aspect-square my-2.5" >
+                    <p class="font-bold">Vita icon</p>
+                    @if (targetUser.vitaIconHash === "0") {
+                        <p class="italic">No icon</p>
+                    }
+                    @else {
+                        <app-user-avatar [iconHash]="targetUser.vitaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
+                    }
+                    <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetVitaIcon" (change)="checkResetVitaIcon()"></app-checkbox>
+                </div>
+
+                <div class="flex flex-col justify-center items-center aspect-square my-2.5" >
+                    <p class="font-bold">Beta icon</p>
+                    @if (targetUser.betaIconHash === "0") {
+                        <p class="italic">No icon</p>
+                    }
+                    @else {
+                        <app-user-avatar [iconHash]="targetUser.betaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
+                    }
+                    <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetBetaIcon" (change)="checkResetBetaIcon()"></app-checkbox>
+                </div>
+            </div>
+
+            <app-textbox label="Username" [showMaxLength]="true" [maxLength]="16" [form]="metadataForm" 
+                placeholder="greek-player_50" ctrlName="username" [icon]="faUser" (change)="checkUsernameChanges()"></app-textbox>
+            
+            @if (hasUsernameChanged) {
+                <p class="text-emphasized-primary">You are about to rename this user</p>
+            }
+
+            <app-textarea class="w-full py-4" [icon]="faPencil" [form]="metadataForm" placeholder="Change this user's description..." 
+                ctrlName="description" type="description" (change)="checkDescriptionChanges()" [maxLength]="512" [showMaxLength]="true"></app-textarea>
+            
+            @if (ownUser.role < adminValue) {
+                <p>You don't have perms to update this user's role</p>
+            }
+            @else if (targetUser.role < userValue) {
+                <p>This user's role cannot be updated this way due to their current role: {{ targetUser.role | role }}</p>
+            }
+            @else {
+                <div class="flex flex-row flex-wrap gap-x-4">
+                    <p class="text-2xl content-center">Role:</p>
+                    <app-dropdown-menu [showMenu]="showRoleMenu" offsets="top-9 " [width]="32">
+                        <app-button trigger
+                            width="flex flex-shrink justify-evenly flex-grow text-nowrap"
+                            [text]="metadataForm.controls.role.getRawValue()! | role"
+                            [icon]="showRoleMenu ? faChevronUp : faChevronDown"
+                            color="bg-primary"
+                            (click)="roleDropdownButtonClick()">
+                        </app-button>
+                        <div class="" content>
+                            <app-radio-button label="Admin" [form]="metadataForm" ctrlName="role" id="r0" [value]='adminValue' (click)="setRole(adminValue)"></app-radio-button>
+                            <app-radio-button label="Moderator" [form]="metadataForm" ctrlName="role" id="r1" [value]='moderatorValue' (click)="setRole(moderatorValue)"></app-radio-button>
+                            <app-radio-button label="Curator" [form]="metadataForm" ctrlName="role" id="r2" [value]='curatorValue' (click)="setRole(curatorValue)"></app-radio-button>
+                            <app-radio-button label="Trusted" [form]="metadataForm" ctrlName="role" id="r3" [value]='trustedValue' (click)="setRole(trustedValue)"></app-radio-button>
+                            <app-radio-button label="User" [form]="metadataForm" ctrlName="role" id="r4" [value]='userValue' (click)="setRole(userValue)"></app-radio-button>
+                            <!-- all roles below cannot be set this way -->
+                        </div>
+                    </app-dropdown-menu>
+                </div>
+            }
+        </div>
+        <app-two-pane-layout>
+            <app-container class="w-full">
+                <app-pane-title>
+                    <p> Planets </p>
+                </app-pane-title>
+                <app-divider></app-divider>
+                <div class="flex flex-col gap-y-3">
+                    @if (planets) {
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>LBP2:</span>
+                            @if (planets.areLbp2PlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.lbp2PlanetsHash.length > 0) {
+                                <code>{{ planets.lbp2PlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+                        
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>LBP3:</span>
+                            @if (planets.areLbp3PlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.lbp3PlanetsHash.length > 0) {
+                                <code class="word-wrap-and-break">{{ planets.lbp3PlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>LBP Vita: </span>
+                            @if (planets.areVitaPlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.vitaPlanetsHash.length > 0) {
+                                <code>{{ planets.vitaPlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+
+                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                            <span>Beta build: </span>
+                            @if (planets.areBetaPlanetsModded) {
+                                <app-label [primary]="true">Modded</app-label>
+                            }
+                            @if (planets.betaPlanetsHash.length > 0) {
+                                <code>{{ planets.betaPlanetsHash }}</code>
+                            }
+                            @else {
+                                <span class="italic">None</span>
+                            }
+                        </div>
+                    }
+                    @else {
+                        <p>No data</p>
+                    }
+
+                    <div class="pt-4">
+                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="togglePlanetResetDialog(true)" width="w-full"></app-button>
+                    </div>
+                </div>
+            </app-container>
+            <app-container class="w-full">
+                <app-pane-title>
+                    <p> Punish </p>
+                </app-pane-title>
+                <app-divider></app-divider>
+                <div class="flex flex-col gap-y-4">
+                    <app-textarea class="w-full" [icon]="faPencil" [form]="punishmentForm" placeholder="Provide a reason..." 
+                        ctrlName="reason" type="reason" (change)="checkReasonChanges()"></app-textarea>
+
+                    <div [formGroup]="punishmentForm" class="flex flex-row flex-wrap gap-x-2 justify-start content-center">
+                        <p class="content-center text-2xl">Expiry date:</p>
+                        <app-dark-container>
+                            <input type="datetime-local" id="expiryDateInput" (change)="checkExpiryDateChanges()"
+                                formControlName="expiryDate">
+                        </app-dark-container>
+                    </div>
+
+                    <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-start content-center pt-2">
+                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(true)"
+                            [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
+                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(true)"
+                            [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
+                        <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(true)"
+                            [enabled]="!waitingForPunishmentResponse && targetUser.role <= restrictedValue"></app-button>
+                    </div>
+                    @if (waitingForPunishmentResponse) {
+                        <p>Waiting for response...</p>
+                    }
+                    @else if (!isPunishmentReady) {
+                        <p class="text-emphasized-primary">You must enter a reason and an expiry date to punish this user</p>
+                    }
+                </div>
+            </app-container>
+        </app-two-pane-layout>
+    </div>
+
+    <!-- Metadata update prompt -->
+    @defer (when showUpdateDialog) { @if (showUpdateDialog) {
+        <app-confirmation-dialog [infoText]="'Do you really want to update this user?' + (hasUsernameChanged ? ' Updating will also RENAME this user!' : '')" (closeDialog)="toggleUpdateDialog(false)">
+            <app-button text="No, go back" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleUpdateDialog(false)"></app-button>
+            <app-button text="Yes, Update!" [icon]="faCheckCircle" color="bg-green" (click)="uploadChanges()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Planet reset prompt -->
+    @defer (when showPlanetResetDialog) { @if (showPlanetResetDialog) {
+        <app-confirmation-dialog infoText="Do you really want to reset this user's planets?" (closeDialog)="togglePlanetResetDialog(false)">
+            <app-button text="No, go back" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePlanetResetDialog(false)"></app-button>
+            <app-button text="Yes, Reset!" [icon]="faTrash" color="bg-red" (click)="resetPlanets()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Restrict prompt -->
+    @defer (when showRestrictionDialog) { @if (showRestrictionDialog) {
+        <app-confirmation-dialog infoText="Do you really want to RESTRICT this user? This will override any previous punishment." (closeDialog)="toggleRestrictionDialog(false)">
+            <app-button text="Spare" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleRestrictionDialog(false)"></app-button>
+            <app-button text="Restrict!" [icon]="faGavel" color="bg-red" (click)="restrictUser()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Ban prompt -->
+    @defer (when showBanDialog) { @if (showBanDialog) {
+        <app-confirmation-dialog infoText="Do you really want to BAN this user? This will override any previous punishment." (closeDialog)="toggleBanDialog(false)">
+            <app-button text="Spare" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleBanDialog(false)"></app-button>
+            <app-button text="Ban!" [icon]="faBan" color="bg-red" (click)="banUser()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    <!-- Pardon prompt -->
+    @defer (when showPardonDialog) { @if (showPardonDialog) {
+        <app-confirmation-dialog infoText="Do you really want to pardon this user? This will remove any previous punishment." (closeDialog)="togglePardonDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePardonDialog(false)"></app-button>
+            <app-button text="Pardon!" [icon]="faFlag" color="bg-green" (click)="pardonUser()"></app-button>
+        </app-confirmation-dialog>
+    }}
+}

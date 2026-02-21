@@ -10,8 +10,8 @@ import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
         NgStyle
     ],
     template: `
-    @if (this.user) {
-      <img [ngSrc]=this.user.iconHash [width]=size [height]=size class="inline h-auto aspect-square object-cover" alt=""
+    @if (this.user || this.iconHash) {
+      <img [ngSrc]="this.iconHash ?? this.user!.iconHash" [width]=size [height]=size class="inline h-auto aspect-square object-cover" alt=""
         (error)="err($event.target)" loading="lazy"
            [ngStyle]="{'min-height': size + 'px', 'min-width': size + 'px'}"
            [ngClass]="borderRule">
@@ -19,7 +19,8 @@ import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
     `
 })
 export class UserAvatarComponent {
-  @Input({required: true}) user: User = undefined!;
+  @Input() user: User | undefined;
+  @Input() iconHash: string | undefined;
   error: boolean = false;
 
   @Input() size: number = 19;

@@ -8,6 +8,8 @@ export interface User {
     role: number;
     
     iconHash: string;
+    vitaIconHash: string;
+    betaIconHash: string;
     description: string;
     joinDate: Date;
     lastLoginDate: Date;
