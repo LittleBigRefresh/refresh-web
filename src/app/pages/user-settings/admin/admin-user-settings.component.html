@@ -2,13 +2,13 @@
     <div class="flex flex-col">
         <div class="flex flex-col gap-y-2 mb-4">
             <div class="mx-4 my-4 flex flex-col gap-y-2">
-                <app-page-title class=""></app-page-title>
+                <app-page-title></app-page-title>
                 <p class="text-gentle content-center">
                     {{ targetUser.username }} <span class="italic">(Role: {{ targetUser.role | role }}, UUID: <code>{{ targetUser.userId }}</code>)</span>
                 </p>
 
                 @if (targetUser.userId === ownUser.userId) {
-                    <p class="text-emphasized-primary">Looks like you're editing your own account. Please be aware that there is no safety against you punishing yourself (or you taking your own admin role away, if you are an admin)</p>
+                    <p class="text-emphasized-primary">Looks like you're editing your own account. Please be aware that there is no safety against you punishing yourself, or you taking your own role away, if you are an admin</p>
                 }
                 
                 <div class="flex flex-row flex-wrap gap-x-2 gap-y-4 justify-between">
@@ -17,6 +17,7 @@
                 </div>
             </div>
             <div class="flex flex-row flex-wrap justify-evenly gap-x-2">
+                <!-- TODO: Refactor this into its own component -->
                 <div class="flex flex-col justify-center items-center aspect-square my-2.5" >
                     <p class="font-bold">Mainline icon</p>
                     @if (targetUser.iconHash === "0") {
@@ -47,7 +48,6 @@
                     @else {
                         <app-user-avatar [iconHash]="targetUser.betaIconHash" [size]="(layout.isMobile | async) ? 100 : 176" avatar></app-user-avatar>
                     }
-                    
                     <app-checkbox label="Reset" [form]="metadataForm" ctrlName="resetBetaIcon" (change)="checkResetBetaIcon()"></app-checkbox>
                 </div>
             </div>
@@ -189,7 +189,7 @@
                         <p>Waiting for response...</p>
                     }
                     @else if (!isPunishmentReady) {
-                        <p>You must enter a reason and an expiry date to punish this user</p>
+                        <p class="text-emphasized-primary">You must enter a reason and an expiry date to punish this user</p>
                     }
                 </div>
             </app-container>
