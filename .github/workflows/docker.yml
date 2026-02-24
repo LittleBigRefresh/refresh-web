@@ -27,7 +27,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.5.1
         with:
-          images: ghcr.io/littlebigrefresh/refresh-web
+          images: ghcr.io/${{ github.repository }}
+      - name: Install packages
+        run: npm install
       - name: Build and push Docker image
         uses: docker/build-push-action@v5.3.0
         with:
