@@ -1,14 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
-
-
 import {Score} from "../../api/types/levels/score";
 import {ClientService} from "../../api/client.service";
 import {ScorePreviewComponent} from "./score-preview.component";
 
-
 @Component({
-    selector: 'app-level-leaderboard',
+    selector: 'app-level-leaderboard-preview',
     imports: [
     ScorePreviewComponent
 ],
@@ -19,11 +16,10 @@ import {ScorePreviewComponent} from "./score-preview.component";
   `,
     styles: ``
 })
-export class LevelLeaderboardComponent implements OnInit {
+export class LevelLeaderboardPreviewComponent implements OnInit {
   @Input({required: true}) public level: Level = null!;
+  @Input({required: true}) public scoreType: number = 1;
   scores: Score[] = [];
-
-  scoreType: string = "1";
   
   constructor(private client: ClientService) {
   }
@@ -33,7 +29,7 @@ export class LevelLeaderboardComponent implements OnInit {
   }
 
   getScores(clear: boolean = true, skip: number = 0) {
-    this.client.getScoresForLevel(this.level.levelId, Number(this.scoreType), skip, 10)
+    this.client.getScoresForLevel(this.level.levelId, this.scoreType, skip, 10)
         .subscribe((data) => {
           if (data === undefined) return;
 

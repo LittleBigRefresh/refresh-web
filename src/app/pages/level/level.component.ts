@@ -16,7 +16,7 @@ import {DateComponent} from "../../components/ui/info/date.component";
 import {TwoPaneLayoutComponent} from "../../components/ui/layouts/two-pane-layout.component";
 import {ContainerComponent} from "../../components/ui/container.component";
 
-import {LevelLeaderboardComponent} from "../../components/items/level-leaderboard.component";
+import {LevelLeaderboardPreviewComponent} from "../../components/items/level-leaderboard-preview.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
 import {EventPageComponent} from "../../components/items/event-page.component";
@@ -29,6 +29,13 @@ import { LevelRelations } from '../../api/types/levels/level-relations';
 import { OriginalPublisherRouterLink } from "../../components/ui/text/links/original-publisher-router-link.component";
 import { LargerLabelComponent } from "../../components/ui/info/larger-label.component";
 import { TooltipComponent } from "../../components/ui/text/tooltip.component";
+import { FormControl, FormGroup } from '@angular/forms';
+import { ButtonComponent } from '../../components/ui/form/button.component';
+import { RadioButtonComponent } from '../../components/ui/form/radio-button.component';
+import { ScoreTypePipe } from '../../pipes/score-type.pipe';
+import { LevelType } from '../../api/types/levels/level-type';
+import { DropdownMenuComponent } from "../../components/ui/form/dropdown-menu.component";
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -45,7 +52,7 @@ import { TooltipComponent } from "../../components/ui/text/tooltip.component";
     DateComponent,
     TwoPaneLayoutComponent,
     ContainerComponent,
-    LevelLeaderboardComponent,
+    LevelLeaderboardPreviewComponent,
     DividerComponent,
     PaneTitleComponent,
     EventPageComponent,
@@ -53,10 +60,15 @@ import { TooltipComponent } from "../../components/ui/text/tooltip.component";
     SlugPipe,
     OriginalPublisherRouterLink,
     LargerLabelComponent,
-    TooltipComponent
+    TooltipComponent,
+    ButtonComponent,
+    RadioButtonComponent,
+    DropdownMenuComponent,
+    ScoreTypePipe
 ],
     providers: [
-        SlugPipe
+        SlugPipe,
+        ScoreTypePipe
     ],
     templateUrl: './level.component.html'
 })
@@ -68,6 +80,11 @@ export class LevelComponent {
   protected isMobile: boolean = false;
   protected ownUser: ExtendedUser | undefined;
   protected relations: LevelRelations | undefined;
+
+  scoreFilterForm = new FormGroup({
+    scoreType: new FormControl(0)
+  });
+  protected showScoreFilterMenu: boolean = false;
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
@@ -91,10 +108,25 @@ export class LevelComponent {
   setDataFromLevel(data: Level) {
     this.level = data;
     this.relations = data.ownRelations;
+
     if(this.isBrowser) {
       window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}`);
     }
 
     this.embed.embedLevel(data);
+
+    // type never really matters for cutscenes
+    this.setScoreType(data.levelType === LevelType.Cutscene ? 0 : 1);
   }
+
+  scoreTypeButtonClick() {
+    this.showScoreFilterMenu = !this.showScoreFilterMenu;
+  }
+
+  setScoreType(type: number) {
+    this.scoreFilterForm.controls.scoreType.setValue(type);
+  }
+
+  protected readonly faChevronDown = faChevronDown;
+  protected readonly faChevronUp = faChevronUp;
 }

@@ -36,6 +36,11 @@ export const routes: Routes = [
     },
     ...alias("level/:id/:slug/edit", "slot/:id/:slug/edit"),
     {
+        path: 'level/:id/:slug/leaderboard',
+        loadComponent: () => import('./pages/level-leaderboard/level-leaderboard.component').then(x => x.LevelLeaderboardComponent),
+        data: {title: "Unnamed Level"},
+    },
+    {
         path: 'photos',
         loadComponent: () => import('./pages/photo-listing/photo-listing.component').then(x => x.PhotoListingComponent),
         data: {title: "Photos"},
