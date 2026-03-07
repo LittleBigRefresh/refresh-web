@@ -6,6 +6,10 @@ import {DateComponent} from "../ui/info/date.component";
 import {ScoreRouterLinkComponent} from "../ui/text/links/score-router-link.component";
 import {DecimalPipe, NgClass} from "@angular/common";
 import {AuthenticationService} from "../../api/authentication.service";
+import { GamePipe } from '../../pipes/game.pipe';
+import { PlatformPipe } from "../../pipes/platform.pipe";
+import { LargerLabelComponent } from '../ui/info/larger-label.component';
+import { User } from '../../api/types/users/user';
 
 @Component({
     selector: 'app-score-preview',
@@ -14,8 +18,15 @@ import {AuthenticationService} from "../../api/authentication.service";
     DateComponent,
     ScoreRouterLinkComponent,
     DecimalPipe,
-    NgClass
+    NgClass,
+    LargerLabelComponent,
+    GamePipe,
+    PlatformPipe
 ],
+    providers: [
+        GamePipe,
+        PlatformPipe
+    ],
     template: `
     <div class="my-5 px-2.5 flex items-center">
       <app-score-router-link [score]="score" class="text-2xl mr-2 min-w-8">
@@ -25,15 +36,28 @@ import {AuthenticationService} from "../../api/authentication.service";
         <app-score-router-link class="text-lg" [score]="score">{{ score.score | number }} points</app-score-router-link>
         <span class="text-sm">
           Achieved by
-          <app-user-link [user]="score.players[0]" class="font-bold"></app-user-link>
+          <app-user-link [user]="score.publisher" class="font-bold"></app-user-link>
           <app-date [date]="score.scoreSubmitted" class="ml-1"></app-date>
         </span>
+        @if (playersExcludingPublisher.length > 0) {
+          <div class="flex flex-row flex-wrap gap-x-1 text-sm text-secondary pb-1">
+            starring
+            @for(player of playersExcludingPublisher; track player.userId) {
+              <app-user-link [user]="player" class="font-bold"></app-user-link>
+            }
+          </div>
+        }
+        <div class="flex flex-row gap-x-1">
+          <app-larger-label>{{ score.game | game }}</app-larger-label>
+          <app-larger-label>{{ score.platform | platform }}</app-larger-label>
+        </div>
       </div>
     </div>
   `
 })
 export class ScorePreviewComponent {
   @Input({required: true}) score: Score = null!;
+  playersExcludingPublisher: User[] = [];
   
   private ownUserId: string | undefined;
 
@@ -41,6 +65,14 @@ export class ScorePreviewComponent {
     auth.user.subscribe(user => {
       this.ownUserId = user?.userId;
     })
+  }
+
+  ngOnInit() {
+    this.playersExcludingPublisher = [];
+    this.score.players.forEach(player => {
+      if (player.userId !== this.score.publisher.userId)
+        this.playersExcludingPublisher.push(player);
+    });
   }
   
   get rankStyle(): string {

@@ -62,7 +62,7 @@
 
   <app-two-pane-layout>
       <app-container class="w-full">
-          <div class="flex flex-row flex-grow justify-between gap-x-2">
+          <div class="flex flex-row flex-grow flex-wrap justify-between gap-x-2 gap-y-1">
             <app-pane-title>
               <a [routerLink]="'/level/' + level.levelId + '/' + (level.title | slug) + '/leaderboard'">
                   Leaderboard

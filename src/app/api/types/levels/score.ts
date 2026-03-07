@@ -7,6 +7,7 @@ export interface Score {
     scoreId: string;
     level: Level;
     players: User[];
+    publisher: User;
 
     scoreSubmitted: Date;
     score: number;
@@ -15,6 +16,5 @@ export interface Score {
     game: GameVersion;
     platform: Platform;
     
-    // This isn't part of the API spec. This is internal to refresh-web.
-    rank: number | undefined;
+    rank: number;
 }
