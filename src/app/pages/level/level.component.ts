@@ -16,7 +16,6 @@ import {DateComponent} from "../../components/ui/info/date.component";
 import {TwoPaneLayoutComponent} from "../../components/ui/layouts/two-pane-layout.component";
 import {ContainerComponent} from "../../components/ui/container.component";
 
-import {LevelLeaderboardPreviewComponent} from "../../components/items/level-leaderboard-preview.component";
 import {DividerComponent} from "../../components/ui/divider.component";
 import {PaneTitleComponent} from "../../components/ui/text/pane-title.component";
 import {EventPageComponent} from "../../components/items/event-page.component";
@@ -36,6 +35,10 @@ import { ScoreTypePipe } from '../../pipes/score-type.pipe';
 import { LevelType } from '../../api/types/levels/level-type';
 import { DropdownMenuComponent } from "../../components/ui/form/dropdown-menu.component";
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { ScorePreviewComponent } from "../../components/items/score-preview.component";
+import { Score } from '../../api/types/levels/score';
+import { BannerService } from '../../banners/banner.service';
+import { RefreshApiError } from '../../api/refresh-api-error';
 
 
 @Component({
@@ -52,7 +55,6 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
     DateComponent,
     TwoPaneLayoutComponent,
     ContainerComponent,
-    LevelLeaderboardPreviewComponent,
     DividerComponent,
     PaneTitleComponent,
     EventPageComponent,
@@ -64,7 +66,8 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
     ButtonComponent,
     RadioButtonComponent,
     DropdownMenuComponent,
-    ScoreTypePipe
+    ScoreTypePipe,
+    ScorePreviewComponent
 ],
     providers: [
         SlugPipe,
@@ -74,6 +77,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 })
 export class LevelComponent {
   level: Level | undefined | null;
+  scores: Score[] = [];
   activityPage: ActivityPage | undefined;
   
   protected readonly isBrowser: boolean;
@@ -88,16 +92,23 @@ export class LevelComponent {
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
-              @Inject(PLATFORM_ID) platformId: Object)
+              @Inject(PLATFORM_ID) platformId: Object, protected banner: BannerService)
   {
     this.isBrowser = isPlatformBrowser(platformId);
     route.params.subscribe(params => {
       const id: number = +params['id'];
-      this.client.getLevelById(id).subscribe(data => this.setDataFromLevel(data));
-      this.client.getActivityPageForLevel(id, 0, 20).subscribe(page => this.activityPage = page);
-      this.auth.user.subscribe(user => {
-        if(user) {
-          this.ownUser = user;
+      this.client.getLevelById(id).subscribe({
+        error: error => {
+          const apiError: RefreshApiError | undefined = error.error?.error;
+          this.banner.warn("Failed to get level", apiError == null ? error.message : apiError.message);
+        },
+        next: data => {
+          this.setDataFromLevel(data);
+          this.auth.user.subscribe(user => {
+            if(user) {
+              this.ownUser = user;
+            }
+          });
         }
       });
     });
@@ -115,7 +126,17 @@ export class LevelComponent {
 
     this.embed.embedLevel(data);
 
-    // type never really matters for cutscenes
+    this.client.getActivityPageForLevel(data.levelId, 0, 20).subscribe({
+      error: error => {
+        const apiError: RefreshApiError | undefined = error.error?.error;
+        this.banner.warn("Failed to get recent activity for level", apiError == null ? error.message : apiError.message);
+      },
+      next: page => {
+        this.activityPage = page;
+      }
+    });
+
+    // Type doesn't matter for cutscenes
     this.setScoreType(data.levelType === LevelType.Cutscene ? 0 : 1);
   }
 
@@ -125,6 +146,21 @@ export class LevelComponent {
 
   setScoreType(type: number) {
     this.scoreFilterForm.controls.scoreType.setValue(type);
+    this.getScores(type);
+  }
+
+  private getScores(type: number) {
+    if (!this.level) return;
+
+    this.client.getScoresForLevel(this.level.levelId, type, 0, 10).subscribe({
+      error: error => {
+        const apiError: RefreshApiError | undefined = error.error?.error;
+        this.banner.warn("Failed to get scores for level", apiError == null ? error.message : apiError.message);
+      },
+      next: scorePage => {
+        this.scores = scorePage.data;
+      }
+    });
   }
 
   protected readonly faChevronDown = faChevronDown;

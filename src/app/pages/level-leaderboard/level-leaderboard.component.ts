@@ -23,6 +23,7 @@ import { InfiniteScrollerComponent } from "../../components/ui/infinite-scroller
 import { ScorePreviewComponent } from "../../components/items/score-preview.component";
 import { LevelLinkComponent } from "../../components/ui/text/links/level-link.component";
 import { ContainerHeaderComponent } from "../../components/ui/container-header.component";
+import { LevelType } from '../../api/types/levels/level-type';
 
 @Component({
     selector: 'app-level-leaderboard',
@@ -76,6 +77,8 @@ export class LevelLeaderboardComponent {
         next: response => {
           if (response) {
             this.level = response;
+            // Type doesn't matter for cutscenes
+            this.filterForm.controls.scoreType.setValue(response.levelType === LevelType.Cutscene ? 0 : 1);
 
             this.auth.user.subscribe(user => {
               if (user) {

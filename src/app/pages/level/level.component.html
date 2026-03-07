@@ -86,7 +86,9 @@
             </app-dropdown-menu>
           </div>
           <app-divider></app-divider>
-          <app-level-leaderboard-preview [level]="level" [scoreType]="this.scoreFilterForm.controls.scoreType.getRawValue() ?? 1"></app-level-leaderboard-preview>
+          @for (score of scores; track score.scoreId; let i = $index) {
+            <app-score-preview [score]="score"></app-score-preview>
+          }
       </app-container>
       <app-container class="w-full">
           <app-pane-title>
