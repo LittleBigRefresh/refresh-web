@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-
 import { Score } from '../../api/types/levels/score';
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {DateComponent} from "../ui/info/date.component";
@@ -8,8 +7,8 @@ import {DecimalPipe, NgClass} from "@angular/common";
 import {AuthenticationService} from "../../api/authentication.service";
 import { GamePipe } from '../../pipes/game.pipe';
 import { PlatformPipe } from "../../pipes/platform.pipe";
-import { LargerLabelComponent } from '../ui/info/larger-label.component';
 import { User } from '../../api/types/users/user';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
     selector: 'app-score-preview',
@@ -19,7 +18,6 @@ import { User } from '../../api/types/users/user';
     ScoreRouterLinkComponent,
     DecimalPipe,
     NgClass,
-    LargerLabelComponent,
     GamePipe,
     PlatformPipe
 ],
@@ -37,7 +35,9 @@ import { User } from '../../api/types/users/user';
         <span class="text-sm">
           Achieved by
           <app-user-link [user]="score.publisher" class="font-bold"></app-user-link>
-          <app-date [date]="score.scoreSubmitted" class="ml-1"></app-date>
+          <app-date [date]="score.scoreSubmitted" class="ml-2"></app-date>
+          in <span class="font-bold">{{ score.game | game: isMobile }}</span>
+          on <span class="font-bold">{{ score.platform | platform }}</span>
         </span>
         @if (playersExcludingPublisher.length > 0) {
           <div class="flex flex-row flex-wrap gap-x-1 text-sm text-secondary pb-1">
@@ -47,10 +47,6 @@ import { User } from '../../api/types/users/user';
             }
           </div>
         }
-        <div class="flex flex-row gap-x-1">
-          <app-larger-label>{{ score.game | game }}</app-larger-label>
-          <app-larger-label>{{ score.platform | platform }}</app-larger-label>
-        </div>
       </div>
     </div>
   `
@@ -60,11 +56,14 @@ export class ScorePreviewComponent {
   playersExcludingPublisher: User[] = [];
   
   private ownUserId: string | undefined;
+  protected isMobile: boolean = false;
 
-  constructor(private auth: AuthenticationService) {
+  constructor(private auth: AuthenticationService, protected layout: LayoutService) {
     auth.user.subscribe(user => {
       this.ownUserId = user?.userId;
-    })
+    });
+
+    this.layout.isMobile.subscribe(v => this.isMobile = v);
   }
 
   ngOnInit() {
