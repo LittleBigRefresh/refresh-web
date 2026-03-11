@@ -91,109 +91,135 @@
                 </div>
             }
         </div>
-        <app-two-pane-layout>
-            <app-container class="w-full">
-                <app-pane-title>
-                    <p> Planets </p>
-                </app-pane-title>
-                <app-divider></app-divider>
-                <div class="flex flex-col gap-y-3">
-                    @if (planets) {
-                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
-                            <span>LBP2:</span>
-                            @if (planets.areLbp2PlanetsModded) {
-                                <app-label [primary]="true">Modded</app-label>
-                            }
-                            @if (planets.lbp2PlanetsHash.length > 0) {
-                                <code>{{ planets.lbp2PlanetsHash }}</code>
-                            }
-                            @else {
-                                <span class="italic">None</span>
-                            }
-                        </div>
-                        
-                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
-                            <span>LBP3:</span>
-                            @if (planets.areLbp3PlanetsModded) {
-                                <app-label [primary]="true">Modded</app-label>
-                            }
-                            @if (planets.lbp3PlanetsHash.length > 0) {
-                                <code class="word-wrap-and-break">{{ planets.lbp3PlanetsHash }}</code>
-                            }
-                            @else {
-                                <span class="italic">None</span>
-                            }
-                        </div>
+        <div class="flex flex-col gap-y-3">
+            <app-two-pane-layout>
+                <app-container class="w-full">
+                    <app-pane-title>
+                        <p> Planets </p>
+                    </app-pane-title>
+                    <app-divider></app-divider>
+                    <div class="flex flex-col gap-y-3">
+                        @if (planets) {
+                            <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                                <span>LBP2:</span>
+                                @if (planets.areLbp2PlanetsModded) {
+                                    <app-label [primary]="true">Modded</app-label>
+                                }
+                                @if (planets.lbp2PlanetsHash.length > 0) {
+                                    <code>{{ planets.lbp2PlanetsHash }}</code>
+                                }
+                                @else {
+                                    <span class="italic">None</span>
+                                }
+                            </div>
+                            
+                            <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                                <span>LBP3:</span>
+                                @if (planets.areLbp3PlanetsModded) {
+                                    <app-label [primary]="true">Modded</app-label>
+                                }
+                                @if (planets.lbp3PlanetsHash.length > 0) {
+                                    <code class="word-wrap-and-break">{{ planets.lbp3PlanetsHash }}</code>
+                                }
+                                @else {
+                                    <span class="italic">None</span>
+                                }
+                            </div>
 
-                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
-                            <span>LBP Vita: </span>
-                            @if (planets.areVitaPlanetsModded) {
-                                <app-label [primary]="true">Modded</app-label>
-                            }
-                            @if (planets.vitaPlanetsHash.length > 0) {
-                                <code>{{ planets.vitaPlanetsHash }}</code>
-                            }
-                            @else {
-                                <span class="italic">None</span>
-                            }
-                        </div>
+                            <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                                <span>LBP Vita: </span>
+                                @if (planets.areVitaPlanetsModded) {
+                                    <app-label [primary]="true">Modded</app-label>
+                                }
+                                @if (planets.vitaPlanetsHash.length > 0) {
+                                    <code>{{ planets.vitaPlanetsHash }}</code>
+                                }
+                                @else {
+                                    <span class="italic">None</span>
+                                }
+                            </div>
 
-                        <div class="flex flex-row flex-wrap gap-x-2 justify-start">
-                            <span>Beta build: </span>
-                            @if (planets.areBetaPlanetsModded) {
-                                <app-label [primary]="true">Modded</app-label>
-                            }
-                            @if (planets.betaPlanetsHash.length > 0) {
-                                <code>{{ planets.betaPlanetsHash }}</code>
-                            }
-                            @else {
-                                <span class="italic">None</span>
-                            }
-                        </div>
-                    }
-                    @else {
-                        <p>No data</p>
-                    }
+                            <div class="flex flex-row flex-wrap gap-x-2 justify-start">
+                                <span>Beta build: </span>
+                                @if (planets.areBetaPlanetsModded) {
+                                    <app-label [primary]="true">Modded</app-label>
+                                }
+                                @if (planets.betaPlanetsHash.length > 0) {
+                                    <code>{{ planets.betaPlanetsHash }}</code>
+                                }
+                                @else {
+                                    <span class="italic">None</span>
+                                }
+                            </div>
+                        }
+                        @else {
+                            <p>No data</p>
+                        }
 
-                    <div class="pt-4">
-                        <app-button text="Reset!" [icon]="faTrash" color="bg-red" (click)="togglePlanetResetDialog(true)" width="w-full"></app-button>
+                        <div class="pt-4">
+                            <app-button text="Reset!" [icon]="faEarthAmerica" color="bg-red" (click)="togglePlanetResetDialog(true)" width="w-full"></app-button>
+                        </div>
                     </div>
-                </div>
-            </app-container>
-            <app-container class="w-full">
-                <app-pane-title>
-                    <p> Punish </p>
-                </app-pane-title>
-                <app-divider></app-divider>
-                <div class="flex flex-col gap-y-4">
-                    <app-textarea class="w-full" [icon]="faPencil" [form]="punishmentForm" placeholder="Provide a reason..." 
-                        ctrlName="reason" type="reason" (change)="checkReasonChanges()"></app-textarea>
+                </app-container>
+                <app-container class="w-full">
+                    <app-pane-title>
+                        <p> Punish </p>
+                    </app-pane-title>
+                    <app-divider></app-divider>
+                    <div class="flex flex-col gap-y-4">
+                        <app-textarea class="w-full" [icon]="faPencil" [form]="punishmentForm" placeholder="Provide a reason..." 
+                            ctrlName="reason" type="reason" (change)="checkReasonChanges()"></app-textarea>
 
-                    <div [formGroup]="punishmentForm" class="flex flex-row flex-wrap gap-x-2 justify-start content-center">
-                        <p class="content-center text-2xl">Expiry date:</p>
-                        <app-dark-container>
-                            <input type="datetime-local" id="expiryDateInput" (change)="checkExpiryDateChanges()"
-                                formControlName="expiryDate">
-                        </app-dark-container>
-                    </div>
+                        <div [formGroup]="punishmentForm" class="flex flex-row flex-wrap gap-x-2 justify-start content-center">
+                            <p class="content-center text-2xl">Expiry date:</p>
+                            <app-dark-container>
+                                <input type="datetime-local" id="expiryDateInput" (change)="checkExpiryDateChanges()"
+                                    formControlName="expiryDate">
+                            </app-dark-container>
+                        </div>
 
-                    <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-start content-center pt-2">
-                        <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(true)"
-                            [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
-                        <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(true)"
-                            [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
-                        <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(true)"
-                            [enabled]="!waitingForPunishmentResponse && targetUser.role <= restrictedValue"></app-button>
+                        <div class="flex flex-row flex-wrap gap-x-2 gap-y-2 justify-start content-center pt-2">
+                            <app-button text="Restrict" [icon]="faGavel" color="bg-red" (click)="toggleRestrictionDialog(true)"
+                                [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
+                            <app-button text="Ban" [icon]="faBan" color="bg-red" (click)="toggleBanDialog(true)"
+                                [enabled]="!waitingForPunishmentResponse && isPunishmentReady"></app-button>
+                            <app-button text="Pardon instead" [icon]="faFlag" color="bg-green" (click)="togglePardonDialog(true)"
+                                [enabled]="!waitingForPunishmentResponse && targetUser.role <= restrictedValue"></app-button>
+                        </div>
+                        @if (waitingForPunishmentResponse) {
+                            <p>Waiting for response...</p>
+                        }
+                        @else if (!isPunishmentReady) {
+                            <p class="text-emphasized-primary">You must enter a reason and an expiry date to punish this user</p>
+                        }
                     </div>
-                    @if (waitingForPunishmentResponse) {
-                        <p>Waiting for response...</p>
-                    }
-                    @else if (!isPunishmentReady) {
-                        <p class="text-emphasized-primary">You must enter a reason and an expiry date to punish this user</p>
-                    }
-                </div>
-            </app-container>
-        </app-two-pane-layout>
+                </app-container>
+            </app-two-pane-layout>
+            <app-two-pane-layout>
+                <app-container class="w-full">
+                    <app-pane-title>
+                        <p> Delete various posts </p>
+                    </app-pane-title>
+                    <app-divider></app-divider>
+                    <div class="flex flex-col gap-y-3">
+                        <app-button text="Delete all scores" [icon]="faListOl" color="bg-red" (click)="toggleScoreDeleteDialog(true)"></app-button>
+                        <app-button text="Delete all photos" [icon]="faCamera" color="bg-red" (click)="togglePhotoDeleteDialog(true)"></app-button>
+                        <app-button text="Delete all level comments" [icon]="faComment" color="bg-red" (click)="toggleLevelCommentsDeleteDialog(true)"></app-button>
+                        <app-button text="Delete all profile comments" [icon]="faComment" color="bg-red" (click)="toggleProfileCommentsDialog(true)"></app-button>
+                        <app-button text="Delete all reviews" [icon]="faStar" color="bg-red" (click)="toggleReviewDeleteDialog(true)"></app-button>
+                    </div>
+                </app-container>
+                <app-container class="w-full">
+                    <app-pane-title>
+                        <p> Placeholder </p>
+                    </app-pane-title>
+                    <app-divider></app-divider>
+                    <div class="flex flex-col gap-y-4">
+                        idk what to put here
+                    </div>
+                </app-container>
+            </app-two-pane-layout>
+        </div>
     </div>
 
     <!-- Metadata update prompt -->
@@ -232,7 +258,42 @@
     @defer (when showPardonDialog) { @if (showPardonDialog) {
         <app-confirmation-dialog infoText="Do you really want to pardon this user? This will remove any previous punishment." (closeDialog)="togglePardonDialog(false)">
             <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePardonDialog(false)"></app-button>
-            <app-button text="Pardon!" [icon]="faFlag" color="bg-green" (click)="pardonUser()"></app-button>
+            <app-button text="Delete!" [icon]="faFlag" color="bg-green" (click)="pardonUser()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    @defer (when showScoreDeleteDialog) { @if (showScoreDeleteDialog) {
+        <app-confirmation-dialog infoText="Do you really want to DELETE ALL of this user's SCORES?" (closeDialog)="toggleScoreDeleteDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleScoreDeleteDialog(false)"></app-button>
+            <app-button text="Delete!" [icon]="faTrash" color="bg-red" (click)="deleteScores()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    @defer (when showPhotoDeleteDialog) { @if (showPhotoDeleteDialog) {
+        <app-confirmation-dialog infoText="Do you really want to DELETE ALL of this user's PHOTOS?" (closeDialog)="togglePhotoDeleteDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="togglePhotoDeleteDialog(false)"></app-button>
+            <app-button text="Delete!" [icon]="faTrash" color="bg-red" (click)="deletePhotos()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    @defer (when showLevelCommentsDeleteDialog) { @if (showLevelCommentsDeleteDialog) {
+        <app-confirmation-dialog infoText="Do you really want to DELETE ALL of this user's LEVEL COMMENTS?" (closeDialog)="toggleLevelCommentsDeleteDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleLevelCommentsDeleteDialog(false)"></app-button>
+            <app-button text="Delete!" [icon]="faTrash" color="bg-red" (click)="deleteLevelComments()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    @defer (when showProfileCommentsDeleteDialog) { @if (showProfileCommentsDeleteDialog) {
+        <app-confirmation-dialog infoText="Do you really want to DELETE ALL of this user's PROFILE COMMENTS?" (closeDialog)="toggleProfileCommentsDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleProfileCommentsDialog(false)"></app-button>
+            <app-button text="Delete!" [icon]="faTrash" color="bg-red" (click)="deleteProfileComments()"></app-button>
+        </app-confirmation-dialog>
+    }}
+
+    @defer (when showReviewDeleteDialog) { @if (showReviewDeleteDialog) {
+        <app-confirmation-dialog infoText="Do you really want to DELETE ALL of this user's REVIEWS?" (closeDialog)="toggleReviewDeleteDialog(false)">
+            <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleReviewDeleteDialog(false)"></app-button>
+            <app-button text="Delete!" [icon]="faTrash" color="bg-red" (click)="deleteReviews()"></app-button>
         </app-confirmation-dialog>
     }}
 }
