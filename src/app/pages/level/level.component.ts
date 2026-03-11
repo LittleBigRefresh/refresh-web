@@ -163,6 +163,14 @@ export class LevelComponent {
     });
   }
 
+  removeScore(index: number) {
+    let oldList: Score[] = this.scores;
+    this.scores = [];
+    for (let i = 0; i < oldList.length; i++) {
+      if (i !== index) this.scores.push(oldList[i]);
+    }
+  }
+
   protected readonly faChevronDown = faChevronDown;
   protected readonly faChevronUp = faChevronUp;
 }

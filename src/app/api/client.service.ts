@@ -239,4 +239,8 @@ export class ClientService extends ApiImplementation {
   setUserAsUnhearted(uuid: string) {
     return this.http.post<Response>(`/users/uuid/${uuid}/unheart`, null);
   }
+
+  deleteScoreAsAdmin(uuid: string) {
+    return this.http.delete<Response>(`/admin/scores/${uuid}`);
+  }
 }

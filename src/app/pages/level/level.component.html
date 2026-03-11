@@ -87,7 +87,7 @@
           </div>
           <app-divider></app-divider>
           @for (score of scores; track score.scoreId; let i = $index) {
-            <app-score-preview [score]="score"></app-score-preview>
+            <app-score-preview [score]="score" (deleted)="removeScore(i)"></app-score-preview>
           }
       </app-container>
       <app-container class="w-full">

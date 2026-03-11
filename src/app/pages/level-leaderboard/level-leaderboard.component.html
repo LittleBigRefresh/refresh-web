@@ -32,7 +32,7 @@
     <p>No scores in this player mode yet... Go for it!</p>
   }
   @for (score of scores; track score.scoreId; let i = $index) {
-    <app-score-preview [score]="score"></app-score-preview>
+    <app-score-preview [score]="score" (deleted)="removeScore(i)"></app-score-preview>
   }
   @if (isLoading) {
     <p>Loading scores...</p>
