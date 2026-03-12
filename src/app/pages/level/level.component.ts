@@ -77,7 +77,8 @@ import { RefreshApiError } from '../../api/refresh-api-error';
 })
 export class LevelComponent {
   level: Level | undefined | null;
-  scores: Score[] = [];
+  scoresPerType: Map<number, Score[]> = new Map();
+  currentScores: Score[] = []; // current view of the scores
   activityPage: ActivityPage | undefined;
   
   protected readonly isBrowser: boolean;
@@ -152,23 +153,43 @@ export class LevelComponent {
   private getScores(type: number) {
     if (!this.level) return;
 
+    let cachedList: Score[] | undefined = this.scoresPerType.get(type);
+    if (cachedList != null) {
+      this.currentScores = cachedList!;
+      return;
+    }
+
     this.client.getScoresForLevel(this.level.levelId, type, 0, 10).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get scores for level", apiError == null ? error.message : apiError.message);
       },
       next: scorePage => {
-        this.scores = scorePage.data;
+        this.scoresPerType.set(type, scorePage.data);
+        this.currentScores = scorePage.data;
       }
     });
   }
 
-  removeScore(index: number) {
-    let oldList: Score[] = this.scores;
-    this.scores = [];
-    for (let i = 0; i < oldList.length; i++) {
-      if (i !== index) this.scores.push(oldList[i]);
+  removeScore(uuid: string) {
+    // Remove from cache
+    for (let [scoreType, oldList] of this.scoresPerType) {
+
+      let newList: Score[] = [];
+      for (let score of oldList) {
+        if (score.scoreId !== uuid) newList.push(score);
+      }
+
+      this.scoresPerType.set(scoreType, newList);
     }
+
+    // Remove from current list
+    let newCurrentList: Score[] = [];
+    for (let score of this.currentScores) {
+      if (score.scoreId !== uuid) newCurrentList.push(score);
+    }
+
+    this.currentScores = newCurrentList;
   }
 
   protected readonly faChevronDown = faChevronDown;

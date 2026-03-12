@@ -86,8 +86,8 @@
             </app-dropdown-menu>
           </div>
           <app-divider></app-divider>
-          @for (score of scores; track score.scoreId; let i = $index) {
-            <app-score-preview [score]="score" (deleted)="removeScore(i)"></app-score-preview>
+          @for (score of currentScores; track score.scoreId; let i = $index) {
+            <app-score-preview [score]="score" (deleted)="removeScore(score.scoreId)"></app-score-preview>
           }
       </app-container>
       <app-container class="w-full">

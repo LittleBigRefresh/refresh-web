@@ -24,6 +24,7 @@ import { ScorePreviewComponent } from "../../components/items/score-preview.comp
 import { LevelLinkComponent } from "../../components/ui/text/links/level-link.component";
 import { ContainerHeaderComponent } from "../../components/ui/container-header.component";
 import { LevelType } from '../../api/types/levels/level-type';
+import { ListWithData } from '../../api/list-with-data';
 
 @Component({
     selector: 'app-level-leaderboard',
@@ -46,12 +47,16 @@ import { LevelType } from '../../api/types/levels/level-type';
 })
 export class LevelLeaderboardComponent {
   level: Level | undefined | null;
-  scores: Score[] = []; // TODO: cache score lists
-  private queryParams: Params = {};
+  // TODO: probably rethink this way of caching once we start using more filters (showAll etc)
+  scoresPerType: Map<number, ListWithData<Score>> = new Map();
+  currentScores: Score[] = []; // current view of the scores
+  listInfo: RefreshApiListInfo = defaultListInfo;
+  isLoading: boolean = false;
+  
+  //private queryParams: Params = {};
   protected mayDeleteScores: boolean = false;
   
   protected readonly isBrowser: boolean;
-  protected isMobile: boolean = false;
   protected ownUser: ExtendedUser | undefined;
 
   filterForm = new FormGroup({
@@ -91,27 +96,24 @@ export class LevelLeaderboardComponent {
               window.history.replaceState({}, '', `/level/${response.levelId}/${this.slug.transform(response.title)}/leaderboard`);
             }
 
+            /*
             route.queryParams.subscribe((params: Params) => {
               this.queryParams = params;
             });
+            */
           }
         }
       });
     });
-
-    this.layout.isMobile.subscribe(v => this.isMobile = v);
   }
 
-  isLoading: boolean = false;
-  listInfo: RefreshApiListInfo = defaultListInfo;
-
-  loadData(): void {
+  getNextPage(): void {
     if(!this.level) return;
 
     let scoreType: number = this.filterForm.controls.scoreType.getRawValue() ?? 0;
     this.isLoading = true;
 
-    this.client.getScoresForLevel(this.level.levelId, scoreType, this.listInfo.nextPageIndex, defaultPageSize, this.queryParams).subscribe({
+    this.client.getScoresForLevel(this.level.levelId, scoreType, this.listInfo.nextPageIndex, defaultPageSize).subscribe({
       error: error => {
         this.isLoading = false;
         const apiError: RefreshApiError | undefined = error.error?.error;
@@ -120,14 +122,35 @@ export class LevelLeaderboardComponent {
       next: list => {
         this.isLoading = false;
 
-        this.scores = this.scores.concat(list.data);
+        this.currentScores = this.currentScores.concat(list.data);
         this.listInfo = list.listInfo;
       }
     });
   }
 
+  setScoreType(type: number) {
+    let previousType: number = this.filterForm.controls.scoreType.getRawValue()!;
+    this.scoresPerType.set(previousType, {
+      listInfo: this.listInfo,
+      data: this.currentScores,
+    });
+
+    this.filterForm.controls.scoreType.setValue(type);
+    
+    let cachedList: ListWithData<Score> | undefined = this.scoresPerType.get(type);
+    if (cachedList != null) {
+      this.currentScores = cachedList.data;
+      this.listInfo = cachedList.listInfo;
+      return;
+    }
+
+    this.currentScores = [];
+    this.listInfo = defaultListInfo;
+    this.getNextPage();
+  }
+
   reset(): void {
-    this.scores = [];
+    this.currentScores = [];
     this.isLoading = false;
     this.listInfo = defaultListInfo;
   }
@@ -136,18 +159,33 @@ export class LevelLeaderboardComponent {
     this.showFilterMenu = !this.showFilterMenu;
   }
 
-  setScoreType(type: number) {
-    this.filterForm.controls.scoreType.setValue(type);
-    this.reset();
-    this.loadData();
-  }
+  removeScore(uuid: string) {
+    // Remove from cache
+    for (let [scoreType, oldList] of this.scoresPerType) {
 
-  removeScore(index: number) {
-    let oldList: Score[] = this.scores;
-    this.scores = [];
-    for (let i = 0; i < oldList.length; i++) {
-      if (i !== index) this.scores.push(oldList[i]);
+      let newList: Score[] = [];
+      for (let score of oldList.data) {
+        if (score.scoreId !== uuid) newList.push(score);
+      }
+
+      oldList.listInfo.totalItems--;
+      oldList.listInfo.nextPageIndex--;
+
+      this.scoresPerType.set(scoreType, {
+        listInfo: oldList.listInfo,
+        data: newList,
+      });
     }
+
+    // Remove from current list
+    let newCurrentList: Score[] = [];
+    for (let score of this.currentScores) {
+      if (score.scoreId !== uuid) newCurrentList.push(score);
+    }
+
+    this.currentScores = newCurrentList;
+    this.listInfo.totalItems--;
+    this.listInfo.nextPageIndex--;
   }
 
   protected readonly faTrash = faTrash;
