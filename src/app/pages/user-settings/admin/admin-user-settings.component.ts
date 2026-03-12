@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { faBan, faCancel, faCheckCircle, faChevronDown, faChevronUp, faFlag, 
-    faFloppyDisk, faGavel, faPencil, faSignOutAlt, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCamera, faCancel, faCheckCircle, faChevronDown, faChevronUp, faComment, faEarthAmerica, faFlag, 
+    faFloppyDisk, faGavel, faListOl, faPencil, faSignOutAlt, faStar, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AsyncPipe } from "@angular/common";
 import { UserRoles } from "../../../api/types/users/user-roles";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
@@ -412,6 +412,111 @@ export class AdminUserSettingsComponent {
         this.isPunishmentReady = this.hasEnteredReason && this.hasEnteredExpiryDate;
     }
 
+    protected showScoreDeleteDialog: boolean = false;
+
+    protected toggleScoreDeleteDialog(visibility: boolean) {
+        this.showScoreDeleteDialog = visibility;
+    }
+
+    protected deleteScores() {
+        if (!this.targetUser) return;
+        this.toggleScoreDeleteDialog(false);
+
+        this.client.deleteScoresByUserByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to delete this user's scores.", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.banner.success("Successfully deleted " + this.targetUser?.username + "'s scores.", "");
+            }
+        });
+    }
+
+    protected showPhotoDeleteDialog: boolean = false;
+
+    protected togglePhotoDeleteDialog(visibility: boolean) {
+        this.showPhotoDeleteDialog = visibility;
+    }
+
+    protected deletePhotos() {
+        if (!this.targetUser) return;
+        this.togglePhotoDeleteDialog(false);
+
+        this.client.deletePhotosByUserByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to delete this user's photos.", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.banner.success("Successfully deleted " + this.targetUser?.username + "s photos.", "");
+            }
+        });
+    }
+
+    protected showLevelCommentsDeleteDialog: boolean = false;
+
+    protected toggleLevelCommentsDeleteDialog(visibility: boolean) {
+        this.showLevelCommentsDeleteDialog = visibility;
+    }
+
+    protected deleteLevelComments() {
+        if (!this.targetUser) return;
+        this.toggleLevelCommentsDeleteDialog(false);
+
+        this.client.deleteLevelCommentsByUserByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to delete this user's level comments.", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.banner.success("Successfully deleted " + this.targetUser?.username + "s level comments.", "");
+            }
+        });
+    }
+
+    protected showProfileCommentsDeleteDialog: boolean = false;
+
+    protected toggleProfileCommentsDialog(visibility: boolean) {
+        this.showProfileCommentsDeleteDialog = visibility;
+    }
+
+    protected deleteProfileComments() {
+        if (!this.targetUser) return;
+        this.toggleProfileCommentsDialog(false);
+
+        this.client.deleteProfileCommentsByUserByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to delete this user's profile comments.", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.banner.success("Successfully deleted " + this.targetUser?.username + "s profile comments.", "");
+            }
+        });
+    }
+
+    protected showReviewDeleteDialog: boolean = false;
+
+    protected toggleReviewDeleteDialog(visibility: boolean) {
+        this.showReviewDeleteDialog = visibility;
+    }
+
+    protected deleteReviews() {
+        if (!this.targetUser) return;
+        this.toggleReviewDeleteDialog(false);
+
+        this.client.deleteReviewsByUserByUuid(this.targetUser.userId).subscribe({
+            error: error => {
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                this.banner.warn("Failed to delete this user's reviews.", apiError == null ? error.message : apiError.message);
+            },
+            next: _ => {
+                this.banner.success("Successfully deleted " + this.targetUser?.username + "s reviews.", "");
+            }
+        });
+    }
+
     protected readonly faPencil = faPencil;
     protected readonly faFloppyDisk = faFloppyDisk;
     protected readonly faTrash = faTrash;
@@ -424,4 +529,9 @@ export class AdminUserSettingsComponent {
     protected readonly faBan = faBan;
     protected readonly faFlag = faFlag;
     protected readonly faCheckCircle = faCheckCircle;
+    protected readonly faEarthAmerica = faEarthAmerica;
+    protected readonly faCamera = faCamera;
+    protected readonly faListOl = faListOl;
+    protected readonly faComment = faComment;
+    protected readonly faStar = faStar;
 }

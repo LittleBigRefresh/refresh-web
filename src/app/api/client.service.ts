@@ -239,4 +239,24 @@ export class ClientService extends ApiImplementation {
   setUserAsUnhearted(uuid: string) {
     return this.http.post<Response>(`/users/uuid/${uuid}/unheart`, null);
   }
+
+  deleteScoresByUserByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/scores`);
+  }
+
+  deletePhotosByUserByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/photos`);
+  }
+
+  deleteProfileCommentsByUserByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/comments/profile`);
+  }
+
+  deleteLevelCommentsByUserByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/comments/level`);
+  }
+
+  deleteReviewsByUserByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/users/uuid/${uuid}/reviews`);
+  }
 }
