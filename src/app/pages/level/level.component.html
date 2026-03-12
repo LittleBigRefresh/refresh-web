@@ -62,13 +62,33 @@
 
   <app-two-pane-layout>
       <app-container class="w-full">
-          <app-pane-title>
+          <div class="flex flex-row flex-grow flex-wrap justify-between gap-x-2 gap-y-1">
+            <app-pane-title>
               <a [routerLink]="'/level/' + level.levelId + '/' + (level.title | slug) + '/leaderboard'">
                   Leaderboard
               </a>
-          </app-pane-title>
+            </app-pane-title>
+            <app-dropdown-menu [showMenu]="showScoreFilterMenu" offsets="top-9 -left-5" [width]="56">
+              <app-button trigger
+                width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                [text]="scoreFilterForm.controls.scoreType.getRawValue()! | scoreType"
+                [icon]="showScoreFilterMenu ? faChevronUp : faChevronDown"
+                color="bg-secondary"
+                (click)="scoreTypeButtonClick()">
+              </app-button>
+              <div content>
+                <app-radio-button [label]="0 | scoreType" [form]="scoreFilterForm" ctrlName="scoreType" id="t0" [value]='0' (click)="setScoreType(0)"></app-radio-button>
+                <app-radio-button [label]="1 | scoreType" [form]="scoreFilterForm" ctrlName="scoreType" id="t1" [value]='1' (click)="setScoreType(1)"></app-radio-button>
+                <app-radio-button [label]="2 | scoreType" [form]="scoreFilterForm" ctrlName="scoreType" id="t2" [value]='2' (click)="setScoreType(2)"></app-radio-button>
+                <app-radio-button [label]="3 | scoreType" [form]="scoreFilterForm" ctrlName="scoreType" id="t3" [value]='3' (click)="setScoreType(3)"></app-radio-button>
+                <app-radio-button [label]="4 | scoreType" [form]="scoreFilterForm" ctrlName="scoreType" id="t4" [value]='4' (click)="setScoreType(4)"></app-radio-button>
+              </div>
+            </app-dropdown-menu>
+          </div>
           <app-divider></app-divider>
-          <app-level-leaderboard [level]="level"></app-level-leaderboard>
+          @for (score of currentScores; track score.scoreId; let i = $index) {
+            <app-score-preview [score]="score" (deleted)="removeScore(score.scoreId)"></app-score-preview>
+          }
       </app-container>
       <app-container class="w-full">
           <app-pane-title>

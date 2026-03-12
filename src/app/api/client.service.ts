@@ -240,6 +240,10 @@ export class ClientService extends ApiImplementation {
     return this.http.post<Response>(`/users/uuid/${uuid}/unheart`, null);
   }
 
+  deleteScoreAsAdmin(uuid: string) {
+    return this.http.delete<Response>(`/admin/scores/${uuid}`);
+  }
+
   deleteScoresByUserByUuid(uuid: string) {
     return this.http.delete<Response>(`/admin/users/uuid/${uuid}/scores`);
   }
