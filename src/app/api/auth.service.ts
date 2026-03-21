@@ -294,22 +294,33 @@ export class AuthService {
             });
     }
 
-    public DeleteAccount(): void {
-        this.apiRequestCreator.makeRequest("DELETE", "users/me")
-            .subscribe(() => {
-                this.bannerService.push({
-                    Color: 'dangerous',
-                    Icon: 'trash',
-                    Title: "Account Deleted.",
-                    Text: "Your account has been successfully deleted. Goodbye.",
-                });
+    public DeleteAccount(passwordSha512: string): void {
+        this.apiRequestCreator.deleteAccount(passwordSha512)
+            .subscribe({
+                error: err => {
+                    const apiError: ApiError | undefined = err.error?.error;
+                    this.bannerService.push({
+                        Color: 'warning',
+                        Icon: 'trash',
+                        Title: "Account deletion failed",
+                        Text: apiError == null ? err.message : apiError.message,
+                    });
+                },
+                next: _ => {
+                    this.bannerService.push({
+                        Color: 'dangerous',
+                        Icon: 'trash',
+                        Title: "Account Deleted.",
+                        Text: "Your account has been successfully deleted. Goodbye.",
+                    });
 
-                this._userId = undefined;
-                this.user = undefined;
+                    this._userId = undefined;
+                    this.user = undefined;
 
-                this.userWatcher.emit(undefined);
-                this.tokenStorage.ClearStoredGameToken();
-                this.tokenStorage.ClearStoredUser();
+                    this.userWatcher.emit(undefined);
+                    this.tokenStorage.ClearStoredGameToken();
+                    this.tokenStorage.ClearStoredUser();
+                }
             });
     }
 

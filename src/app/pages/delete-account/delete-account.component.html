@@ -17,6 +17,9 @@
     <br>
     <p class="font-bold">Are you absolutely sure you want to proceed?</p>
     <br>
+    <p class="font-bold">You must enter your password in order to delete your account</p>
+    <form-input [icon]="faKey" name="Password" type="password" [(value)]="password"></form-input>
+    <br>
 
     <dangerous-button class="min-w-full" text="Yes, I want to permanently delete my account." (click)="delete()"></dangerous-button>
     <div class="my-2.5"></div>

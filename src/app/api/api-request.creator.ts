@@ -118,4 +118,9 @@ export class ApiRequestCreator {
         // @ts-ignore
         return result;
     }
+
+    // Extra method for this because I couldn't find a working way to have makeRequest() not send a next event on receiving an error
+    public deleteAccount(passwordSha512: string) {
+        return this.httpClient.delete<Response>(environment.apiBaseUrl + "/users/me", {body: {passwordSha512: passwordSha512}});
+    }
 }
