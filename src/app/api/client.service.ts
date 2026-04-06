@@ -147,6 +147,10 @@ export class ClientService extends ApiImplementation {
     return this.http.get<ListWithData<Photo>>(`/photos`, {params: this.createPageQuery(skip, count)});
   }
 
+  getPhotosRelatedToUserUuid(userId: string, category: string, skip: number = 0, count: number = defaultPageSize) {
+    return this.http.get<ListWithData<Photo>>(`/photos/${category}/uuid/${userId}`, {params: this.createPageQuery(skip, count)});
+  }
+
   getContests() {
     return this.http.get<ListWithData<Contest>>("/contests");
   }

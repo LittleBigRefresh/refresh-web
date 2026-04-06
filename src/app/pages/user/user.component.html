@@ -18,4 +18,76 @@
             <app-fancy-header-user-buttons [targetUser]="user" [ownUser]="ownUser" [relations]="relations" buttonAreaMobile></app-fancy-header-user-buttons>
         }
     </app-fancy-header>
+
+    <app-two-pane-layout>
+        <app-container class="w-full">
+            <div class="flex flex-row flex-grow flex-wrap justify-between gap-x-2 gap-y-1">
+                <app-pane-title>
+                    <a [routerLink]="'/user/' + user.username + '/levels/category/' + levelSelectionString">
+                        Levels
+                    </a>
+                </app-pane-title>
+                <app-dropdown-menu [showMenu]="showLevelDropdown" offsets="top-9 -left-5" [width]="56">
+                <app-button trigger
+                    width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                    [text]="getLevelSelectionText(levelForm.controls.selection.getRawValue()!)"
+                    [icon]="showLevelDropdown ? faChevronUp : faChevronDown"
+                    color="bg-secondary"
+                    (click)="levelSelectionButtonClick()">
+                </app-button>
+                <div content>
+                    <app-radio-button [label]="getLevelSelectionText(0)" [form]="levelForm" ctrlName="selection" id="l0" [value]='0' (click)="getLevels(0)"></app-radio-button>
+                    <app-radio-button [label]="getLevelSelectionText(1)" [form]="levelForm" ctrlName="selection" id="l1" [value]='1' (click)="getLevels(1)"></app-radio-button>
+                </div>
+                </app-dropdown-menu>
+            </div>
+            <app-divider></app-divider>
+            @if (currentLevels.length > 0) {
+                @for (level of currentLevels; track level.levelId; let i = $index) {
+                    <div class="py-1.5">
+                        <app-dark-container>
+                            <app-level-preview [level]="level"></app-level-preview>
+                        </app-dark-container>
+                    </div>
+                }
+            }
+            @else {
+                <p>No levels yet...</p>
+            }
+        </app-container>
+        <app-container class="w-full">
+            <div class="flex flex-row flex-grow flex-wrap justify-between gap-x-2 gap-y-1">
+                <app-pane-title>
+                    <a [routerLink]="'/user/' + user.username + '/photos/category/' + photoSelectionString">
+                        Photos
+                    </a>
+                </app-pane-title>
+                <app-dropdown-menu [showMenu]="showPhotoDropdown" offsets="top-9 -left-5" [width]="56">
+                <app-button trigger
+                    width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                    [text]="getPhotoSelectionText(photoForm.controls.selection.getRawValue()!)"
+                    [icon]="showPhotoDropdown ? faChevronUp : faChevronDown"
+                    color="bg-secondary"
+                    (click)="photoSelectionButtonClick()">
+                </app-button>
+                <div content>
+                    <app-radio-button [label]="getPhotoSelectionText(0)" [form]="photoForm" ctrlName="selection" id="p0" [value]='0' (click)="getPhotos(0)"></app-radio-button>
+                    <app-radio-button [label]="getPhotoSelectionText(1)" [form]="photoForm" ctrlName="selection" id="p1" [value]='1' (click)="getPhotos(1)"></app-radio-button>
+                </div>
+                </app-dropdown-menu>
+            </div>
+            <app-divider></app-divider>
+            @if (currentPhotos.length > 0) {
+                @for (photo of currentPhotos; track photo.photoId; let i = $index) {
+                    <div class="py-1.5">
+                        <app-photo [photo]="photo" [link]="true"></app-photo>
+                    </div>
+                }
+                
+            }
+            @else {
+                <p>No photos yet...</p>
+            }
+        </app-container>
+    </app-two-pane-layout>
 }
