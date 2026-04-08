@@ -8,6 +8,7 @@ import {UserStatisticsComponent} from "../../items/user-statistics.component";
 
 import {DividerComponent} from "../divider.component";
 import {NavItem} from "./navtypes";
+import { UserRoles } from '../../../api/types/users/user-roles';
 
 @Component({
     selector: 'app-header-me-menu',
@@ -37,6 +38,14 @@ import {NavItem} from "./navtypes";
       @for (item of topItems; track item.route) {
         <app-navbar-item [icon]="item.icon" [title]="item.name" [href]="item.route" iconClass="w-4 text-[1.1rem]" labelClass="text-lg"></app-navbar-item>
       }
+
+      @if (isModerator) {
+        <app-divider></app-divider>
+        @for (item of specialItems; track item.route) {
+          <app-navbar-item [icon]="item.icon" [title]="item.name" [href]="item.route" iconClass="w-4 text-[1.1rem]" labelClass="text-lg"></app-navbar-item>
+        }
+      }
+
       <app-divider></app-divider>
       @for (item of bottomItems; track item.route) {
         <app-navbar-item [icon]="item.icon" [title]="item.name" [href]="item.route" iconClass="w-4 text-[1.1rem]" labelClass="text-lg"></app-navbar-item>
@@ -46,6 +55,13 @@ import {NavItem} from "./navtypes";
 })
 export class HeaderMeMenuComponent {
   @Input({required: true}) user: User = undefined!;
+  isModerator: boolean = false;
+
+  ngOnInit() {
+    if (this.user.role >= UserRoles.Moderator) {
+      this.isModerator = true;
+    }
+  }
 
   protected topItems: NavItem[] = [
     {
@@ -62,6 +78,13 @@ export class HeaderMeMenuComponent {
       name: 'Profile Settings',
       icon: 'cog',
       route: '/settings/profile'
+    },
+  ];
+  protected specialItems: NavItem[] = [
+    {
+      name: 'Mod Panel',
+      icon: 'tools',
+      route: '/moderation'
     },
   ];
   protected bottomItems: NavItem[] = [
