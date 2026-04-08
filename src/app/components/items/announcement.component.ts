@@ -2,17 +2,19 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Announcement} from "../../api/types/announcement";
 
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faBullhorn, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faBullhorn, faSignOutAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
 import { ButtonComponent } from "../ui/form/button.component";
 import { ClientService } from '../../api/client.service';
 import { BannerService } from '../../banners/banner.service';
 import { RefreshApiError } from '../../api/refresh-api-error';
+import { ConfirmationDialogComponent } from "../ui/confirmation-dialog.component";
 
 @Component({
     selector: 'app-announcement',
     imports: [
     FaIconComponent,
-    ButtonComponent
+    ButtonComponent,
+    ConfirmationDialogComponent
 ],
     template: `
     <div class="bg-yellow rounded px-5 py-2.5">
@@ -23,12 +25,19 @@ import { RefreshApiError } from '../../api/refresh-api-error';
         </div>
 
         @if (showDeleteButton) {
-          <app-button color="bg-red text-[15px]" yPadding="" [icon]="faTrash" color="bg-red" (click)="delete()"></app-button>
+          <app-button color="bg-red text-[15px]" yPadding="" [icon]="faTrash" color="bg-red" (click)="toggleDeletionDialog(true)"></app-button>
         }
       </div>
       
       <p class="word-wrap-and-break">{{data.text}}</p>
     </div>
+
+    @defer (when showDeletionDialog) { @if (showDeletionDialog) {
+      <app-confirmation-dialog infoText="Do you really want to delete this announcement?" (closeDialog)="toggleDeletionDialog(false)">
+        <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleDeletionDialog(false)"></app-button>
+        <app-button text="Delete!" [icon]="faTrash" color="bg-red" (click)="delete()"></app-button>
+      </app-confirmation-dialog>
+    }}
   `
 })
 export class AnnouncementComponent {
@@ -36,12 +45,19 @@ export class AnnouncementComponent {
   @Input() showDeleteButton: boolean = false;
   @Output() deleted = new EventEmitter;
 
+  protected showDeletionDialog: boolean = false;
+
   constructor(protected client: ClientService, protected banner: BannerService) {
 
   }
 
-  delete() {
-    if (this.data.announcementId.length == 0) return;
+  protected toggleDeletionDialog(visibility: boolean) {
+    this.showDeletionDialog = visibility;
+  }
+
+  protected delete() {
+    if (this.data.announcementId.length == 0) return; // fake announcement which doesn't exist on the server
+    this.toggleDeletionDialog(false);
 
     this.client.deleteAnnouncementByUuid(this.data.announcementId).subscribe({
       error: error => {
@@ -57,4 +73,5 @@ export class AnnouncementComponent {
 
   protected readonly faBullhorn = faBullhorn;
   protected readonly faTrash = faTrash;
+  protected readonly faSignOutAlt = faSignOutAlt;
 }

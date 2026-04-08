@@ -68,7 +68,7 @@
 
         <div class="flex flex-row flex-wrap gap-x-2 justify-between pt-4">
           <app-button color="bg-red" [icon]="faTrash" text="Discard" (click)="resetAnnouncementInputs()"></app-button>
-          <app-button color="bg-primary" [icon]="faPaperPlane" text="Publish" (click)="postAnnouncement()" [enabled]="isAnnouncementComplete"></app-button>
+          <app-button color="bg-primary" [icon]="faPaperPlane" text="Publish" (click)="toggleAnnouncementPostDialog(true)" [enabled]="isAnnouncementComplete"></app-button>
         </div>
       </form>
     </div>
@@ -103,10 +103,16 @@
       <iframe [src]="grafanaSafeUrl" class="min-w-full h-[768px]"></iframe>
     </div>
   }
-  
 
   <!-- should always be last section -->
   <app-divider></app-divider>
   <p class="text-xl font-bold pb-2.5">Other Actions</p>
   <p>To manage users, levels, and other data, you can access administrative actions on their respective pages, usually on the page headers.</p>
+
+  @defer (when showAnnouncementPostDialog) { @if (showAnnouncementPostDialog) {
+    <app-confirmation-dialog infoText="Do you really want to post this announcement?" (closeDialog)="toggleAnnouncementPostDialog(false)">
+      <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleAnnouncementPostDialog(false)"></app-button>
+      <app-button text="Post!" [icon]="faPaperPlane" color="bg-primary" (click)="postAnnouncement()"></app-button>
+    </app-confirmation-dialog>
+  }}
 }

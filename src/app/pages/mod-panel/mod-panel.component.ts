@@ -13,7 +13,7 @@ import { DividerComponent } from "../../components/ui/divider.component";
 import { FormControl, FormGroup } from '@angular/forms';
 import { AnnouncementComponent } from "../../components/items/announcement.component";
 import { Announcement } from '../../api/types/announcement';
-import { faBullhorn, faPaperPlane, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBullhorn, faPaperPlane, faPencil, faSignOutAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TextboxComponent } from "../../components/ui/form/textbox.component";
 import { TextAreaComponent } from "../../components/ui/form/textarea.component";
 import { ButtonComponent } from "../../components/ui/form/button.component";
@@ -22,6 +22,7 @@ import { RouterLink } from "@angular/router";
 import { TwoPaneLayoutComponent } from "../../components/ui/layouts/two-pane-layout.component";
 import { ContainerComponent } from "../../components/ui/container.component";
 import { PaneTitleComponent } from "../../components/ui/text/pane-title.component";
+import { ConfirmationDialogComponent } from "../../components/ui/confirmation-dialog.component";
 
 @Component({
     selector: 'app-mod-panel',
@@ -35,7 +36,8 @@ import { PaneTitleComponent } from "../../components/ui/text/pane-title.componen
     RouterLink,
     TwoPaneLayoutComponent,
     ContainerComponent,
-    PaneTitleComponent
+    PaneTitleComponent,
+    ConfirmationDialogComponent
 ],
     templateUrl: './mod-panel.component.html'
 })
@@ -60,6 +62,7 @@ export class ModPanelComponent {
     text: new FormControl(),
   });
   protected isAnnouncementComplete: boolean = false;
+  protected showAnnouncementPostDialog: boolean = false;
 
   protected grafanaSafeUrl: SafeUrl | undefined;
 
@@ -134,9 +137,14 @@ export class ModPanelComponent {
     };
   }
 
+  protected toggleAnnouncementPostDialog(visibility: boolean) {
+    this.showAnnouncementPostDialog = visibility;
+  }
+
   protected postAnnouncement() {
     if (this.instance == null || !this.isAnnouncementComplete) return;
-    
+    this.toggleAnnouncementPostDialog(false);
+
     this.client.postAnnouncement(this.previewAnnouncement).subscribe({
       error: error => {
         const apiError: RefreshApiError | undefined = error.error?.error;
@@ -170,4 +178,5 @@ export class ModPanelComponent {
   protected readonly faPencil = faPencil;
   protected readonly faPaperPlane = faPaperPlane;
   protected readonly faTrash = faTrash;
+  protected readonly faSignOutAlt = faSignOutAlt;
 }
