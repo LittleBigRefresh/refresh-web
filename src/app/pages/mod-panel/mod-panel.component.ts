@@ -13,7 +13,7 @@ import { DividerComponent } from "../../components/ui/divider.component";
 import { FormControl, FormGroup } from '@angular/forms';
 import { AnnouncementComponent } from "../../components/items/announcement.component";
 import { Announcement } from '../../api/types/announcement';
-import { faBullhorn, faPaperPlane, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faBullhorn, faPaperPlane, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TextboxComponent } from "../../components/ui/form/textbox.component";
 import { TextAreaComponent } from "../../components/ui/form/textarea.component";
 import { ButtonComponent } from "../../components/ui/form/button.component";
@@ -85,12 +85,9 @@ export class ModPanelComponent {
 
               // initialize sanitized URL
               let originalUrl = this.instance?.grafanaDashboardUrl;
-              if (originalUrl == null || originalUrl.length <= 0) {
-                originalUrl = "";
+              if (originalUrl != null && originalUrl.length > 0) {
+                this.grafanaSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(originalUrl);
               }
-
-              this.grafanaSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(originalUrl);
-              console.log("safe grafana url: " + this.grafanaSafeUrl);
             }
           });
       
@@ -148,8 +145,11 @@ export class ModPanelComponent {
       next: response => {
         this.resetAnnouncementInputs();
 
-        // currently the server doesn't sort the announcements, so this is fine
+        // currently the server doesn't sort the announcements, so this is fine.
+        // also, TODO: implement and use a separate endpoint for retreiving announcement lists,
+        // because the instance responses usually have a cache-control header
         this.instance!.announcements.push(response);
+        this.client.updateCachedInstance(this.instance!);
       }
     });
   }
@@ -169,4 +169,5 @@ export class ModPanelComponent {
   protected readonly faBullhorn = faBullhorn;
   protected readonly faPencil = faPencil;
   protected readonly faPaperPlane = faPaperPlane;
+  protected readonly faTrash = faTrash;
 }
