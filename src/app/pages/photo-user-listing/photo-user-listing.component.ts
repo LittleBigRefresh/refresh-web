@@ -20,6 +20,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { Photo } from '../../api/types/photos/photo';
 import { PhotoComponent } from "../../components/items/photo.component";
 import { isPlatformBrowser } from '@angular/common';
+import { RefreshApiError } from '../../api/refresh-api-error';
 
 @Component({
     selector: 'app-photo-user-listing',
@@ -58,21 +59,27 @@ export class PhotoUserListingComponent implements Scrollable {
       const category: string | undefined = params['category'];
 
       if (username != null) {
-        this.client.getUserByUsername(username).subscribe(user => {
-          this.user = user;
+        this.client.getUserByUsername(username).subscribe({
+          error: error => {
+            const apiError: RefreshApiError | undefined = error.error?.error;
+            this.banner.warn("Failed to get user", apiError == null ? error.message : apiError.message);
+          },
+          next: user => {
+            this.user = user;
 
-          if (category != null) {
-            this.photoSelectionString = category;
-            switch (category) {
-              case "by":
-                this.setPhotoSelection(0);
-                break;
-              case "with":
-                this.setPhotoSelection(1);
-                break;
-              default:
-                this.banner.warn("Cannot get photos", "Selection '" + category + "' is unknown");
-                return;
+            if (category != null) {
+              this.photoSelectionString = category;
+              switch (category) {
+                case "by":
+                  this.setPhotoSelection(0);
+                  break;
+                case "with":
+                  this.setPhotoSelection(1);
+                  break;
+                default:
+                  this.banner.warn("Cannot get photos", "Selection '" + category + "' is unknown");
+                  return;
+              }
             }
           }
         });
@@ -90,9 +97,8 @@ export class PhotoUserListingComponent implements Scrollable {
     switch (selection) {
       case 0: return "By";
       case 1: return "With";
-      default: "Something";
+      default: return "Something";
     }
-    return "";
   }
 
   setPhotoSelection(selection: number) {

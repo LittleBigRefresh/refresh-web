@@ -161,9 +161,8 @@ export class UserComponent {
     switch (selection) {
       case 0: return "Published by user";
       case 1: return "Hearted by user";
-      default: "Something by user";
+      default: return "Something by user";
     }
-    return "";
   }
 
   photoSelectionButtonClick() {
@@ -220,9 +219,8 @@ export class UserComponent {
     switch (selection) {
       case 0: return "By user";
       case 1: return "With user";
-      default: "Something user";
+      default: return "Something user";
     }
-    return "";
   }
 
   protected readonly faChevronDown = faChevronDown;

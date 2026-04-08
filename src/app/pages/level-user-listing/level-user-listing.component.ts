@@ -20,6 +20,7 @@ import { ListWithData } from '../../api/list-with-data';
 import { BannerService } from '../../banners/banner.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
+import { RefreshApiError } from '../../api/refresh-api-error';
 
 @Component({
     selector: 'app-level-user-listing',
@@ -58,21 +59,27 @@ export class LevelUserListingComponent implements Scrollable {
       const category: string | undefined = params['category'];
 
       if (username != null) {
-        this.client.getUserByUsername(username).subscribe(user => {
-          this.user = user;
+        this.client.getUserByUsername(username).subscribe({
+          error: error => {
+            const apiError: RefreshApiError | undefined = error.error?.error;
+            this.banner.warn("Failed to get user", apiError == null ? error.message : apiError.message);
+          },
+          next: user => {
+            this.user = user;
 
-          if (category != null) {
-            this.levelSelectionString = category;
-            switch (category) {
-              case "byUser":
-                this.setLevelSelection(0);
-                break;
-              case "hearted":
-                this.setLevelSelection(1);
-                break;
-              default:
-                this.banner.warn("Cannot get levels", "Selection '" + category + "' is unknown");
-                return;
+            if (category != null) {
+              this.levelSelectionString = category;
+              switch (category) {
+                case "byUser":
+                  this.setLevelSelection(0);
+                  break;
+                case "hearted":
+                  this.setLevelSelection(1);
+                  break;
+                default:
+                  this.banner.warn("Cannot get levels", "Selection '" + category + "' is unknown");
+                  return;
+              }
             }
           }
         });
@@ -90,9 +97,8 @@ export class LevelUserListingComponent implements Scrollable {
     switch (selection) {
       case 0: return "Published by";
       case 1: return "Hearted by";
-      default: "Something by";
+      default: return "Something by";
     }
-    return "";
   }
 
   setLevelSelection(selection: number) {
