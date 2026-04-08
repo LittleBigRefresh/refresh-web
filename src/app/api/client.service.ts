@@ -23,6 +23,7 @@ import { AdminUserUpdateRequest } from './types/users/admin-user-update-request'
 import { ExtendedUser } from './types/users/extended-user';
 import { PunishUserRequest } from './types/moderation/punish-user-request';
 import { PlanetInfo } from './types/users/planet-info';
+import { Announcement } from './types/announcement';
 
 export const defaultPageSize: number = 40;
 
@@ -30,7 +31,7 @@ export const defaultPageSize: number = 40;
   providedIn: 'root'
 })
 export class ClientService extends ApiImplementation {
-  private readonly instance: LazySubject<Instance>;
+  private instance: LazySubject<Instance>;
   private readonly levelCategories: LazySubject<ListWithData<LevelCategory>>;
   private readonly userCategories: LazySubject<ListWithData<UserCategory>>;
   private statistics: LazySubject<Statistics>;
@@ -39,17 +40,28 @@ export class ClientService extends ApiImplementation {
 
   constructor(http: HttpClient) {
     super(http);
-    this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
-    this.instance.tryLoad();
+
+    this.instance = this.getInstanceInternal();
+    this.statistics = this.getStatisticsInternal();
 
     this.levelCategories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
     this.userCategories = new LazySubject<ListWithData<UserCategory>>(() => this.http.get<ListWithData<UserCategory>>("/users?includePreviews=true"));
-
-    this.statistics = this.getStatisticsInternal();
   }
 
-  getInstance() {
+  private getInstanceInternal() {
+    return this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
+  }
+
+  getInstance(ignoreCache: boolean = false) {
+    if (ignoreCache) {
+      this.getInstanceInternal();
+    }
+
     return this.instance.asObservable();
+  }
+
+  updateCachedInstance(instance: Instance) {
+    this.instance = new LazySubject<Instance>(() => new BehaviorSubject<Instance>(instance));
   }
 
   getLevelCategories() {
@@ -62,7 +74,7 @@ export class ClientService extends ApiImplementation {
 
   getStatistics(ignoreCache: boolean = false) {
     if (ignoreCache) {
-      this.statistics = this.getStatisticsInternal();
+      this.getStatisticsInternal();
     }
 
     return this.statistics.asObservable();
@@ -262,5 +274,13 @@ export class ClientService extends ApiImplementation {
 
   deleteReviewsByUserByUuid(uuid: string) {
     return this.http.delete<Response>(`/admin/users/uuid/${uuid}/reviews`);
+  }
+
+  postAnnouncement(announcement: Announcement) {
+    return this.http.post<Announcement>(`/admin/announcements`, announcement);
+  }
+
+  deleteAnnouncementByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/announcements/${uuid}`);
   }
 }
