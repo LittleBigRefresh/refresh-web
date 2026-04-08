@@ -9,19 +9,30 @@ import { NgOptimizedImage } from "@angular/common";
 import { getWebsiteRepoUrl } from '../../helpers/data-fetching';
 import { RouterLink } from "@angular/router";
 import { blockedFlagsAsString } from '../../api/types/asset-config-flags';
+import { TwoPaneLayoutComponent } from "../../components/ui/layouts/two-pane-layout.component";
+import { ContainerComponent } from "../../components/ui/container.component";
+import { PaneTitleComponent } from "../../components/ui/text/pane-title.component";
+import { DividerComponent } from "../../components/ui/divider.component";
 
 @Component({
     selector: 'app-instance-info',
     imports: [
     PageTitleComponent,
     NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    TwoPaneLayoutComponent,
+    ContainerComponent,
+    PaneTitleComponent,
+    DividerComponent
 ],
     templateUrl: './instance-info.component.html'
 })
 export class InstanceInfoComponent {
   protected instance: Instance | undefined;
+  protected instanceDownloadFailed: boolean = false;
+
   protected statistics: Statistics | undefined;
+  protected statisticsDownloadFailed: boolean = false;
 
   protected websiteRepoUrl: String = getWebsiteRepoUrl();
   protected iconError: boolean = false;
@@ -32,6 +43,7 @@ export class InstanceInfoComponent {
   constructor(private client: ClientService, protected banner: BannerService) {
     client.getInstance().subscribe({
       error: error => {
+        this.instanceDownloadFailed = true;
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to retrieve instance data", apiError == null ? error.message : apiError.message);
       },
@@ -44,6 +56,7 @@ export class InstanceInfoComponent {
 
     client.getStatistics(true).subscribe({
       error: error => {
+        this.statisticsDownloadFailed = true;
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to retrieve instance statistics", apiError == null ? error.message : apiError.message);
       },

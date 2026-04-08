@@ -1,84 +1,112 @@
 <app-page-title></app-page-title>
-@if(instance != null) {
-    <br><p class="text-3xl">
-        <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
-        alt="Server icon" width="30" height="30"
-        (error)="iconErr($event.target)" loading="lazy">
-        {{ instance.instanceName }}
-    </p>
-    <p class="text-wrap"> {{instance.instanceDescription}}</p>
-    <br>
+<br>
 
-    <h2 class="font-bold text-2xl">Server Information</h2>
-    <p>Software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
-    <p>Version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
-    <p>License: 
-        <a [href]="instance.softwareLicenseUrl" class="text-link hover:text-link-hover hover:underline">
-            {{ instance.softwareLicenseName }}
-        </a>
-    </p>
-    <p>Source repository: 
-        <a [href]="instance.softwareSourceUrl" class="text-link hover:text-link-hover hover:underline">
-            {{ instance.softwareSourceUrl }}
-        </a>
-    </p>
-    <p>Blocked assets for regular users: <span class="italic">{{ blockedAssetFlags }}</span></p>
-    <p>Blocked assets for trusted users: <span class="italic">{{ blockedAssetFlagsForTrustedUsers }}</span></p>
-    <br>
-
-    <h2 class="font-bold text-2xl">Contact Us</h2>
-    <p>Owner: <span class="italic">{{ instance.contactInfo.adminName }}</span></p>
-
-    @if (instance.contactInfo.adminDiscordUsername != null) {
-        <p>Owner Discord username: <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span></p>
-    }
-    @else {
-        <p>No Discord username of the owner</p>
-    }
-    
-    @if (instance.contactInfo.discordServerInvite != null) {
-        <p>Discord server invite:
-            <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
-                {{ instance.contactInfo.discordServerInvite }}
+<app-two-pane-layout>
+    <app-container class="w-full">
+        <app-pane-title>
+            <a routerLink='/instance'>
+                Instance
             </a>
-        </p>
-    }
-    @else {
-        <p>No Discord server invite</p>
-    }
+        </app-pane-title>
+        <app-divider></app-divider>
+        <div>
+            @if(instance != null) {
+                <p class="text-3xl">
+                    <img [ngSrc]="instance.websiteLogoUrl" class="inline aspect-square object-cover rounded" 
+                        alt="Server icon" width="30" height="30"
+                        (error)="iconErr($event.target)" loading="lazy">
+                        {{ instance.instanceName }}
+                </p>
+                <p class="text-wrap"> {{instance.instanceDescription}}</p>
+                <br>
+                <h2 class="font-bold text-2xl">Server Information</h2>
+                <p>Software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
+                <p>Version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
+                <p>License: 
+                    <a [href]="instance.softwareLicenseUrl" class="text-link hover:text-link-hover hover:underline">
+                        {{ instance.softwareLicenseName }}
+                    </a>
+                </p>
+                <p>Source repository: 
+                    <a [href]="instance.softwareSourceUrl" class="text-link hover:text-link-hover hover:underline">
+                        {{ instance.softwareSourceUrl }}
+                    </a>
+                </p>
+                <p>Blocked assets for regular users: <span class="italic">{{ blockedAssetFlags }}</span></p>
+                <p>Blocked assets for trusted users: <span class="italic">{{ blockedAssetFlagsForTrustedUsers }}</span></p>
+                <br>
+                <h2 class="font-bold text-2xl">Contact Us</h2>
+                <p>Owner: <span class="italic">{{ instance.contactInfo.adminName }}</span></p>
 
-    <p>Email address: 
-        <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-link hover:text-link-hover hover:underline word-wrap-and-break">
-            {{instance.contactInfo.emailAddress }}
-        </a>
-    </p>
-    <br>
-}
+                @if (instance.contactInfo.adminDiscordUsername != null) {
+                    <p>Owner Discord username: <span class="italic">{{ instance.contactInfo.adminDiscordUsername }}</span></p>
+                }
+                @else {
+                    <p>No Discord username of the owner</p>
+                }
+                
+                @if (instance.contactInfo.discordServerInvite != null) {
+                    <p>Discord server invite:
+                        <a [href]="instance.contactInfo.discordServerInvite" class="text-link hover:text-link-hover hover:underline">
+                            {{ instance.contactInfo.discordServerInvite }}
+                        </a>
+                    </p>
+                }
+                @else {
+                    <p>No Discord server invite</p>
+                }
 
+                <p>Email address: 
+                    <a [href]="'mailto:' + instance.contactInfo.emailAddress" class="text-link hover:text-link-hover hover:underline word-wrap-and-break">
+                        {{instance.contactInfo.emailAddress }}
+                    </a>
+                </p>
+                <br>
+            }
+            @else if (statisticsDownloadFailed) {
+                <p>Failed to download instance metadata.</p>
+            }
+            @else {
+                <p>Downloading instance metadata...</p>
+            }
+        </div>
+    </app-container>
+    <app-container class="w-full">
+        <app-pane-title>
+            <a routerLink='/instance'>
+                Statistics
+            </a>
+        </app-pane-title>
+        <app-divider></app-divider>
+        <div>
+            @if(statistics != null) {
+                <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/users">Registered users: {{statistics.totalUsers}}</a></p>
+                <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/levels">Published levels: {{statistics.totalLevels}}</a></p>
+                <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/levels">Modded levels: {{statistics.moddedLevels}}</a></p>
+                <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/photos">Uploaded photos: {{statistics.totalPhotos}}</a></p>
+                <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/activity">Events occurred: {{statistics.totalEvents}}</a></p>
+                <br>
+                <p>Active users: {{statistics.activeUsers}}</p>
+                <p>People online now: {{statistics.currentIngamePlayersCount}}</p>
+                <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
+                <br>
+                <p>API requests: {{statistics.requestStatistics.apiRequests}}</p>
+                <p>Game API requests: {{statistics.requestStatistics.gameRequests}}</p>
+            }
+            @else if (statisticsDownloadFailed) {
+                <p>Failed to download instance statistics.</p>
+            }
+            @else {
+                <p>Downloading instance statistics...</p>
+            }
+        </div>
+    </app-container>
+</app-two-pane-layout>
+
+<br>
 <h2 class="font-bold text-2xl">Website</h2>
 <p>Source repository: 
     <a [href]="websiteRepoUrl" class="text-link hover:text-link-hover hover:underline">
         {{ websiteRepoUrl }}
     </a>
 </p>
-<br>
-
-@if(statistics != null) {
-    <h2 class="font-bold text-2xl">Things!</h2>
-    <p><a routerLink="/users">Registered users: {{statistics.totalUsers}}</a></p>
-    <p><a routerLink="/levels">Published levels: {{statistics.totalLevels}}</a></p>
-    <p><a routerLink="/levels">Modded levels: {{statistics.moddedLevels}}</a></p>
-    <p><a routerLink="/photos">Uploaded photos: {{statistics.totalPhotos}}</a></p>
-    <p><a routerLink="/activity">Events occurred: {{statistics.totalEvents}}</a></p>
-    <br>
-
-    <h2 class="font-bold text-2xl">Activity</h2>
-    <p>Active users: {{statistics.activeUsers}}</p>
-    <p>People online now: {{statistics.currentIngamePlayersCount}}</p>
-    <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
-    <br>
-
-    <h2 class="font-bold text-2xl">Requests ({{statistics.requestStatistics.totalRequests}} in total)</h2>
-    <p>API requests: {{statistics.requestStatistics.apiRequests}}</p>
-    <p>Game API requests: {{statistics.requestStatistics.gameRequests}}</p>
-}
