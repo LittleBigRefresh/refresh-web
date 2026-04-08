@@ -158,11 +158,17 @@ export class PhotoUserListingComponent implements Scrollable {
     if(!this.user) return;
 
     this.isLoading = true;
-    this.client.getPhotosRelatedToUserUuid(this.user.userId, this.photoSelectionString, this.currentPhotos.listInfo.nextPageIndex, defaultPageSize).subscribe(list => {
-      this.isLoading = false;
+    this.client.getPhotosRelatedToUserUuid(this.user.userId, this.photoSelectionString, this.currentPhotos.listInfo.nextPageIndex, defaultPageSize).subscribe({
+      error: error => {
+        const apiError: RefreshApiError | undefined = error.error?.error;
+        this.banner.warn("Failed to get photos", apiError == null ? error.message : apiError.message);
+      },
+      next: list => {
+        this.isLoading = false;
 
-      this.currentPhotos.data = this.currentPhotos.data.concat(list.data);
-      this.currentPhotos.listInfo = list.listInfo;
+        this.currentPhotos.data = this.currentPhotos.data.concat(list.data);
+        this.currentPhotos.listInfo = list.listInfo;
+      }
     });
   }
 

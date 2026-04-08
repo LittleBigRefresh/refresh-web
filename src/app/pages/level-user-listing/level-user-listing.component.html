@@ -22,7 +22,7 @@
     </div>
   </app-container-header>
   
-  @if (currentLevels) {
+  @if (currentLevels.data.length > 0) {
     <app-responsive-grid>
       @for (level of this.currentLevels.data; track level.levelId) {
         <app-container [tight]="true">
@@ -30,6 +30,12 @@
         </app-container>
       }
     </app-responsive-grid>
+  }
+  @else if (currentLevels.listInfo.totalItems < 0) {
+    <p>Loading levels...</p>
+  }
+  @else {
+    <p>No levels yet...</p>
   }
 
   <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>

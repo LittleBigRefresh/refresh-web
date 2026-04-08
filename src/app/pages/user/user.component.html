@@ -52,6 +52,9 @@
                     </div>
                 }
             }
+            @else if (currentLevels.listInfo.totalItems < 0) {
+                <p>Loading levels...</p>
+            }
             @else {
                 <p>No levels yet...</p>
             }
@@ -85,7 +88,9 @@
                         <app-photo [photo]="photo" [link]="true"></app-photo>
                     </div>
                 }
-                
+            }
+            @else if (currentPhotos.listInfo.totalItems < 0) {
+                <p>Loading photos...</p>
             }
             @else {
                 <p>No photos yet...</p>

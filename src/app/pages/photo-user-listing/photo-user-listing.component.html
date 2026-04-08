@@ -22,7 +22,7 @@
     </div>
   </app-container-header>
   
-  @if (currentPhotos) {
+  @if (currentPhotos.data.length > 0) {
     <app-responsive-grid>
       @for (photo of this.currentPhotos.data; track photo.photoId) {
         <app-container [tight]="true">
@@ -30,6 +30,12 @@
         </app-container>
       }
     </app-responsive-grid>
+  }
+  @else if (currentPhotos.listInfo.totalItems < 0) {
+    <p>Loading photos...</p>
+  }
+  @else {
+    <p>No photos yet...</p>
   }
 
   <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>

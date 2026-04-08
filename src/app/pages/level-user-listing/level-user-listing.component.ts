@@ -158,11 +158,17 @@ export class LevelUserListingComponent implements Scrollable {
     if(!this.user) return;
 
     this.isLoading = true;
-    this.client.getLevelsInCategory(this.levelSelectionString, this.listInfo.nextPageIndex, defaultPageSize, {u: this.user.username}).subscribe(list => {
-      this.isLoading = false;
+    this.client.getLevelsInCategory(this.levelSelectionString, this.listInfo.nextPageIndex, defaultPageSize, {u: this.user.username}).subscribe({
+      error: error => {
+        const apiError: RefreshApiError | undefined = error.error?.error;
+        this.banner.warn("Failed to get levels", apiError == null ? error.message : apiError.message);
+      },
+      next: list => {
+        this.isLoading = false;
 
-      this.currentLevels.data = this.currentLevels.data.concat(list.data);
-      this.currentLevels.listInfo = list.listInfo;
+        this.currentLevels.data = this.currentLevels.data.concat(list.data);
+        this.currentLevels.listInfo = list.listInfo;
+      }
     });
   }
 
