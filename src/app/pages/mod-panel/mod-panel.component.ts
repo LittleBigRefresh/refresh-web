@@ -152,12 +152,7 @@ export class ModPanelComponent {
       },
       next: response => {
         this.resetAnnouncementInputs();
-
-        // currently the server doesn't sort the announcements, so this is fine.
-        // also, TODO: implement and use a separate endpoint for retreiving announcement lists,
-        // because the instance responses usually have a cache-control header
         this.instance!.announcements.push(response);
-        this.client.updateCachedInstance(this.instance!);
       }
     });
   }
@@ -171,7 +166,9 @@ export class ModPanelComponent {
     }
 
     this.instance.announcements = newList;
-    this.client.updateCachedInstance(this.instance);
+    // Even if we update the instance cached by ClientService, the instance responses usually have a cache control header
+    // set to 1 hour, so simply refreshing the website will get us the outdated instance response again.
+    // Therefore, TODO: implement and use a separate endpoint for retreiving announcement lists.
   }
 
   protected readonly faBullhorn = faBullhorn;

@@ -31,7 +31,7 @@ export const defaultPageSize: number = 40;
   providedIn: 'root'
 })
 export class ClientService extends ApiImplementation {
-  private instance: LazySubject<Instance>;
+  private readonly instance: LazySubject<Instance>;
   private readonly levelCategories: LazySubject<ListWithData<LevelCategory>>;
   private readonly userCategories: LazySubject<ListWithData<UserCategory>>;
   private statistics: LazySubject<Statistics>;
@@ -40,28 +40,17 @@ export class ClientService extends ApiImplementation {
 
   constructor(http: HttpClient) {
     super(http);
-
-    this.instance = this.getInstanceInternal();
-    this.statistics = this.getStatisticsInternal();
+    this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
+    this.instance.tryLoad();
 
     this.levelCategories = new LazySubject<ListWithData<LevelCategory>>(() => this.http.get<ListWithData<LevelCategory>>("/levels?includePreviews=true"));
     this.userCategories = new LazySubject<ListWithData<UserCategory>>(() => this.http.get<ListWithData<UserCategory>>("/users?includePreviews=true"));
+
+    this.statistics = this.getStatisticsInternal();
   }
 
-  private getInstanceInternal() {
-    return this.instance = new LazySubject<Instance>(() => this.http.get<Instance>("/instance"));
-  }
-
-  getInstance(ignoreCache: boolean = false) {
-    if (ignoreCache) {
-      this.getInstanceInternal();
-    }
-
+  getInstance() {
     return this.instance.asObservable();
-  }
-
-  updateCachedInstance(instance: Instance) {
-    this.instance = new LazySubject<Instance>(() => new BehaviorSubject<Instance>(instance));
   }
 
   getLevelCategories() {
@@ -74,7 +63,7 @@ export class ClientService extends ApiImplementation {
 
   getStatistics(ignoreCache: boolean = false) {
     if (ignoreCache) {
-      this.getStatisticsInternal();
+      this.statistics = this.getStatisticsInternal();
     }
 
     return this.statistics.asObservable();
