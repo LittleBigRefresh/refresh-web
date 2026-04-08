@@ -17,13 +17,14 @@
           </div>
           </app-dropdown-menu>
         <app-user-link class="content-center text-[20px]" [user]="user"></app-user-link>
+        <span class="content-center text-sm italic text-gentle text-base">({{this.currentPhotos.listInfo.totalItems}} in total)</span>
       </div>
     </div>
   </app-container-header>
   
   @if (currentPhotos) {
     <app-responsive-grid>
-      @for (photo of this.currentPhotos; track photo.photoId) {
+      @for (photo of this.currentPhotos.data; track photo.photoId) {
         <app-container [tight]="true">
           <app-photo [photo]="photo" [link]="true"></app-photo>
         </app-container>

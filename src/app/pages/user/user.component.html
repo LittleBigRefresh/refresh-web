@@ -26,6 +26,7 @@
                     <a [routerLink]="'/levels/' + levelSelectionString + '/user/' + user.username">
                         Levels
                     </a>
+                    <span class="text-sm italic text-gentle text-base">({{this.currentLevels.listInfo.totalItems}} in total)</span>
                 </app-pane-title>
                 <app-dropdown-menu [showMenu]="showLevelDropdown" offsets="top-9 -left-7" [width]="60">
                     <app-button trigger
@@ -42,8 +43,8 @@
                 </app-dropdown-menu>
             </div>
             <app-divider></app-divider>
-            @if (currentLevels.length > 0) {
-                @for (level of currentLevels; track level.levelId; let i = $index) {
+            @if (currentLevels.data.length > 0) {
+                @for (level of currentLevels.data; track level.levelId; let i = $index) {
                     <div class="py-1.5">
                         <app-dark-container>
                             <app-level-preview [level]="level"></app-level-preview>
@@ -61,6 +62,7 @@
                     <a [routerLink]="'/photos/' + photoSelectionString + '/user/' + user.username">
                         Photos
                     </a>
+                    <span class="text-sm italic text-gentle text-base">({{this.currentPhotos.listInfo.totalItems}} in total)</span>
                 </app-pane-title>
                 <app-dropdown-menu [showMenu]="showPhotoDropdown" offsets="top-9 -left-2" [width]="56">
                     <app-button trigger
@@ -77,8 +79,8 @@
                 </app-dropdown-menu>
             </div>
             <app-divider></app-divider>
-            @if (currentPhotos.length > 0) {
-                @for (photo of currentPhotos; track photo.photoId; let i = $index) {
+            @if (currentPhotos.data.length > 0) {
+                @for (photo of currentPhotos.data; track photo.photoId; let i = $index) {
                     <div class="py-1.5">
                         <app-photo [photo]="photo" [link]="true"></app-photo>
                     </div>

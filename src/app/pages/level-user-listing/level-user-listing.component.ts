@@ -42,7 +42,10 @@ export class LevelUserListingComponent implements Scrollable {
   user: User | undefined;
   levelsPublishedByUser: ListWithData<Level> | undefined;
   levelsHeartedByUser: ListWithData<Level> | undefined;
-  currentLevels: Level[] = [];
+  currentLevels: ListWithData<Level> = {
+    data: [],
+    listInfo: defaultListInfo,
+  };
   currentListInfo: RefreshApiListInfo = defaultListInfo;
 
   showLevelDropdown: boolean = false;
@@ -109,16 +112,10 @@ export class LevelUserListingComponent implements Scrollable {
 
     switch (previousSelection) {
       case 0:
-        this.levelsPublishedByUser = {
-          data: this.currentLevels,
-          listInfo: this.currentListInfo
-        };
+        this.levelsPublishedByUser = this.currentLevels;
         break;
       case 1:
-        this.levelsHeartedByUser = {
-          data: this.currentLevels,
-          listInfo: this.currentListInfo
-        };
+        this.levelsHeartedByUser = this.currentLevels;
         break;
     }
 
@@ -143,18 +140,19 @@ export class LevelUserListingComponent implements Scrollable {
     }
 
     if (cachedList != null) {
-      this.currentLevels = cachedList.data;
-      this.listInfo = cachedList.listInfo;
+      this.currentLevels = cachedList;
       return;
     }
 
-    this.currentLevels = [];
-    this.listInfo = defaultListInfo;
+    this.currentLevels = {
+      data: [],
+      listInfo: defaultListInfo,
+    };
     this.loadData();
   }
 
   isLoading: boolean = false;
-  listInfo: RefreshApiListInfo = defaultListInfo;
+  get listInfo() {return this.currentLevels.listInfo}
 
   loadData(): void {
     if(!this.user) return;
@@ -163,8 +161,8 @@ export class LevelUserListingComponent implements Scrollable {
     this.client.getLevelsInCategory(this.levelSelectionString, this.listInfo.nextPageIndex, defaultPageSize, {u: this.user.username}).subscribe(list => {
       this.isLoading = false;
 
-      this.currentLevels = this.currentLevels.concat(list.data);
-      this.listInfo = list.listInfo;
+      this.currentLevels.data = this.currentLevels.data.concat(list.data);
+      this.currentLevels.listInfo = list.listInfo;
     });
   }
 

@@ -17,13 +17,14 @@
           </div>
           </app-dropdown-menu>
         <app-user-link class="content-center text-[20px]" [user]="user"></app-user-link>
+        <span class="content-center text-sm italic text-gentle text-base">({{this.listInfo.totalItems}} in total)</span>
       </div>
     </div>
   </app-container-header>
   
   @if (currentLevels) {
     <app-responsive-grid>
-      @for (level of this.currentLevels; track level.levelId) {
+      @for (level of this.currentLevels.data; track level.levelId) {
         <app-container [tight]="true">
           <app-level-preview [level]="level"></app-level-preview>
         </app-container>

@@ -30,6 +30,8 @@ import { RefreshApiError } from '../../api/refresh-api-error';
 import { LevelPreviewComponent } from "../../components/items/level-preview.component";
 import { PhotoComponent } from "../../components/items/photo.component";
 import { DarkContainerComponent } from "../../components/ui/dark-container.component";
+import { ListWithData } from '../../api/list-with-data';
+import { defaultListInfo } from '../../api/refresh-api-list-info';
 
 @Component({
     selector: 'app-user',
@@ -63,9 +65,12 @@ export class UserComponent {
   protected ownUser: ExtendedUser | undefined;
   protected isMobile: boolean = false;
 
-  levelsPublishedByUser: Level[] | undefined;
-  levelsHeartedByUser: Level[] | undefined;
-  currentLevels: Level[] = [];
+  levelsPublishedByUser: ListWithData<Level> | undefined;
+  levelsHeartedByUser: ListWithData<Level> | undefined;
+  currentLevels: ListWithData<Level> = {
+    data: [],
+    listInfo: defaultListInfo,
+  };
 
   showLevelDropdown: boolean = false;
   levelSelectionString: string = "";
@@ -73,9 +78,12 @@ export class UserComponent {
     selection: new FormControl(0)
   });
 
-  photosByUser: Photo[] | undefined;
-  photosWithUser: Photo[] | undefined;
-  currentPhotos: Photo[] = [];
+  photosByUser: ListWithData<Photo> | undefined;
+  photosWithUser: ListWithData<Photo> | undefined;
+  currentPhotos: ListWithData<Photo> = {
+    data: [],
+    listInfo: defaultListInfo,
+  };
 
   showPhotoDropdown: boolean = false;
   photoSelectionString: string = "";
@@ -114,7 +122,7 @@ export class UserComponent {
 
   getLevels(selection: number) {
     if (this.user == null) return;
-    let cachedList: Level[] | undefined;
+    let cachedList: ListWithData<Level> | undefined;
 
     switch (selection) {
       case 0:
@@ -145,14 +153,14 @@ export class UserComponent {
         // cache the page
         switch (selection) {
           case 0:
-            this.levelsPublishedByUser = levelPage.data;
+            this.levelsPublishedByUser = levelPage;
             break;
           case 1:
-            this.levelsHeartedByUser = levelPage.data;
+            this.levelsHeartedByUser = levelPage;
             break;
         }
 
-        this.currentLevels = levelPage.data;
+        this.currentLevels = levelPage;
       }
     });
   }
@@ -171,7 +179,7 @@ export class UserComponent {
 
   getPhotos(selection: number) {
     if (this.user == null) return;
-    let cachedList: Photo[] | undefined;
+    let cachedList: ListWithData<Photo> | undefined;
 
     switch (selection) {
       case 0:
@@ -203,14 +211,14 @@ export class UserComponent {
         // cache the page
         switch (selection) {
           case 0:
-            this.photosByUser = photoPage.data;
+            this.photosByUser = photoPage;
             break;
           case 1:
-            this.photosWithUser = photoPage.data;
+            this.photosWithUser = photoPage;
             break;
         }
 
-        this.currentPhotos = photoPage.data;
+        this.currentPhotos = photoPage;
       }
     });
   }

@@ -42,7 +42,10 @@ export class PhotoUserListingComponent implements Scrollable {
   user: User | undefined;
   photosByUser: ListWithData<Photo> | undefined;
   photosWithUser: ListWithData<Photo> | undefined;
-  currentPhotos: Photo[] = [];
+  currentPhotos: ListWithData<Photo> = {
+    data: [],
+    listInfo: defaultListInfo,
+  };
   currentListInfo: RefreshApiListInfo = defaultListInfo;
 
   showPhotoDropdown: boolean = false;
@@ -109,16 +112,10 @@ export class PhotoUserListingComponent implements Scrollable {
 
     switch (previousSelection) {
       case 0:
-        this.photosByUser = {
-          data: this.currentPhotos,
-          listInfo: this.currentListInfo
-        };
+        this.photosByUser = this.currentPhotos;
         break;
       case 1:
-        this.photosWithUser = {
-          data: this.currentPhotos,
-          listInfo: this.currentListInfo
-        };
+        this.photosWithUser = this.currentPhotos;
         break;
     }
 
@@ -143,28 +140,29 @@ export class PhotoUserListingComponent implements Scrollable {
     }
 
     if (cachedList != null) {
-      this.currentPhotos = cachedList.data;
-      this.listInfo = cachedList.listInfo;
+      this.currentPhotos = cachedList;
       return;
     }
 
-    this.currentPhotos = [];
-    this.listInfo = defaultListInfo;
+    this.currentPhotos = {
+      data: [],
+      listInfo: defaultListInfo,
+    };
     this.loadData();
   }
 
   isLoading: boolean = false;
-  listInfo: RefreshApiListInfo = defaultListInfo;
+  get listInfo() {return this.currentPhotos.listInfo}
 
   loadData(): void {
     if(!this.user) return;
 
     this.isLoading = true;
-    this.client.getPhotosRelatedToUserUuid(this.user.userId, this.photoSelectionString, this.listInfo.nextPageIndex, defaultPageSize).subscribe(list => {
+    this.client.getPhotosRelatedToUserUuid(this.user.userId, this.photoSelectionString, this.currentPhotos.listInfo.nextPageIndex, defaultPageSize).subscribe(list => {
       this.isLoading = false;
 
-      this.currentPhotos = this.currentPhotos.concat(list.data);
-      this.listInfo = list.listInfo;
+      this.currentPhotos.data = this.currentPhotos.data.concat(list.data);
+      this.currentPhotos.listInfo = list.listInfo;
     });
   }
 
