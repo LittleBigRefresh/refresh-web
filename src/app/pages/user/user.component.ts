@@ -126,7 +126,7 @@ export class UserComponent {
         cachedList = this.levelsHeartedByUser;
         break;
       default:
-        this.banner.warn("Cannot get levels", "Selection" + selection + " is unknown");
+        this.banner.warn("Cannot get levels", "Selection " + selection + " is unknown");
         return;
     }
     this.levelForm.controls.selection.setValue(selection);
@@ -184,7 +184,7 @@ export class UserComponent {
         cachedList = this.photosWithUser;
         break;
       default:
-        this.banner.warn("Cannot get photos", "Selection" + selection + " is unknown");
+        this.banner.warn("Cannot get photos", "Selection " + selection + " is unknown");
         return;
     }
     this.photoForm.controls.selection.setValue(selection);
