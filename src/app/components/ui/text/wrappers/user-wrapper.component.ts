@@ -3,15 +3,13 @@ import {Component, Input} from '@angular/core';
 import {UserAvatarComponent} from "../../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "../links/user-router-link.component";
 import {User} from "../../../../api/types/users/user";
-import { UserRoleComponent } from "../../info/user-role.component";
 
 @Component({
     selector: 'app-user-wrapper',
     imports: [
-    UserAvatarComponent,
-    UserRouterLinkComponent,
-    UserRoleComponent
-],
+        UserAvatarComponent,
+        UserRouterLinkComponent,
+    ],
     template: `
     <div class="flex gap-x-1.5">
       <app-user-router-link [user]=user>
@@ -19,10 +17,7 @@ import { UserRoleComponent } from "../../info/user-role.component";
       </app-user-router-link>
       
       <div class="flex flex-col">
-        <app-user-router-link [user]="user" class="font-bold">
-          {{user.username}}
-          <app-user-role [role]="user.role" [short]="true"></app-user-role>
-        </app-user-router-link>
+        <app-user-router-link [user]="user" class="font-bold">{{user.username}}</app-user-router-link>
         <ng-content></ng-content>
       </div>
     </div>

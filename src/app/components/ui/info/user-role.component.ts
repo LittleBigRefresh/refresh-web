@@ -35,7 +35,6 @@ export class UserRoleComponent {
     @Input({required: true}) role: UserRoles = UserRoles.User;
     @Input() short: boolean = false;
     roleIcon: IconProp | undefined;
-    f: string = ""
 
     ngOnInit() {
         switch (this.role) {
