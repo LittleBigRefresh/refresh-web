@@ -15,6 +15,7 @@ import { UserRelations } from '../../api/types/users/user-relations';
 import { FancyHeaderUserButtonsComponent } from "../../components/ui/layouts/fancy-header-user-buttons.component";
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { AuthenticationService } from '../../api/authentication.service';
+import { UserRoleComponent } from "../../components/ui/info/user-role.component";
 
 @Component({
     selector: 'app-user',
@@ -26,7 +27,8 @@ import { AuthenticationService } from '../../api/authentication.service';
     AsyncPipe,
     UserStatusComponent,
     UserStatisticsComponent,
-    FancyHeaderUserButtonsComponent
+    FancyHeaderUserButtonsComponent,
+    UserRoleComponent
 ],
     templateUrl: './user.component.html',
     styles: ``
