@@ -8,6 +8,7 @@ import {UserStatisticsComponent} from "../../items/user-statistics.component";
 
 import {DividerComponent} from "../divider.component";
 import {NavItem} from "./navtypes";
+import { UserRoleComponent } from "../info/user-role.component";
 
 @Component({
     selector: 'app-header-me-menu',
@@ -16,7 +17,8 @@ import {NavItem} from "./navtypes";
     UserAvatarComponent,
     UserRouterLinkComponent,
     UserStatisticsComponent,
-    DividerComponent
+    DividerComponent,
+    UserRoleComponent
 ],
     template: `
     <div class="absolute z-1 w-64 px-5 py-2.5 flex flex-col rounded-b bg-header-background gap-y-2 right-0 drop-shadow-md">
@@ -26,7 +28,8 @@ import {NavItem} from "./navtypes";
         </app-user-router-link>
         <div class="truncate grow">
           <app-user-router-link [user]="user">
-            <p class="font-medium text-lg truncate text-" [title]=user.username>{{ user.username }}</p>
+            <span class="font-medium text-lg truncate text-" [title]=user.username>{{ user.username }}</span>
+            <app-user-role [role]="user.role" [short]="true"></app-user-role>
           </app-user-router-link>
 
           <app-user-statistics [stats]="user.statistics" class="text-xs"></app-user-statistics>
