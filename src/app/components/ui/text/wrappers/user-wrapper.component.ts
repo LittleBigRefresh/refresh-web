@@ -8,7 +8,7 @@ import {User} from "../../../../api/types/users/user";
     selector: 'app-user-wrapper',
     imports: [
         UserAvatarComponent,
-        UserRouterLinkComponent
+        UserRouterLinkComponent,
     ],
     template: `
     <div class="flex gap-x-1.5">

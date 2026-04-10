@@ -32,6 +32,7 @@ import { PhotoComponent } from "../../components/items/photo.component";
 import { DarkContainerComponent } from "../../components/ui/dark-container.component";
 import { ListWithData } from '../../api/list-with-data';
 import { defaultListInfo } from '../../api/refresh-api-list-info';
+import { UserRoleComponent } from "../../components/ui/info/user-role.component";
 
 @Component({
     selector: 'app-user',
@@ -55,6 +56,7 @@ import { defaultListInfo } from '../../api/refresh-api-list-info';
     LevelPreviewComponent,
     PhotoComponent,
     DarkContainerComponent
+    UserRoleComponent
 ],
     templateUrl: './user.component.html',
     styles: ``

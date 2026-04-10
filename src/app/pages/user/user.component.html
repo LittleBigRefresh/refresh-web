@@ -3,10 +3,13 @@
                       [description]="user.description | default: user.username + ' hasn\'t introduced themselves yet.'">
         <app-user-avatar [user]="user" [size]="(layout.isMobile | async) ? 90 : 176" avatar></app-user-avatar>
         <ng-container titleSubtext>
+            <app-user-role [role]="user.role"></app-user-role>
+        </ng-container>
+        <div belowTitleRight class="italic text-gentle">
             Joined
             <app-date [date]="user.joinDate"></app-date>
             <br>
-        </ng-container>
+        </div>
         <ng-container belowTitle>
             <app-user-status [activeRoom]="user.activeRoom" [lastSeen]="user.lastLoginDate"></app-user-status>
         </ng-container>
