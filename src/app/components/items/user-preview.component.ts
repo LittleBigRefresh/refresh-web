@@ -6,6 +6,7 @@ import {UserAvatarComponent} from "../ui/photos/user-avatar.component";
 
 import {UserStatisticsComponent} from "./user-statistics.component";
 import {UserStatusComponent} from "../ui/info/user-status.component";
+import { UserRoleComponent } from "../ui/info/user-role.component";
 
 @Component({
     selector: 'app-user-preview',
@@ -13,7 +14,8 @@ import {UserStatusComponent} from "../ui/info/user-status.component";
     UserRouterLinkComponent,
     UserAvatarComponent,
     UserStatisticsComponent,
-    UserStatusComponent
+    UserStatusComponent,
+    UserRoleComponent
 ],
     template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
@@ -22,7 +24,8 @@ import {UserStatusComponent} from "../ui/info/user-status.component";
       </app-user-router-link>
       <div class="truncate grow">
         <app-user-router-link [user]="user">
-          <p class="font-medium text-lg truncate" [title]=user.username>{{ user.username }}</p>
+          <span class="font-medium text-lg truncate pr-1" [title]=user.username>{{ user.username }}</span>
+          <app-user-role [role]="user.role"></app-user-role>
         </app-user-router-link>
 
         <app-user-statistics [stats]="user.statistics" [ownRelations]="user.ownRelations" class="text-sm"></app-user-statistics>
