@@ -46,7 +46,6 @@ export class PhotoUserListingComponent implements Scrollable {
     data: [],
     listInfo: defaultListInfo,
   };
-  currentListInfo: RefreshApiListInfo = defaultListInfo;
 
   showPhotoDropdown: boolean = false;
   photoSelectionString: string = "";

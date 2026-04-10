@@ -46,7 +46,6 @@ export class LevelUserListingComponent implements Scrollable {
     data: [],
     listInfo: defaultListInfo,
   };
-  currentListInfo: RefreshApiListInfo = defaultListInfo;
 
   showLevelDropdown: boolean = false;
   levelSelectionString: string = "";
