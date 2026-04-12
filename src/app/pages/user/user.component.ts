@@ -55,8 +55,8 @@ import { UserRoleComponent } from "../../components/ui/info/user-role.component"
     DividerComponent,
     LevelPreviewComponent,
     PhotoComponent,
-    DarkContainerComponent
-    UserRoleComponent
+    DarkContainerComponent,
+    UserRoleComponent,
 ],
     templateUrl: './user.component.html',
     styles: ``
