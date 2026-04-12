@@ -78,18 +78,25 @@
       <app-announcement [data]="previewAnnouncement"></app-announcement>
       <app-divider></app-divider>
       <p class="text-xl font-bold">Live Announcements</p>
-      @if (instance == null && instanceDownloadFailed) {
-        <p>Couldn't get announcements, because we couldn't get instance data.</p>
+      @if (announcements == null) {
+        @if (announcementsDownloadFailed) {
+          <p>Failed to download announcements.</p>
+        }
+        @else {
+          <p>Loading instance data...</p>
+        }
       }
-      @else if (instance == null && !instanceDownloadFailed) {
-        <p>Loading instance data...</p>
-      }
-      @else if (instance!.announcements.length <= 0) {
-        <p>There are no current announcements.</p>
+      @else if (announcements.length <= 0) {
+        @if (announcementsDownloadFailed) {
+          <p>There might be current announcements, reload the page to download them.</p>
+        }
+        @else {
+          <p>There are no current announcements.</p>
+        }
       }
       @else {
         <div class="my-5 flex flex-col gap-y-2.5">
-          @for (announcement of instance!.announcements; track announcement.announcementId) {
+          @for (announcement of announcements; track announcement.announcementId) {
             <app-announcement [data]="announcement" [showDeleteButton]="true" (deleted)="removeAnnouncement(announcement.announcementId)"></app-announcement>
           }
         </div>

@@ -32,6 +32,8 @@ import {ContestBannerComponent} from "../../components/items/contest-banner.comp
 import { ExtendedUser } from '../../api/types/users/extended-user';
 import { AuthenticationService } from '../../api/authentication.service';
 import { UserRoles } from '../../api/types/users/user-roles';
+import { Announcement } from '../../api/types/announcement';
+import { RefreshApiError } from '../../api/refresh-api-error';
 
 @Component({
     selector: 'app-landing',
@@ -55,6 +57,7 @@ export class LandingComponent implements OnDestroy {
     protected instance: Instance | undefined;
     protected rooms: Room[] | undefined;
     protected activity: ActivityPage | undefined;
+    protected announcements: Announcement[] | undefined;
 
     private activitySubscription: Subscription | undefined;
     private roomsSubscription: Subscription | undefined;
@@ -93,6 +96,17 @@ export class LandingComponent implements OnDestroy {
                 if (user.role >= UserRoles.Moderator) {
                     this.showAnnouncementDeleteButton = true;
                 }
+            }
+        });
+
+        client.getAllAnnouncements().subscribe({
+            error: error => {
+                // don't log, just print to console, as this isn't that important
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                console.warn("Failed to retrieve announcements: " + (apiError == null ? error.message : apiError.message));
+            },
+            next: response => {
+                this.announcements = response;
             }
         });
     }

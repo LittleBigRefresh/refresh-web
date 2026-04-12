@@ -46,6 +46,8 @@ export class ModPanelComponent {
 
   protected instance: Instance | undefined;
   protected instanceDownloadFailed: boolean = false;
+  protected announcements: Announcement[] | undefined;
+  protected announcementsDownloadFailed: boolean = false;
   protected blockedAssetFlags: String = "None";
   protected blockedAssetFlagsForTrustedUsers: String = "None";
 
@@ -104,6 +106,17 @@ export class ModPanelComponent {
               this.statistics = response;
             }
           });
+
+          client.getAllAnnouncements().subscribe({
+            error: error => {
+              this.announcementsDownloadFailed = true;
+              const apiError: RefreshApiError | undefined = error.error?.error;
+              this.banner.error("Failed to retrieve announcements", apiError == null ? error.message : apiError.message);
+            },
+            next: response => {
+              this.announcements = response;
+            }
+          });
         }
       }
     });
@@ -142,7 +155,7 @@ export class ModPanelComponent {
   }
 
   protected postAnnouncement() {
-    if (this.instance == null || !this.isAnnouncementComplete) return;
+    if (!this.isAnnouncementComplete) return;
     this.toggleAnnouncementPostDialog(false);
 
     this.client.postAnnouncement(this.previewAnnouncement).subscribe({
@@ -152,23 +165,24 @@ export class ModPanelComponent {
       },
       next: response => {
         this.resetAnnouncementInputs();
-        this.instance!.announcements.push(response);
+        let newList: Announcement[] = [];
+        newList.push(response);
+
+        if (!this.announcements) this.announcements = newList
+        else this.announcements = newList.concat(this.announcements);
       }
     });
   }
 
   protected removeAnnouncement(uuid: string) {
-    if (this.instance == null) return;
+    if (this.announcements == null) return;
 
     let newList: Announcement[] = [];
-    for (let announcement of this.instance.announcements) {
+    for (let announcement of this.announcements) {
       if (announcement.announcementId !== uuid) newList.push(announcement);
     }
 
-    this.instance.announcements = newList;
-    // Even if we update the instance cached by ClientService, the instance responses usually have a cache control header
-    // set to 1 hour, so simply refreshing the website will get us the outdated instance response again.
-    // Therefore, TODO: implement and use a separate endpoint for retreiving announcement lists.
+    this.announcements = newList;
   }
 
   protected readonly faBullhorn = faBullhorn;

@@ -265,6 +265,10 @@ export class ClientService extends ApiImplementation {
     return this.http.delete<Response>(`/admin/users/uuid/${uuid}/reviews`);
   }
 
+  getAllAnnouncements() {
+    return this.http.get<Announcement[]>(`/announcements`);
+  }
+
   postAnnouncement(announcement: Announcement) {
     return this.http.post<Announcement>(`/admin/announcements`, announcement);
   }
