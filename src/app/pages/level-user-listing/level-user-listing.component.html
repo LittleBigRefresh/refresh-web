@@ -1,0 +1,42 @@
+@if (user) {
+  <app-container-header>
+    <div class="flex flex-col gap-y-2 pb-4">
+      <div class="flex flex-row flex-wrap gap-x-3 align-center">
+        <app-page-title title="Levels "></app-page-title>
+        <app-dropdown-menu [showMenu]="showLevelDropdown" offsets="top-9 -left-5" [width]="56">
+          <app-button trigger
+              width="flex flex-shrink justify-evenly flex-grow w-42 text-nowrap"
+              [text]="getLevelSelectionText(filterForm.controls.selection.getRawValue()!)"
+              [icon]="showLevelDropdown ? faChevronUp : faChevronDown"
+              color="bg-secondary"
+              (click)="levelSelectionButtonClick()">
+          </app-button>
+          <div content>
+              <app-radio-button [label]="getLevelSelectionText(0)" [form]="filterForm" ctrlName="selection" id="l0" [value]='0' (click)="setLevelSelection(0)"></app-radio-button>
+              <app-radio-button [label]="getLevelSelectionText(1)" [form]="filterForm" ctrlName="selection" id="l1" [value]='1' (click)="setLevelSelection(1)"></app-radio-button>
+          </div>
+          </app-dropdown-menu>
+        <app-user-link class="content-center text-[20px]" [user]="user"></app-user-link>
+        <span class="content-center text-sm italic text-gentle text-base">({{this.listInfo.totalItems}} in total)</span>
+      </div>
+    </div>
+  </app-container-header>
+  
+  @if (currentLevels.data.length > 0) {
+    <app-responsive-grid>
+      @for (level of this.currentLevels.data; track level.levelId) {
+        <app-container [tight]="true">
+          <app-level-preview [level]="level"></app-level-preview>
+        </app-container>
+      }
+    </app-responsive-grid>
+  }
+  @else if (currentLevels.listInfo.totalItems < 0) {
+    <p>Loading levels...</p>
+  }
+  @else {
+    <p>No levels yet...</p>
+  }
+
+  <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" [totalLoads]="currentLevels.totalLoads" (incrementLoads)="incrementLoads()" (loadData)="loadData()"></app-infinite-scroller>
+}

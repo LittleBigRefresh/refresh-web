@@ -1,0 +1,42 @@
+@if (user) {
+  <app-container-header>
+    <div class="flex flex-col gap-y-2 pb-4">
+      <div class="flex flex-row flex-wrap gap-x-3 align-center">
+        <app-page-title title="Photos "></app-page-title>
+        <app-dropdown-menu [showMenu]="showPhotoDropdown" offsets="top-9" [width]="56">
+          <app-button trigger
+              width="flex flex-shrink justify-evenly flex-grow w-42 text-nowrap"
+              [text]="getPhotoSelectionText(filterForm.controls.selection.getRawValue()!)"
+              [icon]="showPhotoDropdown ? faChevronUp : faChevronDown"
+              color="bg-secondary"
+              (click)="photoSelectionButtonClick()">
+          </app-button>
+          <div content>
+              <app-radio-button [label]="getPhotoSelectionText(0)" [form]="filterForm" ctrlName="selection" id="p0" [value]='0' (click)="setPhotoSelection(0)"></app-radio-button>
+              <app-radio-button [label]="getPhotoSelectionText(1)" [form]="filterForm" ctrlName="selection" id="p1" [value]='1' (click)="setPhotoSelection(1)"></app-radio-button>
+          </div>
+          </app-dropdown-menu>
+        <app-user-link class="content-center text-[20px]" [user]="user"></app-user-link>
+        <span class="content-center text-sm italic text-gentle text-base">({{this.currentPhotos.listInfo.totalItems}} in total)</span>
+      </div>
+    </div>
+  </app-container-header>
+  
+  @if (currentPhotos.data.length > 0) {
+    <app-responsive-grid>
+      @for (photo of this.currentPhotos.data; track photo.photoId) {
+        <app-container [tight]="true">
+          <app-photo [photo]="photo" [link]="true"></app-photo>
+        </app-container>
+      }
+    </app-responsive-grid>
+  }
+  @else if (currentPhotos.listInfo.totalItems < 0) {
+    <p>Loading photos...</p>
+  }
+  @else {
+    <p>No photos yet...</p>
+  }
+
+  <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" [totalLoads]="currentPhotos.totalLoads" (incrementLoads)="incrementLoads()" (loadData)="loadData()"></app-infinite-scroller>
+}
