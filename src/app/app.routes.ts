@@ -20,7 +20,7 @@ export const routes: Routes = [
     {
         path: 'levels/:category/user/:username',
         loadComponent: () => import('./pages/level-user-listing/level-user-listing.component').then(x => x.LevelUserListingComponent),
-        data: {title: "Level Listing"}
+        data: {title: "Levels Related To User"}
     },
     {
         path: 'level/:id/:slug',
@@ -53,7 +53,7 @@ export const routes: Routes = [
     {
         path: 'photos/:category/user/:username',
         loadComponent: () => import('./pages/photo-user-listing/photo-user-listing.component').then(x => x.PhotoUserListingComponent),
-        data: {title: "Photos"},
+        data: {title: "Photos Related To User"},
     },
     {
         path: 'photo/:id',
