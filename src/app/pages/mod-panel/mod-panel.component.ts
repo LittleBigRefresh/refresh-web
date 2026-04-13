@@ -58,6 +58,7 @@ export class ModPanelComponent {
     announcementId: "",
     title: "",
     text: "",
+    createdAt: undefined,
   };
   protected announcementForm = new FormGroup({
     title: new FormControl(),
@@ -147,6 +148,7 @@ export class ModPanelComponent {
       announcementId: "",
       title: "",
       text: "",
+      createdAt: undefined,
     };
   }
 

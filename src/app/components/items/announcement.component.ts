@@ -8,13 +8,15 @@ import { ClientService } from '../../api/client.service';
 import { BannerService } from '../../banners/banner.service';
 import { RefreshApiError } from '../../api/refresh-api-error';
 import { ConfirmationDialogComponent } from "../ui/confirmation-dialog.component";
+import { DateComponent } from "../ui/info/date.component";
 
 @Component({
     selector: 'app-announcement',
     imports: [
     FaIconComponent,
     ButtonComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    DateComponent
 ],
     template: `
     <div class="bg-yellow rounded px-5 py-2.5">
@@ -30,6 +32,15 @@ import { ConfirmationDialogComponent } from "../ui/confirmation-dialog.component
       </div>
       
       <p class="word-wrap-and-break">{{data.text}}</p>
+
+      @if (data.createdAt != null) {
+        <div class="flex flex-row justify-end">
+          <span class="italic">
+            posted
+            <app-date [date]="data.createdAt"></app-date>
+          </span>
+        </div>
+      }
     </div>
 
     @defer (when showDeletionDialog) { @if (showDeletionDialog) {
