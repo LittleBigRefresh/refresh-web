@@ -29,6 +29,11 @@ import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventPageComponent} from "../../components/items/event-page.component";
 import {repeat, Subscription} from "rxjs";
 import {ContestBannerComponent} from "../../components/items/contest-banner.component";
+import { ExtendedUser } from '../../api/types/users/extended-user';
+import { AuthenticationService } from '../../api/authentication.service';
+import { UserRoles } from '../../api/types/users/user-roles';
+import { Announcement } from '../../api/types/announcement';
+import { RefreshApiError } from '../../api/refresh-api-error';
 
 @Component({
     selector: 'app-landing',
@@ -52,33 +57,58 @@ export class LandingComponent implements OnDestroy {
     protected instance: Instance | undefined;
     protected rooms: Room[] | undefined;
     protected activity: ActivityPage | undefined;
+    protected announcements: Announcement[] | undefined;
 
     private activitySubscription: Subscription | undefined;
     private roomsSubscription: Subscription | undefined;
 
-    constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef) {
-      client.getInstance().subscribe(data => this.instance = data);
+    protected ownUser: ExtendedUser | null | undefined;
+    protected showAnnouncementDeleteButton: boolean = false;
 
-      if(isPlatformBrowser(platformId)) {
-          inject(NgZone).runOutsideAngular(() => {
-              this.activitySubscription = this.fetchActivity()
-                  .pipe(repeat({delay: 5000}))
-                  .subscribe(data => {
-                      this.activity = data;
-                      changeDetector.detectChanges();
-                  });
+    constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef, protected auth: AuthenticationService) {
+        client.getInstance().subscribe(data => this.instance = data);
 
-              this.roomsSubscription = this.fetchRooms()
-                  .pipe(repeat({delay: 15000}))
-                  .subscribe(data => {
-                      this.rooms = data.data;
-                      changeDetector.detectChanges();
-                  });
-          })
-      }
+        if(isPlatformBrowser(platformId)) {
+            inject(NgZone).runOutsideAngular(() => {
+                this.activitySubscription = this.fetchActivity()
+                    .pipe(repeat({delay: 5000}))
+                    .subscribe(data => {
+                        this.activity = data;
+                        changeDetector.detectChanges();
+                    });
 
-      this.fetchActivity().subscribe(data => this.activity = data);
-      this.fetchRooms().subscribe(data => this.rooms = data.data);
+                this.roomsSubscription = this.fetchRooms()
+                    .pipe(repeat({delay: 15000}))
+                    .subscribe(data => {
+                        this.rooms = data.data;
+                        changeDetector.detectChanges();
+                    });
+            })
+        }
+
+        this.fetchActivity().subscribe(data => this.activity = data);
+        this.fetchRooms().subscribe(data => this.rooms = data.data);
+
+        this.auth.user.subscribe(user => {
+            if (user) {
+                this.ownUser = user;
+
+                if (user.role >= UserRoles.Moderator) {
+                    this.showAnnouncementDeleteButton = true;
+                }
+            }
+        });
+
+        client.getAllAnnouncements().subscribe({
+            error: error => {
+                // don't log, just print to console, as this isn't that important
+                const apiError: RefreshApiError | undefined = error.error?.error;
+                console.warn("Failed to retrieve announcements: " + (apiError == null ? error.message : apiError.message));
+            },
+            next: response => {
+                this.announcements = response;
+            }
+        });
     }
 
     ngOnDestroy(): void {

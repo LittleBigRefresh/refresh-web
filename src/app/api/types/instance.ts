@@ -19,7 +19,6 @@ export interface Instance {
     blockedAssetFlags: AssetConfigFlags;
     blockedAssetFlagsForTrustedUsers: AssetConfigFlags;
 
-    announcements: Announcement[];
     maintenanceModeEnabled: boolean;
     grafanaDashboardUrl: string | null;
     

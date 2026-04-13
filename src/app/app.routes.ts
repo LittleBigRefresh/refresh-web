@@ -120,6 +120,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/instance-info/instance-info.component').then(x => x.InstanceInfoComponent),
         data: {title: "About Us"},
     },
+    {
+        path: 'moderation',
+        loadComponent: () => import('./pages/mod-panel/mod-panel.component').then(x => x.ModPanelComponent),
+        data: {title: "Moderation Panel"},
+    },
     ...appendDebugRoutes(),
     // KEEP THIS ROUTE LAST! It handles pages that do not exist.
     {

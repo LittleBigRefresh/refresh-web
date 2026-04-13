@@ -23,6 +23,7 @@ import { AdminUserUpdateRequest } from './types/users/admin-user-update-request'
 import { ExtendedUser } from './types/users/extended-user';
 import { PunishUserRequest } from './types/moderation/punish-user-request';
 import { PlanetInfo } from './types/users/planet-info';
+import { Announcement } from './types/announcement';
 
 export const defaultPageSize: number = 40;
 
@@ -262,5 +263,17 @@ export class ClientService extends ApiImplementation {
 
   deleteReviewsByUserByUuid(uuid: string) {
     return this.http.delete<Response>(`/admin/users/uuid/${uuid}/reviews`);
+  }
+
+  getAllAnnouncements() {
+    return this.http.get<Announcement[]>(`/announcements`);
+  }
+
+  postAnnouncement(announcement: Announcement) {
+    return this.http.post<Announcement>(`/admin/announcements`, announcement);
+  }
+
+  deleteAnnouncementByUuid(uuid: string) {
+    return this.http.delete<Response>(`/admin/announcements/${uuid}`);
   }
 }

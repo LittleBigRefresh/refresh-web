@@ -13,9 +13,9 @@
   <p>{{this.instance?.instanceDescription ?? 'Loading...'}}</p>
 </div>
 
-@if (instance && instance.announcements.length > 0) {
+@if (announcements && announcements.length > 0) {
   <div class="my-5 flex flex-col gap-y-2.5">
-    @for (a of instance.announcements; track a.announcementId) {
+    @for (a of announcements; track a.announcementId) {
       <app-announcement [data]="a"></app-announcement>
     }
   </div>

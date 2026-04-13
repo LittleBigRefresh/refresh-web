@@ -1,0 +1,125 @@
+@if (ownUser) {
+  <app-page-title></app-page-title>
+  <p>Hi, {{ ownUser.username }}! This is where you manage and view information about {{instance?.instanceName ?? 'this Refresh server'}}.</p>
+  <br>
+
+  <app-two-pane-layout>
+    <app-container class="w-full">
+      <app-pane-title>
+        <a routerLink='/instance'>
+          Instance
+        </a>
+      </app-pane-title>
+      <app-divider></app-divider>
+      <div>
+        @if(instance != null) {
+          <p>Software: <span class="italic">{{instance.softwareName}} ({{instance.softwareType}})</span></p>
+          <p>Version: <span class="word-wrap-and-break italic">v{{instance.softwareVersion}}</span></p>
+          <br>
+          <p>Blocked assets for regular users: <span class="italic">{{ blockedAssetFlags }}</span></p>
+          <p>Blocked assets for trusted users: <span class="italic">{{ blockedAssetFlagsForTrustedUsers }}</span></p>
+        }
+        @else if (instanceDownloadFailed) {
+          <p>Failed to download instance metadata.</p>
+        }
+        @else {
+          <p>Downloading instance metadata...</p>
+        }
+      </div>
+    </app-container>
+    <app-container class="w-full">
+      <app-pane-title>
+        <a routerLink='/instance'>
+          Statistics
+        </a>
+      </app-pane-title>
+      <app-divider></app-divider>
+      <div>
+        @if(statistics != null) {
+          <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/users">Registered users: {{statistics.totalUsers}}</a></p>
+          <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/levels">Published levels: {{statistics.totalLevels}}</a></p>
+          <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/photos">Uploaded photos: {{statistics.totalPhotos}}</a></p>
+          <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/activity">Events occurred: {{statistics.totalEvents}}</a></p>
+          <br>
+          <p>Active users: {{statistics.activeUsers}}</p>
+          <p>People online now: {{statistics.currentIngamePlayersCount}}</p>
+          <p><a class="text-link hover:text-link-hover hover:underline" routerLink="/rooms">Active rooms: {{statistics.currentRoomCount}}</a></p>
+        }
+        @else if (statisticsDownloadFailed) {
+          <p>Failed to download instance statistics.</p>
+        }
+        @else {
+          <p>Downloading instance statistics...</p>
+        }
+      </div>
+    </app-container>
+  </app-two-pane-layout>
+
+  <app-divider></app-divider>
+
+  <p class="text-3xl font-bold pb-2">Announcements</p>
+
+  <div class="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-x-6">
+    <div class="w-full pb-4">
+      <p class="text-xl font-bold py-2.5">Create</p>
+      <form class="flex flex-col gap-y-2.5">
+        <app-textbox label="Title" placeholder="Hey Everyone!" [icon]="faBullhorn" [form]="announcementForm" ctrlName="title" (change)="checkAnnouncementTitleChanges()"></app-textbox>
+        <app-textarea label="Text" placeholder="We will now... yeah, make sure you..." [icon]="faPencil" [form]="announcementForm" ctrlName="text" (change)="checkAnnouncementTextChanges()"></app-textarea>
+
+        <div class="flex flex-row flex-wrap gap-x-2 justify-between pt-4">
+          <app-button color="bg-red" [icon]="faTrash" text="Discard" (click)="resetAnnouncementInputs()"></app-button>
+          <app-button color="bg-primary" [icon]="faPaperPlane" text="Publish" (click)="toggleAnnouncementPostDialog(true)" [enabled]="isAnnouncementComplete"></app-button>
+        </div>
+      </form>
+    </div>
+
+    <div class="flex flex-col gap-y-1.5 w-full">
+      <p class="text-xl font-bold pb-2.5">Preview</p>
+      <app-announcement [data]="previewAnnouncement"></app-announcement>
+      <app-divider></app-divider>
+      <p class="text-xl font-bold">Live Announcements</p>
+      @if (announcements == null) {
+        @if (announcementsDownloadFailed) {
+          <p>Failed to download announcements.</p>
+        }
+        @else {
+          <p>Loading instance data...</p>
+        }
+      }
+      @else if (announcements.length <= 0) {
+        @if (announcementsDownloadFailed) {
+          <p>There might be current announcements, reload the page to download them.</p>
+        }
+        @else {
+          <p>There are no current announcements.</p>
+        }
+      }
+      @else {
+        <div class="my-5 flex flex-col gap-y-2.5">
+          @for (announcement of announcements; track announcement.announcementId) {
+            <app-announcement [data]="announcement" [showDeleteButton]="true" (deleted)="removeAnnouncement(announcement.announcementId)"></app-announcement>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (this.grafanaSafeUrl != null) {
+    <div>
+      <app-divider></app-divider>
+      <iframe [src]="grafanaSafeUrl" class="min-w-full h-[768px]"></iframe>
+    </div>
+  }
+
+  <!-- should always be last section -->
+  <app-divider></app-divider>
+  <p class="text-xl font-bold pb-2.5">Other Actions</p>
+  <p>To manage users, levels, and other data, you can access administrative actions on their respective pages, usually on the page headers.</p>
+
+  @defer (when showAnnouncementPostDialog) { @if (showAnnouncementPostDialog) {
+    <app-confirmation-dialog infoText="Do you really want to post this announcement?" (closeDialog)="toggleAnnouncementPostDialog(false)">
+      <app-button text="Cancel" [icon]="faSignOutAlt" color="bg-secondary" (click)="toggleAnnouncementPostDialog(false)"></app-button>
+      <app-button text="Post!" [icon]="faPaperPlane" color="bg-primary" (click)="postAnnouncement()"></app-button>
+    </app-confirmation-dialog>
+  }}
+}

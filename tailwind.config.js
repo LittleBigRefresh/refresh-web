@@ -26,7 +26,7 @@ const defaultColors = {
   "dark-green": "#4a9e27ff",
   "light-blue": "#2d92e5ff",
   "blue": "#2D43E5",
-  "yellow": "#F2AA00",
+  "yellow": "#DB9901",
   "orange": "#f8640eff",
   "dark-pink": "#f145a4ff",
   "pink": "#ff68f4",
