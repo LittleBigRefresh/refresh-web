@@ -21,6 +21,7 @@ import { BannerService } from '../../banners/banner.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { RefreshApiError } from '../../api/refresh-api-error';
+import { CachedListWithData } from '../../api/cached-list-with-data';
 
 @Component({
     selector: 'app-level-user-listing',
@@ -40,11 +41,12 @@ import { RefreshApiError } from '../../api/refresh-api-error';
 })
 export class LevelUserListingComponent implements Scrollable {
   user: User | undefined;
-  levelsPublishedByUser: ListWithData<Level> | undefined;
-  levelsHeartedByUser: ListWithData<Level> | undefined;
-  currentLevels: ListWithData<Level> = {
+  levelsPublishedByUser: CachedListWithData<Level> | undefined;
+  levelsHeartedByUser: CachedListWithData<Level> | undefined;
+  currentLevels: CachedListWithData<Level> = {
     data: [],
     listInfo: defaultListInfo,
+    totalLoads: 0,
   };
 
   showLevelDropdown: boolean = false;
@@ -118,7 +120,7 @@ export class LevelUserListingComponent implements Scrollable {
         break;
     }
 
-    let cachedList: ListWithData<Level> | undefined;
+    let cachedList: CachedListWithData<Level> | undefined;
     switch (selection) {
       case 0:
         this.levelSelectionString = "byUser";
@@ -146,7 +148,9 @@ export class LevelUserListingComponent implements Scrollable {
     this.currentLevels = {
       data: [],
       listInfo: defaultListInfo,
+      totalLoads: 0,
     };
+    this.currentLevels.totalLoads++;
     this.loadData();
   }
 
@@ -163,12 +167,15 @@ export class LevelUserListingComponent implements Scrollable {
         this.banner.warn("Failed to get levels", apiError == null ? error.message : apiError.message);
       },
       next: list => {
-        this.isLoading = false;
-
         this.currentLevels.data = this.currentLevels.data.concat(list.data);
         this.currentLevels.listInfo = list.listInfo;
+        this.isLoading = false;
       }
     });
+  }
+
+  incrementLoads() {
+    this.currentLevels.totalLoads++;
   }
 
   protected readonly faChevronDown = faChevronDown;

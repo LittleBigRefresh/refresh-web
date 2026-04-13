@@ -38,5 +38,5 @@
     <p>No levels yet...</p>
   }
 
-  <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" (loadData)="loadData()"></app-infinite-scroller>
+  <app-infinite-scroller [isLoading]="this.isLoading" [listInfo]="this.listInfo" [totalLoads]="currentLevels.totalLoads" (incrementLoads)="incrementLoads()" (loadData)="loadData()"></app-infinite-scroller>
 }

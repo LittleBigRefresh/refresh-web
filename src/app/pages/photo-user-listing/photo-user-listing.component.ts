@@ -21,6 +21,7 @@ import { Photo } from '../../api/types/photos/photo';
 import { PhotoComponent } from "../../components/items/photo.component";
 import { isPlatformBrowser } from '@angular/common';
 import { RefreshApiError } from '../../api/refresh-api-error';
+import { CachedListWithData } from '../../api/cached-list-with-data';
 
 @Component({
     selector: 'app-photo-user-listing',
@@ -40,11 +41,12 @@ import { RefreshApiError } from '../../api/refresh-api-error';
 })
 export class PhotoUserListingComponent implements Scrollable {
   user: User | undefined;
-  photosByUser: ListWithData<Photo> | undefined;
-  photosWithUser: ListWithData<Photo> | undefined;
-  currentPhotos: ListWithData<Photo> = {
+  photosByUser: CachedListWithData<Photo> | undefined;
+  photosWithUser: CachedListWithData<Photo> | undefined;
+  currentPhotos: CachedListWithData<Photo> = {
     data: [],
     listInfo: defaultListInfo,
+    totalLoads: 0,
   };
 
   showPhotoDropdown: boolean = false;
@@ -118,7 +120,7 @@ export class PhotoUserListingComponent implements Scrollable {
         break;
     }
 
-    let cachedList: ListWithData<Photo> | undefined;
+    let cachedList: CachedListWithData<Photo> | undefined;
     switch (selection) {
       case 0:
         this.photoSelectionString = "by";
@@ -146,7 +148,9 @@ export class PhotoUserListingComponent implements Scrollable {
     this.currentPhotos = {
       data: [],
       listInfo: defaultListInfo,
+      totalLoads: 0,
     };
+    this.currentPhotos.totalLoads++;
     this.loadData();
   }
 
@@ -169,6 +173,10 @@ export class PhotoUserListingComponent implements Scrollable {
         this.currentPhotos.listInfo = list.listInfo;
       }
     });
+  }
+
+  incrementLoads() {
+    this.currentPhotos.totalLoads++;
   }
 
   protected readonly faChevronDown = faChevronDown;
