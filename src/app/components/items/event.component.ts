@@ -14,6 +14,7 @@ import {DecimalPipe} from "@angular/common";
 import {PhotoComponent} from "./photo.component";
 import {Photo} from "../../api/types/photos/photo";
 import {UserPreviewComponent} from "./user-preview.component";
+import {GameVersion} from "../../api/types/game-version";
 
 @Component({
     selector: 'app-event',
@@ -117,9 +118,11 @@ import {UserPreviewComponent} from "./user-preview.component";
                 {{ score?.score | number }}
                 points
               </p>
-              <p>
-                in <b>{{ score?.scoreType }}p</b> mode
-              </p>
+              @if (score?.level?.gameVersion !== GameVersion.LBPPSP) {
+                <p>
+                  in <b>{{ score?.scoreType }}p</b> mode
+                </p>
+              }
             </div>
           }
           @case (EventDataType.rateLevelRelation) {
@@ -154,4 +157,5 @@ export class EventComponent implements OnInit {
   }
 
   protected readonly EventDataType = EventDataType;
+  protected readonly GameVersion = GameVersion;
 }
