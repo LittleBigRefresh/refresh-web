@@ -1,4 +1,4 @@
-FROM node:22-alpine3.20 AS build
+FROM node:26-alpine3.23 AS build
 
 RUN mkdir /refresh-web
 WORKDIR /refresh-web
@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 RUN npx ng build
 
-FROM node:22-alpine3.20 AS run
+FROM node:26-alpine3.23 AS run
 EXPOSE 4000/tcp
 
 COPY --from=build /refresh-web/dist .
