@@ -31,12 +31,12 @@
     "zone.js": "^0.16.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^22.2.1",
+    "@angular/build": "^22.2.2",
     "@angular/cli": "^22.2.1",
     "@angular/compiler-cli": "^22.2.1",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.4",
-    "postcss": "^8.5.29",
+    "postcss": "^8.5.3",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.0"
   }
