@@ -46,6 +46,11 @@ export class ApiRequestCreator {
             return of(undefined);
         }
 
+        if (data?.error === undefined && err.status == 429) {
+            this.bannerService.pushError("Rate Limited", "You have been rate-limited. Please try again later, and please try not to spam stuff again.")
+            return of(undefined);
+        }
+
         this.bannerService.pushError(`API Error: ${data?.error?.name} (${err.status})`, data?.error?.message ?? "Unknown error")
         return of(undefined);
     }
