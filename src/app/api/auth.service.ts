@@ -110,8 +110,8 @@ export class AuthService {
                 return;
             }
 
-            // TODO hacky, find better solution
-            if (err.statusCode === 429) err.message = "You have been rate-limited. Please try again later, and please stop spamming this button.";
+            // TODO hacky, find better solution. Should also reflect the time given in the response header, but Refresh currently only returns that on the first block...
+            if (err.statusCode === 429) err.message = "You have been rate-limited. Please try again in a few minutes, and please stop spamming this button.";
             this.bannerService.pushError('Failed to sign in', err.message ?? "No error was provided by the server. Check the console for more details.")
             console.error(err);
         }
@@ -154,8 +154,8 @@ export class AuthService {
                 return;
             }
 
-            // TODO hacky, find better solution
-            if (err.statusCode === 429) err.message = "You have been rate-limited. Please try again later, and please stop spamming this button.";
+            // TODO hacky, find better solution. Should also reflect the time given in the response header, but Refresh currently only returns that on the first block...
+            if (err.statusCode === 429) err.message = "You have been rate-limited. Please try again in an hour or less, and please stop spamming this button.";
             this.bannerService.pushError('Failed to register', err.message ?? "No error was provided by the server. Check the console for more details.")
             console.error(err);
         }
