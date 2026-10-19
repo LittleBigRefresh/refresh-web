@@ -2,7 +2,7 @@ import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import { AsyncPipe, isPlatformBrowser, NgClass, NgIf } from "@angular/common";
+import { AsyncPipe, isPlatformBrowser, NgClass } from "@angular/common";
 import {LevelAvatarComponent} from "../../components/ui/photos/level-avatar.component";
 import {GamePipe} from "../../pipes/game.pipe";
 import {LayoutService} from "../../services/layout.service";
@@ -38,7 +38,6 @@ import { DialogComponent } from "../../components/ui/dialog.component";
     PageTitleComponent,
     ButtonComponent,
     TextboxComponent,
-    NgIf,
     CheckboxComponent,
     FaIconComponent,
     RadioButtonComponent,
