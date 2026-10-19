@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {Photo} from "../../api/types/photos/photo";
 import {PhotoComponent} from "../../components/items/photo.component";
 
@@ -11,6 +11,7 @@ import {EmbedService} from "../../services/embed.service";
     imports: [
         PhotoComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './photo-page.component.html'
 })
 export class PhotoPageComponent {

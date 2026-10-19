@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Room} from "../../api/types/rooms/room";
 
 
@@ -15,6 +15,7 @@ import {PlatformPipe} from "../../pipes/platform.pipe";
     UserLinkComponent,
     PlatformPipe
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <b>
       {{'player' | plural: room.playerIds.length}}

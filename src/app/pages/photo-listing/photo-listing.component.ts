@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ClientService} from "../../api/client.service";
 import {Photo} from "../../api/types/photos/photo";
@@ -21,6 +21,7 @@ import {PhotoComponent} from "../../components/items/photo.component";
     PhotoComponent
 ],
     templateUrl: './photo-listing.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class PhotoListingComponent implements Scrollable {

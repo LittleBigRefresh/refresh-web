@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 
 import {DialogComponent} from "../components/ui/dialog.component";
@@ -33,6 +33,7 @@ import {debounceTime} from "rxjs";
     ButtonComponent,
     ContainerComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <a class="flex gap-x-2 text-[17px] font-normal cursor-pointer" title="Search" (click)="toggleModal()">
       <fa-icon [icon]=faSearch class="w-5 text-center"></fa-icon>

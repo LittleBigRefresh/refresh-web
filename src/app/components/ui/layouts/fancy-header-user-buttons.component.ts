@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild } from "@angular/core";
+import { Component, Input, TemplateRef, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { BannerService } from "../../../banners/banner.service";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
 import { ClientService } from "../../../api/client.service";
@@ -55,6 +55,7 @@ import { Router } from "@angular/router";
             </app-fancy-header-buttons>
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 

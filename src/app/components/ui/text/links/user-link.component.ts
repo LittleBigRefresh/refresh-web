@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {User} from "../../../../api/types/users/user";
 import {UserAvatarComponent} from "../../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "./user-router-link.component";
@@ -10,6 +10,7 @@ import {ClientService} from "../../../../api/client.service";
         UserAvatarComponent,
         UserRouterLinkComponent,
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         @if(user) {
             <app-user-router-link class="ml-1 inline text-nowrap" [user]=user>

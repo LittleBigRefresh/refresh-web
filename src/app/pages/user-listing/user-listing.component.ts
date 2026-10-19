@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserCategory} from "../../api/types/categories/user-category";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -23,6 +23,7 @@ import {EmbedService} from "../../services/embed.service";
     ContainerComponent,
     InfiniteScrollerComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './user-listing.component.html'
 })
 export class UserListingComponent implements OnInit, Scrollable {

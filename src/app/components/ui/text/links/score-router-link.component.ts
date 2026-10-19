@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Score} from "../../../../api/types/levels/score";
 import {RouterLink} from "@angular/router";
 
@@ -7,6 +7,7 @@ import {RouterLink} from "@angular/router";
     imports: [
         RouterLink
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <a [routerLink]="'/score/' + score.scoreId" class="hover:underline">
       <ng-content></ng-content>

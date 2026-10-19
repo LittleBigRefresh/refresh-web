@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 
 @Component({
@@ -7,6 +7,7 @@ import {PageTitleComponent} from "../../components/ui/text/page-title.component"
         PageTitleComponent
     ],
     templateUrl: './404.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class NotFoundComponent {

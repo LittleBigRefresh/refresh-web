@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from '@angular/core';
+import {Component, HostBinding, Input, ChangeDetectionStrategy} from '@angular/core';
 import {BannerInfo} from "./banner-info.interface";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
@@ -33,6 +33,7 @@ import {animate, animateChild, query, style, transition, trigger} from "@angular
             ]),
         ]),
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
 <!--    defer to give the async animation system a reasonable amount of time to pull down js-->
 @defer (on timer(50ms)) {

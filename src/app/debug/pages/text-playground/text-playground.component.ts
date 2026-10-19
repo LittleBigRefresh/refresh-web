@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../../components/ui/text/page-title.component";
 import {DividerComponent} from "../../../components/ui/divider.component";
 import {ContainerComponent} from "../../../components/ui/container.component";
@@ -18,6 +18,7 @@ import {SectionTitleComponent} from "../../../components/ui/text/section-title.c
         ContainerTitleComponent,
         SectionTitleComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './text-playground.component.html'
 })
 export class TextPlaygroundComponent {

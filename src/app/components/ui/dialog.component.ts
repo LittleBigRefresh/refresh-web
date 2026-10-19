@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
     selector: 'app-dialog',
@@ -8,6 +8,7 @@ import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild, EventEmitte
       <ng-content></ng-content>
     </dialog>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class DialogComponent implements OnInit, OnDestroy {

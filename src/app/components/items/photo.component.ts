@@ -1,4 +1,4 @@
-import {Component, Input, isDevMode, OnInit} from '@angular/core';
+import {Component, Input, isDevMode, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Photo} from "../../api/types/photos/photo";
 import { NgClass, NgOptimizedImage } from "@angular/common";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
@@ -28,6 +28,7 @@ import {RouterLink} from "@angular/router";
     RouterLink,
     NgClass
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if(header) {
       <div class="overflow-hidden whitespace-nowrap" [ngClass]="padding ? 'p-1.5' : 'pb-1.5'">

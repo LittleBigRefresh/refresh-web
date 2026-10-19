@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { AuthenticationService } from "../../../api/authentication.service";
 import { PageTitleComponent } from "../../../components/ui/text/page-title.component";
 import { ButtonComponent } from "../../../components/ui/form/button.component";
@@ -15,6 +15,7 @@ import { faCancel, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
         ButtonGroupComponent,
         DividerComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './logout.component.html'
 })
 

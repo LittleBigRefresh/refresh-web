@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 
 import {ActivityEvent} from "../../api/types/activity/activity-event";
 import {User} from "../../api/types/users/user";
@@ -27,6 +27,7 @@ import {GameVersion} from "../../api/types/game-version";
     PhotoComponent,
     UserPreviewComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <app-user-link [user]="submittingUser" class="font-bold"></app-user-link>
     @switch (event.eventType) {
@@ -115,7 +116,7 @@ import {GameVersion} from "../../api/types/game-version";
             <app-level-preview [level]="level!" class="grow"></app-level-preview>
             <div class="flex flex-col text-center self-center max-w-fit">
               <p class="font-bold text-xl">
-                {{ score?.score | number }}
+                {{ $safeNavigationMigration(score?.score) | number }}
                 points
               </p>
               @if (score?.level?.gameVersion !== GameVersion.LBPPSP) {

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
 import { TitleService } from "../../../services/title.service";
 import { AuthenticationService } from "../../../api/authentication.service";
@@ -43,6 +43,7 @@ import { RouterLinkComponent } from "../../../components/ui/text/links/router-li
     RouterLinkComponent
 ],
     templateUrl: './user-profile-settings.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 

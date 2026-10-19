@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ActivityPage} from "../../api/types/activity/activity-page";
 import {EventComponent} from "./event.component";
 
@@ -16,6 +16,7 @@ import {CompactEventComponent} from "./compact-event.component";
         ContainerComponent,
         CompactEventComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="flex flex-col gap-y-2.5">
       @for (event of page.events; track event.eventId) {

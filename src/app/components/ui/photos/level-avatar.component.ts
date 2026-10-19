@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
 import {Level} from "../../../api/types/levels/level";
 
@@ -7,6 +7,7 @@ import {Level} from "../../../api/types/levels/level";
     imports: [
         NgOptimizedImage
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if (this.level) {
       <img [ngSrc]=this.level.iconHash [width]=size [height]=size class="inline rounded-full h-auto aspect-square object-cover" alt=""

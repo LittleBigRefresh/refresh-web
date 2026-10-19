@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {TitleService} from "../../../services/title.service";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
@@ -9,6 +9,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     imports: [
         FaIconComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if(title) {
       <h1 class="font-bold text-3xl mb-1.5 sm:text-2xl sm:leading-none sm:mb-0">

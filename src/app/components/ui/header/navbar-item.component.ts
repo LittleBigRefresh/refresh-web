@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,7 @@ import { NgClass } from "@angular/common";
         FaIconComponent,
         NgClass
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <a [routerLink]=href class="flex gap-x-2 font-normal hover:underline" [ngClass]="labelClass" [title]="title">
       <fa-icon [icon]=icon! class="text-center" [ngClass]="iconClass"></fa-icon>

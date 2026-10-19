@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {User} from "../../../api/types/users/user";
 import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
 
@@ -9,6 +9,7 @@ import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
         NgClass,
         NgStyle
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if (this.user || this.iconHash) {
       <img [ngSrc]="this.iconHash ?? this.user!.iconHash" [width]=size [height]=size class="inline h-auto aspect-square object-cover" alt=""

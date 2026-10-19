@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { NgClass } from "@angular/common";
 
 @Component({
@@ -6,6 +6,7 @@ import { NgClass } from "@angular/common";
     imports: [
         NgClass
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="bg-container-background rounded shadow-md" [ngClass]="padding ? (tight ? 'px-3.5 py-1.5' : 'px-5 py-2.5') : ''">
       <ng-content></ng-content>

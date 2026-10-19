@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-divider',
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div [class]="'my-3 h-[3px] rounded-sm drop-shadow-md ' + color"></div>
   `

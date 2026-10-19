@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
@@ -73,6 +73,7 @@ import { RefreshApiError } from '../../api/refresh-api-error';
         SlugPipe,
         ScoreTypePipe
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './level.component.html'
 })
 export class LevelComponent {

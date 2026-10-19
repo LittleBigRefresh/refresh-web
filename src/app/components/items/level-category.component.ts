@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {LevelCategory} from "../../api/types/categories/level-category";
 import {ContainerComponent} from "../ui/container.component";
 import {RouterLink} from "@angular/router";
@@ -19,6 +19,7 @@ import {LevelPreviewComponent} from "./level-preview.component";
         DividerComponent,
         LevelPreviewComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <app-container>
       <app-container-title>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
 import { ClientService } from '../../api/client.service';
 import { Instance } from '../../api/types/instance';
@@ -25,6 +25,7 @@ import { RouterLink } from "@angular/router";
     StatisticComponent,
     RouterLink
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <footer class="mt-10 mb-5 mx-4">
       @if (instance != null) {

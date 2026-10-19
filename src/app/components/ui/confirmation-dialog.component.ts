@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import { DialogComponent } from "./dialog.component";
 import { PageTitleComponent } from "./text/page-title.component";
 
@@ -8,6 +8,7 @@ import { PageTitleComponent } from "./text/page-title.component";
     DialogComponent,
     PageTitleComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <app-dialog class="flex flex-row flex-grow" (onDialogClose)="close()">
         <div class="w-full h-full m-5 flex flex-col">

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import { NgClass } from "@angular/common";
@@ -9,6 +9,7 @@ import { NgClass } from "@angular/common";
         FaIconComponent,
         NgClass
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <button class="flex flex-row justify-center rounded hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
       [ngClass]="color + ' ' + width + ' px-' + xPadding + ' py-' + yPadding"  [type]=type [disabled]="!enabled">

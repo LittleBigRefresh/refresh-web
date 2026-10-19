@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
@@ -12,6 +12,7 @@ import { LayoutService } from '../../services/layout.service';
     FaIconComponent,
     TooltipComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <app-tooltip [text]="(short ? 'Team picked since ' : 'Since ') + this.formattedTime">
       <div class="flex flex-row gap-x-1 text-emphasized-primary">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../../components/ui/text/page-title.component";
 import {FormComponent} from "../../../components/ui/form/form.component";
 import {ButtonSubmitFormComponent} from "../../../components/ui/form/button-submit-form.component";
@@ -15,6 +15,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
         TextboxComponent,
         ReactiveFormsModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './form-debug.component.html'
 })
 export class FormDebugComponent {

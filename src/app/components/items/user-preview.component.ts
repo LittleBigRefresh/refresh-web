@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {User} from "../../api/types/users/user";
 import {UserRouterLinkComponent} from "../ui/text/links/user-router-link.component";
 
@@ -17,6 +17,7 @@ import { UserRoleComponent } from "../ui/info/user-role.component";
     UserStatusComponent,
     UserRoleComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="flex gap-x-2.5 leading-none justify-center">
       <app-user-router-link [user]="user">

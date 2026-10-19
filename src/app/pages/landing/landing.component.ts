@@ -1,11 +1,12 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    inject,
-    Inject,
-    NgZone,
-    OnDestroy,
-    PLATFORM_ID
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Inject,
+  NgZone,
+  OnDestroy,
+  PLATFORM_ID,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {ContainerComponent} from "../../components/ui/container.component";
 
@@ -51,6 +52,7 @@ import { RefreshApiError } from '../../api/refresh-api-error';
     EventPageComponent,
     ContestBannerComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './landing.component.html'
 })
 export class LandingComponent implements OnDestroy {

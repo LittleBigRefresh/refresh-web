@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonGroupComponent} from "./button-group.component";
 import {DividerComponent} from "../divider.component";
@@ -12,6 +12,7 @@ import {DividerComponent} from "../divider.component";
         DividerComponent,
         ReactiveFormsModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <form (ngSubmit)="submitEvent.emit(null);" [formGroup]="form">
       <ng-content></ng-content>

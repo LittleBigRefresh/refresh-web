@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -9,6 +9,7 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
         FaIconComponent,
         ReactiveFormsModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div [formGroup]="form" class="min-w-full flex flex-row content-center justify-start rounded-md px-2 py-1 hover-within:outline-2 hover-within:outline hover-within:outline-secondary-bright max-w-fit transition-[outline]">
             <input type="checkbox" [id]=ctrlName [formControlName]="ctrlName" class="outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">

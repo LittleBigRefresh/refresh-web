@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ContainerHeaderComponent} from "../container-header.component";
 import {DarkContainerComponent} from "../dark-container.component";
 import {PageTitleComponent} from "../text/page-title.component";
@@ -12,6 +12,7 @@ import { NgTemplateOutlet } from "@angular/common";
         PageTitleComponent,
         NgTemplateOutlet
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <ng-template #descriptionTemplate>
       <app-dark-container>

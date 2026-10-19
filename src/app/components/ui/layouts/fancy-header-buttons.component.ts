@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, Input, TemplateRef, ViewChild, ViewContainerRef, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonComponent } from "../form/button.component";
 import {faEllipsisV, faXmark} from "@fortawesome/free-solid-svg-icons";
 import { DropdownMenuComponent } from "../form/dropdown-menu.component";
@@ -25,6 +25,7 @@ import { DropdownMenuComponent } from "../form/dropdown-menu.component";
             <div content #navItemsContainer></div>
         </app-dropdown-menu>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 

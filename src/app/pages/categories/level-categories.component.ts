@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {LevelCategory} from "../../api/types/categories/level-category";
@@ -14,6 +14,7 @@ import {LevelCategoryComponent} from "../../components/items/level-category.comp
         ResponsiveGridComponent,
         LevelCategoryComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './level-categories.component.html'
 })
 export class LevelCategoriesComponent {

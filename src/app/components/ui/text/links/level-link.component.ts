@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ClientService} from "../../../../api/client.service";
 import {Level} from "../../../../api/types/levels/level";
 import {LevelAvatarComponent} from "../../photos/level-avatar.component";
@@ -20,6 +20,7 @@ import {LevelRouterLinkComponent} from "./level-router-link.component";
       <span>...</span>
     }
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class LevelLinkComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, Injectable, Input} from '@angular/core';
+import {Component, Injectable, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import { NgClass } from "@angular/common";
 
@@ -8,6 +8,7 @@ import { NgClass } from "@angular/common";
     ReactiveFormsModule,
     NgClass
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="flex flex-row content-center space-x-1 group relative">
             <ng-content select="[trigger]"></ng-content>

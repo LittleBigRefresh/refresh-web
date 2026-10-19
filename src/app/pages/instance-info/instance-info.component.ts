@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ClientService} from "../../api/client.service";
 import { Instance } from '../../api/types/instance';
@@ -25,6 +25,7 @@ import { DividerComponent } from "../../components/ui/divider.component";
     PaneTitleComponent,
     DividerComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './instance-info.component.html'
 })
 export class InstanceInfoComponent {

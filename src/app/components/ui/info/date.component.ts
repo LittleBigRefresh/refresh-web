@@ -1,13 +1,14 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    inject,
-    Inject,
-    Input,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    PLATFORM_ID
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {TooltipComponent} from "../text/tooltip.component";
 import {isPlatformBrowser} from "@angular/common";
@@ -18,6 +19,7 @@ import { getFormattedDateTime, getShortDateTime } from '../../../helpers/date-ti
     imports: [
         TooltipComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <app-tooltip [text]="formattedDate">{{ moment }}</app-tooltip>
     `

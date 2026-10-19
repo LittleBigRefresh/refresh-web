@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import {TooltipComponent} from "../text/tooltip.component";
@@ -13,6 +13,7 @@ import { DecimalPipe, NgClass } from "@angular/common";
         DecimalPipe,
         NgClass
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <app-tooltip [text]="name" class="text-secondary-bright">
       <fa-icon [icon]="icon" class="mr-0.5" [ngClass]="emphasize ? 'text-emphasized-primary' : ''"></fa-icon>

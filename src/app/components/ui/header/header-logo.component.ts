@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
@@ -8,6 +8,7 @@ import {RouterLink} from "@angular/router";
         NgOptimizedImage,
         RouterLink
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <a routerLink="/" title="Home" class="py-1">
       <img ngSrc="/assets/logo.svg" alt="Refresh Logo" width="48" height="48" priority>

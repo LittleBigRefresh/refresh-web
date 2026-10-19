@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {DateComponent} from "../ui/info/date.component";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {ActivityEvent} from "../../api/types/activity/activity-event";
@@ -22,6 +22,7 @@ import {
         UserLinkComponent,
         FaIconComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <app-user-link [user]="submittingUser" class="font-bold"></app-user-link>
     <span class="ml-1">

@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -50,6 +50,7 @@ import { DialogComponent } from "../../components/ui/dialog.component";
     providers: [
         SlugPipe
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './level-edit.component.html'
 })
 export class LevelEditComponent {

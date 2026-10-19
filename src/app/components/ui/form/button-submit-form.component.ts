@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ButtonComponent} from "./button.component";
 import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import {FormGroup} from "@angular/forms";
@@ -11,6 +11,7 @@ import {FormGroup} from "@angular/forms";
     template: `
     <app-button [text]="action" [icon]="faCheckCircle" color="bg-primary" type="submit" [enabled]="form.status == 'VALID'"></app-button>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class ButtonSubmitFormComponent {

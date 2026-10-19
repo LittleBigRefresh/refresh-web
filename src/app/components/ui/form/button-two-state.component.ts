@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {ButtonComponent} from "./button.component";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
@@ -15,6 +15,7 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
             <app-button [text]="text" [icon]="icon" [color]="color" [enabled]="enabled"></app-button>
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class ButtonTwoStateComponent {
