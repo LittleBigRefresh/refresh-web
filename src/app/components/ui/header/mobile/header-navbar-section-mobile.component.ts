@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {NavCategory} from "../navtypes";
 
 
@@ -11,6 +11,7 @@ import {NavbarItemComponent} from "../navbar-item.component";
     FaIconComponent,
     NavbarItemComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="bg-backdrop rounded-md px-2.5 py-1 flex flex-row gap-x-1.5 text-lg">
       <fa-icon [icon]="category.icon"></fa-icon>

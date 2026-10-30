@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {faHeart, faPlay, faStar, faThumbsDown, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {StatisticComponent} from "../ui/info/statistic.component";
@@ -10,6 +10,7 @@ import { LevelTeamPickStatusComponent } from "./level-team-pick-status.component
     StatisticComponent,
     LevelTeamPickStatusComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="flex flex-wrap gap-x-1.5">
       <app-statistic [value]=level.yayRatings name="Yays" [icon]=faThumbsUp [emphasize]="(level.ownRelations?.levelRating ?? 0 ) > 0"></app-statistic>

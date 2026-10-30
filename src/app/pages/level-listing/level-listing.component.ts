@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {LevelCategory} from "../../api/types/categories/level-category";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -23,6 +23,7 @@ import {EmbedService} from "../../services/embed.service";
     ContainerComponent,
     InfiniteScrollerComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './level-listing.component.html'
 })
 export class LevelListingComponent implements OnInit, Scrollable {

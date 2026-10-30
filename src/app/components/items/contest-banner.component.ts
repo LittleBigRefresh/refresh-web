@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Contest} from "../../api/types/contests/contest";
 import {NgOptimizedImage} from "@angular/common";
 
@@ -7,6 +7,7 @@ import {NgOptimizedImage} from "@angular/common";
     imports: [
         NgOptimizedImage
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <img [ngSrc]="contest.bannerUrl" width="1920" height="450" class="w-full rounded-md" [alt]="contest.contestTitle" [title]="contest.contestTitle">
   `

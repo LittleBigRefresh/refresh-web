@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -10,6 +10,7 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
     FaIconComponent,
     ReactiveFormsModule,
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if (label.length > 0) {
       <label [for]=ctrlName class="text-sm">{{label}}</label>

@@ -1,8 +1,8 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import { AsyncPipe, isPlatformBrowser, NgClass, NgIf } from "@angular/common";
+import { AsyncPipe, isPlatformBrowser, NgClass } from "@angular/common";
 import {LayoutService} from "../../services/layout.service";
 import {AuthenticationService} from "../../api/authentication.service";
 import { ExtendedUser } from '../../api/types/users/extended-user';
@@ -43,6 +43,7 @@ import { ListWithData } from '../../api/list-with-data';
         SlugPipe,
         ScoreTypePipe
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './level-leaderboard.component.html'
 })
 export class LevelLeaderboardComponent {

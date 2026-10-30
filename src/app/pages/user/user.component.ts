@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {User} from "../../api/types/users/user";
 import {ClientService} from "../../api/client.service";
 import { ActivatedRoute, RouterLink } from "@angular/router";
@@ -59,6 +59,7 @@ import { UserRoleComponent } from "../../components/ui/info/user-role.component"
     UserRoleComponent,
 ],
     templateUrl: './user.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class UserComponent {

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-pane-title',
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <h2 class="text-2xl font-medium">
       <ng-content></ng-content>

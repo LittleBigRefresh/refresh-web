@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {NavCategory} from "./navtypes";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import { NgClass } from "@angular/common";
@@ -13,6 +13,7 @@ import {NavbarItemComponent} from "./navbar-item.component";
         NavbarItemComponent,
         NgClass
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="group relative">
       <a [routerLink]=category.defaultRoute class="flex items-center gap-x-2 text-xl hover:underline h-14"

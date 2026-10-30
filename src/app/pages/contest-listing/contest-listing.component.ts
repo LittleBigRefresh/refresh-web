@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {ClientService} from "../../api/client.service";
 import {Contest} from "../../api/types/contests/contest";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
@@ -22,6 +22,7 @@ import {DividerComponent} from "../../components/ui/divider.component";
         ContainerTitleComponent,
         DividerComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './contest-listing.component.html'
 })
 export class ContestListingComponent {

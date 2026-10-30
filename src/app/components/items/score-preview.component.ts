@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import { Score } from '../../api/types/levels/score';
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {DateComponent} from "../ui/info/date.component";
@@ -35,6 +35,7 @@ import { BannerService } from '../../banners/banner.service';
         GamePipe,
         PlatformPipe
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="my-5 px-2.5 flex items-center">
       <app-score-router-link [score]="score" class="text-2xl mr-2 min-w-8">

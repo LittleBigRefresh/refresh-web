@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {NavbarItemComponent} from "./navbar-item.component";
 import {Router} from "@angular/router";
 import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ import {navTree, rightNavTree} from './navtypes';
     HeaderMeComponent,
     HeaderLogoComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <header
       class="flex items-center bg-header-background gap-x-2.5 sm:gap-x-1 px-5 leading-none sticky top-0 left-0 w-full z-1000">

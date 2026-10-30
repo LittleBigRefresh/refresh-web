@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -6,6 +6,7 @@ import {FormGroup, ReactiveFormsModule} from "@angular/forms";
     imports: [
         ReactiveFormsModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div [formGroup]="form" class="cursor-pointer min-w-full flex flex-row content-center justify-start rounded-md px-2 py-1 hover-within:outline-2 hover-within:outline hover-within:outline-secondary-bright max-w-fit transition-[outline]">
             <input type="radio" [id]=id [formControlName]="ctrlName" [name]="ctrlName" [value]=value class="cursor-pointer outline-hidden bg-teritary placeholder:text-gentle placeholder:italic" [required]="required">

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {
   faCertificate,
   faComment,
@@ -14,6 +14,7 @@ import { UserRelations } from '../../api/types/users/user-relations';
     imports: [
         StatisticComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="flex gap-x-1.5">
       <app-statistic [value]=stats.favourites name="Hearts" [icon]=faHeart [emphasize]="(ownRelations?.isHearted ?? false )"></app-statistic>

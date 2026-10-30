@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { UserRoles } from '../../../api/types/users/user-roles';
 import { RolePipe } from '../../../pipes/role.pipe';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
@@ -16,6 +16,7 @@ import { TooltipComponent } from "../text/tooltip.component";
     providers: [
         RolePipe
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <!-- for some reason Angular doesn't escape the ' if it's prefixed by only one backslash here specifically-->
         <app-tooltip [text]="'This user\\\'s role is ' + (role | role)" >

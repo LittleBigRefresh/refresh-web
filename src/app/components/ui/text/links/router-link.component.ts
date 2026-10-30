@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -6,6 +6,7 @@ import {RouterLink} from "@angular/router";
     imports: [
         RouterLink
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <a class="text-link hover:text-link-hover underline transition-colors" [routerLink]="routerLink">
       <ng-content></ng-content>

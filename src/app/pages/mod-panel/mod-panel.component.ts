@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {ClientService} from "../../api/client.service";
 import { PageTitleComponent } from "../../components/ui/text/page-title.component";
 import { ExtendedUser } from '../../api/types/users/extended-user';
@@ -39,6 +39,7 @@ import { ConfirmationDialogComponent } from "../../components/ui/confirmation-di
     PaneTitleComponent,
     ConfirmationDialogComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './mod-panel.component.html'
 })
 export class ModPanelComponent {

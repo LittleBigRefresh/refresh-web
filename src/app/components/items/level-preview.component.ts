@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {UserLinkComponent} from "../ui/text/links/user-link.component";
 import {LevelAvatarComponent} from "../ui/photos/level-avatar.component";
@@ -67,6 +67,7 @@ import { TooltipComponent } from "../ui/text/tooltip.component";
       </div>
     </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class LevelPreviewComponent {

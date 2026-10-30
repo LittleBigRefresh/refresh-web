@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
@@ -37,6 +37,7 @@ import { CachedListWithData } from '../../api/cached-list-with-data';
     ButtonComponent,
     ContainerHeaderComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './level-user-listing.component.html'
 })
 export class LevelUserListingComponent implements Scrollable {

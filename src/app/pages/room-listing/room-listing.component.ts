@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, Inject, NgZone, OnDestroy, PLATFORM_ID} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, Inject, NgZone, OnDestroy, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {RoomComponent} from "../../components/items/room.component";
 
@@ -24,6 +24,7 @@ import {isPlatformBrowser} from "@angular/common";
         DarkContainerComponent,
         PluralPipe
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './room-listing.component.html'
 })
 export class RoomListingComponent implements OnDestroy {

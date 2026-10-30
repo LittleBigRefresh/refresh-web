@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { NavbarItemComponent } from "../header/navbar-item.component";
 import { NavbarItemTwoStateComponent } from "../header/navbar-item-two-state.component";
@@ -65,6 +65,7 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
             }    
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 

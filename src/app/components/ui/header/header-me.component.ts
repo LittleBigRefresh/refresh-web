@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {UserAvatarComponent} from "../photos/user-avatar.component";
 import {AuthenticationService} from "../../../api/authentication.service";
 import {AsyncPipe} from "@angular/common";
@@ -35,6 +35,7 @@ import {HeaderMeMenuComponent} from "./header-me-menu.component";
       <app-navbar-item href="/login" [icon]=faSignInAlt></app-navbar-item>
     }
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 export class HeaderMeComponent {

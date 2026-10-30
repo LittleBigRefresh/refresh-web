@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../../components/ui/text/page-title.component";
 import {ButtonGroupComponent} from "../../../components/ui/form/button-group.component";
 import {ButtonComponent} from "../../../components/ui/form/button.component";
@@ -12,6 +12,7 @@ import {BannerService} from "../../../banners/banner.service";
         ButtonGroupComponent,
         ButtonComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './notifications.component.html'
 })
 export class NotificationsComponent {

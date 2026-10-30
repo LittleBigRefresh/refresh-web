@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Room} from "../../../api/types/rooms/room";
 import {LevelLinkComponent} from "../text/links/level-link.component";
 import {DateComponent} from "./date.component";
@@ -9,6 +9,7 @@ import {DateComponent} from "./date.component";
         LevelLinkComponent,
         DateComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if(activeRoom) {
       <div class="bg-green w-2 h-2 rounded-full inline-block align-middle mr-1"></div>

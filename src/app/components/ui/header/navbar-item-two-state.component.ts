@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import { NavbarItemComponent } from "./navbar-item.component";
@@ -8,6 +8,7 @@ import { NavbarItemComponent } from "./navbar-item.component";
     imports: [
         NavbarItemComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if (state) {
       <app-navbar-item [title]="titleAlt" [icon]="iconAlt" [labelClass]="labelClass" [iconClass]="iconClass"></app-navbar-item>

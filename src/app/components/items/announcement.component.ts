@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {Announcement} from "../../api/types/announcement";
 
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -18,6 +18,7 @@ import { DateComponent } from "../ui/info/date.component";
     ConfirmationDialogComponent,
     DateComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="bg-yellow rounded px-5 py-2.5">
       <div class="flex flex-row gap-x-2 justify-between">

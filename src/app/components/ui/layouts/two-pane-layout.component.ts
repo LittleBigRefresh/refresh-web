@@ -1,9 +1,10 @@
-import {Component, ContentChildren, ElementRef, QueryList, TemplateRef, ViewChildren} from '@angular/core';
+import {Component, ContentChildren, ElementRef, QueryList, TemplateRef, ViewChildren, ChangeDetectionStrategy} from '@angular/core';
 
 
 @Component({
     selector: 'app-two-pane-layout',
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-2.5">
       <ng-content></ng-content>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import { Scrollable } from '../../helpers/scrollable';
 import {defaultListInfo, RefreshApiListInfo} from '../../api/refresh-api-list-info';
@@ -21,6 +21,7 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
     ContainerTitleComponent,
     DatePipe
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './activity-listing.component.html'
 })
 export class ActivityListingComponent implements Scrollable {

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {User} from "../../../../api/types/users/user";
 
@@ -7,6 +7,7 @@ import {User} from "../../../../api/types/users/user";
     imports: [
         RouterLink
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <a routerLink="/user/{{user.username}}" class="hover:underline">
       <ng-content></ng-content>

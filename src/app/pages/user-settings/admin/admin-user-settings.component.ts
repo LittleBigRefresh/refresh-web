@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { faBan, faCamera, faCancel, faCheckCircle, faChevronDown, faChevronUp, faComment, faEarthAmerica, faFlag, 
     faFloppyDisk, faGavel, faListOl, faPencil, faSignOutAlt, faStar, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -57,6 +57,7 @@ import { UserAvatarComponent } from "../../../components/ui/photos/user-avatar.c
         RolePipe
     ],
     templateUrl: './admin-user-settings.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: ``
 })
 

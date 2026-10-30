@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {UserCategory} from "../../api/types/categories/user-category";
 import {ContainerComponent} from "../ui/container.component";
 import {RouterLink} from "@angular/router";
@@ -19,6 +19,7 @@ import {UserPreviewComponent} from "./user-preview.component";
         DividerComponent,
         UserPreviewComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <app-container>
             <app-container-title>

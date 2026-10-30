@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 import {UserAvatarComponent} from "../../photos/user-avatar.component";
 import {UserRouterLinkComponent} from "../links/user-router-link.component";
@@ -10,6 +10,7 @@ import {User} from "../../../../api/types/users/user";
         UserAvatarComponent,
         UserRouterLinkComponent,
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <div class="flex gap-x-1.5">
       <app-user-router-link [user]=user>

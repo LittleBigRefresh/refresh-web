@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from "./components/ui/header/header.component";
 import {TitleService} from "./services/title.service";
@@ -20,6 +20,7 @@ const fadeLength: string = "100ms";
     selector: 'app-root',
     imports: [RouterOutlet, HeaderComponent, PopupBannerContainerComponent, AsyncPipe, HeaderMobileComponent, FooterComponent],
     templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     animations: [
         trigger('routeAnimations', [
             transition('* => *', [

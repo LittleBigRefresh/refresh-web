@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import { Level } from '../../../../api/types/levels/level';
 
@@ -7,6 +7,7 @@ import { Level } from '../../../../api/types/levels/level';
     imports: [
         RouterLink
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <span class="italic">
         <a routerLink="/user/!{{level.originalPublisher ?? this.unknownName}}" class="hover:underline"

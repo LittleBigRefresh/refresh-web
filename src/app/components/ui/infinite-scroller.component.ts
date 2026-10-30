@@ -6,7 +6,8 @@ import {
   Inject,
   Input, isDevMode,
   Output,
-  PLATFORM_ID
+  PLATFORM_ID,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { isPlatformBrowser } from "@angular/common";
 import {defaultPageSize} from "../../api/client.service";
@@ -17,6 +18,7 @@ const debug: boolean = isDevMode() && false;
 @Component({
     selector: 'app-infinite-scroller',
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if (debug) {
       <div>

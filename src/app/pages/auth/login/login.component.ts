@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons';
 import {PageTitleComponent} from "../../../components/ui/text/page-title.component";
@@ -16,6 +16,7 @@ import {sha512Async} from "../../../helpers/crypto";
         TextboxComponent,
         ButtonSubmitFormComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
