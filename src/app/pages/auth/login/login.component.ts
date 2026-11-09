@@ -2,19 +2,19 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {faEnvelope, faKey} from '@fortawesome/free-solid-svg-icons';
 import {PageTitleComponent} from "../../../components/ui/text/page-title.component";
-import {FormComponent} from "../../../components/ui/form/form.component";
 import {TextboxComponent} from "../../../components/ui/form/textbox.component";
-import {ButtonSubmitFormComponent} from "../../../components/ui/form/button-submit-form.component";
 import {AuthenticationService} from "../../../api/authentication.service";
 import {sha512Async} from "../../../helpers/crypto";
+import { DividerComponent } from '../../../components/ui/divider.component';
+import { ButtonComponent } from '../../../components/ui/form/button.component';
 
 @Component({
     selector: 'app-login',
     imports: [
         PageTitleComponent,
-        FormComponent,
         TextboxComponent,
-        ButtonSubmitFormComponent
+        DividerComponent,
+        ButtonComponent
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './login.component.html'
