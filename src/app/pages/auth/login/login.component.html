@@ -1,10 +1,10 @@
 <app-page-title></app-page-title>
 
-<app-form [form]="form" (submitEvent)="submit()">
+<div>
     <app-textbox [icon]="faEnvelope" [form]="form" placeholder="sackboy@lbp.me" ctrlName="emailAddress" label="Email Address" type="email"></app-textbox>
     <app-textbox [icon]="faKey" [form]="form" placeholder="•••••••••" ctrlName="password" label="Password" type="password"></app-textbox>
 
-    <ng-container buttons>
-        <app-button-submit-form [form]="form" action="Log In"></app-button-submit-form>
-    </ng-container>
-</app-form>
+    <app-divider />
+
+    <app-button text="Log In" color="bg-primary" (click)="submit()" />
+</div>

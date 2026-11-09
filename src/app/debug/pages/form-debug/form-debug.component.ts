@@ -1,19 +1,19 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {PageTitleComponent} from "../../../components/ui/text/page-title.component";
-import {FormComponent} from "../../../components/ui/form/form.component";
-import {ButtonSubmitFormComponent} from "../../../components/ui/form/button-submit-form.component";
 import {TextboxComponent} from "../../../components/ui/form/textbox.component";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import { ButtonComponent } from '../../../components/ui/form/button.component';
+import { DividerComponent } from '../../../components/ui/divider.component';
 
 @Component({
     selector: 'app-form-debug',
     imports: [
         PageTitleComponent,
-        FormComponent,
-        ButtonSubmitFormComponent,
         TextboxComponent,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ButtonComponent,
+        DividerComponent
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: './form-debug.component.html'
