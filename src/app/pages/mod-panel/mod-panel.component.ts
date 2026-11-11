@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {ClientService} from "../../api/client.service";
 import { PageTitleComponent } from "../../components/ui/text/page-title.component";
 import { ExtendedUser } from '../../api/types/users/extended-user';
@@ -70,10 +70,13 @@ export class ModPanelComponent {
 
   protected grafanaSafeUrl: SafeUrl | undefined;
 
-  constructor(private auth: AuthenticationService, private client: ClientService, protected banner: BannerService, private sanitizer: DomSanitizer) {
+  constructor(private auth: AuthenticationService, private client: ClientService, protected banner: BannerService, private sanitizer: DomSanitizer,
+    protected cd: ChangeDetectorRef
+  ) {
     this.auth.user.subscribe(user => {
       if (user) {
         if (user.role < UserRoles.Moderator) {
+          // TODO show on page
           this.banner.error("You are not a moderator", "Get out!");
         }
         else {
@@ -83,6 +86,7 @@ export class ModPanelComponent {
             error: error => {
               this.instanceDownloadFailed = true;
               const apiError: RefreshApiError | undefined = error.error?.error;
+              // TODO show on page instead of banner
               this.banner.error("Failed to retrieve instance data", apiError == null ? error.message : apiError.message);
             },
             next: response => {
@@ -95,6 +99,8 @@ export class ModPanelComponent {
               if (originalUrl != null && originalUrl.length > 0) {
                 this.grafanaSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(originalUrl);
               }
+
+              this.cd.detectChanges();
             }
           });
       
@@ -102,10 +108,12 @@ export class ModPanelComponent {
             error: error => {
               this.statisticsDownloadFailed = true;
               const apiError: RefreshApiError | undefined = error.error?.error;
+              // TODO show on page instead of banner
               this.banner.error("Failed to retrieve instance statistics", apiError == null ? error.message : apiError.message);
             },
             next: response => {
               this.statistics = response;
+              this.cd.detectChanges();
             }
           });
 
@@ -113,10 +121,12 @@ export class ModPanelComponent {
             error: error => {
               this.announcementsDownloadFailed = true;
               const apiError: RefreshApiError | undefined = error.error?.error;
+              // TODO show on page instead of banner
               this.banner.error("Failed to retrieve announcements", apiError == null ? error.message : apiError.message);
             },
             next: response => {
               this.announcements = response;
+              this.cd.detectChanges();
             }
           });
         }
@@ -173,6 +183,7 @@ export class ModPanelComponent {
 
         if (!this.announcements) this.announcements = newList
         else this.announcements = newList.concat(this.announcements);
+        this.cd.detectChanges();
       }
     });
   }
@@ -186,6 +197,7 @@ export class ModPanelComponent {
     }
 
     this.announcements = newList;
+    this.cd.detectChanges();
   }
 
   protected readonly faBullhorn = faBullhorn;
