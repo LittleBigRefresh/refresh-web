@@ -28,7 +28,7 @@ import { DateComponent } from "../ui/info/date.component";
         </div>
 
         @if (showDeleteButton) {
-          <app-button color="bg-red text-[15px]" yPadding="" [icon]="faTrash" color="bg-red" (click)="toggleDeletionDialog(true)"></app-button>
+          <app-button color="bg-red text-[15px]" additionalButtonClasses="py-[1px]" [icon]="faTrash" color="bg-red" (click)="toggleDeletionDialog(true)"></app-button>
         }
       </div>
       
