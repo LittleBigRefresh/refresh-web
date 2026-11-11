@@ -45,7 +45,7 @@ import { BannerService } from '../../banners/banner.service';
         <div class="flex flex-row justify-between gap-x-2">
           <app-score-router-link class="text-lg" [score]="score">{{ score.score | number }} points</app-score-router-link>
           @if (showDeleteButton) {
-            <app-button color="bg-red text-[15px]" yPadding="" [enabled]="enableDeleteButton" [icon]="faTrash" color="bg-red" (click)="toggleDeleteDialog(true)"></app-button>
+            <app-button color="bg-red text-[15px]" additionalButtonClasses="py-[0.5px]" [enabled]="enableDeleteButton" [icon]="faTrash" color="bg-red" (click)="toggleDeleteDialog(true)"></app-button>
           }
         </div>
         

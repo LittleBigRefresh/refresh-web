@@ -11,8 +11,8 @@ import { NgClass } from "@angular/common";
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
-    <button class="flex flex-row justify-center rounded hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale" 
-      [ngClass]="color + ' ' + width + ' px-' + xPadding + ' py-' + yPadding"  [type]=type [disabled]="!enabled">
+    <button class="flex flex-row justify-center rounded w-full hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale px-4 p-1.5" 
+      [ngClass]="color + ' ' + additionalButtonClasses" [type]=type [disabled]="!enabled">
       @if (icon) {
         <fa-icon class="right-1" [icon]="icon" [ngClass]="text && text.length > 0 ? 'mr-2' : ''"></fa-icon>
       }
@@ -31,10 +31,7 @@ export class ButtonComponent {
   @Input() type: "submit" | "reset" | "button" = "button";
 
   @Input() enabled: boolean = true;
-  @Input() width: string = "";
-
-  @Input() xPadding: string = "4";
-  @Input() yPadding: string = "1.5";
+  @Input() additionalButtonClasses: string = "";
 
   // actions
   @Input() routerLink: any[] | string | null | undefined

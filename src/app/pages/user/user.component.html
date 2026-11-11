@@ -33,7 +33,8 @@
                 </app-pane-title>
                 <app-dropdown-menu [showMenu]="showLevelDropdown" offsets="top-9 -left-7" [width]="60">
                     <app-button trigger
-                        width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                        class="w-48"
+                        additionalButtonClasses="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
                         [text]="getLevelSelectionText(levelForm.controls.selection.getRawValue()!)"
                         [icon]="showLevelDropdown ? faChevronUp : faChevronDown"
                         color="bg-secondary"
@@ -72,7 +73,8 @@
                 </app-pane-title>
                 <app-dropdown-menu [showMenu]="showPhotoDropdown" offsets="top-9 -left-2" [width]="56">
                     <app-button trigger
-                        width="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                        class="w-48"
+                        additionalButtonClasses="flex flex-shrink justify-evenly flex-grow text-nowrap"
                         [text]="getPhotoSelectionText(photoForm.controls.selection.getRawValue()!)"
                         [icon]="showPhotoDropdown ? faChevronUp : faChevronDown"
                         color="bg-secondary"
