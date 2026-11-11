@@ -73,7 +73,7 @@
                     <p class="text-2xl content-center">Role:</p>
                     <app-dropdown-menu [showMenu]="showRoleMenu" offsets="top-9 " [width]="32">
                         <app-button trigger
-                            width="flex flex-shrink justify-evenly flex-grow text-nowrap"
+                            additionalButtonClasses="flex flex-shrink justify-evenly flex-grow text-nowrap"
                             [text]="metadataForm.controls.role.getRawValue()! | role"
                             [icon]="showRoleMenu ? faChevronUp : faChevronDown"
                             color="bg-primary"
@@ -157,7 +157,7 @@
                         }
 
                         <div class="pt-4">
-                            <app-button text="Reset!" [icon]="faEarthAmerica" color="bg-red" (click)="togglePlanetResetDialog(true)" width="w-full"></app-button>
+                            <app-button text="Reset!" [icon]="faEarthAmerica" color="bg-red" (click)="togglePlanetResetDialog(true)" additionalButtonClasses="w-full"></app-button>
                         </div>
                     </div>
                 </app-container>
