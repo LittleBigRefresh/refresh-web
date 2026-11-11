@@ -70,7 +70,8 @@
             </app-pane-title>
             <app-dropdown-menu [showMenu]="showScoreFilterMenu" offsets="top-9 -left-5" [width]="56">
               <app-button trigger
-                additionalButtonClasses="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+                class="w-48"
+                additionalButtonClasses="flex flex-shrink justify-evenly flex-grow text-nowrap"
                 [text]="scoreFilterForm.controls.scoreType.getRawValue()! | scoreType"
                 [icon]="showScoreFilterMenu ? faChevronUp : faChevronDown"
                 color="bg-secondary"

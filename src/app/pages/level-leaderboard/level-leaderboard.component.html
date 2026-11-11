@@ -10,7 +10,8 @@
         <p class="text-2xl">Player mode:</p>
         <app-dropdown-menu [showMenu]="showFilterMenu" offsets="top-9 -left-5" [width]="64">
           <app-button trigger
-            additionalButtonClasses="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+            class="w-48"
+            additionalButtonClasses="flex flex-shrink justify-evenly flex-grow text-nowrap"
             [text]="filterForm.controls.scoreType.getRawValue()! | scoreType"
             [icon]="showFilterMenu ? faChevronUp : faChevronDown"
             color="bg-secondary"

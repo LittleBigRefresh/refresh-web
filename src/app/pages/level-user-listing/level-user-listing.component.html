@@ -5,7 +5,8 @@
         <app-page-title title="Levels "></app-page-title>
         <app-dropdown-menu [showMenu]="showLevelDropdown" offsets="top-9 -left-5" [width]="56">
           <app-button trigger
-              additionalButtonClasses="flex flex-shrink justify-evenly flex-grow w-42 text-nowrap"
+              class="w-42"
+              additionalButtonClasses="flex flex-shrink justify-evenly flex-grow text-nowrap"
               [text]="getLevelSelectionText(filterForm.controls.selection.getRawValue()!)"
               [icon]="showLevelDropdown ? faChevronUp : faChevronDown"
               color="bg-secondary"

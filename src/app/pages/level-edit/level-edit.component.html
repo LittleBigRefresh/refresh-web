@@ -51,7 +51,7 @@
         <p class="w-42 text-2xl content-center">Game version:</p>
         <app-dropdown-menu [showMenu]="showGameMenu" offsets="top-9 -left-5" [width]="64">
           <app-button trigger
-            additionalButtonClasses="flex flex-shrink justify-evenly flex-grow w-48 text-nowrap"
+            additionalButtonClasses="flex flex-shrink justify-evenly flex-grow text-nowrap"
             [text]="curatorForm.controls.gameVersion.getRawValue()! | game"
             [icon]="showGameMenu ? faChevronUp : faChevronDown"
             [color]="gameButtonColor"

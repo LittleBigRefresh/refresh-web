@@ -11,7 +11,7 @@ import { NgClass } from "@angular/common";
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
-    <button class="flex flex-row justify-center rounded hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale px-4 p-1.5" 
+    <button class="flex flex-row justify-center rounded w-full hover:brightness-110 active:brightness-95 transition-[filter] disabled:grayscale px-4 p-1.5" 
       [ngClass]="color + ' ' + additionalButtonClasses"  [type]=type [disabled]="!enabled">
       @if (icon) {
         <fa-icon class="right-1" [icon]="icon" [ngClass]="text && text.length > 0 ? 'mr-2' : ''"></fa-icon>
