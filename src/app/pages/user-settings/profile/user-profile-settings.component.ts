@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { ExtendedUser } from "../../../api/types/users/extended-user";
 import { TitleService } from "../../../services/title.service";
 import { AuthenticationService } from "../../../api/authentication.service";
@@ -75,7 +75,7 @@ export class UserProfileSettingsComponent {
     protected isMobile: boolean = false;
 
     constructor(private client: ClientService, private auth: AuthenticationService, protected layout: LayoutService, 
-        private bannerService: BannerService) 
+        private bannerService: BannerService, protected cd: ChangeDetectorRef) 
     {
         this.auth.user.subscribe(user => {
             if (user) {
@@ -156,6 +156,8 @@ export class UserProfileSettingsComponent {
 
         this.settingsForm.controls.levelVisibility.setValue(user.levelVisibility);
         this.settingsForm.controls.profileVisibility.setValue(user.profileVisibility);
+
+        this.cd.detectChanges();
     }
 
     uploadChanges() {

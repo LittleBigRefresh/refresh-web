@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -94,7 +94,7 @@ export class LevelEditComponent {
   isUserPublisher: boolean = false;
 
   constructor(private client: ClientService, protected banner: BannerService, route: ActivatedRoute, 
-              protected layout: LayoutService, private auth: AuthenticationService,
+              protected layout: LayoutService, private auth: AuthenticationService, protected cd: ChangeDetectorRef,
               @Inject(PLATFORM_ID) platformId: Object, private router: Router, private slug: SlugPipe)
   {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -105,6 +105,7 @@ export class LevelEditComponent {
         if(!this.level && data) {
           this.level = data;
           this.updateInputs(data);
+          this.cd.detectChanges();
 
           if(this.isBrowser) {
             window.history.replaceState({}, '', `/level/${data.levelId}/${this.slug.transform(data.title)}/edit`);
@@ -116,6 +117,7 @@ export class LevelEditComponent {
               this.isUserPublisher = data.publisher != null && user.userId == data.publisher?.userId;
               this.isUserCurator = user.role >= UserRoles.Curator;
               this.isUserModerator = user.role >= UserRoles.Moderator;
+              this.cd.detectChanges();
             }
           });
         }
@@ -210,6 +212,8 @@ export class LevelEditComponent {
     this.hasReuploadChanged = false;
     this.hasOriginalPublisherChanged = false;
     this.hasGameChanged = false;
+
+    this.cd.detectChanges();
   }
 
   async gameButtonClick() {
@@ -235,6 +239,7 @@ export class LevelEditComponent {
           this.hasTeamPickedChanged = false;
           this.level!.teamPicked = true;
           this.level!.dateTeamPicked = new Date();
+          this.cd.detectChanges();
           this.banner.success("Level team picked!", "The level was successfully team picked.");
         }
       });
@@ -248,6 +253,7 @@ export class LevelEditComponent {
         next: response => {
           this.hasTeamPickedChanged = false;
           this.level!.teamPicked = false;
+          this.cd.detectChanges();
           this.banner.success("Team pick removed!", "The level is no longer team picked.");
         }
       });
@@ -311,6 +317,7 @@ export class LevelEditComponent {
 
         // Update level data
         this.level = response;
+        this.cd.detectChanges();
       }
     });
   }

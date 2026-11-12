@@ -67,7 +67,7 @@ export class LandingComponent implements OnDestroy {
     protected ownUser: ExtendedUser | null | undefined;
     protected showAnnouncementDeleteButton: boolean = false;
 
-    constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, changeDetector: ChangeDetectorRef, protected auth: AuthenticationService) {
+    constructor(private client: ClientService, @Inject(PLATFORM_ID) platformId: Object, protected changeDetector: ChangeDetectorRef, protected auth: AuthenticationService) {
         client.getInstance().subscribe(data => this.instance = data);
 
         if(isPlatformBrowser(platformId)) {
@@ -109,6 +109,7 @@ export class LandingComponent implements OnDestroy {
             },
             next: response => {
                 this.announcements = response;
+                this.changeDetector.detectChanges();
             }
         });
     }

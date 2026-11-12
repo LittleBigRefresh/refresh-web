@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
@@ -67,7 +67,7 @@ export class LevelLeaderboardComponent {
   showFilterMenu: boolean = false;
 
   constructor(private client: ClientService, protected banner: BannerService, route: ActivatedRoute, 
-              protected layout: LayoutService, private auth: AuthenticationService,
+              protected layout: LayoutService, private auth: AuthenticationService, protected cd: ChangeDetectorRef,
               @Inject(PLATFORM_ID) platformId: Object, private router: Router, private slug: SlugPipe)
   {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -76,6 +76,7 @@ export class LevelLeaderboardComponent {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe({
         error: error => {
+          // TODO show on page instead
           const apiError: RefreshApiError | undefined = error.error?.error;
           this.banner.warn("Failed to get level", apiError == null ? error.message : apiError.message);
         },
@@ -86,10 +87,13 @@ export class LevelLeaderboardComponent {
             // Type doesn't matter for cutscenes
             this.filterForm.controls.scoreType.setValue(response.levelType === LevelType.Cutscene ? 0 : 1);
 
+            this.cd.detectChanges();
+
             this.auth.user.subscribe(user => {
               if (user) {
                 this.ownUser = user;
                 this.mayDeleteScores = user.role >= UserRoles.Moderator;
+                this.cd.detectChanges();
               }
             })
 
@@ -117,6 +121,8 @@ export class LevelLeaderboardComponent {
     this.client.getScoresForLevel(this.level.levelId, scoreType, this.listInfo.nextPageIndex, defaultPageSize).subscribe({
       error: error => {
         this.isLoading = false;
+
+        // TODO show on page instead
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get scores", apiError == null ? error.message : apiError.message);
       },
@@ -125,6 +131,7 @@ export class LevelLeaderboardComponent {
 
         this.currentScores = this.currentScores.concat(list.data);
         this.listInfo = list.listInfo;
+        this.cd.detectChanges();
       }
     });
   }
@@ -148,12 +155,6 @@ export class LevelLeaderboardComponent {
     this.currentScores = [];
     this.listInfo = defaultListInfo;
     this.getNextPage();
-  }
-
-  reset(): void {
-    this.currentScores = [];
-    this.isLoading = false;
-    this.listInfo = defaultListInfo;
   }
 
   scoreTypeButtonClick() {
@@ -187,6 +188,7 @@ export class LevelLeaderboardComponent {
     this.currentScores = newCurrentList;
     this.listInfo.totalItems--;
     this.listInfo.nextPageIndex--;
+    this.cd.detectChanges();
   }
 
   protected readonly faTrash = faTrash;

@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {Level} from "../../api/types/levels/level";
 import {ClientService} from "../../api/client.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
@@ -94,13 +94,14 @@ export class LevelComponent {
 
   constructor(private embed: EmbedService, private client: ClientService, private slug: SlugPipe,
               route: ActivatedRoute, protected layout: LayoutService, private auth: AuthenticationService,
-              @Inject(PLATFORM_ID) platformId: Object, protected banner: BannerService)
+              @Inject(PLATFORM_ID) platformId: Object, protected banner: BannerService, protected cd: ChangeDetectorRef)
   {
     this.isBrowser = isPlatformBrowser(platformId);
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getLevelById(id).subscribe({
         error: error => {
+          // TODO show on page instead
           const apiError: RefreshApiError | undefined = error.error?.error;
           this.banner.warn("Failed to get level", apiError == null ? error.message : apiError.message);
         },
@@ -109,6 +110,7 @@ export class LevelComponent {
           this.auth.user.subscribe(user => {
             if(user) {
               this.ownUser = user;
+              this.cd.detectChanges();
             }
           });
         }
@@ -127,14 +129,17 @@ export class LevelComponent {
     }
 
     this.embed.embedLevel(data);
+    this.cd.detectChanges();
 
     this.client.getActivityPageForLevel(data.levelId, 0, 20).subscribe({
       error: error => {
+        // TODO show on component instead
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get recent activity for level", apiError == null ? error.message : apiError.message);
       },
       next: page => {
         this.activityPage = page;
+        this.cd.detectChanges();
       }
     });
 
@@ -157,17 +162,20 @@ export class LevelComponent {
     let cachedList: Score[] | undefined = this.scoresPerType.get(type);
     if (cachedList != null) {
       this.currentScores = cachedList!;
+      this.cd.detectChanges();
       return;
     }
 
     this.client.getScoresForLevel(this.level.levelId, type, 0, 10).subscribe({
       error: error => {
+        // TODO show on component instead
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get scores for level", apiError == null ? error.message : apiError.message);
       },
       next: scorePage => {
         this.scoresPerType.set(type, scorePage.data);
         this.currentScores = scorePage.data;
+        this.cd.detectChanges();
       }
     });
   }
@@ -191,6 +199,7 @@ export class LevelComponent {
     }
 
     this.currentScores = newCurrentList;
+    this.cd.detectChanges();
   }
 
   protected readonly faChevronDown = faChevronDown;

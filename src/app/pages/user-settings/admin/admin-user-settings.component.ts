@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { faBan, faCamera, faCancel, faCheckCircle, faChevronDown, faChevronUp, faComment, faEarthAmerica, faFlag, 
     faFloppyDisk, faGavel, faListOl, faPencil, faSignOutAlt, faStar, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -95,7 +95,7 @@ export class AdminUserSettingsComponent {
     protected isMobile: boolean = false;
 
     constructor(private client: ClientService, private auth: AuthenticationService, 
-        private banner: BannerService, route: ActivatedRoute, protected layout: LayoutService, private role: RolePipe) 
+        private banner: BannerService, route: ActivatedRoute, protected layout: LayoutService, private role: RolePipe, protected cd: ChangeDetectorRef) 
     {
         this.auth.user.subscribe(ownUser => {
             if (ownUser && this.ownUser == null) {
@@ -110,6 +110,7 @@ export class AdminUserSettingsComponent {
                         if (uuid !== undefined || username !== undefined) {
                             this.client.getExtendedUserByEitherLookup(username, uuid).subscribe({
                                 error: error => {
+                                    // TODO show on page instead
                                     const apiError: RefreshApiError | undefined = error.error?.error;
                                     this.banner.error("Failed to get extended user", apiError == null ? error.message : apiError.message);
                                 },
@@ -123,6 +124,8 @@ export class AdminUserSettingsComponent {
                                             this.updateInputs(user);
                                             this.getPlanets(user.userId);
                                         }
+
+                                        this.cd.detectChanges();
                                     }
                                 }
                             });
@@ -130,6 +133,7 @@ export class AdminUserSettingsComponent {
                     });
                 }
                 else {
+                    // TODO show on page instead
                     this.banner.error("You are not a moderator", "Get out!");
                 }
             }
@@ -209,6 +213,8 @@ export class AdminUserSettingsComponent {
         this.metadataForm.controls.description.setValue(user.description);
         this.metadataForm.controls.username.setValue(user.username);
         this.metadataForm.controls.role.setValue(user.role);
+
+        this.cd.detectChanges();
     }
 
     protected discardChanges() {
@@ -289,6 +295,8 @@ export class AdminUserSettingsComponent {
                     areVitaPlanetsModded: false,
                     areBetaPlanetsModded: false,
                 };
+
+                this.cd.detectChanges();
             }
         });
     }
@@ -329,6 +337,7 @@ export class AdminUserSettingsComponent {
                 this.waitingForPunishmentResponse = false;
                 this.overrideRole(UserRoles.Restricted);
                 this.resetPunishmentForm();
+                this.cd.detectChanges();
                 this.banner.success("Successfully restricted " + this.targetUser?.username, "");
             }
         });
@@ -359,6 +368,7 @@ export class AdminUserSettingsComponent {
                 this.waitingForPunishmentResponse = false;
                 this.overrideRole(UserRoles.Banned);
                 this.resetPunishmentForm();
+                this.cd.detectChanges();
                 this.banner.success("Successfully banned " + this.targetUser?.username, "");
             }
         });
@@ -384,6 +394,7 @@ export class AdminUserSettingsComponent {
             next: _ => {
                 this.waitingForPunishmentResponse = false;
                 this.overrideRole(UserRoles.User);
+                this.cd.detectChanges();
                 this.banner.success("Successfully pardoned " + this.targetUser?.username, "");
             }
         });
