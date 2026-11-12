@@ -76,7 +76,7 @@ export class RoomListingComponent implements OnDestroy {
   getGameVersions(): number[] {
     return Object.values(GameVersion)
         // @ts-ignore
-        .filter(key => isNaN(Number(GameVersion[key])) && key != 5)
+        .filter(key => isNaN(Number(GameVersion[key])) && key != GameVersion.Website)
         .map(k => Number(k));
   }
 
