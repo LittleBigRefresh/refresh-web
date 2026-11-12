@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ResponsiveGridComponent} from "../../components/ui/responsive-grid.component";
 import {LevelCategory} from "../../api/types/categories/level-category";
@@ -20,9 +20,10 @@ import {LevelCategoryComponent} from "../../components/items/level-category.comp
 export class LevelCategoriesComponent {
   categories: LevelCategory[] | undefined;
 
-  constructor(client: ClientService) {
+  constructor(client: ClientService, protected cd: ChangeDetectorRef) {
     client.getLevelCategories().subscribe(list => {
       this.categories = list.data.filter(c => !c.requiresUser && !c.hidden);
+      this.cd.detectChanges();
     })
   }
 }

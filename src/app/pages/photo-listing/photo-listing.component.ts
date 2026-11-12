@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ClientService} from "../../api/client.service";
 import {Photo} from "../../api/types/photos/photo";
@@ -27,7 +27,7 @@ import {PhotoComponent} from "../../components/items/photo.component";
 export class PhotoListingComponent implements Scrollable {
   protected photos: Photo[] = [];
 
-  constructor(private client: ClientService) {
+  constructor(private client: ClientService, protected cd: ChangeDetectorRef) {
 
   }
 
@@ -41,6 +41,7 @@ export class PhotoListingComponent implements Scrollable {
 
       this.photos = this.photos.concat(list.data);
       this.listInfo = list.listInfo;
+      this.cd.detectChanges();
     });
   }
 }

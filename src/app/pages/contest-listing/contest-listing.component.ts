@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {ClientService} from "../../api/client.service";
 import {Contest} from "../../api/types/contests/contest";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
@@ -29,13 +29,15 @@ export class ContestListingComponent {
   contests: Contest[] | undefined;
   instance: Instance | undefined;
 
-  constructor(client: ClientService) {
+  constructor(client: ClientService, protected cd: ChangeDetectorRef) {
     client.getContests().subscribe(list => {
       this.contests = list.data;
+      this.cd.detectChanges();
     });
 
     client.getInstance().subscribe(data => {
       this.instance = data;
+      this.cd.detectChanges();
     })
   }
 }

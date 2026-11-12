@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {UserCategory} from "../../api/types/categories/user-category";
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -32,7 +32,7 @@ export class UserListingComponent implements OnInit, Scrollable {
 
   private queryParams: Params = {};
 
-  constructor(private client: ClientService, private embed: EmbedService, private route: ActivatedRoute) {
+  constructor(private client: ClientService, private embed: EmbedService, private route: ActivatedRoute, protected cd: ChangeDetectorRef) {
     // Start requesting category information immediately.
     this.client.getUserCategories().subscribe();
   }
@@ -89,6 +89,7 @@ export class UserListingComponent implements OnInit, Scrollable {
 
       this.users = this.users.concat(list.data);
       this.listInfo = list.listInfo;
+      this.cd.detectChanges();
     });
   }
 

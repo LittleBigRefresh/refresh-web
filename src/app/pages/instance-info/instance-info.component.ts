@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import {ClientService} from "../../api/client.service";
 import { Instance } from '../../api/types/instance';
@@ -41,9 +41,10 @@ export class InstanceInfoComponent {
   protected blockedAssetFlags: String = "None";
   protected blockedAssetFlagsForTrustedUsers: String = "None";
 
-  constructor(private client: ClientService, protected banner: BannerService) {
+  constructor(private client: ClientService, protected banner: BannerService, protected cd: ChangeDetectorRef) {
     client.getInstance().subscribe({
       error: error => {
+        // TODO show on component instead
         this.instanceDownloadFailed = true;
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to retrieve instance data", apiError == null ? error.message : apiError.message);
@@ -52,17 +53,20 @@ export class InstanceInfoComponent {
         this.instance = response;
         this.blockedAssetFlags = blockedFlagsAsString(response.blockedAssetFlags);
         this.blockedAssetFlagsForTrustedUsers = blockedFlagsAsString(response.blockedAssetFlagsForTrustedUsers);
+        this.cd.detectChanges();
       }
     });
 
     client.getStatistics(true).subscribe({
       error: error => {
+        // TODO show on component instead
         this.statisticsDownloadFailed = true;
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.error("Failed to retrieve instance statistics", apiError == null ? error.message : apiError.message);
       },
       next: response => {
         this.statistics = response;
+        this.cd.detectChanges();
       }
     });
   }

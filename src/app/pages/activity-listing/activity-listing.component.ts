@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
 import { Scrollable } from '../../helpers/scrollable';
 import {defaultListInfo, RefreshApiListInfo} from '../../api/refresh-api-list-info';
@@ -27,7 +27,7 @@ import {ContainerTitleComponent} from "../../components/ui/text/container-title.
 export class ActivityListingComponent implements Scrollable {
     pages: ActivityPage[] = [];
 
-    constructor(private client: ClientService) {
+    constructor(private client: ClientService, protected cd: ChangeDetectorRef) {
       this.loadData();
     }
 
@@ -49,6 +49,7 @@ export class ActivityListingComponent implements Scrollable {
 
         this.pages.push(page);
         this.pagesCount++;
+        this.cd.detectChanges();
       });
     }
 }

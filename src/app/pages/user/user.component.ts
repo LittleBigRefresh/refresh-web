@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {User} from "../../api/types/users/user";
 import {ClientService} from "../../api/client.service";
 import { ActivatedRoute, RouterLink } from "@angular/router";
@@ -95,7 +95,7 @@ export class UserComponent {
   });
 
   constructor(private auth: AuthenticationService, private client: ClientService, route: ActivatedRoute, protected layout: LayoutService,
-    protected banner: BannerService
+    protected banner: BannerService, protected cd: ChangeDetectorRef
   ) {
     route.params.subscribe(params => {
       const username: string | undefined = params['username'];
@@ -108,9 +108,11 @@ export class UserComponent {
         this.auth.user.subscribe(user => {
           if(user) {
             this.ownUser = user;
+            this.cd.detectChanges();
           }
         });
 
+        this.cd.detectChanges();
         this.getLevels(0);
         this.getPhotos(0);
       });
@@ -149,6 +151,7 @@ export class UserComponent {
 
     this.client.getLevelsInCategory(this.levelSelectionString, 0, 5, {u: this.user.username}).subscribe({
       error: error => {
+        // TODO show on component instead
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get levels", apiError == null ? error.message : apiError.message);
       },
@@ -164,6 +167,7 @@ export class UserComponent {
         }
 
         this.currentLevels = levelPage;
+        this.cd.detectChanges();
       }
     });
   }
@@ -207,6 +211,7 @@ export class UserComponent {
     
     this.client.getPhotosRelatedToUserUuid(this.user.userId, this.photoSelectionString, 0, 2).subscribe({
       error: error => {
+        // TODO show on component instead
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get photos with user", apiError == null ? error.message : apiError.message);
       },
@@ -222,6 +227,7 @@ export class UserComponent {
         }
 
         this.currentPhotos = photoPage;
+        this.cd.detectChanges();
       }
     });
   }

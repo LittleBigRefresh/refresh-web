@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {ClientService, defaultPageSize} from "../../api/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {PageTitleComponent} from "../../components/ui/text/page-title.component";
@@ -58,7 +58,9 @@ export class LevelUserListingComponent implements Scrollable {
 
   protected readonly isBrowser: boolean;
 
-  constructor(private client: ClientService, protected banner: BannerService, private route: ActivatedRoute, @Inject(PLATFORM_ID) platformId: Object) {
+  constructor(private client: ClientService, protected banner: BannerService, private route: ActivatedRoute, @Inject(PLATFORM_ID) platformId: Object,
+    protected cd: ChangeDetectorRef
+  ) {
     route.params.subscribe(params => {
       const username: string | undefined = params['username'];
       const category: string | undefined = params['category'];
@@ -66,6 +68,7 @@ export class LevelUserListingComponent implements Scrollable {
       if (username != null) {
         this.client.getUserByUsername(username).subscribe({
           error: error => {
+            // TODO show on page instead
             const apiError: RefreshApiError | undefined = error.error?.error;
             this.banner.warn("Failed to get user", apiError == null ? error.message : apiError.message);
           },
@@ -164,6 +167,7 @@ export class LevelUserListingComponent implements Scrollable {
     this.isLoading = true;
     this.client.getLevelsInCategory(this.levelSelectionString, this.listInfo.nextPageIndex, defaultPageSize, {u: this.user.username}).subscribe({
       error: error => {
+        // TODO show on page instead
         const apiError: RefreshApiError | undefined = error.error?.error;
         this.banner.warn("Failed to get levels", apiError == null ? error.message : apiError.message);
       },
@@ -171,6 +175,7 @@ export class LevelUserListingComponent implements Scrollable {
         this.currentLevels.data = this.currentLevels.data.concat(list.data);
         this.currentLevels.listInfo = list.listInfo;
         this.isLoading = false;
+        this.cd.detectChanges();
       }
     });
   }

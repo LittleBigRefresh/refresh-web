@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {Photo} from "../../api/types/photos/photo";
 import {PhotoComponent} from "../../components/items/photo.component";
 
@@ -17,7 +17,7 @@ import {EmbedService} from "../../services/embed.service";
 export class PhotoPageComponent {
   protected photo: Photo | undefined | null = undefined;
 
-  constructor(private client: ClientService, private embed: EmbedService, route: ActivatedRoute) {
+  constructor(private client: ClientService, private embed: EmbedService, route: ActivatedRoute, protected cd: ChangeDetectorRef) {
     route.params.subscribe(params => {
       const id: number = +params['id'];
       this.client.getPhotoById(id).subscribe(data => this.setDataFromPhoto(data));
@@ -27,5 +27,6 @@ export class PhotoPageComponent {
   private setDataFromPhoto(data: Photo) {
     this.photo = data;
     this.embed.embedPhoto(data);
+    this.cd.detectChanges();
   }
 }
